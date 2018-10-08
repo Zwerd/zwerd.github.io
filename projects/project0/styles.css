@@ -14,22 +14,23 @@ ul {
   list-style-type: none;
 
 }
+li{
+  margin: 5px;
+}
 .delete {
   padding: 10px 20px;
-  border-top-right-radius: 25px;
   border-top-left-radius: 25px;
+  border-bottom-left-radius: 25px;
   font-size: 20px;
   border: none;
   /*background-color: lightcoral;*/
 }
-li {
+.span {
   font-size: 20px;
   padding: 10px 20px;
-  margin-bottom: 5px;
   border-top-right-radius: 25px;
   border-bottom-right-radius: 25px;
-  border-bottom-left-radius: 25px;
-  /*background-color: red;*/
+  background-color: silver;
 }
 
 

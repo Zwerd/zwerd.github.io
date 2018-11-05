@@ -13,7 +13,7 @@
 
   <title>
     
-      Zwerd &middot; zwerd.com
+      Jekyll Error - `block in materialize' &middot; Zwerd
     
   </title>
 
@@ -38,14 +38,14 @@
 </head>
 
 
-  <body class="index">
+  <body class="post">
 
     <div id="sidebar">
   <div class="sidebar-mugshot">
       <img src="/assets/images/logo.gif" alt="Guy Zwerdling">
   </div>
   <header>
-    <h1 class="site-title">
+    <div class="site-title">
       <a href="/">
         
           <span class="back-arrow icon"><svg fill="#000000" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
@@ -55,7 +55,7 @@
         
         Zwerd
       </a>
-    </h1>
+    </div>
     <p class="lead">A stunning blog of freaking PT warrior</p>
   </header>
 
@@ -335,171 +335,150 @@
 
 
     <main class="container">
-      <div class="content">
-  
-<div class="pagination">
-  <a class="pagination-item newer"
-     href="/">
-    Newer
-  </a>
-</div>
-
-
-
-  
-
-  
-  <article class="post-body">
-    <h2 class="post-title">
-      <a href="/2017/11/24/TCP-connection.html">
-        TCP connection
-      </a>
-    </h2>
-    <div class="post-meta">
-  <span class="post-date">24 Nov 2017</span>
+      <header>
+  <h1 class="post-title">Jekyll Error - `block in materialize'</h1>
+</header>
+<div class="content">
+  <div class="post-meta">
+  <span class="post-date">05 Nov 2018</span>
   <span class="post-categories">
     
   </span>
 </div>
 
-    
-      The TCP is freaking amazing! it helps you to track down the packets over the net and knowing for surely that they arrived to the other endpoint successfully. also if the packets arrived to the other endpoint not in the same order they was sent in the first place, the other side will now what is the right sequence of the packets and arrange theme correctly. Let's dive in to the TCP world!
-    
+  <div class="post-body">
+    <p>As you may know, this site is build using Jekyll, that help me to done all the magic automatically which is great. In the passed week I reinstall Ubuntu on my laptop and that forced me to use git again and clone the project from my repository and after I install gem I tried to run Jekyll but goat some error, so I I wasted an hour on it and after I fund the fixing for that I decided to share is here.</p>
+
+<p>So, the first thing I done is to go throughout the Jekyll documentations and install it using the following commands:<br /></p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sudo apt-get install ruby ruby-dev build-essential
+</code></pre></div></div>
+<p>I’m using zshell, so in my case I’m using <code class="highlighter-rouge">/.zshrc</code> instead of <code class="highlighter-rouge">/.bashrc</code>:</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>echo '# Install Ruby Gems to ~/gems' &gt;&gt; ~/.zshrc\necho 'export GEM_HOME=$HOME/gems' &gt;&gt; ~/.zshrc\necho 'export PATH=$HOME/gems/bin:$PATH' &gt;&gt; ~/.zshrc\nsource ~/.zshrc
+</code></pre></div></div>
+<p>after that using the last command using gem:</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>gem install jekyll bundler
+</code></pre></div></div>
+<p>I was so happy that so far I doesn’t received any error, but it was too early to party, when I run the command <code class="highlighter-rouge">jekyll serve</code> the first error appear:</p>
+
+<p><img src="/assets/images/jekyll-error_error_jekyll-3.8.1.png" alt="jekyll-error_error_jekyll-3.8.1.png" />
+<strong>Figure 1</strong> tjekyll 3.8.1 is missing.</p>
+
+<p>Than of course I run the command:</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>gem install jekyll --version 3.8.1
+</code></pre></div></div>
+<p>After that I tried to run the <code class="highlighter-rouge">jekyll serve</code> again, but still received an error, little bit different, but still doesn’t get it to work right.</p>
+
+<p><img src="/assets/images/jekyll-error_error_jekyll-feed.png" alt="jekyll-error_error_jekyll-feed.png" />
+<strong>Figure 2</strong> jekyll-feed 0.9.3 is missing.</p>
+
+<p>I can right now to do the same and install <code class="highlighter-rouge">jekyll-feed 0.9.3</code> but I rather not to because I don’t want to go throughout every gem and install is manually, so I googled it and found that I need to run <code class="highlighter-rouge">bundle</code>:
+<img src="/assets/images/jekyll-error_bundle.png" alt="jekyll-error_bundle.png" />
+<strong>Figure 3</strong> Run the bundle command.</p>
+
+<p>Now I run again the <code class="highlighter-rouge">jekyll serve</code> but I received the another error:
+<img src="/assets/images/jekyll-error_check_for_activated_spec.png" alt="jekyll-error_check_for_activated_spec.png" />
+<strong>Figure 4</strong> check_for_activated_spec error.</p>
+
+<p>So I go through <code class="highlighter-rouge">bundle exec jekyll serve</code>:
+<img src="/assets/images/jekyll-error_bundle_exec.png" alt="jekyll-error_bundle_exec.png" />
+<strong>Figure 5</strong> bundle exec jekyll serve.</p>
+
+<p>And that it! working like charm.</p>
 
     
-      
-      
-      
 
-      
-        <a href="/2017/11/24/TCP-connection.html">More &hellip;</a>
-      
-    
-  </article>
+
+
+<div class="post-tags">
   
-  <article class="post-body">
-    <h2 class="post-title">
-      <a href="/2017/10/23/Abiha-hidot.html">
-        Nach Riddles!
-      </a>
-    </h2>
-    <div class="post-meta">
-  <span class="post-date">23 Oct 2017</span>
-  <span class="post-categories">
     
-  </span>
+    <a href="/tags.html#jekyll">
+    
+      <span class="icon">
+        <svg fill="#000000" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+    <path d="M0 0h24v24H0z" fill="none"/>
+    <path d="M17.63 5.84C17.27 5.33 16.67 5 16 5L5 5.01C3.9 5.01 3 5.9 3 7v10c0 1.1.9 1.99 2 1.99L16 19c.67 0 1.27-.33 1.63-.84L22 12l-4.37-6.16z"/>
+</svg>
+      </span>&nbsp;<span class="tag-name">Jekyll</span>
+    </a>
+  
 </div>
-
-    
-      k, so I finished the application, now it's on Google Play, the name of the app is "Habia Histom Meni Kedem" of "Nach Riddle"
-    
-
-    
-      
-      
-      
-
-      
-        <a href="/2017/10/23/Abiha-hidot.html">More &hellip;</a>
-      
-    
-  </article>
-  
-  <article class="post-body">
-    <h2 class="post-title">
-      <a href="/2017/10/22/CheckPoint.html">
-        CheckPoint
-      </a>
-    </h2>
-    <div class="post-meta">
-  <span class="post-date">22 Oct 2017</span>
-  <span class="post-categories">
-    
-  </span>
-</div>
-
-    
-      Ok... so... for guy that write how to migrate from CheckPoint to PaloAlto is difficult to write again about checkpoint, but I think that checkpoint have some good stuff that we can play with and to learn from this stuff, so this is why I write this article, first of all I want to memorize myself the knowledge I have learn for my CCSA certification and to share it with you guys.
-    
-
-    
-      
-      
-      
-
-      
-        <a href="/2017/10/22/CheckPoint.html">More &hellip;</a>
-      
-    
-  </article>
-  
-  <article class="post-body">
-    <h2 class="post-title">
-      <a href="/2017/10/15/Finish-the-App.html">
-        Nach Riddles on Google Play!
-      </a>
-    </h2>
-    <div class="post-meta">
-  <span class="post-date">15 Oct 2017</span>
-  <span class="post-categories">
-    
-  </span>
-</div>
-
-    
-      Hello everyone, We want to update that the development of the application has been successfully completed and you can download the application from Google Play
-    
-
-    
-      
-      
-      
-
-      
-        <a href="/2017/10/15/Finish-the-App.html">More &hellip;</a>
-      
-    
-  </article>
-  
-  <article class="post-body">
-    <h2 class="post-title">
-      <a href="/2017/09/17/Prophet-Riddles-App-update.html">
-        Prophet-Riddles-App-Update
-      </a>
-    </h2>
-    <div class="post-meta">
-  <span class="post-date">17 Sep 2017</span>
-  <span class="post-categories">
-    
-  </span>
-</div>
-
-    
-      seriously! I've been trying to write some script in Python for a few days and nothing! The goal is to take the source file and convert it to a CSV file I broke it on my head and finally it worked! The script takes a retouch file of the original file that is set to txt and goes over the rows and marks and builds the new file that will be ready to be converted to json
-    
-
-    
-      
-      
-      
-
-      
-        <a href="/2017/09/17/Prophet-Riddles-App-update.html">More &hellip;</a>
-      
-    
-  </article>
-  
+  </div>
 
   
-<div class="pagination">
-  <a class="pagination-item older"
-     href="/page3">
-    Older
-  </a>
-</div>
+  <section class="comments">
+    <h2>Comments</h2>
+    
+  <div id="disqus_thread">
+    <button class="disqus-load" onClick="loadDisqusComments()">
+      Load Comments
+    </button>
+  </div>
+  <script>
+
+  /**
+  *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW
+  *  TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+  *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT:s
+  *  https://disqus.com/admin/universalcode/#configuration-variables
+  */
+  var disqus_config = function () {
+    this.page.url = "http://localhost:4000/2018/11/05/jekyll_error.html";
+    this.page.identifier = "" ||
+                           "http://localhost:4000/2018/11/05/jekyll_error.html";
+  }
+  function loadDisqusComments() { // DON'T EDIT BELOW THIS LINE
+    var d = document, s = d.createElement('script');
+    s.src = 'https://zwerd-com.disqus.com/embed.js';
+    s.setAttribute('data-timestamp', +new Date());
+    (d.head || d.body).appendChild(s);
+  }
+  </script>
+  <noscript>
+    Please enable JavaScript to view the
+    <a href="https://disqus.com/?ref_noscript">comments powered by Disqus</a>.
+  </noscript>
 
 
+  </section>
+
+
+  <section class="related">
+  <h2>Related Posts</h2>
+  <ul class="posts-list">
+    
+      <li>
+        <h3>
+          <a href="/2018/04/23/javascript-tutorial.html">
+            JavaScript - the future of programming.
+            <small>23 Apr 2018</small>
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
+          <a href="/2018/02/15/SQL-Injection.html">
+            SQL Injection
+            <small>15 Feb 2018</small>
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
+          <a href="/2018/02/11/behind-the-scenes.html">
+            Behind the scenes.
+            <small>11 Feb 2018</small>
+          </a>
+        </h3>
+      </li>
+    
+  </ul>
+</section>
+
 </div>
+
     </main>
 
     <!-- Optional footer content -->

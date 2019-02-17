@@ -23,3 +23,5 @@ The most thing that is very important before you start to write your app is to w
 - What problem or issue the app trying to solve
 - What functionality the app will provide
 - What is the target audience
+
+After you will answer this questions, it will be very simple to build the app. In my case I had to write what I told you in the beginning of this post, and I describe every detail the I fund important to decide what I want to achieve with that app. I must confess that I also wanted to improved my JavaScript skills alone the way. 

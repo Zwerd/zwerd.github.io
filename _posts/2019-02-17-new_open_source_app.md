@@ -12,3 +12,7 @@ At last I finish another application using React Native for native mobile apps u
 After my father told me about is idea, I start to work on MyGmach to build an application that allow to manage privet foundation with items in it, so i wrote document about the functionality that I want to build in that application.
 
 In this post I am going to describe the long way I done to build the MyGmach app.
+- [Writing your documentation](#writing-your-documentation)
+- [Start building your app](#start-building-your-app)
+
+###Writing your documentation

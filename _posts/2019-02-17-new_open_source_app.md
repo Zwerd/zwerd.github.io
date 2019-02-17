@@ -13,6 +13,13 @@ After my father told me about is idea, I start to work on MyGmach to build an ap
 
 In this post I am going to describe the long way I done to build the MyGmach app.
 - [Writing your documentation](#writing-your-documentation)
+- [Design your app icons & view](#design-your-app-icons-&-view)
 - [Start building your app](#start-building-your-app)
+- [Changing during building](#changing-during-building)
+- [Code review](#code-review)
 
 ### Writing your documentation
+The most thing that is very important before you start to write your app is to write documentation about your idea and describe it in details with the following guide line:
+- What problem or issue the app trying to solve
+- What functionality the app will provide
+- What is the target audience

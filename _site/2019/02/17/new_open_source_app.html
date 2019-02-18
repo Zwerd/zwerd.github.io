@@ -13,7 +13,7 @@
 
   <title>
     
-      Zwerd &middot; zwerd.com
+      MyGmach - My New Open Source App (react native app) &middot; Zwerd
     
   </title>
 
@@ -38,26 +38,31 @@
 </head>
 
 
-  <body class="index home">
+  <body class="post">
 
     <div id="sidebar">
   <div class="sidebar-mugshot">
       <img src="/assets/images/logo.gif" alt="Guy Zwerdling">
   </div>
   <header>
-    <h1 class="site-title">
+    <div class="site-title">
       <a href="/">
+        
+          <span class="back-arrow icon"><svg fill="#000000" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+  <path d="M0 0h24v24H0z" fill="none"/>
+  <path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/>
+</svg></span>
         
         Zwerd
       </a>
-    </h1>
+    </div>
     <p class="lead">A stunning blog of freaking PT warrior</p>
   </header>
 
 
   <nav id="sidebar-nav-links">
   
-    <a class="home-link  active"
+    <a class="home-link "
         href="/">Home</a>
   
   
@@ -330,164 +335,149 @@
 
 
     <main class="container">
-      <div class="content">
-  
-
-
-  
-
-  
-  <article class="post-body">
-    <h2 class="post-title">
-      <a href="/2019/02/17/new_open_source_app.html">
-        MyGmach - My New Open Source App (react native app)
-      </a>
-    </h2>
-    <div class="post-meta">
+      <header>
+  <h1 class="post-title">MyGmach - My New Open Source App (react native app)</h1>
+</header>
+<div class="content">
+  <div class="post-meta">
   <span class="post-date">17 Feb 2019</span>
   <span class="post-categories">
     
   </span>
 </div>
 
-    
-      At last I finish another application using React Native for native mobile apps using JavaScript and React, the first one was NachRiddles which is base on my dear brother's book. MyGmach app is build base on my father idea. Every Saturday my dear brother used to wear a certain tie that was unique to the parsha on that Shabbat. After he passed, my father wanted to open Gmach - which is the way in the Jewish world to help each other without getting paid (in Hebrew it is an acronym for kindness which is pronounced Gemilot Hassadim ['גמילות חסדים'])...  
-    
+  <div class="post-body">
+    <p>At last I finish another application using React Native for native mobile apps using JavaScript and React, the first one was NachRiddles which is base on my dear brother’s book. MyGmach app is build base on my father idea. Every Saturday my dear brother used to wear a certain tie that was unique to the parsha on that Shabbat. After he passed, my father wanted to open tie Gmach - which is the way in the Jewish world to help each other without getting paid (in Hebrew it is an acronym for kindness which is pronounced Gemilot Hassadim [‘גמילות חסדים’]), and give anyone tie as needed.</p>
+
+<p>After my father told me about is idea, I start to work on MyGmach to build an application that allow to manage privet foundation with items in it, so i wrote document about the functionality that I want to build in that application.</p>
+
+<p>In this post I am going to describe the long way I done to build the MyGmach app.</p>
+<ul>
+  <li><a href="#writing-your-documentation">Writing your documentation</a></li>
+  <li><a href="#design-your-app-icons-&amp;-view">Design your app icons &amp; view</a></li>
+  <li><a href="#start-building-your-app">Start building your app</a></li>
+  <li><a href="#changing-during-building">Changing during building</a></li>
+  <li><a href="#code-review">Code review</a></li>
+</ul>
+
+<h2 id="writing-your-documentation">Writing your documentation</h2>
+<p>The most thing that is very important before you start to write your app is to write documentation about your idea and describe it in details with the following guide line:</p>
+<ul>
+  <li>What problem or issue the app trying to solve</li>
+  <li>What functionality the app will provide</li>
+  <li>What is the target audience</li>
+</ul>
+
+<p>After you will answer this questions, it will be very simple to build the app. In my case I had to write what I told you in the beginning of this post, and I describe every detail that I found important to decide what I want to achieve with that app. I must confess that I also wanted to improved my JavaScript skills alone the way, but the most important thing is go through the idea that base on my dear brother’s ties.</p>
+
+<h3 id="what-problem-or-issue-the-app-trying-to-solve">What problem or issue the app trying to solve</h3>
+
+<p>In my case I tried to build smart management way to every privet person that have charity or foundation with items to deliver other without getting paid, I search over the net and found some app that do something that  is similar to our idea, some of the app can organized objects and others can managing objects, one of the apps is <strong>borrow-it</strong>, but this app focus on way that people borrow stuff to each other and getting paid, another disadvantage of borrow-it is that this app is available only on app store, that mean that only person with apple device can use this app. Eventually none of those app doesn’t offers what I want to get and allow people to do that can be helping each others.</p>
+
+<p>So lets think about our goal, in mine set we want get some manageable app for items in foundation (which is the ‘Gmach’), we want a way to allow users to create foundation and add items to it, and later on, we want that the user will have the ability to deliver items to people who want to borrow it (LOL) and save the details about the borrow one in the app. After we have the details about that person we want some more things to achieve:</p>
+<ol>
+  <li>Connect with the borrow person,</li>
+  <li>Save the date the object or items has being borrowed.</li>
+  <li>Save the date that person will must to give back the borrowed stuff and returned it.</li>
+  <li>Save the history of borrowing the item (for personal use in the future)</li>
+  <li>Make some easy way to know what object is available on the foundation and what is not.</li>
+  <li>Numbering each object and summarize it.</li>
+</ol>
 
     
-      
-      
-      
 
-      
-        <a href="/2019/02/17/new_open_source_app.html">More &hellip;</a>
-      
-    
-  </article>
+
+
+<div class="post-tags">
   
-  <article class="post-body">
-    <h2 class="post-title">
-      <a href="/2018/11/05/jekyll_error.html">
-        Jekyll Error - `block in materialize'
-      </a>
-    </h2>
-    <div class="post-meta">
-  <span class="post-date">05 Nov 2018</span>
-  <span class="post-categories">
     
-  </span>
+    <a href="/tags.html#react-native">
+    
+      <span class="icon">
+        <svg fill="#000000" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+    <path d="M0 0h24v24H0z" fill="none"/>
+    <path d="M17.63 5.84C17.27 5.33 16.67 5 16 5L5 5.01C3.9 5.01 3 5.9 3 7v10c0 1.1.9 1.99 2 1.99L16 19c.67 0 1.27-.33 1.63-.84L22 12l-4.37-6.16z"/>
+</svg>
+      </span>&nbsp;<span class="tag-name">React-Native</span>
+    </a>
+  
 </div>
-
-    
-      As you may know, this site is build using Jekyll, that help me to done all the magic automatically which is great. In the passed week I reinstall Ubuntu on my laptop and that forced me to use git again and clone the project from my repository and after I install gem I tried to run Jekyll but goat some error, so I I wasted an hour on it and after I fund the fixing for that I decided to share is here...
-    
-
-    
-      
-      
-      
-
-      
-        <a href="/2018/11/05/jekyll_error.html">More &hellip;</a>
-      
-    
-  </article>
-  
-  <article class="post-body">
-    <h2 class="post-title">
-      <a href="/2018/04/23/javascript-tutorial.html">
-        JavaScript - the future of programming.
-      </a>
-    </h2>
-    <div class="post-meta">
-  <span class="post-date">23 Apr 2018</span>
-  <span class="post-categories">
-    
-  </span>
-</div>
-
-    
-      It's been awhile, after I done with my SQLi project I start to learn XSS, I found it fascinating! but I felt like I need more strong base knowledge about JavaScript to do my magic stuff. after a week or two I decided to make my on tutorials video about JS and this time in Hebrew, from that project I was learn a lot!
-    
-
-    
-      
-      
-      
-
-      
-        <a href="/2018/04/23/javascript-tutorial.html">More &hellip;</a>
-      
-    
-  </article>
-  
-  <article class="post-body">
-    <h2 class="post-title">
-      <a href="/2018/02/15/SQL-Injection.html">
-        SQL Injection
-      </a>
-    </h2>
-    <div class="post-meta">
-  <span class="post-date">15 Feb 2018</span>
-  <span class="post-categories">
-    
-  </span>
-</div>
-
-    
-      If you look on top 10 of OWASP about Application Security Risks you may find the greatest vulnerabilities on Applications! <br> The cool thing is that injection is the number one and it may sound weird but there is some website that using SQL (Structured Query Language) and you can attack these website in such type of attack that they really should not work anymore but still does. <br> Let's look on the SQL injection in details.
-    
-
-    
-      
-      
-      
-
-      
-        <a href="/2018/02/15/SQL-Injection.html">More &hellip;</a>
-      
-    
-  </article>
-  
-  <article class="post-body">
-    <h2 class="post-title">
-      <a href="/2018/02/11/behind-the-scenes.html">
-        Behind the scenes.
-      </a>
-    </h2>
-    <div class="post-meta">
-  <span class="post-date">11 Feb 2018</span>
-  <span class="post-categories">
-    
-  </span>
-</div>
-
-    
-      It not so hard to be at home every day, but to be a job less it's pretty difficult, many time I ask myself what or where I went wrong, I have no clear answer about that, but after all what is really impotent is health, so here I am without job, but I am healthy and I  doing what I love which is working..
-    
-
-    
-      
-      
-      
-
-      
-        <a href="/2018/02/11/behind-the-scenes.html">More &hellip;</a>
-      
-    
-  </article>
-  
+  </div>
 
   
-<div class="pagination">
-  <a class="pagination-item older"
-     href="/page2">
-    Older
-  </a>
-</div>
+  <section class="comments">
+    <h2>Comments</h2>
+    
+  <div id="disqus_thread">
+    <button class="disqus-load" onClick="loadDisqusComments()">
+      Load Comments
+    </button>
+  </div>
+  <script>
+
+  /**
+  *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW
+  *  TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+  *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT:s
+  *  https://disqus.com/admin/universalcode/#configuration-variables
+  */
+  var disqus_config = function () {
+    this.page.url = "http://localhost:4000/2019/02/17/new_open_source_app.html";
+    this.page.identifier = "" ||
+                           "http://localhost:4000/2019/02/17/new_open_source_app.html";
+  }
+  function loadDisqusComments() { // DON'T EDIT BELOW THIS LINE
+    var d = document, s = d.createElement('script');
+    s.src = 'https://zwerd-com.disqus.com/embed.js';
+    s.setAttribute('data-timestamp', +new Date());
+    (d.head || d.body).appendChild(s);
+  }
+  </script>
+  <noscript>
+    Please enable JavaScript to view the
+    <a href="https://disqus.com/?ref_noscript">comments powered by Disqus</a>.
+  </noscript>
 
 
+  </section>
+
+
+  <section class="related">
+  <h2>Related Posts</h2>
+  <ul class="posts-list">
+    
+      <li>
+        <h3>
+          <a href="/2018/11/05/jekyll_error.html">
+            Jekyll Error - `block in materialize'
+            <small>05 Nov 2018</small>
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
+          <a href="/2018/04/23/javascript-tutorial.html">
+            JavaScript - the future of programming.
+            <small>23 Apr 2018</small>
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
+          <a href="/2018/02/15/SQL-Injection.html">
+            SQL Injection
+            <small>15 Feb 2018</small>
+          </a>
+        </h3>
+      </li>
+    
+  </ul>
+</section>
+
 </div>
+
     </main>
 
     <!-- Optional footer content -->

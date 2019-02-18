@@ -1,4 +1,39 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.1">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2018-11-05T15:58:01+02:00</updated><id>http://localhost:4000/</id><title type="html">Zwerd</title><subtitle>A stunning blog of freaking PT warrior</subtitle><author><name>Guy Zwerdling</name></author><entry><title type="html">Jekyll Error - `block in materialize’</title><link href="http://localhost:4000/2018/11/05/jekyll_error.html" rel="alternate" type="text/html" title="Jekyll Error - `block in materialize'" /><published>2018-11-05T00:00:00+02:00</published><updated>2018-11-05T00:00:00+02:00</updated><id>http://localhost:4000/2018/11/05/jekyll_error</id><content type="html" xml:base="http://localhost:4000/2018/11/05/jekyll_error.html">&lt;p&gt;As you may know, this site is build using Jekyll, that help me to done all the magic automatically which is great. In the passed week I reinstall Ubuntu on my laptop and that forced me to use git again and clone the project from my repository and after I install gem I tried to run Jekyll but goat some error, so I I wasted an hour on it and after I fund the fixing for that I decided to share is here.&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.5">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2019-02-18T12:49:56+02:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Zwerd</title><subtitle>A stunning blog of freaking PT warrior</subtitle><author><name>Guy Zwerdling</name></author><entry><title type="html">MyGmach - My New Open Source App (react native app)</title><link href="http://localhost:4000/2019/02/17/new_open_source_app.html" rel="alternate" type="text/html" title="MyGmach - My New Open Source App (react native app)" /><published>2019-02-17T00:00:00+02:00</published><updated>2019-02-17T00:00:00+02:00</updated><id>http://localhost:4000/2019/02/17/new_open_source_app</id><content type="html" xml:base="http://localhost:4000/2019/02/17/new_open_source_app.html">&lt;p&gt;At last I finish another application using React Native for native mobile apps using JavaScript and React, the first one was NachRiddles which is base on my dear brother’s book. MyGmach app is build base on my father idea. Every Saturday my dear brother used to wear a certain tie that was unique to the parsha on that Shabbat. After he passed, my father wanted to open tie Gmach - which is the way in the Jewish world to help each other without getting paid (in Hebrew it is an acronym for kindness which is pronounced Gemilot Hassadim [‘גמילות חסדים’]), and give anyone tie as needed.&lt;/p&gt;
+
+&lt;p&gt;After my father told me about is idea, I start to work on MyGmach to build an application that allow to manage privet foundation with items in it, so i wrote document about the functionality that I want to build in that application.&lt;/p&gt;
+
+&lt;p&gt;In this post I am going to describe the long way I done to build the MyGmach app.&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;#writing-your-documentation&quot;&gt;Writing your documentation&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#design-your-app-icons-&amp;amp;-view&quot;&gt;Design your app icons &amp;amp; view&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#start-building-your-app&quot;&gt;Start building your app&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#changing-during-building&quot;&gt;Changing during building&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#code-review&quot;&gt;Code review&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;writing-your-documentation&quot;&gt;Writing your documentation&lt;/h2&gt;
+&lt;p&gt;The most thing that is very important before you start to write your app is to write documentation about your idea and describe it in details with the following guide line:&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;What problem or issue the app trying to solve&lt;/li&gt;
+  &lt;li&gt;What functionality the app will provide&lt;/li&gt;
+  &lt;li&gt;What is the target audience&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;After you will answer this questions, it will be very simple to build the app. In my case I had to write what I told you in the beginning of this post, and I describe every detail that I found important to decide what I want to achieve with that app. I must confess that I also wanted to improved my JavaScript skills alone the way, but the most important thing is go through the idea that base on my dear brother’s ties.&lt;/p&gt;
+
+&lt;h3 id=&quot;what-problem-or-issue-the-app-trying-to-solve&quot;&gt;What problem or issue the app trying to solve&lt;/h3&gt;
+
+&lt;p&gt;In my case I tried to build smart management way to every privet person that have charity or foundation with items to deliver other without getting paid, I search over the net and found some app that do something that  is similar to our idea, some of the app can organized objects and others can managing objects, one of the apps is &lt;strong&gt;borrow-it&lt;/strong&gt;, but this app focus on way that people borrow stuff to each other and getting paid, another disadvantage of borrow-it is that this app is available only on app store, that mean that only person with apple device can use this app. Eventually none of those app doesn’t offers what I want to get and allow people to do that can be helping each others.&lt;/p&gt;
+
+&lt;p&gt;So lets think about our goal, in mine set we want get some manageable app for items in foundation (which is the ‘Gmach’), we want a way to allow users to create foundation and add items to it, and later on, we want that the user will have the ability to deliver items to people who want to borrow it (LOL) and save the details about the borrow one in the app. After we have the details about that person we want some more things to achieve:&lt;/p&gt;
+&lt;ol&gt;
+  &lt;li&gt;Connect with the borrow person,&lt;/li&gt;
+  &lt;li&gt;Save the date the object or items has being borrowed.&lt;/li&gt;
+  &lt;li&gt;Save the date that person will must to give back the borrowed stuff and returned it.&lt;/li&gt;
+  &lt;li&gt;Save the history of borrowing the item (for personal use in the future)&lt;/li&gt;
+  &lt;li&gt;Make some easy way to know what object is available on the foundation and what is not.&lt;/li&gt;
+  &lt;li&gt;Numbering each object and summarize it.&lt;/li&gt;
+&lt;/ol&gt;</content><author><name>Guy Zwerdling</name></author><category term="React-Native" /><summary type="html">At last I finish another application using React Native for native mobile apps using JavaScript and React, the first one was NachRiddles which is base on my dear brother's book. MyGmach app is build base on my father idea. Every Saturday my dear brother used to wear a certain tie that was unique to the parsha on that Shabbat. After he passed, my father wanted to open Gmach - which is the way in the Jewish world to help each other without getting paid (in Hebrew it is an acronym for kindness which is pronounced Gemilot Hassadim ['גמילות חסדים'])...</summary></entry><entry><title type="html">Jekyll Error - `block in materialize’</title><link href="http://localhost:4000/2018/11/05/jekyll_error.html" rel="alternate" type="text/html" title="Jekyll Error - `block in materialize'" /><published>2018-11-05T00:00:00+02:00</published><updated>2018-11-05T00:00:00+02:00</updated><id>http://localhost:4000/2018/11/05/jekyll_error</id><content type="html" xml:base="http://localhost:4000/2018/11/05/jekyll_error.html">&lt;p&gt;As you may know, this site is build using Jekyll, that help me to done all the magic automatically which is great. In the passed week I reinstall Ubuntu on my laptop and that forced me to use git again and clone the project from my repository and after I install gem I tried to run Jekyll but goat some error, so I I wasted an hour on it and after I fund the fixing for that I decided to share is here.&lt;/p&gt;
 
 &lt;p&gt;So, the first thing I done is to go throughout the Jekyll documentations and install it using the following commands:&lt;br /&gt;&lt;/p&gt;
 &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;sudo apt-get install ruby ruby-dev build-essential
@@ -1426,15 +1461,15 @@ The problem with that operation is that we always need to resend some packets th
 
 &lt;p&gt;To kill the attack just type ctrl+c, in my case after I killed the attack I was able to connect my DG.&lt;/p&gt;
 
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-python&quot; data-lang=&quot;python&quot;&gt;&lt;span class=&quot;c&quot;&gt;#!/usr/bin/env python&lt;/span&gt;
-&lt;span class=&quot;c&quot;&gt;#########################################&lt;/span&gt;
-&lt;span class=&quot;c&quot;&gt;#&lt;/span&gt;
-&lt;span class=&quot;c&quot;&gt;# SYNflood - A multithreaded SYN Flooder&lt;/span&gt;
-&lt;span class=&quot;c&quot;&gt;# author: arthurnn&lt;/span&gt;
-&lt;span class=&quot;c&quot;&gt;#&lt;/span&gt;
-&lt;span class=&quot;c&quot;&gt;#&lt;/span&gt;
-&lt;span class=&quot;c&quot;&gt;#########################################&lt;/span&gt;
-&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;socket&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;random&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;sys&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;threading&lt;/span&gt;
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-python&quot; data-lang=&quot;python&quot;&gt;&lt;span class=&quot;c1&quot;&gt;#!/usr/bin/env python
+#########################################
+#
+# SYNflood - A multithreaded SYN Flooder
+# author: arthurnn
+#
+#
+#########################################
+&lt;/span&gt;&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;socket&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;random&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;sys&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;threading&lt;/span&gt;
 &lt;span class=&quot;kn&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;scapy.all&lt;/span&gt; &lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;
 
 &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;len&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;sys&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;argv&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;!=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
@@ -1445,8 +1480,8 @@ The problem with that operation is that we always need to resend some packets th
 &lt;span class=&quot;n&quot;&gt;port&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;sys&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;argv&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;])&lt;/span&gt;
 
 &lt;span class=&quot;n&quot;&gt;total&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;conf&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;iface&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'en1'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;&lt;span class=&quot;c&quot;&gt;#network card XD&lt;/span&gt;
-
+&lt;span class=&quot;n&quot;&gt;conf&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;iface&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'en1'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;&lt;span class=&quot;c1&quot;&gt;#network card XD
+&lt;/span&gt;
 &lt;span class=&quot;k&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;sendSYN&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;threading&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Thread&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
 	&lt;span class=&quot;k&quot;&gt;global&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;target&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;port&lt;/span&gt;
 	&lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;__init__&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
@@ -1601,16 +1636,4 @@ If we setup more that one firewall in the core, in that case we can set it as Hi
 
 &lt;p&gt;As mentioned in the past, it is a riddles game built on many books from the Bible, the quiz itself high level and therefore is forced to learn the part of the riddles before trying to answer the riddles&lt;/p&gt;
 
-&lt;p&gt;The application was developed according to David Zwerdling’s book&lt;/p&gt;</content><author><name>Guy Zwerdling</name></author><summary type="html">Hello everyone, We want to update that the development of the application has been successfully completed and you can download the application from Google Play</summary></entry><entry><title type="html">Prophet-Riddles-App-Update</title><link href="http://localhost:4000/2017/09/17/Prophet-Riddles-App-update.html" rel="alternate" type="text/html" title="Prophet-Riddles-App-Update" /><published>2017-09-17T00:00:00+03:00</published><updated>2017-09-17T00:00:00+03:00</updated><id>http://localhost:4000/2017/09/17/Prophet-Riddles-App-update</id><content type="html" xml:base="http://localhost:4000/2017/09/17/Prophet-Riddles-App-update.html">&lt;p&gt;seriously! I’ve been trying to write some script in Python for a few days and nothing! The goal is to take the source file and convert it to a CSV file I broke it on my head and finally it worked! The script takes a retouch file of the original file that is set to txt and goes over the rows and marks and builds the new file that will be ready to be converted to json And finally it happens !!!&lt;/p&gt;
-
-&lt;p&gt;I done hard work so far, this is what I feel. After I finished the script and now after I have the json file I work hard on the App itself in react-native, so far so good, but things dosnt work I wanted so I guess there is alot of work here,&lt;/p&gt;
-
-&lt;p&gt;Meanwhile I have some photos how the app look so far:&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/images/riddles-HomeScreen.jpg&quot; alt=&quot;HomeScreen&quot; title=&quot;HomeScreen&quot; class=&quot;img-responsive&quot; height=&quot;500px&quot; width=&quot;400px&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/images/riddles-Levels.jpg&quot; alt=&quot;Levels&quot; title=&quot;Levels&quot; class=&quot;img-responsive&quot; height=&quot;500px&quot; width=&quot;400px&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/images/riddles-Riddle.jpg&quot; alt=&quot;Riddles&quot; title=&quot;Riddles&quot; class=&quot;img-responsive&quot; height=&quot;500px&quot; width=&quot;400px&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;So this is all for now!!&lt;/p&gt;</content><author><name>Guy Zwerdling</name></author><summary type="html">seriously! I've been trying to write some script in Python for a few days and nothing! The goal is to take the source file and convert it to a CSV file I broke it on my head and finally it worked! The script takes a retouch file of the original file that is set to txt and goes over the rows and marks and builds the new file that will be ready to be converted to json</summary></entry></feed>
+&lt;p&gt;The application was developed according to David Zwerdling’s book&lt;/p&gt;</content><author><name>Guy Zwerdling</name></author><summary type="html">Hello everyone, We want to update that the development of the application has been successfully completed and you can download the application from Google Play</summary></entry></feed>

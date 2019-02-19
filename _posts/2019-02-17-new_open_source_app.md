@@ -80,4 +80,45 @@ After you finish the document, you can set your chair back down and be proud of 
 
 ## Design your app icons & view
 
-Design is also big part, in this part we need to chose colors, icons and main app icon, and of course design the pages of our app. you can design the app on some notebook which is what I have done, but you also can design it using
+Design is also big part, in this part we need to chose colors, icons and main app icon, and of course design the pages of our app. you can design the app on some notebook which is what I have done, but you also can design it using some design program like photoshop (there is no better way to do so) or some build in drawing software on your PC, like LiberOffice drawing on Linux or VISO on Windows.
+
+Lat's parted the design stuff to more small pieces:
+1. Main icon
+2. A standard icons
+3. A standard colors and revie
+
+### Main icon
+
+In my case, the app, as I already said, base on kindness to each other, this is mean the people who usually going to use this app will give something to other, so in my imagination the app icon need to be base on giving each, and what best describe that image? two hands that holding each other or give something to each other.
+
+The first icon that I design was base on heart that have red, yellow and pink colors and two hands that look like they trying to reach each other (or one hand trying to help another).
+
+![MyGemach-01.png](/assets/images/MyGemach-01.png)
+**Figure 1** My first icon.
+
+The second one was a simple circle with blue colors and background that base on symbols from the Jewish world with same two hands and charity box.
+
+![MyGemach-02.png](/assets/images/MyGemach-02.png)
+**Figure 2** My second icon.
+
+The last icon and the one that I chose eventually to be the symbol for this app is more simple circle with blue colors and two hand holding each other and making figure of heart together. This is the best icon that I can thinking about for this app. I proud!
+
+![MyGemach-03.png](/assets/images/MyGemach-03.png)
+**Figure 3** The app symbol.
+
+### A standard icons
+
+What I mean by say standard is the icons for every button in the app. We want to make the app with unique style and save this style to be the same on every page in the our app. In my case the app symble is already with a certain shade of blue, to be exact it's with `rgb(0,176,240)` or `#00B0F0`. So I use this color in every icon that I made, the ideal is to make it simple, so every button on my app is round blue circle with icon in the middle that figure the action that button will make. As exsample the delete icon is big white`X` in the middle of the circle.
+
+![MyGemach-04.png](/assets/images/MyGemach-04.png)
+**Figure 4** Delete button.
+
+Other button is the edit, this icon is the same as the last one with blue round circle and the symbol in the center is white pencil.
+
+![MyGemach-05.png](/assets/images/MyGemach-05.png)
+**Figure 5** Edit button.
+
+So every button should be look the same as I describe, some round blue circle with symbol in the center.
+
+![MyGemach-06.png](/assets/images/MyGemach-06.bmp)
+**Figure 6** My app icons.

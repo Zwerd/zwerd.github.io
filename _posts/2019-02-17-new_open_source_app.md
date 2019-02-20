@@ -85,7 +85,7 @@ Design is also big part, in this part we need to chose colors, icons and main ap
 Lat's parted the design stuff to more small pieces:
 1. Main icon
 2. A standard icons
-3. A standard colors and revie
+3. A standard colors and view style
 
 ### Main icon
 
@@ -108,7 +108,7 @@ The last icon and the one that I chose eventually to be the symbol for this app 
 
 ### A standard icons
 
-What I mean by say standard is the icons for every button in the app. We want to make the app with unique style and save this style to be the same on every page in the our app. In my case the app symble is already with a certain shade of blue, to be exact it's with `rgb(0,176,240)` or `#00B0F0`. So I use this color in every icon that I made, the ideal is to make it simple, so every button on my app is round blue circle with icon in the middle that figure the action that button will make. As exsample the delete icon is big white`X` in the middle of the circle.
+What I mean by say standard is the icons for every button in the app. We want to make the app with unique style and save this style to be the same on every page in the our app. In my case the app symble is already with a certain shade of blue, to be exact it's with `rgb(0,176,240)` or `#00B0F0`. So I use this color in every icon that I made, the ideal is to make it simple, so every button on my app is round blue circle with icon in the middle that figure the action that button will make. As example the delete icon is big white`X` in the middle of the circle.
 
 ![MyGemach-04.png](/assets/images/MyGemach-04.png)
 **Figure 4** Delete button.
@@ -118,7 +118,18 @@ Other button is the edit, this icon is the same as the last one with blue round 
 ![MyGemach-05.png](/assets/images/MyGemach-05.png)
 **Figure 5** Edit button.
 
-So every button should be look the same as I describe, some round blue circle with symbol in the center.
+So every button should be look the same as I describe, same round blue circle with symbol at the center.
 
 ![MyGemach-06.png](/assets/images/MyGemach-06.bmp)
 **Figure 6** My app icons.
+
+### A standard colors and view style
+
+As I said earlier, the color is certain shade of blue, for the word in the subtitle I used NARKIS font, and the other is always Ariel. the color of underlines are gray, nad every window that popup are white with button of some word like 'approved' or 'cancel' that have a style of round adges (radius set on 25).
+
+Every page must have a blue headline with the button icons and endline of the button of the screen. the ideal is to use mainly blue colors with white.
+
+![MyGemach-07.jpeg](/assets/images/MyGemach-07.jpeg)
+**Figure 7** Some page.
+
+I setup the status bar to be blue also because I wanted to keep consistency. The background on every page is (if you remember) base on the same idea that I have on my second symble for this app.

@@ -13,7 +13,7 @@ After my father told me about is idea, I start to work on MyGmach to build an ap
 
 In this post I am going to describe the long way I done to build the MyGmach app.
 - [Writing your documentation](#writing-your-documentation)
-- [Design your app icons & view](#design-your-app-icons-&-view)
+- [Design your app icons and view](#design-your-app-icons-and-view)
 - [Start building your app](#start-building-your-app)
 - [Changing during building](#changing-during-building)
 - [Code review](#code-review)
@@ -78,7 +78,7 @@ In my case the app will need to served the middle and old age people, so it must
 
 After you finish the document, you can set your chair back down and be proud of your self. no, we doesn't finish our mission but it is a big progress in our project! now we can jump ahead to the fun stuff :)
 
-## Design your app icons & view
+## Design your app icons and view
 
 Design is also big part, in this part we need to chose colors, icons and main app icon, and of course design the pages of our app. you can design the app on some notebook which is what I have done, but you also can design it using some design program like photoshop (there is no better way to do so) or some build in drawing software on your PC, like LiberOffice drawing on Linux or VISO on Windows.
 
@@ -125,11 +125,13 @@ So every button should be look the same as I describe, same round blue circle wi
 
 ### A standard colors and view style
 
-As I said earlier, the color is certain shade of blue, for the word in the subtitle I used NARKIS font, and the other is always Ariel. the color of underlines are gray, nad every window that popup are white with button of some word like 'approved' or 'cancel' that have a style of round adges (radius set on 25).
+As I said earlier, the color is certain shade of blue, for the word in the subtitle I used NARKIS font, and the other is always Ariel. the color of underlines are gray, and every window that popup are white with button of some word like 'approved' or 'cancel' that have a style of round adges (radius set on 25).
 
 Every page must have a blue headline with the button icons and endline of the button of the screen. the ideal is to use mainly blue colors with white.
 
 ![MyGemach-07.jpeg](/assets/images/MyGemach-07.jpeg)
 **Figure 7** Some page.
 
-I setup the status bar to be blue also because I wanted to keep consistency. The background on every page is (if you remember) base on the same idea that I have on my second symble for this app.
+I setup the status bar to be blue also because I wanted to keep consistency. The background on every page is (if you remember) base on the same idea that I have on my second symbol for this app.
+
+Every page that have list of items, the item itself will be white and with border width of 1 mm, the words will be display in black color and the picture radius will be set to 2 on every item that the user will create as you can see in *figure 7*.

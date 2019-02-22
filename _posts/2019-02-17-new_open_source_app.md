@@ -135,3 +135,7 @@ Every page must have a blue headline with the button icons and endline of the bu
 I setup the status bar to be blue also because I wanted to keep consistency. The background on every page is (if you remember) base on the same idea that I have on my second symbol for this app.
 
 Every page that have list of items, the item itself will be white and with border width of 1 mm, the words will be display in black color and the picture radius will be set to 2 on every item that the user will create as you can see in *figure 7*.
+
+## Start building your app
+
+OK it's time to code. As I said earlier, my app base on react native, this is mean that the code is base on JavaScript and the instruction is base on XML, which make it as JSX with tags like in HTML. 

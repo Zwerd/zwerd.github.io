@@ -138,4 +138,112 @@ Every page that have list of items, the item itself will be white and with borde
 
 ## Start building your app
 
-OK it's time to code. As I said earlier, my app base on react native, this is mean that the code is base on JavaScript and the instruction is base on XML, which make it as JSX with tags like in HTML. 
+OK it's time to code. As I said earlier, my app base on react native, this is mean that the code is base on JavaScript and the instruction is base on XML, which make it as JSX with tags like in HTML. another thing, in React Native we have what we called "Components", in every component there is block of code that can be available to others components, this is make the app Native, you can use later on this code everywhere.
+
+If you don't familiar with React Native please refer to the following link before you continue to read:
+
+[React Native](https://facebook.github.io/react-native/)
+
+The first thing that I done is to set the app.js (located under the app folder) to be as follow:
+```
+import App from "./components/App.js"
+export default App
+```
+
+In this case I render the App.js that located under components folder (which there lyes all my other components) and export the App.js as default which mean that this is the default components that use to open.
+
+In my first page I was need to create the following buttons:
+1. Setting
+2. Search
+3. Edit
+4. Adding
+5. Delete
+
+In the setting button we will use navigator to pass the user to the settings page. there the user will have the ability to change the size of the text, to enable alerts about the returning time for some objects in every foundations, and of course to be able to check for updates. To use navigator we need to install it via `npm`:
+```
+npm install --save react-navigation
+```
+
+After the installation, we need to call it in our code using:
+```
+import {createStackNavigator} from 'react-navigation';
+```
+In our app.js file we setup the navigations stuff, on every page that we want to make some button to bring up the user another page, for that we going to use navigator, and this is done only in the App.js component.
+
+![MyGemach-08.png](/assets/images/MyGemach-08.png)
+
+To navigate to other page we need to import the destination page to the navigator and call it. Down in the component we need to create permanent variable (const) that contain the name of the screen that we want to navigate.
+
+![MyGemach-09.png](/assets/images/MyGemach-09.png)
+
+The other thing and the last one is to make that calling of that screen and render it by create class components and from there navigate to the destination screen.
+
+![MyGemach-10.png](/assets/images/MyGemach-10.png)
+
+Now, let's look and the Home page. As I said earlier, we have 5 button in the home page, the setting button only navigate to the setting page. The search button would need to open dome searching box that allow the user to type there what he want to find. For making it smooth, we want that every character that the user type in, we will render the appropriate values that contain that character in the string.
+
+![MyGemach-11.png](/assets/images/MyGemach-11.png)
+
+The state is an array that contain the dictionary for keys and their values, so the first thing that we need to do is go through every value in that array and check if it contain the character we searching. if we find it we return the value to another function that render it out the screen.
+
+The next function is edit, to bring this function to work we need to allow the user to chose the item he want to edit. In the button component we have two  options:
+1. onPress
+2. onLongPress
+
+So, I decide to allow the user to edit item by select the item with long press option. I setup some function that change the color of the selected item for the interaction with the user that the item was selected. By press on the pencil at the bottom of the screen the editor menu will open up with the current value on the selected item, if the user will change the values and press OK, it will run function to make the change on the `state`.
+
+```
+edit(){
+  let dataList = this.state.dataList
+  if(this.state.itemSelected.length>1){
+    Alert.alert(
+      'שגיאה',
+      'יש לבחור פריט אחד בלבד',
+      [
+        {text: 'אישור', onPress: () => {
+          this.setState({itemSelected:[]})
+          for(a=0;a<dataList.length;a++){
+            if(dataList[a].selected == true){
+              dataList[a].selected=false
+              dataList[a].cardBackgroundColor='white'
+            }
+          }
+          this.setState({dataList:dataList})
+        }, style: 'cancel'}
+      ],
+    )
+  }else if(this.state.itemSelected.length==1){
+    for(a=0;a<dataList.length;a++){
+      if(dataList[a].selected == true){
+        this.setState({
+          editor:{
+            key:dataList[a].key,
+            itemNumber:dataList.indexOf(dataList[a]),
+            date:dataList[a].date,
+            gemachName:dataList[a].gemachName,
+            gemachDescription:dataList[a].gemachDescription,
+            pickedImage:dataList[a].pickedImage,
+            cardBackgroundColor:'white',
+            selected:false,
+            itemsList:dataList[a].itemsList,
+          }
+        })
+      }
+    }this.refs.editor.open()
+  }
+}
+```
+
+![MyGemach-12.png](/assets/images/MyGemach-12.png)
+
+As you can see, if the user select more then one item, an popup message will appear with alert about the last action.
+
+![MyGemach-13.png](/assets/images/MyGemach-13.png)
+
+The next function is adding, this is simple one. we just bring the user popup message by using modal box:
+```
+npm install react-native-modalbox@latest --save
+```
+
+We just take the values and setup our state and use this State later on for render the values that was typed:
+![MyGemach-14.png](/assets/images/MyGemach-14.png)

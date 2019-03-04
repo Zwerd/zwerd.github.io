@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.5">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2019-03-04T11:20:26+02:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Zwerd</title><subtitle>A stunning blog of freaking PT warrior</subtitle><author><name>Guy Zwerdling</name></author><entry><title type="html">MyGmach - My New Open Source App (react native app)</title><link href="http://localhost:4000/2019/02/17/new_open_source_app.html" rel="alternate" type="text/html" title="MyGmach - My New Open Source App (react native app)" /><published>2019-02-17T00:00:00+02:00</published><updated>2019-02-17T00:00:00+02:00</updated><id>http://localhost:4000/2019/02/17/new_open_source_app</id><content type="html" xml:base="http://localhost:4000/2019/02/17/new_open_source_app.html">&lt;p&gt;At last I finish another application using React Native for native mobile apps using JavaScript and React, the first one was NachRiddles which is base on my dear brother’s book. MyGmach app is build base on my father idea. Every Saturday my dear brother used to wear a certain tie that was unique to the parsha on that Shabbat. After he passed, my father wanted to open tie Gmach - which is the way in the Jewish world to help each other without getting paid (in Hebrew it is an acronym for kindness which is pronounced Gemilot Hassadim [‘גמילות חסדים’]), and give anyone tie as needed.&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.5">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2019-03-04T12:45:45+02:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Zwerd</title><subtitle>A stunning blog of freaking PT warrior</subtitle><author><name>Guy Zwerdling</name></author><entry><title type="html">MyGmach - My New Open Source App (react native app)</title><link href="http://localhost:4000/2019/02/17/new_open_source_app.html" rel="alternate" type="text/html" title="MyGmach - My New Open Source App (react native app)" /><published>2019-02-17T00:00:00+02:00</published><updated>2019-02-17T00:00:00+02:00</updated><id>http://localhost:4000/2019/02/17/new_open_source_app</id><content type="html" xml:base="http://localhost:4000/2019/02/17/new_open_source_app.html">&lt;p&gt;At last I finish another application using React Native for native mobile apps using JavaScript and React, the first one was NachRiddles which is base on my dear brother’s book. MyGmach app is build base on my father idea. Every Saturday my dear brother used to wear a certain tie that was unique to the parsha on that Shabbat. After he passed, my father wanted to open tie Gmach - which is the way in the Jewish world to help each other without getting paid (in Hebrew it is an acronym for kindness which is pronounced Gemilot Hassadim [‘גמילות חסדים’]), and give anyone tie as needed.&lt;/p&gt;
 
 &lt;p&gt;After my father told me about is idea, I start to work on MyGmach to build an application that allow to manage privet foundation with items in it, so i wrote document about the functionality that I want to build in that application.&lt;/p&gt;
 
@@ -297,9 +297,9 @@ export default App
 Linking.openURL(`tel:${this.props.navigation.state.params.itemsList.customerData.phone}`)
 Linking.openURL('whatsapp://send?phone=+972'+this.props.navigation.state.params.itemsList.customerData.phone.substring(1))
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-&lt;p&gt;The props navigation contain the details of the customer, so we use it to like to other application by using  the phone number of that customer.&lt;/p&gt;
+&lt;p&gt;The props navigation contain the details of the customer, so we use it to be like other application by using  the phone number of that customer.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;/assets/images/MyGemach-15.png&quot; alt=&quot;MyGemach-15.png&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/images/MyGemach-15.bmp&quot; alt=&quot;MyGemach-15.bmp&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;There is more thing that you must know, by building this app I setup the style on the element itself like the follow:
 &lt;img src=&quot;/assets/images/MyGemach-16.bmp&quot; alt=&quot;MyGemach-16.bmp&quot; /&gt;&lt;/p&gt;
@@ -312,7 +312,7 @@ Linking.openURL('whatsapp://send?phone=+972'+this.props.navigation.state.params.
 
 &lt;p&gt;&lt;img src=&quot;/assets/images/MyGemach-17.png&quot; alt=&quot;MyGemach-17.png&quot; /&gt;&lt;/p&gt;
 
-&lt;p&gt;in that example I made some changes on the card section, The Card component is display the foundation and by pressing it you navigate to the screen of that foundation, to select item on the home screen (which is the foundation itself) you need to made long press, that action change the value of the selected in the foundetion from false to true, and if selected is true, on the map function we render every item on the dictionary to be with some blue color to state that this item was selected.&lt;/p&gt;
+&lt;p&gt;in that example I made some changes on the card section, The Card component is display the foundation and by pressing it you navigate to the screen of that foundation, to select item on the home screen (which is the foundation itself) you need to made long press, that action change the value of the selected in the foundation from false to true, and if selected is true, on the map function we render every item on the dictionary to be with some blue color to state that this item was selected.&lt;/p&gt;
 
 &lt;p&gt;I write some function named &lt;code class=&quot;highlighter-rouge&quot;&gt;this.selectedItem()&lt;/code&gt; that change the selected key on every item that selected by the user, so the selected item in the end of the day should look like that:&lt;/p&gt;
 &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;{
@@ -359,7 +359,153 @@ style={[{backgroundColor:this.props.backgroundColor},styles.display]}
 
 &lt;p&gt;You also may made some changes in the style, the first screens that I made was gray with some button that I change later on. I made a lot of changes in the style, the documentation need to state how the app will look like, but if during the building you find something that may be more sharp or beautiful for your app you can change it and state it in the documentation later on. It’s make your work to be more arrangeable and you may  see many benefits by working like that.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;/assets/images/MyGemach-19.png&quot; alt=&quot;MyGemach-19.png&quot; /&gt;&lt;/p&gt;</content><author><name>Guy Zwerdling</name></author><category term="React-Native" /><summary type="html">At last I finish another application using React Native for native mobile apps using JavaScript and React, the first one was NachRiddles which is base on my dear brother's book. MyGmach app is build base on my father idea. Every Saturday my dear brother used to wear a certain tie that was unique to the parsha on that Shabbat. After he passed, my father wanted to open Gmach - which is the way in the Jewish world to help each other without getting paid (in Hebrew it is an acronym for kindness which is pronounced Gemilot Hassadim ['גמילות חסדים'])...</summary></entry><entry><title type="html">Jekyll Error - `block in materialize’</title><link href="http://localhost:4000/2018/11/05/jekyll_error.html" rel="alternate" type="text/html" title="Jekyll Error - `block in materialize'" /><published>2018-11-05T00:00:00+02:00</published><updated>2018-11-05T00:00:00+02:00</updated><id>http://localhost:4000/2018/11/05/jekyll_error</id><content type="html" xml:base="http://localhost:4000/2018/11/05/jekyll_error.html">&lt;p&gt;As you may know, this site is build using Jekyll, that help me to done all the magic automatically which is great. In the passed week I reinstall Ubuntu on my laptop and that forced me to use git again and clone the project from my repository and after I install gem I tried to run Jekyll but goat some error, so I I wasted an hour on it and after I fund the fixing for that I decided to share is here.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/images/MyGemach-19.png&quot; alt=&quot;MyGemach-19.png&quot; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;code-review&quot;&gt;Code review&lt;/h2&gt;
+
+&lt;p&gt;In this section, the important things are related to two points the the code need to be made:&lt;/p&gt;
+&lt;ol&gt;
+  &lt;li&gt;readable.&lt;/li&gt;
+  &lt;li&gt;manageable.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;Those two point always go together, if you can make the code to be more readable, you can in the future to manage it more quickly, and if the code is more manageable, you can be sure that it’s readable becouse if not - it’s not manageable.&lt;/p&gt;
+
+&lt;p&gt;To do so we need to define the principles that can help us more later on building the app or manage it or make some changes after we finish it.&lt;/p&gt;
+&lt;ol&gt;
+  &lt;li&gt;Functionality&lt;/li&gt;
+  &lt;li&gt;Style&lt;/li&gt;
+  &lt;li&gt;Components for screens&lt;/li&gt;
+  &lt;li&gt;Components for display that repeat it self.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;The functionality is my case is JavaScript functions, so I can make some one and only file that contain all my funtions. This will help me to manage it in case I will need it on one place. On every component that we will need to use some function from that file we will call it by using:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;import &amp;lt;function&amp;gt; from ./location/of/the/func/file.js
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;On the functions file we need to export every function:&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;export const function = (value) =&amp;gt; {
+  some code...
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;We need also to go on every function and if we can to change it to be simple to read as possible. I found that if the code is shorter, it help to be more understandable to the person who read the code, as example I done in the past the follow challenge in python:&lt;/p&gt;
+
+&lt;p&gt;https://www.hackerrank.com/challenges/list-comprehensions/problem&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;You are given three integers  and  representing the dimensions of a cuboid along with an integer . You have to print a list of all possible coordinates given by  on a 3D grid where the sum of is not equal to . Here,
+
+Input Format
+
+Four integers  and  each on four separate lines, respectively.
+
+Constraints
+
+Print the list in lexicographic increasing order.
+
+Sample Input 0
+
+1
+1
+1
+2
+Sample Output 0
+
+[[0, 0, 0], [0, 0, 1], [0, 1, 0], [1, 0, 0], [1, 1, 1]]
+Explanation 0
+
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;the code I made was something like that:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;x, y, z, n = (int(input()) for _ in range(4))
+list1 = []
+for a in range(0,x+1):
+for b in range(0,y+1):
+for c in range(0,z+1):
+if a + b + c != n:
+list1.append([a,b,c])
+
+print list1
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;To make this code more simple and shorter as possible, you can do something like that:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;x, y, z, n = int(input()), int(input()), int(input()), int(input())
+print ([[a,b,c] for a in range(0,x+1) for b in range(0,y+1) for c in range(0,z+1) if a + b + c != n ])
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;It’s make the code more simple to reade, more simple to manage and more shorter. The same is in our case, if you finish the app and you on the code review part, you can make it simple by change the code to be more readable and more shorter. Again, if in the future you will want to change something in the code, you will can do so more quickly.&lt;/p&gt;
+
+&lt;p&gt;The style also can be in separate file from JSX files, don’t forget that the style is also something that repeat itself so we can make some StyleSheet that contains all the style and called it on every components like in the functions example and use it on our style code on JSX.&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;export default const styles = StyleSheet.create({
+  fontStyle:{
+    fontFamily:'nrkis',
+    fontSize:StatusBar.currentHeight,
+    color: 'white',
+    alignItems:'center'
+  },
+  header:{
+    backgroundColor: 'rgb(0,176,240)',//#00B0F0
+    borderColor: &quot;#008CBA&quot;,
+    flexDirection:'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+  },
+  button:{
+    justifyContent: 'center',
+    height: barHeight,
+    margin: 5,
+    borderRadius: 25,
+    borderWidth:1,
+  },
+  modalbox:{
+    justifyContent: 'center',
+    height: null,
+  },
+  textInput:{
+    flex:1,
+    fontSize:StatusBar.currentHeight,
+    borderColor: 'gray',
+    margin:2,
+  },
+  ViewTitle: {
+    width: ((dim.width-22)/4) * 3,
+  },
+  imageBox:{
+    backgroundColor: &quot;white&quot;,
+    borderColor: &quot;black&quot;,
+    borderStyle:'dashed',
+    borderWidth:1,
+    borderRadius:2,
+    justifyContent:'center',
+    alignItems:'center',
+    height: dim.height/6,
+    width: dim.width/3,
+    margin:5,
+  },
+  previewImage: {
+    width: &quot;100%&quot;,
+    height: &quot;100%&quot;,
+    borderRadius:2,
+  },
+});
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;For every screen we will setup separate component, and if that component contain some section to display that repeat itself always on our app screen we can separate it two to other component. As example my card component that display the foundation on the home screen, the items on that foundation are display like the foundation itself in some card box, so we can use it instead of creating new component for this screen view again.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/MyGemach-20.png&quot; alt=&quot;MyGemach-20.png&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;This is it guys!
+Please write comment here for question and I will be in touch with you shortly.
+Best regards!&lt;/p&gt;
+
+&lt;p&gt;Guy. Z.&lt;/p&gt;</content><author><name>Guy Zwerdling</name></author><category term="React-Native" /><summary type="html">At last I finish another application using React Native for native mobile apps using JavaScript and React, the first one was NachRiddles which is base on my dear brother's book. MyGmach app is build base on my father idea. Every Saturday my dear brother used to wear a certain tie that was unique to the parsha on that Shabbat. After he passed, my father wanted to open Gmach - which is the way in the Jewish world to help each other without getting paid (in Hebrew it is an acronym for kindness which is pronounced Gemilot Hassadim ['גמילות חסדים'])...</summary></entry><entry><title type="html">Jekyll Error - `block in materialize’</title><link href="http://localhost:4000/2018/11/05/jekyll_error.html" rel="alternate" type="text/html" title="Jekyll Error - `block in materialize'" /><published>2018-11-05T00:00:00+02:00</published><updated>2018-11-05T00:00:00+02:00</updated><id>http://localhost:4000/2018/11/05/jekyll_error</id><content type="html" xml:base="http://localhost:4000/2018/11/05/jekyll_error.html">&lt;p&gt;As you may know, this site is build using Jekyll, that help me to done all the magic automatically which is great. In the passed week I reinstall Ubuntu on my laptop and that forced me to use git again and clone the project from my repository and after I install gem I tried to run Jekyll but goat some error, so I I wasted an hour on it and after I fund the fixing for that I decided to share is here.&lt;/p&gt;
 
 &lt;p&gt;So, the first thing I done is to go throughout the Jekyll documentations and install it using the following commands:&lt;br /&gt;&lt;/p&gt;
 &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;sudo apt-get install ruby ruby-dev build-essential

@@ -300,9 +300,9 @@ Linking.openURL(`sms:${this.props.navigation.state.params.itemsList.customerData
 Linking.openURL(`tel:${this.props.navigation.state.params.itemsList.customerData.phone}`)
 Linking.openURL('whatsapp://send?phone=+972'+this.props.navigation.state.params.itemsList.customerData.phone.substring(1))
 ```
-The props navigation contain the details of the customer, so we use it to like to other application by using  the phone number of that customer.
+The props navigation contain the details of the customer, so we use it to be like other application by using  the phone number of that customer.
 
-![MyGemach-15.png](/assets/images/MyGemach-15.png)
+![MyGemach-15.bmp](/assets/images/MyGemach-15.bmp)
 
 There is more thing that you must know, by building this app I setup the style on the element itself like the follow:
 ![MyGemach-16.bmp](/assets/images/MyGemach-16.bmp)
@@ -315,7 +315,7 @@ On every screen I setup the functionality the as I wanted to be, after I build a
 
 ![MyGemach-17.png](/assets/images/MyGemach-17.png)
 
-in that example I made some changes on the card section, The Card component is display the foundation and by pressing it you navigate to the screen of that foundation, to select item on the home screen (which is the foundation itself) you need to made long press, that action change the value of the selected in the foundetion from false to true, and if selected is true, on the map function we render every item on the dictionary to be with some blue color to state that this item was selected.
+in that example I made some changes on the card section, The Card component is display the foundation and by pressing it you navigate to the screen of that foundation, to select item on the home screen (which is the foundation itself) you need to made long press, that action change the value of the selected in the foundation from false to true, and if selected is true, on the map function we render every item on the dictionary to be with some blue color to state that this item was selected.
 
 I write some function named `this.selectedItem()` that change the selected key on every item that selected by the user, so the selected item in the end of the day should look like that:
 ```
@@ -369,3 +369,151 @@ this.state.backgroundColor
 You also may made some changes in the style, the first screens that I made was gray with some button that I change later on. I made a lot of changes in the style, the documentation need to state how the app will look like, but if during the building you find something that may be more sharp or beautiful for your app you can change it and state it in the documentation later on. It's make your work to be more arrangeable and you may  see many benefits by working like that.
 
 ![MyGemach-19.png](/assets/images/MyGemach-19.png)
+
+## Code review
+
+In this section, the important things are related to two points the the code need to be made:
+1. readable.
+2. manageable.
+
+Those two point always go together, if you can make the code to be more readable, you can in the future to manage it more quickly, and if the code is more manageable, you can be sure that it's readable becouse if not - it's not manageable.
+
+To do so we need to define the principles that can help us more later on building the app or manage it or make some changes after we finish it.
+1. Functionality
+2. Style
+3. Components for screens
+4. Components for display that repeat it self.
+
+The functionality is my case is JavaScript functions, so I can make some one and only file that contain all my funtions. This will help me to manage it in case I will need it on one place. On every component that we will need to use some function from that file we will call it by using:
+
+```
+import <function> from ./location/of/the/func/file.js
+```
+
+On the functions file we need to export every function:
+```
+export const function = (value) => {
+  some code...
+}
+```
+
+We need also to go on every function and if we can to change it to be simple to read as possible. I found that if the code is shorter, it help to be more understandable to the person who read the code, as example I done in the past the follow challenge in python:
+
+https://www.hackerrank.com/challenges/list-comprehensions/problem
+
+```
+You are given three integers  and  representing the dimensions of a cuboid along with an integer . You have to print a list of all possible coordinates given by  on a 3D grid where the sum of is not equal to . Here,
+
+Input Format
+
+Four integers  and  each on four separate lines, respectively.
+
+Constraints
+
+Print the list in lexicographic increasing order.
+
+Sample Input 0
+
+1
+1
+1
+2
+Sample Output 0
+
+[[0, 0, 0], [0, 0, 1], [0, 1, 0], [1, 0, 0], [1, 1, 1]]
+Explanation 0
+
+
+```
+
+the code I made was something like that:
+
+```
+x, y, z, n = (int(input()) for _ in range(4))
+list1 = []
+for a in range(0,x+1):
+for b in range(0,y+1):
+for c in range(0,z+1):
+if a + b + c != n:
+list1.append([a,b,c])
+
+print list1
+
+```
+
+To make this code more simple and shorter as possible, you can do something like that:
+
+```
+x, y, z, n = int(input()), int(input()), int(input()), int(input())
+print ([[a,b,c] for a in range(0,x+1) for b in range(0,y+1) for c in range(0,z+1) if a + b + c != n ])
+
+```
+
+It's make the code more simple to reade, more simple to manage and more shorter. The same is in our case, if you finish the app and you on the code review part, you can make it simple by change the code to be more readable and more shorter. Again, if in the future you will want to change something in the code, you will can do so more quickly.
+
+The style also can be in separate file from JSX files, don't forget that the style is also something that repeat itself so we can make some StyleSheet that contains all the style and called it on every components like in the functions example and use it on our style code on JSX.
+
+```
+export default const styles = StyleSheet.create({
+  fontStyle:{
+    fontFamily:'nrkis',
+    fontSize:StatusBar.currentHeight,
+    color: 'white',
+    alignItems:'center'
+  },
+  header:{
+    backgroundColor: 'rgb(0,176,240)',//#00B0F0
+    borderColor: "#008CBA",
+    flexDirection:'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+  },
+  button:{
+    justifyContent: 'center',
+    height: barHeight,
+    margin: 5,
+    borderRadius: 25,
+    borderWidth:1,
+  },
+  modalbox:{
+    justifyContent: 'center',
+    height: null,
+  },
+  textInput:{
+    flex:1,
+    fontSize:StatusBar.currentHeight,
+    borderColor: 'gray',
+    margin:2,
+  },
+  ViewTitle: {
+    width: ((dim.width-22)/4) * 3,
+  },
+  imageBox:{
+    backgroundColor: "white",
+    borderColor: "black",
+    borderStyle:'dashed',
+    borderWidth:1,
+    borderRadius:2,
+    justifyContent:'center',
+    alignItems:'center',
+    height: dim.height/6,
+    width: dim.width/3,
+    margin:5,
+  },
+  previewImage: {
+    width: "100%",
+    height: "100%",
+    borderRadius:2,
+  },
+});
+```
+
+For every screen we will setup separate component, and if that component contain some section to display that repeat itself always on our app screen we can separate it two to other component. As example my card component that display the foundation on the home screen, the items on that foundation are display like the foundation itself in some card box, so we can use it instead of creating new component for this screen view again.
+
+![MyGemach-20.png](/assets/images/MyGemach-20.png)
+
+This is it guys!
+Please write comment here for question and I will be in touch with you shortly.
+Best regards!
+
+Guy. Z.

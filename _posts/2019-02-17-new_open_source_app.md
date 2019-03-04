@@ -253,3 +253,119 @@ The delete function is simple as the last one, because we already have the "sele
 After the user setup foundation item he can navigate to the list of items that he have in that foundation. I that screen the functions and buttons are the same as the first one so I just copy past the first screen which is the home screen and make some changes on the new screen which I called items, because he render the items list that related to that foundation.
 
 **note:** Because I just copy past every screen, I had a lot of issues on the second screen. The navigator doesn't work well, some function doesn't work as I wanted and other worked fine, but the main issue was the dame style view that doesn't get the shape that I want to make on that screen. So please be careful if you going to build app by copy stuff and past it all over the time. The time you spend on it later is not worth it!!!
+
+The delete or remove function is simple, the principle is the same as the edit function, we take every element the appear to be selected and remove it fro out list and again set the state. to be  sure that the user will immediately see the changes we use componentWillUpdate witch in React Native allow us to re-render the state once again and make the changes we need  .
+
+```
+remove(){
+  let newList = this.state.dataList
+  for(a=this.state.dataList.length-1;a>=0;a--){
+    if(this.state.dataList[a].selected == true){
+      newList.splice(newList.indexOf(this.state.dataList[a]),1)
+    }
+  };this.setState({dataList:newList,itemSelected:[]})
+}
+```
+
+Before we remove the item we want to make dialog with the user about the deleting items. If the user select one item we alert about `one item will be delete. are you sure?` or something like that. If the user selected more than one item we will alert about that too, `the selected items will be delete. are you sure?`. And after that we run the remove function that displayed earlier.
+
+```
+removeApproved(){
+  if(this.state.itemSelected.length==1){
+    Alert.alert(
+      'מחיקת קרן',
+      'האם למחוק את הקרן שנבחרה לצמיתות?',
+      [
+        {text: 'ביטול', onPress: () => false, style: 'cancel'},
+        {text: 'אישור', onPress: () => {this.remove()} }
+      ],
+    )
+  }else if(this.state.itemSelected.length>1){
+    Alert.alert(
+      'מחיקת קרן',
+      'האם למחוק את הקרנות הנבחרות לצמיתות?',
+      [
+        {text: 'ביטול', onPress: () => false, style: 'cancel'},
+        {text: 'אישור', onPress: () => {this.remove()} }
+      ],
+    )
+  }
+}
+```
+
+So the first screen are ready if we account only the functionality of that screen. the other creen contains much the same functions. the only screen that have new element on our app is the item itself. If some user take item from our fundetion, we will save his details on the item that he borrowed. after that we want that the user will have the ability to make a call from that screen or send SMS or Whatsapp message. To do so we need to setup the following:
+
+```
+Linking.openURL(`sms:${this.props.navigation.state.params.itemsList.customerData.phone}`)
+Linking.openURL(`tel:${this.props.navigation.state.params.itemsList.customerData.phone}`)
+Linking.openURL('whatsapp://send?phone=+972'+this.props.navigation.state.params.itemsList.customerData.phone.substring(1))
+```
+The props navigation contain the details of the customer, so we use it to like to other application by using  the phone number of that customer.
+
+![MyGemach-15.png](/assets/images/MyGemach-15.png)
+
+There is more thing that you must know, by building this app I setup the style on the element itself like the follow:
+![MyGemach-16.bmp](/assets/images/MyGemach-16.bmp)
+
+This is **NOT** readable code! so we will go through [Code review](#code-review) to see how to make it better to be readable.
+
+## Changing during building
+
+On every screen I setup the functionality the as I wanted to be, after I build another screen I goat some issue in the code that force me to change the terminology of the functionality, if I had some function that use the state, later on I change that state and that force me to change the functions that use this state.
+
+![MyGemach-17.png](/assets/images/MyGemach-17.png)
+
+in that example I made some changes on the card section, The Card component is display the foundation and by pressing it you navigate to the screen of that foundation, to select item on the home screen (which is the foundation itself) you need to made long press, that action change the value of the selected in the foundetion from false to true, and if selected is true, on the map function we render every item on the dictionary to be with some blue color to state that this item was selected.
+
+I write some function named `this.selectedItem()` that change the selected key on every item that selected by the user, so the selected item in the end of the day should look like that:
+```
+{
+  key:this.state.key,
+  itemNumber:this.state.key,
+  date:today.toLocaleDateString("en-US"),
+  gemachName:this.state.gemachName,
+  gemachDescription:this.state.gemachDescription,
+  pickedImage:this.state.pickedImage,
+  cardBackgroundColor:'white',
+  selected:false,
+  itemsList:[],
+}
+```
+
+the issue was that `this.selectedItem()` was on the Card screen and that not useful because I cant make change on the foundation itself because the Card is only way to render the view of that foundation. the changes need to be on the home screen were the all magic is done.
+
+![MyGemach-18.png](/assets/images/MyGemach-18.png)
+
+After I moved the selectedItem to home screen, I need to call it from the card screen to make the selected functionality and render it again to display the changes.
+
+```
+onLongPress={() => this.props.callbackSelectedItem(this.props.itemNumber)}
+```
+
+on the home screen I make the map function the callback to run the funtion from the home screen. So every time that the user made some long press on some foundation, in that case the callback is go to action and call the `selectedItem()` function and made the changes on the state that are in home screen.
+
+```
+this.setState({dataList:newList,itemSelected:itemSelected})
+```
+
+The second change that I made was on the style view of the Card:
+
+```
+style={[{backgroundColor:this.state.backgroundColor},styles.display]}
+style={[{backgroundColor:this.props.backgroundColor},styles.display]}
+```
+I done that change because in the first place I pass the props to the state and trying to render it after that. The issue there is to render the changes that I make to the state because the passing value to card is the **first step** , set it on the state of Card is the **second step**, made change to the state is the **third step** and render it is **another step** but I ***can't render something that already rendered***.
+
+```
+this.state.backgroundColor
+```
+
+ To do so we can made the changes on the home screen and use the props directly on the code which is render as we wanted.
+
+ ```
+ this.props.backgroundColor
+ ```
+
+You also may made some changes in the style, the first screens that I made was gray with some button that I change later on. I made a lot of changes in the style, the documentation need to state how the app will look like, but if during the building you find something that may be more sharp or beautiful for your app you can change it and state it in the documentation later on. It's make your work to be more arrangeable and you may  see many benefits by working like that.
+
+![MyGemach-19.png](/assets/images/MyGemach-19.png)

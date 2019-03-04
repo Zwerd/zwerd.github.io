@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.5">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2019-02-25T08:45:03+02:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Zwerd</title><subtitle>A stunning blog of freaking PT warrior</subtitle><author><name>Guy Zwerdling</name></author><entry><title type="html">MyGmach - My New Open Source App (react native app)</title><link href="http://localhost:4000/2019/02/17/new_open_source_app.html" rel="alternate" type="text/html" title="MyGmach - My New Open Source App (react native app)" /><published>2019-02-17T00:00:00+02:00</published><updated>2019-02-17T00:00:00+02:00</updated><id>http://localhost:4000/2019/02/17/new_open_source_app</id><content type="html" xml:base="http://localhost:4000/2019/02/17/new_open_source_app.html">&lt;p&gt;At last I finish another application using React Native for native mobile apps using JavaScript and React, the first one was NachRiddles which is base on my dear brother’s book. MyGmach app is build base on my father idea. Every Saturday my dear brother used to wear a certain tie that was unique to the parsha on that Shabbat. After he passed, my father wanted to open tie Gmach - which is the way in the Jewish world to help each other without getting paid (in Hebrew it is an acronym for kindness which is pronounced Gemilot Hassadim [‘גמילות חסדים’]), and give anyone tie as needed.&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.5">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2019-03-04T11:20:26+02:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Zwerd</title><subtitle>A stunning blog of freaking PT warrior</subtitle><author><name>Guy Zwerdling</name></author><entry><title type="html">MyGmach - My New Open Source App (react native app)</title><link href="http://localhost:4000/2019/02/17/new_open_source_app.html" rel="alternate" type="text/html" title="MyGmach - My New Open Source App (react native app)" /><published>2019-02-17T00:00:00+02:00</published><updated>2019-02-17T00:00:00+02:00</updated><id>http://localhost:4000/2019/02/17/new_open_source_app</id><content type="html" xml:base="http://localhost:4000/2019/02/17/new_open_source_app.html">&lt;p&gt;At last I finish another application using React Native for native mobile apps using JavaScript and React, the first one was NachRiddles which is base on my dear brother’s book. MyGmach app is build base on my father idea. Every Saturday my dear brother used to wear a certain tie that was unique to the parsha on that Shabbat. After he passed, my father wanted to open tie Gmach - which is the way in the Jewish world to help each other without getting paid (in Hebrew it is an acronym for kindness which is pronounced Gemilot Hassadim [‘גמילות חסדים’]), and give anyone tie as needed.&lt;/p&gt;
 
 &lt;p&gt;After my father told me about is idea, I start to work on MyGmach to build an application that allow to manage privet foundation with items in it, so i wrote document about the functionality that I want to build in that application.&lt;/p&gt;
 
@@ -252,7 +252,114 @@ export default App
 
 &lt;p&gt;After the user setup foundation item he can navigate to the list of items that he have in that foundation. I that screen the functions and buttons are the same as the first one so I just copy past the first screen which is the home screen and make some changes on the new screen which I called items, because he render the items list that related to that foundation.&lt;/p&gt;
 
-&lt;p&gt;&lt;strong&gt;note:&lt;/strong&gt; Because I just copy past every screen, I had a lot of issues on the second screen. The navigator doesn’t work well, some function doesn’t work as I wanted and other worked fine, but the main issue was the dame style view that doesn’t get the shape that I want to make on that screen. So please be careful if you going to build app by copy stuff and past it all over the time. The time you spend on it later is not worth it!!!&lt;/p&gt;</content><author><name>Guy Zwerdling</name></author><category term="React-Native" /><summary type="html">At last I finish another application using React Native for native mobile apps using JavaScript and React, the first one was NachRiddles which is base on my dear brother's book. MyGmach app is build base on my father idea. Every Saturday my dear brother used to wear a certain tie that was unique to the parsha on that Shabbat. After he passed, my father wanted to open Gmach - which is the way in the Jewish world to help each other without getting paid (in Hebrew it is an acronym for kindness which is pronounced Gemilot Hassadim ['גמילות חסדים'])...</summary></entry><entry><title type="html">Jekyll Error - `block in materialize’</title><link href="http://localhost:4000/2018/11/05/jekyll_error.html" rel="alternate" type="text/html" title="Jekyll Error - `block in materialize'" /><published>2018-11-05T00:00:00+02:00</published><updated>2018-11-05T00:00:00+02:00</updated><id>http://localhost:4000/2018/11/05/jekyll_error</id><content type="html" xml:base="http://localhost:4000/2018/11/05/jekyll_error.html">&lt;p&gt;As you may know, this site is build using Jekyll, that help me to done all the magic automatically which is great. In the passed week I reinstall Ubuntu on my laptop and that forced me to use git again and clone the project from my repository and after I install gem I tried to run Jekyll but goat some error, so I I wasted an hour on it and after I fund the fixing for that I decided to share is here.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;note:&lt;/strong&gt; Because I just copy past every screen, I had a lot of issues on the second screen. The navigator doesn’t work well, some function doesn’t work as I wanted and other worked fine, but the main issue was the dame style view that doesn’t get the shape that I want to make on that screen. So please be careful if you going to build app by copy stuff and past it all over the time. The time you spend on it later is not worth it!!!&lt;/p&gt;
+
+&lt;p&gt;The delete or remove function is simple, the principle is the same as the edit function, we take every element the appear to be selected and remove it fro out list and again set the state. to be  sure that the user will immediately see the changes we use componentWillUpdate witch in React Native allow us to re-render the state once again and make the changes we need  .&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;remove(){
+  let newList = this.state.dataList
+  for(a=this.state.dataList.length-1;a&amp;gt;=0;a--){
+    if(this.state.dataList[a].selected == true){
+      newList.splice(newList.indexOf(this.state.dataList[a]),1)
+    }
+  };this.setState({dataList:newList,itemSelected:[]})
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Before we remove the item we want to make dialog with the user about the deleting items. If the user select one item we alert about &lt;code class=&quot;highlighter-rouge&quot;&gt;one item will be delete. are you sure?&lt;/code&gt; or something like that. If the user selected more than one item we will alert about that too, &lt;code class=&quot;highlighter-rouge&quot;&gt;the selected items will be delete. are you sure?&lt;/code&gt;. And after that we run the remove function that displayed earlier.&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;removeApproved(){
+  if(this.state.itemSelected.length==1){
+    Alert.alert(
+      'מחיקת קרן',
+      'האם למחוק את הקרן שנבחרה לצמיתות?',
+      [
+        {text: 'ביטול', onPress: () =&amp;gt; false, style: 'cancel'},
+        {text: 'אישור', onPress: () =&amp;gt; {this.remove()} }
+      ],
+    )
+  }else if(this.state.itemSelected.length&amp;gt;1){
+    Alert.alert(
+      'מחיקת קרן',
+      'האם למחוק את הקרנות הנבחרות לצמיתות?',
+      [
+        {text: 'ביטול', onPress: () =&amp;gt; false, style: 'cancel'},
+        {text: 'אישור', onPress: () =&amp;gt; {this.remove()} }
+      ],
+    )
+  }
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;So the first screen are ready if we account only the functionality of that screen. the other creen contains much the same functions. the only screen that have new element on our app is the item itself. If some user take item from our fundetion, we will save his details on the item that he borrowed. after that we want that the user will have the ability to make a call from that screen or send SMS or Whatsapp message. To do so we need to setup the following:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;Linking.openURL(`sms:${this.props.navigation.state.params.itemsList.customerData.phone}`)
+Linking.openURL(`tel:${this.props.navigation.state.params.itemsList.customerData.phone}`)
+Linking.openURL('whatsapp://send?phone=+972'+this.props.navigation.state.params.itemsList.customerData.phone.substring(1))
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;The props navigation contain the details of the customer, so we use it to like to other application by using  the phone number of that customer.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/MyGemach-15.png&quot; alt=&quot;MyGemach-15.png&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;There is more thing that you must know, by building this app I setup the style on the element itself like the follow:
+&lt;img src=&quot;/assets/images/MyGemach-16.bmp&quot; alt=&quot;MyGemach-16.bmp&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;This is &lt;strong&gt;NOT&lt;/strong&gt; readable code! so we will go through &lt;a href=&quot;#code-review&quot;&gt;Code review&lt;/a&gt; to see how to make it better to be readable.&lt;/p&gt;
+
+&lt;h2 id=&quot;changing-during-building&quot;&gt;Changing during building&lt;/h2&gt;
+
+&lt;p&gt;On every screen I setup the functionality the as I wanted to be, after I build another screen I goat some issue in the code that force me to change the terminology of the functionality, if I had some function that use the state, later on I change that state and that force me to change the functions that use this state.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/MyGemach-17.png&quot; alt=&quot;MyGemach-17.png&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;in that example I made some changes on the card section, The Card component is display the foundation and by pressing it you navigate to the screen of that foundation, to select item on the home screen (which is the foundation itself) you need to made long press, that action change the value of the selected in the foundetion from false to true, and if selected is true, on the map function we render every item on the dictionary to be with some blue color to state that this item was selected.&lt;/p&gt;
+
+&lt;p&gt;I write some function named &lt;code class=&quot;highlighter-rouge&quot;&gt;this.selectedItem()&lt;/code&gt; that change the selected key on every item that selected by the user, so the selected item in the end of the day should look like that:&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;{
+  key:this.state.key,
+  itemNumber:this.state.key,
+  date:today.toLocaleDateString(&quot;en-US&quot;),
+  gemachName:this.state.gemachName,
+  gemachDescription:this.state.gemachDescription,
+  pickedImage:this.state.pickedImage,
+  cardBackgroundColor:'white',
+  selected:false,
+  itemsList:[],
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;the issue was that &lt;code class=&quot;highlighter-rouge&quot;&gt;this.selectedItem()&lt;/code&gt; was on the Card screen and that not useful because I cant make change on the foundation itself because the Card is only way to render the view of that foundation. the changes need to be on the home screen were the all magic is done.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/MyGemach-18.png&quot; alt=&quot;MyGemach-18.png&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;After I moved the selectedItem to home screen, I need to call it from the card screen to make the selected functionality and render it again to display the changes.&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;onLongPress={() =&amp;gt; this.props.callbackSelectedItem(this.props.itemNumber)}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;on the home screen I make the map function the callback to run the funtion from the home screen. So every time that the user made some long press on some foundation, in that case the callback is go to action and call the &lt;code class=&quot;highlighter-rouge&quot;&gt;selectedItem()&lt;/code&gt; function and made the changes on the state that are in home screen.&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;this.setState({dataList:newList,itemSelected:itemSelected})
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;The second change that I made was on the style view of the Card:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;style={[{backgroundColor:this.state.backgroundColor},styles.display]}
+style={[{backgroundColor:this.props.backgroundColor},styles.display]}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;I done that change because in the first place I pass the props to the state and trying to render it after that. The issue there is to render the changes that I make to the state because the passing value to card is the &lt;strong&gt;first step&lt;/strong&gt; , set it on the state of Card is the &lt;strong&gt;second step&lt;/strong&gt;, made change to the state is the &lt;strong&gt;third step&lt;/strong&gt; and render it is &lt;strong&gt;another step&lt;/strong&gt; but I &lt;strong&gt;&lt;em&gt;can’t render something that already rendered&lt;/em&gt;&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;this.state.backgroundColor
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;To do so we can made the changes on the home screen and use the props directly on the code which is render as we wanted.&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt; this.props.backgroundColor
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;You also may made some changes in the style, the first screens that I made was gray with some button that I change later on. I made a lot of changes in the style, the documentation need to state how the app will look like, but if during the building you find something that may be more sharp or beautiful for your app you can change it and state it in the documentation later on. It’s make your work to be more arrangeable and you may  see many benefits by working like that.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/MyGemach-19.png&quot; alt=&quot;MyGemach-19.png&quot; /&gt;&lt;/p&gt;</content><author><name>Guy Zwerdling</name></author><category term="React-Native" /><summary type="html">At last I finish another application using React Native for native mobile apps using JavaScript and React, the first one was NachRiddles which is base on my dear brother's book. MyGmach app is build base on my father idea. Every Saturday my dear brother used to wear a certain tie that was unique to the parsha on that Shabbat. After he passed, my father wanted to open Gmach - which is the way in the Jewish world to help each other without getting paid (in Hebrew it is an acronym for kindness which is pronounced Gemilot Hassadim ['גמילות חסדים'])...</summary></entry><entry><title type="html">Jekyll Error - `block in materialize’</title><link href="http://localhost:4000/2018/11/05/jekyll_error.html" rel="alternate" type="text/html" title="Jekyll Error - `block in materialize'" /><published>2018-11-05T00:00:00+02:00</published><updated>2018-11-05T00:00:00+02:00</updated><id>http://localhost:4000/2018/11/05/jekyll_error</id><content type="html" xml:base="http://localhost:4000/2018/11/05/jekyll_error.html">&lt;p&gt;As you may know, this site is build using Jekyll, that help me to done all the magic automatically which is great. In the passed week I reinstall Ubuntu on my laptop and that forced me to use git again and clone the project from my repository and after I install gem I tried to run Jekyll but goat some error, so I I wasted an hour on it and after I fund the fixing for that I decided to share is here.&lt;/p&gt;
 
 &lt;p&gt;So, the first thing I done is to go throughout the Jekyll documentations and install it using the following commands:&lt;br /&gt;&lt;/p&gt;
 &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;sudo apt-get install ruby ruby-dev build-essential

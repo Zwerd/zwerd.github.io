@@ -33,7 +33,7 @@ After you finish the exams, which are made up of a lab that has a number of boxe
 In short, this year it is time to do this certification and not give up until I finish the whole book. There is a booklet that goes around the Internet, if you are interested in the booklet and you do not find it, email me and I will send the booklet to you.
 
 
-In this post I will present my studies and maybe later I will make some videos that show how things work.
+In this post I will present my studies and maybe later I will make some videos that show how things work. Important to remember, reading this post requires basic Linux knowledge, browser familiarity, HTML & CSS / JS, computer communication, familiarization with security solutions, and knowledge of Internet usage. If there is something you read and do not understand I recommend searching Google and coming back to read the post after that, I try to expand on everything I present here, but there are things I do not want to overlook.
 
 If you are familiar with Linux, getting started with the material will be easy for you, if not then it is better to get acquainted with the Linux operating system and return here to continue learning. In this course we deal a lot with the Kali operating system which is Linux based and very similar to Debian.
 
@@ -135,14 +135,58 @@ We can use in HTTP service to do several thing on the penetration, as example br
 Again, you can check it by using the netstat command that will show you if the port active on LISTEN. In my case I using grep for display only service that using port 80.
 
 ![OSCP Post](/assets/images/oscp/apache2netstat.png)
-**Figure 14** apache2 Service.
+**Figure 15** apache2 Service.
 
 **tip:** To check what every option on netstat or any other command does, you can use man page by typing **man <command>** and it will bring you up for the manual of that command. In the case of netstat **-a** mean display all the active ports, **-n** display in numeric form, **-t** display only TCP protocols and not other like UDP, **-p** display the PID of that program.
 
 ![OSCP Post](/assets/images/oscp/manpage.png)
-**Figure 14** apache2 Service.
+**Figure 16** apache2 Service.
 
 After that, if you want you can see the web you are hosting on you computer by using the browser, you will anly need  to check your local address with port 80 or type 127.0.0.1:80 on your browser.
 
 ![OSCP Post](/assets/images/oscp/apache2site.png)
-**Figure 14** apache2 Service.
+**Figure 17** apache2 Service.
+
+## exercise
+
+1. You need to bring up some webpage on your local PC using apache2.
+2. The web page need to use other port that 80.
+3. The web page need to be simple and contain some link for ssh terminal.
+4. By click the link it will open terminal to our PC.
+
+You can do the exercise alone and after that comeback to continue reading and see how I did it, or you can read all it through and do as I done. I encourage you to do this exercise alone, in this way you sharpen your ability to become familiar with the technological space at your disposal to do things that will help you with an penetration test.
+
+### 1. Bring up Web Page
+
+First we need to start apache2, I restart my machine and find that apache2 on down state, so I bring it up.
+
+![OSCP Post](/assets/images/oscp/exc1-01.png)
+**Figure 18** apache2 Service.
+
+After I done so, I open my FireFox browser to see if I can view the default page of apache2, on that page I type in **localhost** which is by default use port 80. Also on that page there is some thing that can help us with the exercise, like the configuration of that page.
+
+![OSCP Post](/assets/images/oscp/exc1-02.png)
+**Figure 19** apache2 configuration at the default page.
+
+We will use the information of that page for the followup exercise. We also can check to see what is the port address, becouse we cant see it on our browser, so, we use netstat which can bring us that information. In my case I grep that information out.
+
+![OSCP Post](/assets/images/oscp/exc1-03.png)
+**Figure 20** netstat information for apache2.
+
+### 2. Setup other port for our localhost wepage.
+
+As was specifying on the default apache2 page, the configuration for port number can find on the foolowing path: **/etc/apache2/ports.conf**. After reading the information in that file I setup new port number **8081** and restart the apache2 service.
+
+![OSCP Post](/assets/images/oscp/exc1-04.png)
+**Figure 21** port number configuration.
+
+I use vi to change that, I run it with sudo to be sure that I be able to save the changes becouse of permission issues. I specify **Listen 8081** which tall apache2 to listen to that port and bring up the page.
+
+![OSCP Post](/assets/images/oscp/exc1-05.png)
+**Figure 21** Adding port number 8081 to config file by using vi.
+
+
+I openup my browser again and type my localhost with port number 8081 which look like as folloe: **localhost:8081**, and it bring up the default page again.
+
+![OSCP Post](/assets/images/oscp/exc1-06.png)
+**Figure 21** The Default page on port 8081.

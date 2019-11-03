@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.5">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2019-10-31T15:55:46+02:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Zwerd</title><subtitle>A stunning blog of freaking PT warrior</subtitle><author><name>Guy Zwerdling</name></author><entry><title type="html">OSCP Certification Journey</title><link href="http://localhost:4000/2019/09/20/oscp_certificate.html" rel="alternate" type="text/html" title="OSCP Certification Journey" /><published>2019-09-20T00:00:00+03:00</published><updated>2019-09-20T00:00:00+03:00</updated><id>http://localhost:4000/2019/09/20/oscp_certificate</id><content type="html" xml:base="http://localhost:4000/2019/09/20/oscp_certificate.html">&lt;p&gt;I set myself a lot of goals this year to advance to the next level, among all the goals being the OSCP certification from Offensive Security. It’s been a certification I’ve been talking about for years, since 2012, it’s really time to sit down and do that certification. It all started when I was writing in a forum on computer communications, where I presented the dilemma, whether to study information security of companies that are involved in the field or something else when my goal is to be an expert in the cyber world.&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.5">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2019-11-03T16:09:23+02:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Zwerd</title><subtitle>A stunning blog of freaking PT warrior</subtitle><author><name>Guy Zwerdling</name></author><entry><title type="html">OSCP Certification Journey</title><link href="http://localhost:4000/2019/09/20/oscp_certificate.html" rel="alternate" type="text/html" title="OSCP Certification Journey" /><published>2019-09-20T00:00:00+03:00</published><updated>2019-09-20T00:00:00+03:00</updated><id>http://localhost:4000/2019/09/20/oscp_certificate</id><content type="html" xml:base="http://localhost:4000/2019/09/20/oscp_certificate.html">&lt;p&gt;I set myself a lot of goals this year to advance to the next level, among all the goals being the OSCP certification from Offensive Security. It’s been a certification I’ve been talking about for years, since 2012, it’s really time to sit down and do that certification. It all started when I was writing in a forum on computer communications, where I presented the dilemma, whether to study information security of companies that are involved in the field or something else when my goal is to be an expert in the cyber world.&lt;/p&gt;
 
 &lt;p&gt;Eventually, someone responded to me, depending on what I want to learn, whether I want to be on the attacker or on the defensive side, he introduced a number of certifications and wrote about each certification separately. Among all the certifications he presented were Cisco certificates, Check Point certificates, and all sorts of large companies that manufacture and market security sites that protect the entire corporate network.&lt;/p&gt;
 
@@ -19,7 +19,7 @@
 
 &lt;p&gt;In short, this year it is time to do this certification and not give up until I finish the whole book. There is a booklet that goes around the Internet, if you are interested in the booklet and you do not find it, email me and I will send the booklet to you.&lt;/p&gt;
 
-&lt;p&gt;In this post I will present my studies and maybe later I will make some videos that show how things work.&lt;/p&gt;
+&lt;p&gt;In this post I will present my studies and maybe later I will make some videos that show how things work. Important to remember, reading this post requires basic Linux knowledge, browser familiarity, HTML &amp;amp; CSS / JS, computer communication, familiarization with security solutions, and knowledge of Internet usage. If there is something you read and do not understand I recommend searching Google and coming back to read the post after that, I try to expand on everything I present here, but there are things I do not want to overlook.&lt;/p&gt;
 
 &lt;p&gt;If you are familiar with Linux, getting started with the material will be easy for you, if not then it is better to get acquainted with the Linux operating system and return here to continue learning. In this course we deal a lot with the Kali operating system which is Linux based and very similar to Debian.&lt;/p&gt;
 
@@ -116,17 +116,62 @@ password: toor&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;Again, you can check it by using the netstat command that will show you if the port active on LISTEN. In my case I using grep for display only service that using port 80.&lt;/p&gt;
 
 &lt;p&gt;&lt;img src=&quot;/assets/images/oscp/apache2netstat.png&quot; alt=&quot;OSCP Post&quot; /&gt;
-&lt;strong&gt;Figure 14&lt;/strong&gt; apache2 Service.&lt;/p&gt;
+&lt;strong&gt;Figure 15&lt;/strong&gt; apache2 Service.&lt;/p&gt;
 
 &lt;p&gt;&lt;strong&gt;tip:&lt;/strong&gt; To check what every option on netstat or any other command does, you can use man page by typing &lt;strong&gt;man &lt;command /&gt;&lt;/strong&gt; and it will bring you up for the manual of that command. In the case of netstat &lt;strong&gt;-a&lt;/strong&gt; mean display all the active ports, &lt;strong&gt;-n&lt;/strong&gt; display in numeric form, &lt;strong&gt;-t&lt;/strong&gt; display only TCP protocols and not other like UDP, &lt;strong&gt;-p&lt;/strong&gt; display the PID of that program.&lt;/p&gt;
 
 &lt;p&gt;&lt;img src=&quot;/assets/images/oscp/manpage.png&quot; alt=&quot;OSCP Post&quot; /&gt;
-&lt;strong&gt;Figure 14&lt;/strong&gt; apache2 Service.&lt;/p&gt;
+&lt;strong&gt;Figure 16&lt;/strong&gt; apache2 Service.&lt;/p&gt;
 
 &lt;p&gt;After that, if you want you can see the web you are hosting on you computer by using the browser, you will anly need  to check your local address with port 80 or type 127.0.0.1:80 on your browser.&lt;/p&gt;
 
 &lt;p&gt;&lt;img src=&quot;/assets/images/oscp/apache2site.png&quot; alt=&quot;OSCP Post&quot; /&gt;
-&lt;strong&gt;Figure 14&lt;/strong&gt; apache2 Service.&lt;/p&gt;</content><author><name>Guy Zwerdling</name></author><category term="Pentest" /><summary type="html">I set myself a lot of goals this year to advance to the next level, among all the goals being the OSCP certification from Offensive Security. It's been a certification I've been talking about for years, since 2012, it's really time to sit down and do that certification. It all started when I was writing in a forum on computer communications, where I presented the dilemma, whether to study information security of companies that are involved in the field or something else when my goal is to be an expert in the cyber world.</summary></entry><entry><title type="html">MyGmach - My New Open Source App (react native app)</title><link href="http://localhost:4000/2019/02/17/new_open_source_app.html" rel="alternate" type="text/html" title="MyGmach - My New Open Source App (react native app)" /><published>2019-02-17T00:00:00+02:00</published><updated>2019-02-17T00:00:00+02:00</updated><id>http://localhost:4000/2019/02/17/new_open_source_app</id><content type="html" xml:base="http://localhost:4000/2019/02/17/new_open_source_app.html">&lt;p&gt;At last I finish another application using React Native for native mobile apps using JavaScript and React, the first one was NachRiddles which is base on my dear brother’s book. MyGmach app is build base on my father idea. Every Saturday my dear brother used to wear a certain tie that was unique to the parsha on that Shabbat. After he passed, my father wanted to open tie Gmach - which is the way in the Jewish world to help each other without getting paid (in Hebrew it is an acronym for kindness which is pronounced Gemilot Hassadim [‘גמילות חסדים’]), and give anyone tie as needed.&lt;/p&gt;
+&lt;strong&gt;Figure 17&lt;/strong&gt; apache2 Service.&lt;/p&gt;
+
+&lt;h2 id=&quot;exercise&quot;&gt;exercise&lt;/h2&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;You need to bring up some webpage on your local PC using apache2.&lt;/li&gt;
+  &lt;li&gt;The web page need to use other port that 80.&lt;/li&gt;
+  &lt;li&gt;The web page need to be simple and contain some link for ssh terminal.&lt;/li&gt;
+  &lt;li&gt;By click the link it will open terminal to our PC.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;You can do the exercise alone and after that comeback to continue reading and see how I did it, or you can read all it through and do as I done. I encourage you to do this exercise alone, in this way you sharpen your ability to become familiar with the technological space at your disposal to do things that will help you with an penetration test.&lt;/p&gt;
+
+&lt;h3 id=&quot;1-bring-up-web-page&quot;&gt;1. Bring up Web Page&lt;/h3&gt;
+
+&lt;p&gt;First we need to start apache2, I restart my machine and find that apache2 on down state, so I bring it up.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/oscp/exc1-01.png&quot; alt=&quot;OSCP Post&quot; /&gt;
+&lt;strong&gt;Figure 18&lt;/strong&gt; apache2 Service.&lt;/p&gt;
+
+&lt;p&gt;After I done so, I open my FireFox browser to see if I can view the default page of apache2, on that page I type in &lt;strong&gt;localhost&lt;/strong&gt; which is by default use port 80. Also on that page there is some thing that can help us with the exercise, like the configuration of that page.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/oscp/exc1-02.png&quot; alt=&quot;OSCP Post&quot; /&gt;
+&lt;strong&gt;Figure 19&lt;/strong&gt; apache2 configuration at the default page.&lt;/p&gt;
+
+&lt;p&gt;We will use the information of that page for the followup exercise. We also can check to see what is the port address, becouse we cant see it on our browser, so, we use netstat which can bring us that information. In my case I grep that information out.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/oscp/exc1-03.png&quot; alt=&quot;OSCP Post&quot; /&gt;
+&lt;strong&gt;Figure 20&lt;/strong&gt; netstat information for apache2.&lt;/p&gt;
+
+&lt;h3 id=&quot;2-setup-other-port-for-our-localhost-wepage&quot;&gt;2. Setup other port for our localhost wepage.&lt;/h3&gt;
+
+&lt;p&gt;As was specifying on the default apache2 page, the configuration for port number can find on the foolowing path: &lt;strong&gt;/etc/apache2/ports.conf&lt;/strong&gt;. After reading the information in that file I setup new port number &lt;strong&gt;8081&lt;/strong&gt; and restart the apache2 service.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/oscp/exc1-04.png&quot; alt=&quot;OSCP Post&quot; /&gt;
+&lt;strong&gt;Figure 21&lt;/strong&gt; port number configuration.&lt;/p&gt;
+
+&lt;p&gt;I use vi to change that, I run it with sudo to be sure that I be able to save the changes becouse of permission issues. I specify &lt;strong&gt;Listen 8081&lt;/strong&gt; which tall apache2 to listen to that port and bring up the page.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/oscp/exc1-05.png&quot; alt=&quot;OSCP Post&quot; /&gt;
+&lt;strong&gt;Figure 21&lt;/strong&gt; Adding port number 8081 to config file by using vi.&lt;/p&gt;
+
+&lt;p&gt;I openup my browser again and type my localhost with port number 8081 which look like as folloe: &lt;strong&gt;localhost:8081&lt;/strong&gt;, and it bring up the default page again.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/oscp/exc1-06.png&quot; alt=&quot;OSCP Post&quot; /&gt;
+&lt;strong&gt;Figure 21&lt;/strong&gt; The Default page on port 8081.&lt;/p&gt;</content><author><name>Guy Zwerdling</name></author><category term="Pentest" /><summary type="html">I set myself a lot of goals this year to advance to the next level, among all the goals being the OSCP certification from Offensive Security. It's been a certification I've been talking about for years, since 2012, it's really time to sit down and do that certification. It all started when I was writing in a forum on computer communications, where I presented the dilemma, whether to study information security of companies that are involved in the field or something else when my goal is to be an expert in the cyber world.</summary></entry><entry><title type="html">MyGmach - My New Open Source App (react native app)</title><link href="http://localhost:4000/2019/02/17/new_open_source_app.html" rel="alternate" type="text/html" title="MyGmach - My New Open Source App (react native app)" /><published>2019-02-17T00:00:00+02:00</published><updated>2019-02-17T00:00:00+02:00</updated><id>http://localhost:4000/2019/02/17/new_open_source_app</id><content type="html" xml:base="http://localhost:4000/2019/02/17/new_open_source_app.html">&lt;p&gt;At last I finish another application using React Native for native mobile apps using JavaScript and React, the first one was NachRiddles which is base on my dear brother’s book. MyGmach app is build base on my father idea. Every Saturday my dear brother used to wear a certain tie that was unique to the parsha on that Shabbat. After he passed, my father wanted to open tie Gmach - which is the way in the Jewish world to help each other without getting paid (in Hebrew it is an acronym for kindness which is pronounced Gemilot Hassadim [‘גמילות חסדים’]), and give anyone tie as needed.&lt;/p&gt;
 
 &lt;p&gt;After my father told me about is idea, I start to work on MyGmach to build an application that allow to manage privet foundation with items in it, so i wrote document about the functionality that I want to build in that application.&lt;/p&gt;
 

@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.5">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2019-11-03T16:09:23+02:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Zwerd</title><subtitle>A stunning blog of freaking PT warrior</subtitle><author><name>Guy Zwerdling</name></author><entry><title type="html">OSCP Certification Journey</title><link href="http://localhost:4000/2019/09/20/oscp_certificate.html" rel="alternate" type="text/html" title="OSCP Certification Journey" /><published>2019-09-20T00:00:00+03:00</published><updated>2019-09-20T00:00:00+03:00</updated><id>http://localhost:4000/2019/09/20/oscp_certificate</id><content type="html" xml:base="http://localhost:4000/2019/09/20/oscp_certificate.html">&lt;p&gt;I set myself a lot of goals this year to advance to the next level, among all the goals being the OSCP certification from Offensive Security. It’s been a certification I’ve been talking about for years, since 2012, it’s really time to sit down and do that certification. It all started when I was writing in a forum on computer communications, where I presented the dilemma, whether to study information security of companies that are involved in the field or something else when my goal is to be an expert in the cyber world.&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.5">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2019-11-04T15:32:58+02:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Zwerd</title><subtitle>A stunning blog of freaking PT warrior</subtitle><author><name>Guy Zwerdling</name></author><entry><title type="html">OSCP Certification Journey</title><link href="http://localhost:4000/2019/09/20/oscp_certificate.html" rel="alternate" type="text/html" title="OSCP Certification Journey" /><published>2019-09-20T00:00:00+03:00</published><updated>2019-09-20T00:00:00+03:00</updated><id>http://localhost:4000/2019/09/20/oscp_certificate</id><content type="html" xml:base="http://localhost:4000/2019/09/20/oscp_certificate.html">&lt;p&gt;I set myself a lot of goals this year to advance to the next level, among all the goals being the OSCP certification from Offensive Security. It’s been a certification I’ve been talking about for years, since 2012, it’s really time to sit down and do that certification. It all started when I was writing in a forum on computer communications, where I presented the dilemma, whether to study information security of companies that are involved in the field or something else when my goal is to be an expert in the cyber world.&lt;/p&gt;
 
 &lt;p&gt;Eventually, someone responded to me, depending on what I want to learn, whether I want to be on the attacker or on the defensive side, he introduced a number of certifications and wrote about each certification separately. Among all the certifications he presented were Cisco certificates, Check Point certificates, and all sorts of large companies that manufacture and market security sites that protect the entire corporate network.&lt;/p&gt;
 
@@ -128,7 +128,7 @@ password: toor&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;&lt;img src=&quot;/assets/images/oscp/apache2site.png&quot; alt=&quot;OSCP Post&quot; /&gt;
 &lt;strong&gt;Figure 17&lt;/strong&gt; apache2 Service.&lt;/p&gt;
 
-&lt;h2 id=&quot;exercise&quot;&gt;exercise&lt;/h2&gt;
+&lt;h2 id=&quot;challenges&quot;&gt;Challenges&lt;/h2&gt;
 
 &lt;ol&gt;
   &lt;li&gt;You need to bring up some webpage on your local PC using apache2.&lt;/li&gt;
@@ -166,12 +166,118 @@ password: toor&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;I use vi to change that, I run it with sudo to be sure that I be able to save the changes becouse of permission issues. I specify &lt;strong&gt;Listen 8081&lt;/strong&gt; which tall apache2 to listen to that port and bring up the page.&lt;/p&gt;
 
 &lt;p&gt;&lt;img src=&quot;/assets/images/oscp/exc1-05.png&quot; alt=&quot;OSCP Post&quot; /&gt;
-&lt;strong&gt;Figure 21&lt;/strong&gt; Adding port number 8081 to config file by using vi.&lt;/p&gt;
+&lt;strong&gt;Figure 22&lt;/strong&gt; Adding port number 8081 to config file by using vi.&lt;/p&gt;
 
 &lt;p&gt;I openup my browser again and type my localhost with port number 8081 which look like as folloe: &lt;strong&gt;localhost:8081&lt;/strong&gt;, and it bring up the default page again.&lt;/p&gt;
 
 &lt;p&gt;&lt;img src=&quot;/assets/images/oscp/exc1-06.png&quot; alt=&quot;OSCP Post&quot; /&gt;
-&lt;strong&gt;Figure 21&lt;/strong&gt; The Default page on port 8081.&lt;/p&gt;</content><author><name>Guy Zwerdling</name></author><category term="Pentest" /><summary type="html">I set myself a lot of goals this year to advance to the next level, among all the goals being the OSCP certification from Offensive Security. It's been a certification I've been talking about for years, since 2012, it's really time to sit down and do that certification. It all started when I was writing in a forum on computer communications, where I presented the dilemma, whether to study information security of companies that are involved in the field or something else when my goal is to be an expert in the cyber world.</summary></entry><entry><title type="html">MyGmach - My New Open Source App (react native app)</title><link href="http://localhost:4000/2019/02/17/new_open_source_app.html" rel="alternate" type="text/html" title="MyGmach - My New Open Source App (react native app)" /><published>2019-02-17T00:00:00+02:00</published><updated>2019-02-17T00:00:00+02:00</updated><id>http://localhost:4000/2019/02/17/new_open_source_app</id><content type="html" xml:base="http://localhost:4000/2019/02/17/new_open_source_app.html">&lt;p&gt;At last I finish another application using React Native for native mobile apps using JavaScript and React, the first one was NachRiddles which is base on my dear brother’s book. MyGmach app is build base on my father idea. Every Saturday my dear brother used to wear a certain tie that was unique to the parsha on that Shabbat. After he passed, my father wanted to open tie Gmach - which is the way in the Jewish world to help each other without getting paid (in Hebrew it is an acronym for kindness which is pronounced Gemilot Hassadim [‘גמילות חסדים’]), and give anyone tie as needed.&lt;/p&gt;
+&lt;strong&gt;Figure 23&lt;/strong&gt; The default page on port 8081.&lt;/p&gt;
+
+&lt;h3 id=&quot;3-create-new-web-page-with-ssh-link&quot;&gt;3. Create new web page with SSH link.&lt;/h3&gt;
+
+&lt;p&gt;On the default page of apache2, specify that if you want to change the html file you can do so by changing the file on the &lt;strong&gt;www&lt;/strong&gt; directory. I created new folder named old and moved every file on the &lt;strong&gt;html&lt;/strong&gt; directory to this new folder.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/oscp/exc1-07.png&quot; alt=&quot;OSCP Post&quot; /&gt;
+&lt;strong&gt;Figure 24&lt;/strong&gt; The path for www directory.&lt;/p&gt;
+
+&lt;p&gt;After that I was created new file with &lt;strong&gt;touch&lt;/strong&gt; command, and vim it to make my new webpage with the ssh link inside it, I used **&lt;style&gt;** for my css web style and make a link with **href**. The address for the remote ssh server is my other linux machine.&lt;/style&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/oscp/exc1-08.png&quot; alt=&quot;OSCP Post&quot; /&gt;
+&lt;strong&gt;Figure 25&lt;/strong&gt; My html file.&lt;/p&gt;
+
+&lt;p&gt;after I finish, I went back to my browser and refresh it, my page will bring up with the SSH link that I created.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/oscp/exc1-09.png&quot; alt=&quot;OSCP Post&quot; /&gt;
+&lt;strong&gt;Figure 26&lt;/strong&gt; New webpage with SSH link inside.&lt;/p&gt;
+
+&lt;h3 id=&quot;4-click-the-ssh-link-to-open-session-to-our-ssh-server&quot;&gt;4. Click the SSH link to open session to our ssh-server.&lt;/h3&gt;
+
+&lt;p&gt;After I click the link on my page, I had some issue with the link, the browser dosn’t understand what to do with such link and didn’t open new terminal with ssh session.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/oscp/exc1-10.png&quot; alt=&quot;OSCP Post&quot; /&gt;
+&lt;strong&gt;Figure 27&lt;/strong&gt; Issue to use the SSH link.&lt;/p&gt;
+
+&lt;p&gt;So solve this issue we need to troubleshoot our browser, the question we need to ask our self is why, in my case, FireFox didn’t know how to open SSH, to find and answer we need to be clear about FireFox. FireFox can loadup FTP url, which is mean that he know how to do so, in that case, we need to find a way to tell FireFox that if the user click on link that contain &lt;strong&gt;ssh://&lt;/strong&gt; in that case &lt;strong&gt;please run the following app…&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;So our conclusion is that the browser should run an app and execute the command, in that case I going to look at the URL like it is the command, so let’s say that our browser know what the app he need to run, my question is how the app does this, i.e. how it takes the URL and converts it to SSH command. so what I came up is the idea to write script in bash to do so. after we will find a way to tell the browser to open the script and run the URL inside it, my script should open an terminal with ssh to the remote machine in my lab.&lt;/p&gt;
+
+&lt;p&gt;In my script I know that I need to handle the URL I will get, which going to be something like that:
+**ssh://&lt;ipaddress&gt;/**&lt;/ipaddress&gt;&lt;/p&gt;
+
+&lt;p&gt;To make new file I using &lt;strong&gt;touch&lt;/strong&gt; and after that I run &lt;strong&gt;vim&lt;/strong&gt; to edit this file.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/oscp/exc1-11.png&quot; alt=&quot;OSCP Post&quot; /&gt;
+&lt;strong&gt;Figure 28&lt;/strong&gt; touch and vim commands.&lt;/p&gt;
+
+&lt;p&gt;So I came up with the following script in bash that can help me with the SSH URLs:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/oscp/exc1-12.png&quot; alt=&quot;OSCP Post&quot; /&gt;
+&lt;strong&gt;Figure 29&lt;/strong&gt; SSH script.&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c&quot;&gt;#!/bin/bash&lt;/span&gt;
+&lt;span class=&quot;nv&quot;&gt;url&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$1&lt;/span&gt;
+&lt;span class=&quot;nv&quot;&gt;protocol&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;${&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;url&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;//&lt;/span&gt;:&lt;span class=&quot;p&quot;&gt;*/&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;nv&quot;&gt;machine&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;${&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;url&lt;/span&gt;://&lt;span class=&quot;p&quot;&gt;*&lt;/span&gt;:&lt;span class=&quot;p&quot;&gt;\/\//&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;nv&quot;&gt;machine&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;${&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;machine&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;%/&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;}&lt;/span&gt;
+/usr/bin/gnome-terminal &lt;span class=&quot;nt&quot;&gt;-e&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$protocol&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$machine&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;In the script we save the URL in the variable url, after that we parse the protocol which going to be the &lt;strong&gt;ssh&lt;/strong&gt;, we also parse the machine ip address and remove the slash in the end, after that we open termianl which is the &lt;strong&gt;gnome-terminal&lt;/strong&gt; and execute the &lt;strong&gt;“$protocol $machine”&lt;/strong&gt; inside of it.&lt;/p&gt;
+
+&lt;p&gt;When this will done, an new window of terminal will open up and run ssh to our lab machine. Now we need to make that file executable with the command &lt;strong&gt;chmod&lt;/strong&gt;. After that will done, if we run &lt;strong&gt;ls&lt;/strong&gt; command it will show us that &lt;em&gt;ssh-script.sh&lt;/em&gt; is executable file.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/oscp/exc1-13.png&quot; alt=&quot;OSCP Post&quot; /&gt;
+&lt;strong&gt;Figure 30&lt;/strong&gt; chmod command.&lt;/p&gt;
+
+&lt;p&gt;To check if the script working right, we need to run it, we know that the line that our script will handle will be &lt;strong&gt;ssh://172.16.0.180/&lt;/strong&gt;, so that what we need to insert that script for checking it, also we use the &lt;strong&gt;./&lt;/strong&gt; which call the executable file and run it. When I tried to run it I came a cross some issue with my script.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/oscp/exc1-14.png&quot; alt=&quot;OSCP Post&quot; /&gt;
+&lt;strong&gt;Figure 31&lt;/strong&gt; ssh-script.sh doesn’t run as expected.&lt;/p&gt;
+
+&lt;p&gt;The error tall us that the is an issue with line 4 on our script, so I checked it out and found some miss syntax, on line four was some unnecessary &lt;strong&gt;:&lt;/strong&gt;, after I remove it I tried to run the script once again.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/oscp/exc1-15.png&quot; alt=&quot;OSCP Post&quot; /&gt;
+&lt;strong&gt;Figure 32&lt;/strong&gt; Unnecessary &lt;strong&gt;:&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/oscp/exc1-16.png&quot; alt=&quot;OSCP Post&quot; /&gt;
+&lt;strong&gt;Figure 33&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;After that, I check the ssh service status and start it, in my case the ssh  service was on down state,
+&lt;strong&gt;Please note:&lt;/strong&gt; ssh service used to allow our local machine to act as ssh server, you doesn’t need to run it on the ssh client.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/oscp/exc1-17.png&quot; alt=&quot;OSCP Post&quot; /&gt;
+&lt;strong&gt;Figure 34&lt;/strong&gt; SSH service status.&lt;/p&gt;
+
+&lt;p&gt;I tried to check if ssh on local machine are working right, so I run the follow up command on my local machine&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/oscp/exc1-18.png&quot; alt=&quot;OSCP Post&quot; /&gt;
+&lt;strong&gt;Figure 35&lt;/strong&gt; ssh to local machine.&lt;/p&gt;
+
+&lt;p&gt;after it work successfully I run the script with the ssh line that going to be on our local webpage and finally it work well.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/oscp/exc1-19.png&quot; alt=&quot;OSCP Post&quot; /&gt;
+&lt;strong&gt;Figure 36&lt;/strong&gt; ssh is working to my local machine by using the script.&lt;/p&gt;
+
+&lt;p&gt;Now, to get the browser work, we need to tell it how he going to execute the script evry time someone click on &lt;strong&gt;ssh://&lt;/strong&gt; link, I search over the Internet and found that the setup for such case can be found on the config menu, to get that menu on the brouser search box type &lt;strong&gt;about:config&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/oscp/exc1-20.png&quot; alt=&quot;OSCP Post&quot; /&gt;
+&lt;strong&gt;Figure 37&lt;/strong&gt; config menu.&lt;/p&gt;
+
+&lt;p&gt;in that config list we need to allow to using ssh and applied it to execute our script in every case someone click it, to do so we need to add new URL Handler, which is &lt;strong&gt;network.protocol-handler.expose.ssh&lt;/strong&gt;, the value for that going to be &lt;strong&gt;false&lt;/strong&gt;, which going to bring the user a popup dialog to choose application to run the link, ehich is going to be our script.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Please note:&lt;/strong&gt; in my case I wanna to add that setup directly on the FireFox &lt;strong&gt;prefs.js&lt;/strong&gt; file, to file where it locate I used the following command:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;find / -name prefs.js
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;That file was found in my case under mozilla folder, after that I add up that line to the file.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/oscp/exc1-23.png&quot; alt=&quot;OSCP Post&quot; /&gt;
+&lt;strong&gt;Figure 38&lt;/strong&gt; expose.ssh on the prefs.js file.&lt;/p&gt;
+
+&lt;p&gt;After I finish all, it’s the time to check if we can use the SSH link to bring up ssh session to our remote lab machine, which in my case is my &lt;strong&gt;zwerd ubuntu&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/oscp/exc1-24.gif&quot; alt=&quot;OSCP Post&quot; /&gt;
+&lt;strong&gt;Figure 39&lt;/strong&gt; ssh connection opened up.&lt;/p&gt;</content><author><name>Guy Zwerdling</name></author><category term="Pentest" /><summary type="html">I set myself a lot of goals this year to advance to the next level, among all the goals being the OSCP certification from Offensive Security. It's been a certification I've been talking about for years, since 2012, it's really time to sit down and do that certification. It all started when I was writing in a forum on computer communications, where I presented the dilemma, whether to study information security of companies that are involved in the field or something else when my goal is to be an expert in the cyber world.</summary></entry><entry><title type="html">MyGmach - My New Open Source App (react native app)</title><link href="http://localhost:4000/2019/02/17/new_open_source_app.html" rel="alternate" type="text/html" title="MyGmach - My New Open Source App (react native app)" /><published>2019-02-17T00:00:00+02:00</published><updated>2019-02-17T00:00:00+02:00</updated><id>http://localhost:4000/2019/02/17/new_open_source_app</id><content type="html" xml:base="http://localhost:4000/2019/02/17/new_open_source_app.html">&lt;p&gt;At last I finish another application using React Native for native mobile apps using JavaScript and React, the first one was NachRiddles which is base on my dear brother’s book. MyGmach app is build base on my father idea. Every Saturday my dear brother used to wear a certain tie that was unique to the parsha on that Shabbat. After he passed, my father wanted to open tie Gmach - which is the way in the Jewish world to help each other without getting paid (in Hebrew it is an acronym for kindness which is pronounced Gemilot Hassadim [‘גמילות חסדים’]), and give anyone tie as needed.&lt;/p&gt;
 
 &lt;p&gt;After my father told me about is idea, I start to work on MyGmach to build an application that allow to manage privet foundation with items in it, so i wrote document about the functionality that I want to build in that application.&lt;/p&gt;
 

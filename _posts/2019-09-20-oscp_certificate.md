@@ -147,7 +147,7 @@ After that, if you want you can see the web you are hosting on you computer by u
 ![OSCP Post](/assets/images/oscp/apache2site.png)
 **Figure 17** apache2 Service.
 
-## exercise
+## Challenges
 
 1. You need to bring up some webpage on your local PC using apache2.
 2. The web page need to use other port that 80.
@@ -183,10 +183,119 @@ As was specifying on the default apache2 page, the configuration for port number
 I use vi to change that, I run it with sudo to be sure that I be able to save the changes becouse of permission issues. I specify **Listen 8081** which tall apache2 to listen to that port and bring up the page.
 
 ![OSCP Post](/assets/images/oscp/exc1-05.png)
-**Figure 21** Adding port number 8081 to config file by using vi.
+**Figure 22** Adding port number 8081 to config file by using vi.
 
 
 I openup my browser again and type my localhost with port number 8081 which look like as folloe: **localhost:8081**, and it bring up the default page again.
 
 ![OSCP Post](/assets/images/oscp/exc1-06.png)
-**Figure 21** The Default page on port 8081.
+**Figure 23** The default page on port 8081.
+
+### 3. Create new web page with SSH link.
+
+On the default page of apache2, specify that if you want to change the html file you can do so by changing the file on the **www** directory. I created new folder named old and moved every file on the **html** directory to this new folder.
+
+![OSCP Post](/assets/images/oscp/exc1-07.png)
+**Figure 24** The path for www directory.
+
+After that I was created new file with **touch** command, and vim it to make my new webpage with the ssh link inside it, I used **<style>** for my css web style and make a link with **href**. The address for the remote ssh server is my other linux machine.
+
+![OSCP Post](/assets/images/oscp/exc1-08.png)
+**Figure 25** My html file.
+
+after I finish, I went back to my browser and refresh it, my page will bring up with the SSH link that I created.
+
+![OSCP Post](/assets/images/oscp/exc1-09.png)
+**Figure 26** New webpage with SSH link inside.
+
+### 4. Click the SSH link to open session to our ssh-server.
+
+After I click the link on my page, I had some issue with the link, the browser dosn't understand what to do with such link and didn't open new terminal with ssh session.
+
+![OSCP Post](/assets/images/oscp/exc1-10.png)
+**Figure 27** Issue to use the SSH link.
+
+So solve this issue we need to troubleshoot our browser, the question we need to ask our self is why, in my case, FireFox didn't know how to open SSH, to find and answer we need to be clear about FireFox. FireFox can loadup FTP url, which is mean that he know how to do so, in that case, we need to find a way to tell FireFox that if the user click on link that contain **ssh://** in that case **please run the following app...**
+
+So our conclusion is that the browser should run an app and execute the command, in that case I going to look at the URL like it is the command, so let's say that our browser know what the app he need to run, my question is how the app does this, i.e. how it takes the URL and converts it to SSH command. so what I came up is the idea to write script in bash to do so. after we will find a way to tell the browser to open the script and run the URL inside it, my script should open an terminal with ssh to the remote machine in my lab.
+
+In my script I know that I need to handle the URL I will get, which going to be something like that:
+**ssh://<ipaddress>/**
+
+To make new file I using **touch** and after that I run **vim** to edit this file.
+
+![OSCP Post](/assets/images/oscp/exc1-11.png)
+**Figure 28** touch and vim commands.
+
+So I came up with the following script in bash that can help me with the SSH URLs:
+
+![OSCP Post](/assets/images/oscp/exc1-12.png)
+**Figure 29** SSH script.
+```
+#!/bin/bash
+url=$1
+protocol=${url//:*/}
+machine=${url://*:\/\//}
+machine=${machine%/}
+/usr/bin/gnome-terminal -e "$protocol $machine"
+```
+
+In the script we save the URL in the variable url, after that we parse the protocol which going to be the **ssh**, we also parse the machine ip address and remove the slash in the end, after that we open termianl which is the **gnome-terminal** and execute the **"$protocol $machine"** inside of it.
+
+When this will done, an new window of terminal will open up and run ssh to our lab machine. Now we need to make that file executable with the command **chmod**. After that will done, if we run **ls** command it will show us that *ssh-script.sh* is executable file.
+
+![OSCP Post](/assets/images/oscp/exc1-13.png)
+**Figure 30** chmod command.
+
+To check if the script working right, we need to run it, we know that the line that our script will handle will be **ssh://172.16.0.180/**, so that what we need to insert that script for checking it, also we use the **./** which call the executable file and run it. When I tried to run it I came a cross some issue with my script.  
+
+![OSCP Post](/assets/images/oscp/exc1-14.png)
+**Figure 31** ssh-script.sh doesn't run as expected.
+
+The error tall us that the is an issue with line 4 on our script, so I checked it out and found some miss syntax, on line four was some unnecessary **:**, after I remove it I tried to run the script once again.
+
+![OSCP Post](/assets/images/oscp/exc1-15.png)
+**Figure 32** Unnecessary **:**.
+
+![OSCP Post](/assets/images/oscp/exc1-16.png)
+**Figure 33**
+
+After that, I check the ssh service status and start it, in my case the ssh  service was on down state,
+**Please note:** ssh service used to allow our local machine to act as ssh server, you doesn't need to run it on the ssh client.
+
+![OSCP Post](/assets/images/oscp/exc1-17.png)
+**Figure 34** SSH service status.
+
+I tried to check if ssh on local machine are working right, so I run the follow up command on my local machine
+
+![OSCP Post](/assets/images/oscp/exc1-18.png)
+**Figure 35** ssh to local machine.
+
+after it work successfully I run the script with the ssh line that going to be on our local webpage and finally it work well.
+
+![OSCP Post](/assets/images/oscp/exc1-19.png)
+**Figure 36** ssh is working to my local machine by using the script.
+
+Now, to get the browser work, we need to tell it how he going to execute the script evry time someone click on **ssh://** link, I search over the Internet and found that the setup for such case can be found on the config menu, to get that menu on the brouser search box type **about:config**.
+
+![OSCP Post](/assets/images/oscp/exc1-20.png)
+**Figure 37** config menu.
+
+in that config list we need to allow to using ssh and applied it to execute our script in every case someone click it, to do so we need to add new URL Handler, which is **network.protocol-handler.expose.ssh**, the value for that going to be **false**, which going to bring the user a popup dialog to choose application to run the link, ehich is going to be our script.
+
+**Please note:** in my case I wanna to add that setup directly on the FireFox **prefs.js** file, to file where it locate I used the following command:
+
+```
+find / -name prefs.js
+```
+
+That file was found in my case under mozilla folder, after that I add up that line to the file.
+
+![OSCP Post](/assets/images/oscp/exc1-23.png)
+**Figure 38** expose.ssh on the prefs.js file.
+
+After I finish all, it's the time to check if we can use the SSH link to bring up ssh session to our remote lab machine, which in my case is my **zwerd ubuntu**.
+
+
+![OSCP Post](/assets/images/oscp/exc1-24.gif)
+**Figure 39** ssh connection opened up.

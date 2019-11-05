@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.5">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2019-11-04T15:32:58+02:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Zwerd</title><subtitle>A stunning blog of freaking PT warrior</subtitle><author><name>Guy Zwerdling</name></author><entry><title type="html">OSCP Certification Journey</title><link href="http://localhost:4000/2019/09/20/oscp_certificate.html" rel="alternate" type="text/html" title="OSCP Certification Journey" /><published>2019-09-20T00:00:00+03:00</published><updated>2019-09-20T00:00:00+03:00</updated><id>http://localhost:4000/2019/09/20/oscp_certificate</id><content type="html" xml:base="http://localhost:4000/2019/09/20/oscp_certificate.html">&lt;p&gt;I set myself a lot of goals this year to advance to the next level, among all the goals being the OSCP certification from Offensive Security. It’s been a certification I’ve been talking about for years, since 2012, it’s really time to sit down and do that certification. It all started when I was writing in a forum on computer communications, where I presented the dilemma, whether to study information security of companies that are involved in the field or something else when my goal is to be an expert in the cyber world.&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.5">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2019-11-04T17:16:29+02:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Zwerd</title><subtitle>A stunning blog of freaking PT warrior</subtitle><author><name>Guy Zwerdling</name></author><entry><title type="html">OSCP Certification Journey</title><link href="http://localhost:4000/2019/09/20/oscp_certificate.html" rel="alternate" type="text/html" title="OSCP Certification Journey" /><published>2019-09-20T00:00:00+03:00</published><updated>2019-09-20T00:00:00+03:00</updated><id>http://localhost:4000/2019/09/20/oscp_certificate</id><content type="html" xml:base="http://localhost:4000/2019/09/20/oscp_certificate.html">&lt;p&gt;I set myself a lot of goals this year to advance to the next level, among all the goals being the OSCP certification from Offensive Security. It’s been a certification I’ve been talking about for years, since 2012, it’s really time to sit down and do that certification. It all started when I was writing in a forum on computer communications, where I presented the dilemma, whether to study information security of companies that are involved in the field or something else when my goal is to be an expert in the cyber world.&lt;/p&gt;
 
 &lt;p&gt;Eventually, someone responded to me, depending on what I want to learn, whether I want to be on the attacker or on the defensive side, he introduced a number of certifications and wrote about each certification separately. Among all the certifications he presented were Cisco certificates, Check Point certificates, and all sorts of large companies that manufacture and market security sites that protect the entire corporate network.&lt;/p&gt;
 
@@ -22,6 +22,8 @@
 &lt;p&gt;In this post I will present my studies and maybe later I will make some videos that show how things work. Important to remember, reading this post requires basic Linux knowledge, browser familiarity, HTML &amp;amp; CSS / JS, computer communication, familiarization with security solutions, and knowledge of Internet usage. If there is something you read and do not understand I recommend searching Google and coming back to read the post after that, I try to expand on everything I present here, but there are things I do not want to overlook.&lt;/p&gt;
 
 &lt;p&gt;If you are familiar with Linux, getting started with the material will be easy for you, if not then it is better to get acquainted with the Linux operating system and return here to continue learning. In this course we deal a lot with the Kali operating system which is Linux based and very similar to Debian.&lt;/p&gt;
+
+&lt;p&gt;#Chapter 1 - Get comfortable with Linux&lt;/p&gt;
 
 &lt;p&gt;Kali contains a lot of tools for performing attacks or planning actions and the Ofer work with it is no different than any Linux system that exists. So let’s get started&lt;/p&gt;
 
@@ -72,6 +74,34 @@ password: toor&lt;/strong&gt;&lt;/p&gt;
 
 &lt;p&gt;&lt;img src=&quot;/assets/images/oscp/passwd.png&quot; alt=&quot;OSCP Post&quot; /&gt;
 &lt;strong&gt;Figure 9&lt;/strong&gt; passwd command.&lt;/p&gt;
+
+&lt;h2 id=&quot;commands-you-must-to-know&quot;&gt;Commands you must to know&lt;/h2&gt;
+
+&lt;p&gt;There is a lot of linux command line that I used daily, and the following list are what can help you to operate with Kali and get comfortable with it.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;pwd&lt;/strong&gt; - will bring you the current directory.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;cd&lt;/strong&gt; - change directory, you will use this command to change your current directory, in the most cases if you want to get out from some directory to it’s upper folder you can run cd &lt;strong&gt;../&lt;/strong&gt;, one dot specify the current directory and two dots specify the upper directory, so if you are at &lt;strong&gt;/var/log/&lt;/strong&gt; run the &lt;strong&gt;cd..&lt;/strong&gt; will take you to /var folder&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;mv&lt;/strong&gt; - this command help to mv file from one lication to another, and also used for changing file name.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;rm&lt;/strong&gt; - remove some file. please note to noe use the command &lt;strong&gt;rm -rf /&lt;/strong&gt;, the / alone in the linux world is the root folder which contain everything on your system, so this is why that command are dangers.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://teespring.com/linux-dont-drink-and-root-tshi&quot; title=&quot;Buy This TSHIRT&quot;&gt;&lt;img src=&quot;https://vangogh.teespring.com/v3/image/0nKMdAhpyAR8FA56MjCnK-UUXFE/480/560.jpg&quot; alt=&quot;OSCP Post&quot; /&gt;&lt;/a&gt;
+&lt;strong&gt;Figure 9&lt;/strong&gt; Don’t drink and drive.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;mkdir&lt;/strong&gt; - create new folder.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;cat&lt;/strong&gt; - print all of the file contents on the screen.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;more&lt;/strong&gt; - the same as cat but with more you can control the view speed, and read line by line.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;head&lt;/strong&gt; - print the first line of file on the screen.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;grep&lt;/strong&gt; - search for specific string, if you run cat on some file and want only to see every line that contain &lt;strong&gt;machine&lt;/strong&gt; word, then grep can help you, you just need to pip it and write what you wanna search.&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;cat /var/sys/file.log | grep '2019/04'
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;h2 id=&quot;telnet&quot;&gt;telnet&lt;/h2&gt;
 

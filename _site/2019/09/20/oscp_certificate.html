@@ -405,6 +405,8 @@
 
 <p>If you are familiar with Linux, getting started with the material will be easy for you, if not then it is better to get acquainted with the Linux operating system and return here to continue learning. In this course we deal a lot with the Kali operating system which is Linux based and very similar to Debian.</p>
 
+<p>#Chapter 1 - Get comfortable with Linux</p>
+
 <p>Kali contains a lot of tools for performing attacks or planning actions and the Ofer work with it is no different than any Linux system that exists. So let’s get started</p>
 
 <h2 id="find-locate-and-which">Find, Locate and Which</h2>
@@ -454,6 +456,34 @@ password: toor</strong></p>
 
 <p><img src="/assets/images/oscp/passwd.png" alt="OSCP Post" />
 <strong>Figure 9</strong> passwd command.</p>
+
+<h2 id="commands-you-must-to-know">Commands you must to know</h2>
+
+<p>There is a lot of linux command line that I used daily, and the following list are what can help you to operate with Kali and get comfortable with it.</p>
+
+<p><strong>pwd</strong> - will bring you the current directory.</p>
+
+<p><strong>cd</strong> - change directory, you will use this command to change your current directory, in the most cases if you want to get out from some directory to it’s upper folder you can run cd <strong>../</strong>, one dot specify the current directory and two dots specify the upper directory, so if you are at <strong>/var/log/</strong> run the <strong>cd..</strong> will take you to /var folder</p>
+
+<p><strong>mv</strong> - this command help to mv file from one lication to another, and also used for changing file name.</p>
+
+<p><strong>rm</strong> - remove some file. please note to noe use the command <strong>rm -rf /</strong>, the / alone in the linux world is the root folder which contain everything on your system, so this is why that command are dangers.</p>
+
+<p><a href="https://teespring.com/linux-dont-drink-and-root-tshi" title="Buy This TSHIRT"><img src="https://vangogh.teespring.com/v3/image/0nKMdAhpyAR8FA56MjCnK-UUXFE/480/560.jpg" alt="OSCP Post" /></a>
+<strong>Figure 9</strong> Don’t drink and drive.</p>
+
+<p><strong>mkdir</strong> - create new folder.</p>
+
+<p><strong>cat</strong> - print all of the file contents on the screen.</p>
+
+<p><strong>more</strong> - the same as cat but with more you can control the view speed, and read line by line.</p>
+
+<p><strong>head</strong> - print the first line of file on the screen.</p>
+
+<p><strong>grep</strong> - search for specific string, if you run cat on some file and want only to see every line that contain <strong>machine</strong> word, then grep can help you, you just need to pip it and write what you wanna search.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>cat /var/sys/file.log | grep '2019/04'
+</code></pre></div></div>
 
 <h2 id="telnet">telnet</h2>
 

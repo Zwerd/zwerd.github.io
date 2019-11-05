@@ -37,6 +37,7 @@ In this post I will present my studies and maybe later I will make some videos t
 
 If you are familiar with Linux, getting started with the material will be easy for you, if not then it is better to get acquainted with the Linux operating system and return here to continue learning. In this course we deal a lot with the Kali operating system which is Linux based and very similar to Debian.
 
+# Chapter 1 - Let's start over
 
 Kali contains a lot of tools for performing attacks or planning actions and the Ofer work with it is no different than any Linux system that exists. So let's get started
 
@@ -89,6 +90,8 @@ It's a good idea to change the password to the machine, if you make an attack an
 
 ![OSCP Post](/assets/images/oscp/passwd.png)
 **Figure 9** passwd command.
+
+
 
 ## telnet
 
@@ -299,3 +302,37 @@ After I finish all, it's the time to check if we can use the SSH link to bring u
 
 ![OSCP Post](/assets/images/oscp/exc1-24.gif)
 **Figure 39** ssh connection opened up.
+
+
+# Chapter 2 - Get comfortable with Linux
+
+Because we are going to use a lot of Kali Linux it is a good idea to be with strong knowledge using this operating system. And there is nothing like getting to know the operating system as well as you know its command line. The Linux language used in the terminal is **bash** and there are many commands that can help us to do such and other manipulations in the system to get what we want.
+
+## Commands you must to know
+
+There is a lot of linux command line that I used daily, and the following list are what can help you to operate with Kali and get comfortable with it.
+
+**pwd** - will bring you the current directory.
+
+**cd** - change directory, you will use this command to change your current directory, in the most cases if you want to get out from some directory to it's upper folder you can run cd **../**, one dot specify the current directory and two dots specify the upper directory, so if you are at **/var/log/** run the **cd..** will take you to /var folder
+
+**mv** - this command help to mv file from one lication to another, and also used for changing file name.
+
+**rm** - remove some file. please note to noe use the command **rm -rf /**, the / alone in the linux world is the root folder which contain everything on your system, so this is why that command are dangers.
+
+[![OSCP Post](https://vangogh.teespring.com/v3/image/0nKMdAhpyAR8FA56MjCnK-UUXFE/480/560.jpg)](https://teespring.com/linux-dont-drink-and-root-tshi "Buy This TSHIRT")
+**Figure 9** Don't drink and drive.
+
+**mkdir** - create new folder.
+
+**cat** - print all of the file contents on the screen.
+
+**more** - the same as cat but with more you can control the view speed, and read line by line.
+
+**head** - print the first line of file on the screen.
+
+**grep** - search for specific string, if you run cat on some file and want only to see every line that contain **machine** word, then grep can help you, you just need to pip it and write what you wanna search.
+
+```
+cat /var/sys/file.log | grep '2019/04'
+```

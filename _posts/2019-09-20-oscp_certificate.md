@@ -32,12 +32,27 @@ After you finish the exams, which are made up of a lab that has a number of boxe
 
 In short, this year it is time to do this certification and not give up until I finish the whole book. There is a booklet that goes around the Internet, if you are interested in the booklet and you do not find it, email me and I will send the booklet to you.
 
+- [Chapter 1](#chapter-1)
+- [Chapter 2](#chapter-2)
+- [Chapter 3](#chapter-3)
+- [Chapter 4](#chapter-4)
+- [Chapter 5](#chapter-5)
+- [Chapter 6](#chapter-6)
+- [Chapter 7](#chapter-7)
+- [Chapter 8](#chapter-8)
+- [Chapter 9](#chapter-9)
+- [Chapter 10](#chapter-10)
+- [Chapter 11](#chapter-11)
+- [Chapter 12](#chapter-12)
+
+
 
 In this post I will present my studies and maybe later I will make some videos that show how things work. Important to remember, reading this post requires basic Linux knowledge, browser familiarity, HTML & CSS / JS, computer communication, familiarization with security solutions, and knowledge of Internet usage. If there is something you read and do not understand I recommend searching Google and coming back to read the post after that, I try to expand on everything I present here, but there are things I do not want to overlook.
 
 If you are familiar with Linux, getting started with the material will be easy for you, if not then it is better to get acquainted with the Linux operating system and return here to continue learning. In this course we deal a lot with the Kali operating system which is Linux based and very similar to Debian.
 
-# Chapter 1 - Let's start over
+# Chapter 1
+# Let's get started
 
 Kali contains a lot of tools for performing attacks or planning actions and the Ofer work with it is no different than any Linux system that exists. So let's get started
 
@@ -176,7 +191,7 @@ JS works in the same way only that for use it we use the `id` option instead of 
 
 Before we move on, I recommend reading some of these topics a bit or seeing a video that talks about them and come back here and keep going. If you have come to challenge yourself and you do not know these concepts, continue to the upcoming challenge.
 
-## Challenges
+## Challenges 1.1
 
 1. You need to bring up some webpage on your local PC using apache2.
 2. The web page need to use other port that 80.
@@ -330,13 +345,14 @@ After I finish all, it's the time to check if we can use the SSH link to bring u
 **Figure 39** ssh connection opened up.
 
 
-**Summary:** Knowing how to operate a computer is very important in the Offensive world, it is important to know just a few areas, to know Linux and Windows, how network protocols work, how to build a website, how to connect from one app to another, and find a way to help us achieve what we want. . Most importantly, if there is something that we do not know how to do, we have tools to find it, such as searching Google, reading articles or guides on the same topic and connecting all the things we need, this is the logic of the world. -Offensive in my opinion, should be a little sophisticated, we will see this logic later, it requires us to be smart and think a few steps ahead to succeed in the intrusion testing mission.
+**Summary:** Knowing how to operate a computer is very important in the Offensive world, it is important to know many tech areas, like how Linux and Windows operate, how network protocols work, how to build a website, how to link direct from one app to another, and find a way to help us achieve what we want. Most importantly, if there is something that we do not know how to accomplish it, we have tools to find it, such as searching Google, reading articles or guides on the same topic and connecting all the things we need together, this is the logic of the Offensive world in my opinion, should be a little sophisticated, we will see this logic later, it requires us to be smart and think a few steps ahead to succeed in the penetration testing mission.
 
 ![sql-injection-044.png](/assets/images/sql-injection-044.png)
 **Figure 44** GAME OVER.
 
 
-# Chapter 2 - Get comfortable with Linux
+# Chapter 2
+# Get comfortable with Linux
 
 Because we are going to use a lot of Kali Linux it is a good idea to be with strong knowledge using this operating system. And there is nothing like getting to know the operating system as well as you know its command line. The Linux language used in the terminal is **bash** and there are many commands that can help us to do such and other manipulations in the system to get what we want.
 
@@ -469,5 +485,56 @@ After I have list of address, I want to see only IPv4 address, so now I am going
 
 ![OSCP Post](/assets/images/oscp/forloop2.png)
 **Figure 47** For loop with other bash commands.
+
+## [Challenges 2.1](#challenges2.1)
+
+1. Write script in bash that check on you network how is connected.
+2. Write the same script, but this time in other scripting language (like nodeJS or Python)
+3. Check if there is a different between the output of your scripts.
+4. If you find differences, verify them and fix them.
+
+### 1. Write a bash ping script
+
+I came up with the following bash script, it check with ifconfig the network address and ping every host on that network, if that host respond the script print on the screen the network address and tell us if is **live** or **dead**.
+
+![OSCP Post](/assets/images/oscp/bashscript.png)
+**Figure 48** bash ping script.
+
+In my case you can see that I have replay from 172.16.0.1/10/14, which  mean that thay are connected and working on my local network.
+
+### 2. Write the same script in Python.
+
+I write the script in python and I hade some issue with it to get it work, after little time I figure it out and import the **os.popen** to halp my to run some bash commands from Python. this time I done some popup for user can insert his network ip address.
+
+![OSCP Post](/assets/images/oscp/pythonscript.png)
+**Figure 48** Python ping script.
+
+As you can see only one replay I have in that case which is 172.16.0.14.
+
+### 3. Check the differences between the scripts.
+
+Indeed there is some different between that, because on the first script which are bash script I get respond from machine 1, 10 and 14, which the Python one I have only respond from the 172.16.0.14 address, so it's time to check it out.
+
+On the first look I thought that on the bash I write to wait a few seconds to decide if the ping worked or not, but there isn't different in that section between my scripts.
+
+![OSCP Post](/assets/images/oscp/bashandpython1.png)
+**Figure 49** Checking the wait time on the ping command.
+
+On a second look, I saw that there was a difference in the sentences if & else I wrote the scripts, on the bash I told him to check the respond and if it isn't 100% loss than that machine are alive to echo out **is a live**, on the python however, I told him to check if there is a 0% loss - this is mean that this machine **is a live**.
+
+The difference between the two is huge, because if I have more than 0% loss but not 100%, then in the first script the machine will be marked as live, and in the second script, in Python, the machine will be marked as dead.
+
+![OSCP Post](/assets/images/oscp/bashandpython2.png)
+**Figure 49** The difference between the two scripts.
+
+### 4. Fix the difference.
+
+To fix that, I need in my Python script, changing the condition on the if statement, only if there is no 100% loss, than the machine are alive, else it's dead.
+
+![OSCP Post](/assets/images/oscp/bashping2.png)
+![OSCP Post](/assets/images/oscp/pythonping2.png)
+
+I'm guessing that both address 1 and 14 do not respond because it is late and people at this time leave home so these addresses are really unavailable. But you can see that in both scripts both addresses 10 and 17 respond to Ping. So we succeeded in our challenge.
+
 
 **Summary:** It is important to know how to work with the bash command line and get to know its environment. Writing scripts can greatly help before or during an penetration test, such as preparing a work plan that will include some pre-built scripts that should help us obtain certain information or manipulate a network that will in some way Users take involuntary actions so that we can obtain confidential or sensitive information.

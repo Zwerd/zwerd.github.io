@@ -150,6 +150,32 @@ After that, if you want you can see the web you are hosting on you computer by u
 ![OSCP Post](/assets/images/oscp/apache2site.png)
 **Figure 17** apache2 Service.
 
+## Web Ingredients.
+
+Most of the elements on which many sites are based in the Internet space are: HTML, CSS, JavaScript. Each site contains HTML code, which allows us to choose the style of our text, size, position, hierarchy, etc. At CSS we use to get a more interesting look, change image sizes, add colors, create different font and font sizes, and even build tables, these two components actually make us the body of the virtual machine we created. And here's where JS came into the picture. JS puts far beyond the font or color, is the brain behind our virtual machine, you can make moving images with it, change colors, change font or background sizes, do it automatically by a few seconds or when the user moves the mouse over the background, it all depends You set him up to do.
+
+Since I'm only at the beginning, we won't go into the depth of things, much of what you need to know right now if you don't know HTML is its structure. The HTML is made up of tags just like XML files, we can find inside <html> </html> when the first one opens the document and the last one closes it, all the difference is the small slash **/**. Information that should be hidden from the user's eyes such as a CSS style or a JS file that should be loaded while the page is running will all be written between the <head> </head> tags. Information that the user should see will appear mainly in the <body> </body> document.
+
+There are many other types of tags, such as <img> that we use to insert an image into the HTML page, or the `<a href="/some/url/path"> text <a>` used to create a link that, if clicked, will take us to the url we placed in href, there is the `<p> </p>` used by us to create a paragraph and many other types that can be used by us.
+
+It is important to know that for each tag we want the CSS to handle we will use the example class
+```
+<p class = "paragraph"> this is test <p>
+```
+
+In fact, if we called CSS through a file or we used <style> tags and put something in style there:
+```
+.paragraph {
+font-size: 10px;
+color: green;
+}
+```
+The same text that will be written inside the paragraph we created will be 10 pixels in size and green.
+
+JS works in the same way only that for use it we use the `id` option instead of class
+
+Before we move on, I recommend reading some of these topics a bit or seeing a video that talks about them and come back here and keep going. If you have come to challenge yourself and you do not know these concepts, continue to the upcoming challenge.
+
 ## Challenges
 
 1. You need to bring up some webpage on your local PC using apache2.
@@ -304,6 +330,12 @@ After I finish all, it's the time to check if we can use the SSH link to bring u
 **Figure 39** ssh connection opened up.
 
 
+**Summary:** Knowing how to operate a computer is very important in the Offensive world, it is important to know just a few areas, to know Linux and Windows, how network protocols work, how to build a website, how to connect from one app to another, and find a way to help us achieve what we want. . Most importantly, if there is something that we do not know how to do, we have tools to find it, such as searching Google, reading articles or guides on the same topic and connecting all the things we need, this is the logic of the world. -Offensive in my opinion, should be a little sophisticated, we will see this logic later, it requires us to be smart and think a few steps ahead to succeed in the intrusion testing mission.
+
+![sql-injection-044.png](/assets/images/sql-injection-044.png)
+**Figure 44** GAME OVER.
+
+
 # Chapter 2 - Get comfortable with Linux
 
 Because we are going to use a lot of Kali Linux it is a good idea to be with strong knowledge using this operating system. And there is nothing like getting to know the operating system as well as you know its command line. The Linux language used in the terminal is **bash** and there are many commands that can help us to do such and other manipulations in the system to get what we want.
@@ -312,7 +344,11 @@ Because we are going to use a lot of Kali Linux it is a good idea to be with str
 
 There is a lot of linux command line that I used daily, and the following list are what can help you to operate with Kali and get comfortable with it.
 
+**sudo** - sudo it the way for us to run some code on administrator privilege mode which use root user.
+
 **pwd** - will bring you the current directory.
+
+**echo** - used for print thing on the screen, like variable the saved on the memory to check what it their value or such.
 
 **cd** - change directory, you will use this command to change your current directory, in the most cases if you want to get out from some directory to it's upper folder you can run cd **../**, one dot specify the current directory and two dots specify the upper directory, so if you are at **/var/log/** run the **cd..** will take you to /var folder
 
@@ -321,7 +357,7 @@ There is a lot of linux command line that I used daily, and the following list a
 **rm** - remove some file. please note to noe use the command **rm -rf /**, the / alone in the linux world is the root folder which contain everything on your system, so this is why that command are dangers.
 
 [![OSCP Post](https://vangogh.teespring.com/v3/image/0nKMdAhpyAR8FA56MjCnK-UUXFE/480/560.jpg)](https://teespring.com/linux-dont-drink-and-root-tshi "Buy This TSHIRT")
-**Figure 9** Don't drink and drive.
+**Figure 40** Don't drink and drive.
 
 **mkdir** - create new folder.
 
@@ -336,3 +372,102 @@ There is a lot of linux command line that I used daily, and the following list a
 ```
 cat /var/sys/file.log | grep '2019/04'
 ```
+
+**wget** - this command is non-interactive network downloader which means that we can use this command to download something from the Internet on the command line.
+
+**cat** - used for cut a part of string, display it or display the string without the cuted part.
+
+**sort** - used for sort some list we want to display.
+
+**uniq** - display multiple string that repeat it self as uniq with a number of how many times this been repeated.
+
+**man** - if you ever need to know how some command work and what is the option for this command, you can check it with man page.
+
+## Script with bash
+
+As you are supposed to know so far, the commands I have presented are used in bash language, which means that if we write some script there is a mode that we will use one of these commands.
+
+When talking about scripts we often use repetitive things, that is, if you know Python or JavaScript it already gives you a good basis for programming language in general and scripting language in particular, the principles are repeated in every language, only that each language has its uniqueness and each language usually brings A logical part that is not found in another language, after all that is the reason why there are so many languages.
+
+If you have already programmed in the past, you probably know what Boolean value is, what is function, if & else queries, loops and many other repetitive things in programming languages, if you do not know then there is nothing to stress, it means it is time to learn and if you have already started Linux, then enter the bash world.
+
+I think the best way to learn about bash is to read some articles or watch a video on the subject and then do some challenges to help you get better and understand how it really works, a site I can recommend is [hackerrank](https://www.hackerrank.com/domains/shell), where you can find interesting challenges.
+
+If you have completed a number of challenges and returned here to move forward or if you already know how to write your own scripts, let's see how it can be used to find information, or even sensitive information that we can later use to perform some action as part of an intrusion test.
+
+Let's say we want information from the CheckPoint site, and we want to take out all the links or URLs that appear on their main page, convert them to addresses, and print those IP's on the screen with a display on each address how many times it repeats.
+
+The first step is to use wget to get the index.html of CheckPoint site.
+
+```
+wget www.checkpoint.com
+```
+
+On the current directory we will find new index.html file that we going to manipulate and use grep to get out the information that we need from that file.
+
+```
+grep "href=" index.html
+```
+
+![OSCP Post](/assets/images/oscp/grephref.png)
+**Figure 41** grep the href.
+
+Now we want to take every line that contain href and display only the like that specify, to do so we can use href.
+
+```
+grep "href=" index.html | cut -d "/" -f 3
+```
+
+![OSCP Post](/assets/images/oscp/grepwithcut.png)
+**Figure 42** grep with cut.
+
+The problem so far is that we can get on our list unwanted string like as follow:
+```
+leadership
+investor-relations
+">Press Releases<
+news-coverage
+careers.checkpoint.com
+contact-us
+www.facebook.com
+twitter.com
+www.linkedin.com
+goo.gl
+">Copyright<
+privacy
+a><br>
+```
+
+So we need only domain name, to do so we going to use grep again for print out only string that contain dot **.**.
+
+```
+grep "href=" index.html | cut -d "/" -f 3 | grep "\."
+```
+
+![OSCP Post](/assets/images/oscp/grepagain.png)
+**Figure 43** grep the dot from the list.
+
+The issue we have now is that we have some line that contain chars like **>** and so. What we knew that every href link ended up with quotation marks, so we can use it to cut out that string. We also want to sort it by Alpha beta.
+
+```
+grep "href=" index.html | cut -d "/" -f 3 | grep "\." | cut -d '"' -f 1 | sort -u
+```
+![OSCP Post](/assets/images/oscp/sortthelist.png)
+**Figure 44** sort all.
+
+Now we wanna to to check every domain address what is his IP address, first of all becouse we wnat at the end to view how much address repeat itself - this is why I remove sort. I direct the output to file named list.txt, and after that we will manipulate that file to get the IP's of every domain.
+
+![OSCP Post](/assets/images/oscp/redirect.png)
+**Figure 45** Redirect the output to list file.
+
+Now it's time to find the IP's of each domain, I'm going to use bash script with for loop that check out every domain name and that check with the **host** command what is the address.
+
+![OSCP Post](/assets/images/oscp/forloop.png)
+**Figure 46** For loop.
+
+After I have list of address, I want to see only IPv4 address, so now I am going to use grep again and pull out only the addresses I needed with cut command. Also I will check uniqueness on this list and check out how many time every address repeat itself.
+
+![OSCP Post](/assets/images/oscp/forloop2.png)
+**Figure 47** For loop with other bash commands.
+
+**Summary:** It is important to know how to work with the bash command line and get to know its environment. Writing scripts can greatly help before or during an penetration test, such as preparing a work plan that will include some pre-built scripts that should help us obtain certain information or manipulate a network that will in some way Users take involuntary actions so that we can obtain confidential or sensitive information.

@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.5">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2019-11-04T17:16:29+02:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Zwerd</title><subtitle>A stunning blog of freaking PT warrior</subtitle><author><name>Guy Zwerdling</name></author><entry><title type="html">OSCP Certification Journey</title><link href="http://localhost:4000/2019/09/20/oscp_certificate.html" rel="alternate" type="text/html" title="OSCP Certification Journey" /><published>2019-09-20T00:00:00+03:00</published><updated>2019-09-20T00:00:00+03:00</updated><id>http://localhost:4000/2019/09/20/oscp_certificate</id><content type="html" xml:base="http://localhost:4000/2019/09/20/oscp_certificate.html">&lt;p&gt;I set myself a lot of goals this year to advance to the next level, among all the goals being the OSCP certification from Offensive Security. It’s been a certification I’ve been talking about for years, since 2012, it’s really time to sit down and do that certification. It all started when I was writing in a forum on computer communications, where I presented the dilemma, whether to study information security of companies that are involved in the field or something else when my goal is to be an expert in the cyber world.&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.5">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2019-11-06T14:04:47+02:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Zwerd</title><subtitle>A stunning blog of freaking PT warrior</subtitle><author><name>Guy Zwerdling</name></author><entry><title type="html">OSCP Certification Journey</title><link href="http://localhost:4000/2019/09/20/oscp_certificate.html" rel="alternate" type="text/html" title="OSCP Certification Journey" /><published>2019-09-20T00:00:00+03:00</published><updated>2019-09-20T00:00:00+03:00</updated><id>http://localhost:4000/2019/09/20/oscp_certificate</id><content type="html" xml:base="http://localhost:4000/2019/09/20/oscp_certificate.html">&lt;p&gt;I set myself a lot of goals this year to advance to the next level, among all the goals being the OSCP certification from Offensive Security. It’s been a certification I’ve been talking about for years, since 2012, it’s really time to sit down and do that certification. It all started when I was writing in a forum on computer communications, where I presented the dilemma, whether to study information security of companies that are involved in the field or something else when my goal is to be an expert in the cyber world.&lt;/p&gt;
 
 &lt;p&gt;Eventually, someone responded to me, depending on what I want to learn, whether I want to be on the attacker or on the defensive side, he introduced a number of certifications and wrote about each certification separately. Among all the certifications he presented were Cisco certificates, Check Point certificates, and all sorts of large companies that manufacture and market security sites that protect the entire corporate network.&lt;/p&gt;
 
@@ -23,7 +23,7 @@
 
 &lt;p&gt;If you are familiar with Linux, getting started with the material will be easy for you, if not then it is better to get acquainted with the Linux operating system and return here to continue learning. In this course we deal a lot with the Kali operating system which is Linux based and very similar to Debian.&lt;/p&gt;
 
-&lt;p&gt;#Chapter 1 - Get comfortable with Linux&lt;/p&gt;
+&lt;h1 id=&quot;chapter-1---lets-start-over&quot;&gt;Chapter 1 - Let’s start over&lt;/h1&gt;
 
 &lt;p&gt;Kali contains a lot of tools for performing attacks or planning actions and the Ofer work with it is no different than any Linux system that exists. So let’s get started&lt;/p&gt;
 
@@ -74,34 +74,6 @@ password: toor&lt;/strong&gt;&lt;/p&gt;
 
 &lt;p&gt;&lt;img src=&quot;/assets/images/oscp/passwd.png&quot; alt=&quot;OSCP Post&quot; /&gt;
 &lt;strong&gt;Figure 9&lt;/strong&gt; passwd command.&lt;/p&gt;
-
-&lt;h2 id=&quot;commands-you-must-to-know&quot;&gt;Commands you must to know&lt;/h2&gt;
-
-&lt;p&gt;There is a lot of linux command line that I used daily, and the following list are what can help you to operate with Kali and get comfortable with it.&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;pwd&lt;/strong&gt; - will bring you the current directory.&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;cd&lt;/strong&gt; - change directory, you will use this command to change your current directory, in the most cases if you want to get out from some directory to it’s upper folder you can run cd &lt;strong&gt;../&lt;/strong&gt;, one dot specify the current directory and two dots specify the upper directory, so if you are at &lt;strong&gt;/var/log/&lt;/strong&gt; run the &lt;strong&gt;cd..&lt;/strong&gt; will take you to /var folder&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;mv&lt;/strong&gt; - this command help to mv file from one lication to another, and also used for changing file name.&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;rm&lt;/strong&gt; - remove some file. please note to noe use the command &lt;strong&gt;rm -rf /&lt;/strong&gt;, the / alone in the linux world is the root folder which contain everything on your system, so this is why that command are dangers.&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&quot;https://teespring.com/linux-dont-drink-and-root-tshi&quot; title=&quot;Buy This TSHIRT&quot;&gt;&lt;img src=&quot;https://vangogh.teespring.com/v3/image/0nKMdAhpyAR8FA56MjCnK-UUXFE/480/560.jpg&quot; alt=&quot;OSCP Post&quot; /&gt;&lt;/a&gt;
-&lt;strong&gt;Figure 9&lt;/strong&gt; Don’t drink and drive.&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;mkdir&lt;/strong&gt; - create new folder.&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;cat&lt;/strong&gt; - print all of the file contents on the screen.&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;more&lt;/strong&gt; - the same as cat but with more you can control the view speed, and read line by line.&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;head&lt;/strong&gt; - print the first line of file on the screen.&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;grep&lt;/strong&gt; - search for specific string, if you run cat on some file and want only to see every line that contain &lt;strong&gt;machine&lt;/strong&gt; word, then grep can help you, you just need to pip it and write what you wanna search.&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;cat /var/sys/file.log | grep '2019/04'
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;h2 id=&quot;telnet&quot;&gt;telnet&lt;/h2&gt;
 
@@ -157,6 +129,30 @@ password: toor&lt;/strong&gt;&lt;/p&gt;
 
 &lt;p&gt;&lt;img src=&quot;/assets/images/oscp/apache2site.png&quot; alt=&quot;OSCP Post&quot; /&gt;
 &lt;strong&gt;Figure 17&lt;/strong&gt; apache2 Service.&lt;/p&gt;
+
+&lt;h2 id=&quot;web-ingredients&quot;&gt;Web Ingredients.&lt;/h2&gt;
+
+&lt;p&gt;Most of the elements on which many sites are based in the Internet space are: HTML, CSS, JavaScript. Each site contains HTML code, which allows us to choose the style of our text, size, position, hierarchy, etc. At CSS we use to get a more interesting look, change image sizes, add colors, create different font and font sizes, and even build tables, these two components actually make us the body of the virtual machine we created. And here’s where JS came into the picture. JS puts far beyond the font or color, is the brain behind our virtual machine, you can make moving images with it, change colors, change font or background sizes, do it automatically by a few seconds or when the user moves the mouse over the background, it all depends You set him up to do.&lt;/p&gt;
+
+&lt;p&gt;Since I’m only at the beginning, we won’t go into the depth of things, much of what you need to know right now if you don’t know HTML is its structure. The HTML is made up of tags just like XML files, we can find inside &amp;lt;html&amp;gt; &amp;lt;/html&amp;gt; when the first one opens the document and the last one closes it, all the difference is the small slash &lt;strong&gt;/&lt;/strong&gt;. Information that should be hidden from the user’s eyes such as a CSS style or a JS file that should be loaded while the page is running will all be written between the &amp;lt;head&amp;gt; &amp;lt;/head&amp;gt; tags. Information that the user should see will appear mainly in the &amp;lt;body&amp;gt; &amp;lt;/body&amp;gt; document.&lt;/p&gt;
+
+&lt;p&gt;There are many other types of tags, such as &lt;img /&gt; that we use to insert an image into the HTML page, or the &lt;code class=&quot;highlighter-rouge&quot;&gt;&amp;lt;a href=&quot;/some/url/path&quot;&amp;gt; text &amp;lt;a&amp;gt;&lt;/code&gt; used to create a link that, if clicked, will take us to the url we placed in href, there is the &lt;code class=&quot;highlighter-rouge&quot;&gt;&amp;lt;p&amp;gt; &amp;lt;/p&amp;gt;&lt;/code&gt; used by us to create a paragraph and many other types that can be used by us.&lt;/p&gt;
+
+&lt;p&gt;It is important to know that for each tag we want the CSS to handle we will use the example class&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&amp;lt;p class = &quot;paragraph&quot;&amp;gt; this is test &amp;lt;p&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;In fact, if we called CSS through a file or we used &lt;style&gt; tags and put something in style there:&lt;/style&gt;&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;.paragraph {
+font-size: 10px;
+color: green;
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;The same text that will be written inside the paragraph we created will be 10 pixels in size and green.&lt;/p&gt;
+
+&lt;p&gt;JS works in the same way only that for use it we use the &lt;code class=&quot;highlighter-rouge&quot;&gt;id&lt;/code&gt; option instead of class&lt;/p&gt;
+
+&lt;p&gt;Before we move on, I recommend reading some of these topics a bit or seeing a video that talks about them and come back here and keep going. If you have come to challenge yourself and you do not know these concepts, continue to the upcoming challenge.&lt;/p&gt;
 
 &lt;h2 id=&quot;challenges&quot;&gt;Challenges&lt;/h2&gt;
 
@@ -307,7 +303,141 @@ password: toor&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;After I finish all, it’s the time to check if we can use the SSH link to bring up ssh session to our remote lab machine, which in my case is my &lt;strong&gt;zwerd ubuntu&lt;/strong&gt;.&lt;/p&gt;
 
 &lt;p&gt;&lt;img src=&quot;/assets/images/oscp/exc1-24.gif&quot; alt=&quot;OSCP Post&quot; /&gt;
-&lt;strong&gt;Figure 39&lt;/strong&gt; ssh connection opened up.&lt;/p&gt;</content><author><name>Guy Zwerdling</name></author><category term="Pentest" /><summary type="html">I set myself a lot of goals this year to advance to the next level, among all the goals being the OSCP certification from Offensive Security. It's been a certification I've been talking about for years, since 2012, it's really time to sit down and do that certification. It all started when I was writing in a forum on computer communications, where I presented the dilemma, whether to study information security of companies that are involved in the field or something else when my goal is to be an expert in the cyber world.</summary></entry><entry><title type="html">MyGmach - My New Open Source App (react native app)</title><link href="http://localhost:4000/2019/02/17/new_open_source_app.html" rel="alternate" type="text/html" title="MyGmach - My New Open Source App (react native app)" /><published>2019-02-17T00:00:00+02:00</published><updated>2019-02-17T00:00:00+02:00</updated><id>http://localhost:4000/2019/02/17/new_open_source_app</id><content type="html" xml:base="http://localhost:4000/2019/02/17/new_open_source_app.html">&lt;p&gt;At last I finish another application using React Native for native mobile apps using JavaScript and React, the first one was NachRiddles which is base on my dear brother’s book. MyGmach app is build base on my father idea. Every Saturday my dear brother used to wear a certain tie that was unique to the parsha on that Shabbat. After he passed, my father wanted to open tie Gmach - which is the way in the Jewish world to help each other without getting paid (in Hebrew it is an acronym for kindness which is pronounced Gemilot Hassadim [‘גמילות חסדים’]), and give anyone tie as needed.&lt;/p&gt;
+&lt;strong&gt;Figure 39&lt;/strong&gt; ssh connection opened up.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Summary:&lt;/strong&gt; Knowing how to operate a computer is very important in the Offensive world, it is important to know just a few areas, to know Linux and Windows, how network protocols work, how to build a website, how to connect from one app to another, and find a way to help us achieve what we want. . Most importantly, if there is something that we do not know how to do, we have tools to find it, such as searching Google, reading articles or guides on the same topic and connecting all the things we need, this is the logic of the world. -Offensive in my opinion, should be a little sophisticated, we will see this logic later, it requires us to be smart and think a few steps ahead to succeed in the intrusion testing mission.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/sql-injection-044.png&quot; alt=&quot;sql-injection-044.png&quot; /&gt;
+&lt;strong&gt;Figure 44&lt;/strong&gt; GAME OVER.&lt;/p&gt;
+
+&lt;h1 id=&quot;chapter-2---get-comfortable-with-linux&quot;&gt;Chapter 2 - Get comfortable with Linux&lt;/h1&gt;
+
+&lt;p&gt;Because we are going to use a lot of Kali Linux it is a good idea to be with strong knowledge using this operating system. And there is nothing like getting to know the operating system as well as you know its command line. The Linux language used in the terminal is &lt;strong&gt;bash&lt;/strong&gt; and there are many commands that can help us to do such and other manipulations in the system to get what we want.&lt;/p&gt;
+
+&lt;h2 id=&quot;commands-you-must-to-know&quot;&gt;Commands you must to know&lt;/h2&gt;
+
+&lt;p&gt;There is a lot of linux command line that I used daily, and the following list are what can help you to operate with Kali and get comfortable with it.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;sudo&lt;/strong&gt; - sudo it the way for us to run some code on administrator privilege mode which use root user.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;pwd&lt;/strong&gt; - will bring you the current directory.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;echo&lt;/strong&gt; - used for print thing on the screen, like variable the saved on the memory to check what it their value or such.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;cd&lt;/strong&gt; - change directory, you will use this command to change your current directory, in the most cases if you want to get out from some directory to it’s upper folder you can run cd &lt;strong&gt;../&lt;/strong&gt;, one dot specify the current directory and two dots specify the upper directory, so if you are at &lt;strong&gt;/var/log/&lt;/strong&gt; run the &lt;strong&gt;cd..&lt;/strong&gt; will take you to /var folder&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;mv&lt;/strong&gt; - this command help to mv file from one lication to another, and also used for changing file name.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;rm&lt;/strong&gt; - remove some file. please note to noe use the command &lt;strong&gt;rm -rf /&lt;/strong&gt;, the / alone in the linux world is the root folder which contain everything on your system, so this is why that command are dangers.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://teespring.com/linux-dont-drink-and-root-tshi&quot; title=&quot;Buy This TSHIRT&quot;&gt;&lt;img src=&quot;https://vangogh.teespring.com/v3/image/0nKMdAhpyAR8FA56MjCnK-UUXFE/480/560.jpg&quot; alt=&quot;OSCP Post&quot; /&gt;&lt;/a&gt;
+&lt;strong&gt;Figure 40&lt;/strong&gt; Don’t drink and drive.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;mkdir&lt;/strong&gt; - create new folder.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;cat&lt;/strong&gt; - print all of the file contents on the screen.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;more&lt;/strong&gt; - the same as cat but with more you can control the view speed, and read line by line.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;head&lt;/strong&gt; - print the first line of file on the screen.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;grep&lt;/strong&gt; - search for specific string, if you run cat on some file and want only to see every line that contain &lt;strong&gt;machine&lt;/strong&gt; word, then grep can help you, you just need to pip it and write what you wanna search.&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;cat /var/sys/file.log | grep '2019/04'
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;strong&gt;wget&lt;/strong&gt; - this command is non-interactive network downloader which means that we can use this command to download something from the Internet on the command line.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;cat&lt;/strong&gt; - used for cut a part of string, display it or display the string without the cuted part.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;sort&lt;/strong&gt; - used for sort some list we want to display.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;uniq&lt;/strong&gt; - display multiple string that repeat it self as uniq with a number of how many times this been repeated.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;man&lt;/strong&gt; - if you ever need to know how some command work and what is the option for this command, you can check it with man page.&lt;/p&gt;
+
+&lt;h2 id=&quot;script-with-bash&quot;&gt;Script with bash&lt;/h2&gt;
+
+&lt;p&gt;As you are supposed to know so far, the commands I have presented are used in bash language, which means that if we write some script there is a mode that we will use one of these commands.&lt;/p&gt;
+
+&lt;p&gt;When talking about scripts we often use repetitive things, that is, if you know Python or JavaScript it already gives you a good basis for programming language in general and scripting language in particular, the principles are repeated in every language, only that each language has its uniqueness and each language usually brings A logical part that is not found in another language, after all that is the reason why there are so many languages.&lt;/p&gt;
+
+&lt;p&gt;If you have already programmed in the past, you probably know what Boolean value is, what is function, if &amp;amp; else queries, loops and many other repetitive things in programming languages, if you do not know then there is nothing to stress, it means it is time to learn and if you have already started Linux, then enter the bash world.&lt;/p&gt;
+
+&lt;p&gt;I think the best way to learn about bash is to read some articles or watch a video on the subject and then do some challenges to help you get better and understand how it really works, a site I can recommend is &lt;a href=&quot;https://www.hackerrank.com/domains/shell&quot;&gt;hackerrank&lt;/a&gt;, where you can find interesting challenges.&lt;/p&gt;
+
+&lt;p&gt;If you have completed a number of challenges and returned here to move forward or if you already know how to write your own scripts, let’s see how it can be used to find information, or even sensitive information that we can later use to perform some action as part of an intrusion test.&lt;/p&gt;
+
+&lt;p&gt;Let’s say we want information from the CheckPoint site, and we want to take out all the links or URLs that appear on their main page, convert them to addresses, and print those IP’s on the screen with a display on each address how many times it repeats.&lt;/p&gt;
+
+&lt;p&gt;The first step is to use wget to get the index.html of CheckPoint site.&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;wget www.checkpoint.com
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;On the current directory we will find new index.html file that we going to manipulate and use grep to get out the information that we need from that file.&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;grep &quot;href=&quot; index.html
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/oscp/grephref.png&quot; alt=&quot;OSCP Post&quot; /&gt;
+&lt;strong&gt;Figure 41&lt;/strong&gt; grep the href.&lt;/p&gt;
+
+&lt;p&gt;Now we want to take every line that contain href and display only the like that specify, to do so we can use href.&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;grep &quot;href=&quot; index.html | cut -d &quot;/&quot; -f 3
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/oscp/grepwithcut.png&quot; alt=&quot;OSCP Post&quot; /&gt;
+&lt;strong&gt;Figure 42&lt;/strong&gt; grep with cut.&lt;/p&gt;
+
+&lt;p&gt;The problem so far is that we can get on our list unwanted string like as follow:&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;leadership
+investor-relations
+&quot;&amp;gt;Press Releases&amp;lt;
+news-coverage
+careers.checkpoint.com
+contact-us
+www.facebook.com
+twitter.com
+www.linkedin.com
+goo.gl
+&quot;&amp;gt;Copyright&amp;lt;
+privacy
+a&amp;gt;&amp;lt;br&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;So we need only domain name, to do so we going to use grep again for print out only string that contain dot &lt;strong&gt;.&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;grep &quot;href=&quot; index.html | cut -d &quot;/&quot; -f 3 | grep &quot;\.&quot;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/oscp/grepagain.png&quot; alt=&quot;OSCP Post&quot; /&gt;
+&lt;strong&gt;Figure 43&lt;/strong&gt; grep the dot from the list.&lt;/p&gt;
+
+&lt;p&gt;The issue we have now is that we have some line that contain chars like &lt;strong&gt;&amp;gt;&lt;/strong&gt; and so. What we knew that every href link ended up with quotation marks, so we can use it to cut out that string. We also want to sort it by Alpha beta.&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;grep &quot;href=&quot; index.html | cut -d &quot;/&quot; -f 3 | grep &quot;\.&quot; | cut -d '&quot;' -f 1 | sort -u
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/images/oscp/sortthelist.png&quot; alt=&quot;OSCP Post&quot; /&gt;
+&lt;strong&gt;Figure 44&lt;/strong&gt; sort all.&lt;/p&gt;
+
+&lt;p&gt;Now we wanna to to check every domain address what is his IP address, first of all becouse we wnat at the end to view how much address repeat itself - this is why I remove sort. I direct the output to file named list.txt, and after that we will manipulate that file to get the IP’s of every domain.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/oscp/redirect.png&quot; alt=&quot;OSCP Post&quot; /&gt;
+&lt;strong&gt;Figure 45&lt;/strong&gt; Redirect the output to list file.&lt;/p&gt;
+
+&lt;p&gt;Now it’s time to find the IP’s of each domain, I’m going to use bash script with for loop that check out every domain name and that check with the &lt;strong&gt;host&lt;/strong&gt; command what is the address.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/oscp/forloop.png&quot; alt=&quot;OSCP Post&quot; /&gt;
+&lt;strong&gt;Figure 46&lt;/strong&gt; For loop.&lt;/p&gt;
+
+&lt;p&gt;After I have list of address, I want to see only IPv4 address, so now I am going to use grep again and pull out only the addresses I needed with cut command. Also I will check uniqueness on this list and check out how many time every address repeat itself.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/oscp/forloop2.png&quot; alt=&quot;OSCP Post&quot; /&gt;
+&lt;strong&gt;Figure 47&lt;/strong&gt; For loop with other bash commands.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Summary:&lt;/strong&gt; It is important to know how to work with the bash command line and get to know its environment. Writing scripts can greatly help before or during an penetration test, such as preparing a work plan that will include some pre-built scripts that should help us obtain certain information or manipulate a network that will in some way Users take involuntary actions so that we can obtain confidential or sensitive information.&lt;/p&gt;</content><author><name>Guy Zwerdling</name></author><category term="Pentest" /><summary type="html">I set myself a lot of goals this year to advance to the next level, among all the goals being the OSCP certification from Offensive Security. It's been a certification I've been talking about for years, since 2012, it's really time to sit down and do that certification. It all started when I was writing in a forum on computer communications, where I presented the dilemma, whether to study information security of companies that are involved in the field or something else when my goal is to be an expert in the cyber world.</summary></entry><entry><title type="html">MyGmach - My New Open Source App (react native app)</title><link href="http://localhost:4000/2019/02/17/new_open_source_app.html" rel="alternate" type="text/html" title="MyGmach - My New Open Source App (react native app)" /><published>2019-02-17T00:00:00+02:00</published><updated>2019-02-17T00:00:00+02:00</updated><id>http://localhost:4000/2019/02/17/new_open_source_app</id><content type="html" xml:base="http://localhost:4000/2019/02/17/new_open_source_app.html">&lt;p&gt;At last I finish another application using React Native for native mobile apps using JavaScript and React, the first one was NachRiddles which is base on my dear brother’s book. MyGmach app is build base on my father idea. Every Saturday my dear brother used to wear a certain tie that was unique to the parsha on that Shabbat. After he passed, my father wanted to open tie Gmach - which is the way in the Jewish world to help each other without getting paid (in Hebrew it is an acronym for kindness which is pronounced Gemilot Hassadim [‘גמילות חסדים’]), and give anyone tie as needed.&lt;/p&gt;
 
 &lt;p&gt;After my father told me about is idea, I start to work on MyGmach to build an application that allow to manage privet foundation with items in it, so i wrote document about the functionality that I want to build in that application.&lt;/p&gt;
 

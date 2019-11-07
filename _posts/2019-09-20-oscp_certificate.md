@@ -191,7 +191,7 @@ JS works in the same way only that for use it we use the `id` option instead of 
 
 Before we move on, I recommend reading some of these topics a bit or seeing a video that talks about them and come back here and keep going. If you have come to challenge yourself and you do not know these concepts, continue to the upcoming challenge.
 
-## Challenges 1.1
+## Challenges 1
 
 1. You need to bring up some webpage on your local PC using apache2.
 2. The web page need to use other port that 80.
@@ -399,6 +399,48 @@ cat /var/sys/file.log | grep '2019/04'
 
 **man** - if you ever need to know how some command work and what is the option for this command, you can check it with man page.
 
+**>** -  output redirection, we use this sign most of the time to save output of some value from the command line to file. you can redirect for other purpose, but most of the time this use to get out the value to file. As example:
+
+
+![sql-injection-044.png](/assets/images/outputredirect.png)
+**Figure 44** Redirection.
+
+In that case I used redirect to output the echoed string to file. If this file are didn't exist, that it create it, if the file are exist, it overwrite it.
+
+
+## Advance redirection.
+
+Redirecting is divided into several options that exist in the bash world besides what we have seen so far
+
+**>** - Output redirection (STDOUT), as we already saw, this redirection used mostly to save output to file and it overwrite the same file if it already exist or he will create the file.
+
+**>>** - This redirection option is the same as the previous one, the only different is that this redirection doesn't overwrite existing file, but it adding the output to the existing file. if the file doesn't exist however, it create it.
+
+**<** - Input rediration (STDIN), this redirection take what you want to redirect and push it to some program you may have, as example, do you remember the ssh script we use in [Challenges 1](#challenges-1)? I changed it to support STDIN redirection and now we can run it as follow:
+```
+./script.sh < ssh.txt
+```
+On the ssh.txt you can find the line `ssh://172.16.0.180/`. To support STDIN I used `read` inside while loop, in this case it read the file line by line, each line are execute against my rest on the script which open ssh and run it with the url IP.
+
+![OSCP Post](/assets/images/oscp/STDINonsshscript.png)
+**Figure 50** My new STDIN ssh script.
+
+```
+#!/bin/bash
+while read url;
+do
+	protocol=${url//:*/}
+	machine=${url//*:\/\//}
+	machine=${machine%/}
+	echo 'connect to '$machine
+	/usr/bin/gnome-terminal -e "$protocol $machine"
+done
+
+```
+
+**2>** - Error redirect (STDERR), this is used to redirect the error out, lat's say that we run some program and this program will print on the screen some information, than it if have some error redirect it.
+
+
 ## Script with bash
 
 As you are supposed to know so far, the commands I have presented are used in bash language, which means that if we write some script there is a mode that we will use one of these commands.
@@ -486,7 +528,7 @@ After I have list of address, I want to see only IPv4 address, so now I am going
 ![OSCP Post](/assets/images/oscp/forloop2.png)
 **Figure 47** For loop with other bash commands.
 
-## [Challenges 2.1](#challenges2.1)
+## Challenges 2.1
 
 1. Write script in bash that check on you network how is connected.
 2. Write the same script, but this time in other scripting language (like nodeJS or Python)
@@ -497,14 +539,60 @@ After I have list of address, I want to see only IPv4 address, so now I am going
 
 I came up with the following bash script, it check with ifconfig the network address and ping every host on that network, if that host respond the script print on the screen the network address and tell us if is **live** or **dead**.
 
+
+```
+#!/bin/bash
+# take only the interface ip address and save the only 3 first octat
+ipaddr="$(ifconfig wlp2s0 | grep "inet " | cut -d "n" -f 2 | cut -d " " -f 2 | cut -d "." -f-3 | cut -d ":" -f2-)"
+for loop in $(seq 1 254);
+do
+  #save the output in variable for using it later on
+  # -q if for displayed the summary lines
+  # -n without lookup name
+  # -c ping only once
+  # -i interval set for 0.2 second
+  # -w deadline for response
+  pingo=$(ping -q -n -c 1 -i 0.2 -w 1 $ipaddr.$loop  | grep pack | cut -d "," -f 3);
+  if [ "$pingo" != ' 100% packet loss' ];
+    #\e[1m is for bold & \e[92m is for geen while \e[91m is red
+    then echo -e "\e[0m$ipaddr.$loop \e[1m\e[92mis a live"
+  else
+    echo -e "\e[0m$ipaddr.$loop \e[1m\e[91mis dead"
+  fi;
+done;
+```
+
 ![OSCP Post](/assets/images/oscp/bashscript.png)
 **Figure 48** bash ping script.
 
 In my case you can see that I have replay from 172.16.0.1/10/14, which  mean that thay are connected and working on my local network.
 
+
 ### 2. Write the same script in Python.
 
 I write the script in python and I hade some issue with it to get it work, after little time I figure it out and import the **os.popen** to halp my to run some bash commands from Python. this time I done some popup for user can insert his network ip address.
+
+```
+#!/usr/bin/env python
+import os
+class bcolors:
+    HEADER = '\033[95m'
+    OKBLUE = '\033[94m'
+    OKGREEN = '\033[92m'
+    WARNING = '\033[93m'
+    FAIL = '\033[91m'
+    ENDC = '\033[0m'
+    BOLD = '\033[1m'
+    UNDERLINE = '\033[4m'
+network = raw_input('please type the network address: ')
+network = '.'.join(network.split('.')[:3])
+for loop in range(1,254):
+    respose = os.popen('ping -q -n -c 1 -i 0.2 -w 1 ' + network + '.' + str(loop) + '| grep pack | cut -d "," -f 3').read().split(' ')[1]
+    if respose != '100%':
+        print bcolors.OKGREEN + (network + '.' + str(loop) + ' is a LIVE') + bcolors.ENDC
+    else:
+        print bcolors.FAIL +(network + '.' + str(loop) + ' is DEAD') + bcolors.ENDC
+```
 
 ![OSCP Post](/assets/images/oscp/pythonscript.png)
 **Figure 48** Python ping script.

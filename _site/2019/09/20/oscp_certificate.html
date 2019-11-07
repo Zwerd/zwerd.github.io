@@ -552,7 +552,7 @@ color: green;
 
 <p>Before we move on, I recommend reading some of these topics a bit or seeing a video that talks about them and come back here and keep going. If you have come to challenge yourself and you do not know these concepts, continue to the upcoming challenge.</p>
 
-<h2 id="challenges-11">Challenges 1.1</h2>
+<h2 id="challenges-1">Challenges 1</h2>
 
 <ol>
   <li>You need to bring up some webpage on your local PC using apache2.</li>
@@ -755,6 +755,43 @@ color: green;
 
 <p><strong>man</strong> - if you ever need to know how some command work and what is the option for this command, you can check it with man page.</p>
 
+<p><strong>&gt;</strong> -  output redirection, we use this sign most of the time to save output of some value from the command line to file. you can redirect for other purpose, but most of the time this use to get out the value to file. As example:</p>
+
+<p><img src="/assets/images/outputredirect.png" alt="sql-injection-044.png" />
+<strong>Figure 44</strong> Redirection.</p>
+
+<p>In that case I used redirect to output the echoed string to file. If this file are didn’t exist, that it create it, if the file are exist, it overwrite it.</p>
+
+<h2 id="advance-redirection">Advance redirection.</h2>
+
+<p>Redirecting is divided into several options that exist in the bash world besides what we have seen so far</p>
+
+<p><strong>&gt;</strong> - Output redirection (STDOUT), as we already saw, this redirection used mostly to save output to file and it overwrite the same file if it already exist or he will create the file.</p>
+
+<p><strong>»</strong> - This redirection option is the same as the previous one, the only different is that this redirection doesn’t overwrite existing file, but it adding the output to the existing file. if the file doesn’t exist however, it create it.</p>
+
+<p><strong>&lt;</strong> - Input rediration (STDIN), this redirection take what you want to redirect and push it to some program you may have, as example, do you remember the ssh script we use in <a href="#challenges-1">Challenges 1</a>? I changed it to support STDIN redirection and now we can run it as follow:</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>./script.sh &lt; ssh.txt
+</code></pre></div></div>
+<p>On the ssh.txt you can find the line <code class="highlighter-rouge">ssh://172.16.0.180/</code>. To support STDIN I used <code class="highlighter-rouge">read</code> inside while loop, in this case it read the file line by line, each line are execute against my rest on the script which open ssh and run it with the url IP.</p>
+
+<p><img src="/assets/images/oscp/STDINonsshscript.png" alt="OSCP Post" />
+<strong>Figure 50</strong> My new STDIN ssh script.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">#!/bin/bash</span>
+<span class="k">while </span><span class="nb">read </span>url<span class="p">;</span>
+<span class="k">do
+	</span><span class="nv">protocol</span><span class="o">=</span><span class="k">${</span><span class="nv">url</span><span class="p">//</span>:<span class="p">*/</span><span class="k">}</span>
+	<span class="nv">machine</span><span class="o">=</span><span class="k">${</span><span class="nv">url</span><span class="p">//*</span>:<span class="p">\/\//</span><span class="k">}</span>
+	<span class="nv">machine</span><span class="o">=</span><span class="k">${</span><span class="nv">machine</span><span class="p">%/</span><span class="k">}</span>
+	<span class="nb">echo</span> <span class="s1">'connect to '</span><span class="nv">$machine</span>
+	/usr/bin/gnome-terminal <span class="nt">-e</span> <span class="s2">"</span><span class="nv">$protocol</span><span class="s2"> </span><span class="nv">$machine</span><span class="s2">"</span>
+<span class="k">done</span>
+
+</code></pre></div></div>
+
+<p><strong>2&gt;</strong> - Error redirect (STDERR), this is used to redirect the error out, lat’s say that we run some program and this program will print on the screen some information, than it if have some error redirect it.</p>
+
 <h2 id="script-with-bash">Script with bash</h2>
 
 <p>As you are supposed to know so far, the commands I have presented are used in bash language, which means that if we write some script there is a mode that we will use one of these commands.</p>
@@ -836,7 +873,7 @@ a&gt;&lt;br&gt;
 <p><img src="/assets/images/oscp/forloop2.png" alt="OSCP Post" />
 <strong>Figure 47</strong> For loop with other bash commands.</p>
 
-<h2 id="challenges-21"><a href="#challenges2.1">Challenges 2.1</a></h2>
+<h2 id="challenges-21">Challenges 2.1</h2>
 
 <ol>
   <li>Write script in bash that check on you network how is connected.</li>
@@ -849,6 +886,27 @@ a&gt;&lt;br&gt;
 
 <p>I came up with the following bash script, it check with ifconfig the network address and ping every host on that network, if that host respond the script print on the screen the network address and tell us if is <strong>live</strong> or <strong>dead</strong>.</p>
 
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">#!/bin/bash</span>
+<span class="c"># take only the interface ip address and save the only 3 first octat</span>
+<span class="nv">ipaddr</span><span class="o">=</span><span class="s2">"</span><span class="k">$(</span>ifconfig wlp2s0 | <span class="nb">grep</span> <span class="s2">"inet "</span> | <span class="nb">cut</span> <span class="nt">-d</span> <span class="s2">"n"</span> <span class="nt">-f</span> 2 | <span class="nb">cut</span> <span class="nt">-d</span> <span class="s2">" "</span> <span class="nt">-f</span> 2 | <span class="nb">cut</span> <span class="nt">-d</span> <span class="s2">"."</span> <span class="nt">-f-3</span> | <span class="nb">cut</span> <span class="nt">-d</span> <span class="s2">":"</span> <span class="nt">-f2-</span><span class="k">)</span><span class="s2">"</span>
+<span class="k">for </span>loop <span class="k">in</span> <span class="k">$(</span><span class="nb">seq </span>1 254<span class="k">)</span><span class="p">;</span>
+<span class="k">do</span>
+  <span class="c">#save the output in variable for using it later on</span>
+  <span class="c"># -q if for displayed the summary lines</span>
+  <span class="c"># -n without lookup name</span>
+  <span class="c"># -c ping only once</span>
+  <span class="c"># -i interval set for 0.2 second</span>
+  <span class="c"># -w deadline for response</span>
+  <span class="nv">pingo</span><span class="o">=</span><span class="k">$(</span>ping <span class="nt">-q</span> <span class="nt">-n</span> <span class="nt">-c</span> 1 <span class="nt">-i</span> 0.2 <span class="nt">-w</span> 1 <span class="nv">$ipaddr</span>.<span class="nv">$loop</span>  | <span class="nb">grep </span>pack | <span class="nb">cut</span> <span class="nt">-d</span> <span class="s2">","</span> <span class="nt">-f</span> 3<span class="k">)</span><span class="p">;</span>
+  <span class="k">if</span> <span class="o">[</span> <span class="s2">"</span><span class="nv">$pingo</span><span class="s2">"</span> <span class="o">!=</span> <span class="s1">' 100% packet loss'</span> <span class="o">]</span><span class="p">;</span>
+    <span class="c">#\e[1m is for bold &amp; \e[92m is for geen while \e[91m is red</span>
+    <span class="k">then </span><span class="nb">echo</span> <span class="nt">-e</span> <span class="s2">"</span><span class="se">\e</span><span class="s2">[0m</span><span class="nv">$ipaddr</span><span class="s2">.</span><span class="nv">$loop</span><span class="s2"> </span><span class="se">\e</span><span class="s2">[1m</span><span class="se">\e</span><span class="s2">[92mis a live"</span>
+  <span class="k">else
+    </span><span class="nb">echo</span> <span class="nt">-e</span> <span class="s2">"</span><span class="se">\e</span><span class="s2">[0m</span><span class="nv">$ipaddr</span><span class="s2">.</span><span class="nv">$loop</span><span class="s2"> </span><span class="se">\e</span><span class="s2">[1m</span><span class="se">\e</span><span class="s2">[91mis dead"</span>
+  <span class="k">fi</span><span class="p">;</span>
+<span class="k">done</span><span class="p">;</span>
+</code></pre></div></div>
+
 <p><img src="/assets/images/oscp/bashscript.png" alt="OSCP Post" />
 <strong>Figure 48</strong> bash ping script.</p>
 
@@ -857,6 +915,27 @@ a&gt;&lt;br&gt;
 <h3 id="2-write-the-same-script-in-python">2. Write the same script in Python.</h3>
 
 <p>I write the script in python and I hade some issue with it to get it work, after little time I figure it out and import the <strong>os.popen</strong> to halp my to run some bash commands from Python. this time I done some popup for user can insert his network ip address.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">#!/usr/bin/env python
+</span><span class="kn">import</span> <span class="nn">os</span>
+<span class="k">class</span> <span class="nc">bcolors</span><span class="p">:</span>
+    <span class="n">HEADER</span> <span class="o">=</span> <span class="s">'</span><span class="se">\033</span><span class="s">[95m'</span>
+    <span class="n">OKBLUE</span> <span class="o">=</span> <span class="s">'</span><span class="se">\033</span><span class="s">[94m'</span>
+    <span class="n">OKGREEN</span> <span class="o">=</span> <span class="s">'</span><span class="se">\033</span><span class="s">[92m'</span>
+    <span class="n">WARNING</span> <span class="o">=</span> <span class="s">'</span><span class="se">\033</span><span class="s">[93m'</span>
+    <span class="n">FAIL</span> <span class="o">=</span> <span class="s">'</span><span class="se">\033</span><span class="s">[91m'</span>
+    <span class="n">ENDC</span> <span class="o">=</span> <span class="s">'</span><span class="se">\033</span><span class="s">[0m'</span>
+    <span class="n">BOLD</span> <span class="o">=</span> <span class="s">'</span><span class="se">\033</span><span class="s">[1m'</span>
+    <span class="n">UNDERLINE</span> <span class="o">=</span> <span class="s">'</span><span class="se">\033</span><span class="s">[4m'</span>
+<span class="n">network</span> <span class="o">=</span> <span class="nb">raw_input</span><span class="p">(</span><span class="s">'please type the network address: '</span><span class="p">)</span>
+<span class="n">network</span> <span class="o">=</span> <span class="s">'.'</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">network</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s">'.'</span><span class="p">)[:</span><span class="mi">3</span><span class="p">])</span>
+<span class="k">for</span> <span class="n">loop</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">254</span><span class="p">):</span>
+    <span class="n">respose</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">popen</span><span class="p">(</span><span class="s">'ping -q -n -c 1 -i 0.2 -w 1 '</span> <span class="o">+</span> <span class="n">network</span> <span class="o">+</span> <span class="s">'.'</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">loop</span><span class="p">)</span> <span class="o">+</span> <span class="s">'| grep pack | cut -d "," -f 3'</span><span class="p">)</span><span class="o">.</span><span class="n">read</span><span class="p">()</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s">' '</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span>
+    <span class="k">if</span> <span class="n">respose</span> <span class="o">!=</span> <span class="s">'100</span><span class="si">%</span><span class="s">'</span><span class="p">:</span>
+        <span class="k">print</span> <span class="n">bcolors</span><span class="o">.</span><span class="n">OKGREEN</span> <span class="o">+</span> <span class="p">(</span><span class="n">network</span> <span class="o">+</span> <span class="s">'.'</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">loop</span><span class="p">)</span> <span class="o">+</span> <span class="s">' is a LIVE'</span><span class="p">)</span> <span class="o">+</span> <span class="n">bcolors</span><span class="o">.</span><span class="n">ENDC</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">print</span> <span class="n">bcolors</span><span class="o">.</span><span class="n">FAIL</span> <span class="o">+</span><span class="p">(</span><span class="n">network</span> <span class="o">+</span> <span class="s">'.'</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">loop</span><span class="p">)</span> <span class="o">+</span> <span class="s">' is DEAD'</span><span class="p">)</span> <span class="o">+</span> <span class="n">bcolors</span><span class="o">.</span><span class="n">ENDC</span>
+</code></pre></div></div>
 
 <p><img src="/assets/images/oscp/pythonscript.png" alt="OSCP Post" />
 <strong>Figure 48</strong> Python ping script.</p>

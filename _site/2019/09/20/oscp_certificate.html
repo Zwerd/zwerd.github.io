@@ -740,6 +740,11 @@ color: green;
 
 <p><strong>head</strong> - print the first line of file on the screen.</p>
 
+<p><strong>awk</strong> - this is pattern scanning and text processing language, we use this command for manipulating data and generating reports, as example we can read file and print it on the screen with the <strong>{print}</strong> option.</p>
+
+<p><img src="/assets/images/oscp/awk.png" alt="oscp post" />
+<strong>Figure 41</strong> Using awk to read file.</p>
+
 <p><strong>grep</strong> - search for specific string, if you run cat on some file and want only to see every line that contain <strong>machine</strong> word, then grep can help you, you just need to pip it and write what you wanna search.</p>
 
 <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>cat /var/sys/file.log | grep '2019/04'
@@ -873,7 +878,7 @@ a&gt;&lt;br&gt;
 <p><img src="/assets/images/oscp/forloop2.png" alt="OSCP Post" />
 <strong>Figure 47</strong> For loop with other bash commands.</p>
 
-<h2 id="challenges-21">Challenges 2.1</h2>
+<h2 id="challenges-2">Challenges 2</h2>
 
 <ol>
   <li>Write script in bash that check on you network how is connected.</li>
@@ -968,6 +973,177 @@ a&gt;&lt;br&gt;
 <p>I’m guessing that both address 1 and 14 do not respond because it is late and people at this time leave home so these addresses are really unavailable. But you can see that in both scripts both addresses 10 and 17 respond to Ping. So we succeeded in our challenge.</p>
 
 <p><strong>Summary:</strong> It is important to know how to work with the bash command line and get to know its environment. Writing scripts can greatly help before or during an penetration test, such as preparing a work plan that will include some pre-built scripts that should help us obtain certain information or manipulate a network that will in some way Users take involuntary actions so that we can obtain confidential or sensitive information.</p>
+
+<h1 id="chapter-3">Chapter 3</h1>
+<h1 id="network-tools--other-cool-stuff">Network tools &amp; other cool stuff.</h1>
+
+<p>In the offensive world there are a number of elements we have already highlighted in the past, one of which is the application of tools that can give us data or perform network-level operations, which can help us greatly, either to obtain information, or to perform certain actions.</p>
+
+<h2 id="netcat--ncat">Netcat &amp; Ncat</h2>
+
+<p>The command for <strong>Netcat</strong> is nc and according to man page that tool is used for checking TCP/UDP port that are open or listen to them. This is mean that I am able to use it to connect to some email server with pop3 like I used in telnet before.</p>
+
+<p><img src="/assets/images/oscp/pop3.png" alt="OSCP Post" />
+<strong>Figure 50</strong> POP3 used with telnet.</p>
+
+<p>In my case the user and password are incorrect to this is why I have an error, but what I want to say is that with <strong>nc</strong>, if we want to open connection to some mail as we done with telnet, we can do the same.</p>
+
+<p><img src="/assets/images/oscp/pop3withnc.png" alt="OSCP Post" />
+<strong>Figure 50</strong> POP3 used with netcat.</p>
+
+<p>The <strong>-n</strong> option means do not resolve the dns, and <strong>-v</strong> are verbose, if we want to listen to some port with nc, we just need to specify the <strong>-l</strong> option that stand for listen and <strong>-p</strong> for specific port, we can also used verbose to get more information about the session, the coolest thing is that we can used netcat for chatting over the network, on one machine we need accomplish that command:</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>nc -lvp 555
+</code></pre></div></div>
+
+<p>One the other station, we will need to use nc to connect to the first one PC, and that everything that we will type will showup on the other machine.</p>
+
+<p><img src="/assets/images/oscp/nc.png" alt="OSCP Post" />
+<strong>Figure 51</strong> Netcat with two station chat.</p>
+
+<p>We also can use netcat to create connection between two PC’s and transfer file using that connection, for doing so we need to use redirection.</p>
+
+<p>On the server side which is the listener, we use output redirect to redirect the incoming file to our local file location.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>nc -vlp 555 &gt;  file.txt
+</code></pre></div></div>
+
+<p>On the client side we open connection with netcat and use input redirection to redirect the file we want to transfer to our netcat command, in this action we establish communication which contain the file, after the transfer will finish we will be able to view the file on the server side.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>nc -v 172.16.0.196 555 &lt; file.txt
+</code></pre></div></div>
+
+<p><img src="/assets/images/oscp/transferfile.png" alt="OSCP Post" />
+<strong>Figure 52</strong> Netcat transfer file.</p>
+
+<p><strong>Note:</strong> in my case I used netcat from my local linux to my local linux, but I encourage you to try it from one machine to another.</p>
+
+<p>With netcat we can also can make connection that will allow us to connect the remote machine terminal or in windows <strong>cmd</strong>, to do so, we need to execute the netcat on the remote machine and useing executable command which is <strong>-e</strong> option. With that option we can run netcat with some binary file that will execute immediately when the connection establish.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>nc -vlp 555 -e cmd
+</code></pre></div></div>
+
+<p><strong>Please note:</strong> that command used on windows machine, so if you trying to test it on your linux, you may wanna do as I specify below. Also note that if the <strong>nc</strong> command on windows doesn’t work, try to run <strong>ncat</strong>, or download it from <a href="https://nmap.org">nmap.org</a> site.</p>
+
+<p>On my windows machine I run the follow, by using the <strong>-e</strong> option I enable other clients to execute my <strong>cmd.exe</strong>:</p>
+
+<p><img src="/assets/images/oscp/netcatonwindows.png" alt="OSCP Post" />
+<strong>Figure 53</strong> Netcat on windows machine.</p>
+
+<p>In my machine, which is ubuntu, I run the following command to execute the remote windows machine cmd, as you can see I can run the <strong>ipconfig</strong> which is suitable only on windows which this mean that I actually successfully execute the cmd binary program on my windows machine.</p>
+
+<p><img src="/assets/images/oscp/nctowin.png" alt="OSCP Post" />
+<strong>Figure 54</strong> Execute ipconfig on the remote machine.</p>
+
+<p>Now,let’s try it on my other lab, I want to run executable command on my ubuntu, and trying to establish connection from Kali linux to my ubuntu. In that case I want to show you guys that the command are different because I have no <strong>-e</strong> option in my netcat on my ubuntu, and yet it is possible to run the netcat to execute some binary on linux machine.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>mkfifo fifofile
+cat &lt; /home/fifofile | /bin/bash -i 2&gt;&amp;1 | nc -vlp 444 &gt; /home/fifofile
+</code></pre></div></div>
+
+<p>mkfifo command create a fifo file which stand for <strong>First In First Out</strong>, with the cat we use out fifofile and everything that goes into the file will spill into the cat command. On the sentence we build here we run bash as interactive which means that we going to create dialog between bash and our other command in our case we pipe it and use the bash to run everything that our cat have which going to be our fifofile, the redirect here use for redirect the error and output. in the third command which is the nc, we listening to port 444 and redirect the ouput to the same fifo file.</p>
+
+<p>Now let’s demonstrate what will actually append when we will run that command our local linux machine and will try to connect it from other machine, in my case I using Kali and I run the following command.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>nc -v 172.16.0.194 444
+</code></pre></div></div>
+
+<p>In my case the nc that listening to port 444 will accept the session from my Kali and redirect the session to our fifo file. Now, because our fifofile redirect to cat, this is mean that cat will try to display everything that the fifo get’s, we will pipe it and run bash on everything that cat trying to display and because bash is on interactive mode he will going to use as part of out fifofile as and spill to it the output and errors, so what we actually on the Kaly is the fifofile which implements our interaction with the bash.</p>
+
+<p><img src="/assets/images/oscp/nconlinux.png" alt="OSCP Post" />
+<strong>Figure 55</strong> Connection between Ubuntu and Kali and execute bash.</p>
+
+<p>What I have shown here shows how creative you need to be to perform some networking operations, if you do not have the ability to do something because you do not have this option, it is important to think about how to get what we want and how to implement it. This may seem difficult at first, but after working a lot with some commands or programming language, you suddenly find yourself doing things beyond what the machine provides by default.</p>
+
+<p>As penetration tester warrior you must beware for updates or other tools that can help you to accomplish you need better than what you have so far, in our case the <strong>ncat</strong> is the upgrade of netcat, in that command we have more advance options like <strong>–ssl</strong> which can implement a session with SSL encryption and that can prevent eavesdropping, and possibly even IDS detection.</p>
+
+<p>If we want to execute some program with that command we will need to run <strong>–exec</strong>, we also can allow only for specific host to connect our machine with <strong>–allow</strong> option, we also have the <strong>-v -l</strong> or <strong>-n</strong> option as the same as in netcat.</p>
+
+<h2 id="wireshark">Wireshark</h2>
+
+<p>If you don’t read my old post, you may not know that I start my journey on the networking world or be more precisely Cisco networking world, I done everything I can to troubleshot some issue or problems that related to networking several years ago with Wireshark, this tool can help you see every ession that doesn’t encrypted over the interface that through him you grab the information, with Wirshark we can look at the session closely and trying to use the information for troubleshot and solve problems. In my case I used a lot to troubleshot TCP connection that was filed, in other case I look at connection to some site that will display correctly on one PC but not on the other, in third case I and my firnd treid to figure out way some VPN tunnel does note going up and so on.</p>
+
+<p>If you want to see an example you can view my old <a href="http://zwerd.com/2017/11/24/TCP-connection.html#history-of-tcp-in-rfcs-793-3168-3540">TCP post</a> that demonstrate the TCP connection by using Whireshark.</p>
+
+<p>As a pentester you will want to use Wireshark or other tools that can sniff the network for learning about the network you going to test, so there is a several thing that can help if Wireshark are new to you, Wireshark is build Capture Engine level, and the level are done as follow:</p>
+
+<ul>
+  <li>Network &gt; Capture Filter &gt; Capture Engine &gt; Display Filter</li>
+</ul>
+
+<p><strong>Network</strong> - We sniff every packet that came on the network interface, this include packets who <strong>leave</strong> the local machine and packets that transfer <strong>into</strong> the local machine, if we sniff in that level, we will be able to see every packets that transfer through our port in or out, without any filter. As example on network device like router you can run some packets capturing and after you finish you can display if on the machine itself or some other third program like wireshark.</p>
+
+<p><strong>Capture Filter</strong> - in that case, the network level have some filter capturing, so this is mean that after we will finish our sniff, we can only view the packets that were compatible with our filter, this can help you if you know that you need to take a capturing for long time and you want to capture out only specific things that can help you to investigate what you need. In the case of wireshark you will only see what your filter catch in and what you specified on your filter.</p>
+
+<p><strong>Capture Engine</strong> - this refer to third party program like wireshark, you run it on some OS and capture above the Capture Filter, this is mean that if there is some filter on the local interface above the network level, on the wireshark we won’t be able to see other that that the filter catch.</p>
+
+<p><strong>Display Filter</strong> - this is filter that we done above the wireshark, which mean that on the wireshark GUI we will filter out what we need from the capture file.</p>
+
+<p>In the follow up example I open up my browser on Kali and tried to connect to some website, if some one sniff the connection, he will be able to see that my machine done DNS query for zwerd.com, after that there is start of TCP session which is <strong>three way handshake</strong> and then he ask for <strong>/</strong> which is the index.html which will done with the <strong>GET</strong> command.</p>
+
+<p><img src="/assets/images/oscp/wireshark.png" alt="OSCP Post" />
+<strong>Figure 56</strong> DNS query and TCP session.</p>
+
+<p>As a man in the middle we can also grab some information about the session that I saw on the wireshark, as example if we right click on the http packet and press on display HTTP stream, we can view the all HTTP steam that include the HTML that the user tried to get, some information about the source machine, like you case see that this was generate from linux machine by using Mozilla FireFox 60.0,  also from the server respond we can understand that zwerd.com are hosted in github.com, we can also extract the html that the client get and run in on our local machine.</p>
+
+<p><img src="/assets/images/oscp/tcpstream.png" alt="OSCP Post" />
+<strong>Figure 57</strong> HTTP session GET command.</p>
+
+<p>So, it’s very important to know tools like Wireshark, you will use it a lot to understand what are the things you are going to face against the existing network protections you are testing. Finding information can greatly help with further assessment, as you understand how the environment is built you can draw conclusions that you can use in the following actions, and Wirshark is an integral part of this concept, knowing that it can give us a lot when you know how to use it wisely.</p>
+
+<h2 id="tcpdump">tcpdump</h2>
+
+<p>The tcpdump are used as the network level, we can use Capture Filter on that level and if after that we save the file, we open it with wireshark we will see only what was match to our filter.</p>
+
+<p>If you read the ptwithkalilinux.pdf there is an example that done with file named <a href="/files/password_cracking_filtered.pcap">password_cracking_filtered.pcap</a>, this file was taken on a firewall and that is a capture of network activity that contain some session https://admin.megacorpone.com:81/admin.</p>
+
+<p>We can run tcpdump to read that file with the following command:</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>tcpdump -r password_cracking_filtered.pcap
+</code></pre></div></div>
+
+<p><img src="/assets/images/oscp/tcpdumpread.png" alt="OSCP Post" />
+<strong>Figure 58</strong> Using tcpdump to read the file.</p>
+
+<p>Let’s say that we want to read field number 3 on each line and sort it, doto so we will run the following.</p>
+
+<p><img src="/assets/images/oscp/tcpdumpwithbash.png" alt="OSCP Post" />
+<strong>Figure 58</strong> Using tcpdump &amp; bash commands find specific information.</p>
+
+<p>This is way knowing how to use bash commands can help you to extract some information that you need as we saw before, in that case I use <strong>-r</strong> for read the file, <strong>-n</strong> don’t convert addresses, I pipe it all to awk which help me to view specific field with <strong>-F</strong> and for the field separator I use space and frint field number 3, pipe again and sort with uniqueness line <strong>-u</strong>, after that all we used head to display the first lines only.</p>
+
+<p>We can also use tcpdump to view source host and checking out what he tried to do, as example of host 172.16.40.10</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>tcppdump -n src host 172.16.40.10 -r password_cracking_filtered.pcap
+</code></pre></div></div>
+
+<p><img src="/assets/images/oscp/tcpdumpfilter.png" alt="OSCP Post" />
+<strong>Figure 59</strong> tcpdump filter.</p>
+
+<p>In the case of password_cracking_filtered.pcap file, we looking for the session between source host 208.68.234.99 to destination server 172.16.40.10 using port 81 which are the megacorpone corporation as you will see in the OSCP labs. We can use the <strong>-A</strong> for print each packet in ASCII, we also want to see packets that contain PSH flag on the TCP segment,so we use <code class="highlighter-rouge">tcp[13]</code> which is the 14th byte (0 are also included), <strong>more</strong> can help us to control the displayed on the screen.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>tcpdump -A -n 'tcp[13] = 24' -r password_cracking_filtered.pcap | more
+</code></pre></div></div>
+
+<p><img src="/assets/images/oscp/tcpdumpPSH.png" alt="OSCP Post" />
+<strong>Figure 60</strong> tcpdump PSH &amp; ACK.</p>
+
+<p>In that case we learn that the source 208.68.234.99 trying to GET/admin from admin.megacorpone.com using port 81 and he gets the error code <strong>401 Autorization Required</strong>, but if we look further we can see that the same source gets the code <strong>301 Move Permanently</strong> which mean that the login to this page was successfully at the end.</p>
+
+<p>If you look closely, we will see on every login attempt in the <strong>Authorization</strong> that have some bizarre string, that string is the cerdetional that the source user try to use in order to login, to view it as ascii we  can echo that string to base64.</p>
+
+<p><img src="/assets/images/oscp/loginattempt.png" alt="OSCP Post" />
+<strong>Figure 61</strong> Login attempt &amp; base64.</p>
+
+<p>Base64 is an encoding method that use to encode or decode string, in our case we decode it to see the string in ascii form, now after we know that there is a successful login attempt in that password_cracking_filtered.pcap, we can check the string on the <strong>Authorization</strong> field and find the correct credential for admin login.</p>
+
+<p><img src="/assets/images/oscp/loginattempt2.png" alt="OSCP Post" />
+<strong>Figure 62</strong> successful login.</p>
+
+<p>Now we surly know that the user in the case of code 301 use the correct username and password, so after we use the base64 method to decode the string, we know what is the correct username and password to login that web server:</p>
+
+<p>username: <strong>admin</strong> <br />
+ password: <strong>nanotechnology1</strong></p>
+
+<p>##</p>
 
     
 

@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.5">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2019-11-07T15:38:19+02:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Zwerd</title><subtitle>A stunning blog of freaking PT warrior</subtitle><author><name>Guy Zwerdling</name></author><entry><title type="html">OSCP Certification Journey</title><link href="http://localhost:4000/2019/09/20/oscp_certificate.html" rel="alternate" type="text/html" title="OSCP Certification Journey" /><published>2019-09-20T00:00:00+03:00</published><updated>2019-09-20T00:00:00+03:00</updated><id>http://localhost:4000/2019/09/20/oscp_certificate</id><content type="html" xml:base="http://localhost:4000/2019/09/20/oscp_certificate.html">&lt;p&gt;I set myself a lot of goals this year to advance to the next level, among all the goals being the OSCP certification from Offensive Security. It’s been a certification I’ve been talking about for years, since 2012, it’s really time to sit down and do that certification. It all started when I was writing in a forum on computer communications, where I presented the dilemma, whether to study information security of companies that are involved in the field or something else when my goal is to be an expert in the cyber world.&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.5">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2019-11-12T15:38:12+02:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Zwerd</title><subtitle>A stunning blog of freaking PT warrior</subtitle><author><name>Guy Zwerdling</name></author><entry><title type="html">OSCP Certification Journey</title><link href="http://localhost:4000/2019/09/20/oscp_certificate.html" rel="alternate" type="text/html" title="OSCP Certification Journey" /><published>2019-09-20T00:00:00+03:00</published><updated>2019-09-20T00:00:00+03:00</updated><id>http://localhost:4000/2019/09/20/oscp_certificate</id><content type="html" xml:base="http://localhost:4000/2019/09/20/oscp_certificate.html">&lt;p&gt;I set myself a lot of goals this year to advance to the next level, among all the goals being the OSCP certification from Offensive Security. It’s been a certification I’ve been talking about for years, since 2012, it’s really time to sit down and do that certification. It all started when I was writing in a forum on computer communications, where I presented the dilemma, whether to study information security of companies that are involved in the field or something else when my goal is to be an expert in the cyber world.&lt;/p&gt;
 
 &lt;p&gt;Eventually, someone responded to me, depending on what I want to learn, whether I want to be on the attacker or on the defensive side, he introduced a number of certifications and wrote about each certification separately. Among all the certifications he presented were Cisco certificates, Check Point certificates, and all sorts of large companies that manufacture and market security sites that protect the entire corporate network.&lt;/p&gt;
 
@@ -358,6 +358,11 @@ color: green;
 
 &lt;p&gt;&lt;strong&gt;head&lt;/strong&gt; - print the first line of file on the screen.&lt;/p&gt;
 
+&lt;p&gt;&lt;strong&gt;awk&lt;/strong&gt; - this is pattern scanning and text processing language, we use this command for manipulating data and generating reports, as example we can read file and print it on the screen with the &lt;strong&gt;{print}&lt;/strong&gt; option.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/oscp/awk.png&quot; alt=&quot;oscp post&quot; /&gt;
+&lt;strong&gt;Figure 41&lt;/strong&gt; Using awk to read file.&lt;/p&gt;
+
 &lt;p&gt;&lt;strong&gt;grep&lt;/strong&gt; - search for specific string, if you run cat on some file and want only to see every line that contain &lt;strong&gt;machine&lt;/strong&gt; word, then grep can help you, you just need to pip it and write what you wanna search.&lt;/p&gt;
 
 &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;cat /var/sys/file.log | grep '2019/04'
@@ -491,7 +496,7 @@ a&amp;gt;&amp;lt;br&amp;gt;
 &lt;p&gt;&lt;img src=&quot;/assets/images/oscp/forloop2.png&quot; alt=&quot;OSCP Post&quot; /&gt;
 &lt;strong&gt;Figure 47&lt;/strong&gt; For loop with other bash commands.&lt;/p&gt;
 
-&lt;h2 id=&quot;challenges-21&quot;&gt;Challenges 2.1&lt;/h2&gt;
+&lt;h2 id=&quot;challenges-2&quot;&gt;Challenges 2&lt;/h2&gt;
 
 &lt;ol&gt;
   &lt;li&gt;Write script in bash that check on you network how is connected.&lt;/li&gt;
@@ -585,7 +590,178 @@ a&amp;gt;&amp;lt;br&amp;gt;
 
 &lt;p&gt;I’m guessing that both address 1 and 14 do not respond because it is late and people at this time leave home so these addresses are really unavailable. But you can see that in both scripts both addresses 10 and 17 respond to Ping. So we succeeded in our challenge.&lt;/p&gt;
 
-&lt;p&gt;&lt;strong&gt;Summary:&lt;/strong&gt; It is important to know how to work with the bash command line and get to know its environment. Writing scripts can greatly help before or during an penetration test, such as preparing a work plan that will include some pre-built scripts that should help us obtain certain information or manipulate a network that will in some way Users take involuntary actions so that we can obtain confidential or sensitive information.&lt;/p&gt;</content><author><name>Guy Zwerdling</name></author><category term="Pentest" /><summary type="html">I set myself a lot of goals this year to advance to the next level, among all the goals being the OSCP certification from Offensive Security. It's been a certification I've been talking about for years, since 2012, it's really time to sit down and do that certification. It all started when I was writing in a forum on computer communications, where I presented the dilemma, whether to study information security of companies that are involved in the field or something else when my goal is to be an expert in the cyber world.</summary></entry><entry><title type="html">MyGmach - My New Open Source App (react native app)</title><link href="http://localhost:4000/2019/02/17/new_open_source_app.html" rel="alternate" type="text/html" title="MyGmach - My New Open Source App (react native app)" /><published>2019-02-17T00:00:00+02:00</published><updated>2019-02-17T00:00:00+02:00</updated><id>http://localhost:4000/2019/02/17/new_open_source_app</id><content type="html" xml:base="http://localhost:4000/2019/02/17/new_open_source_app.html">&lt;p&gt;At last I finish another application using React Native for native mobile apps using JavaScript and React, the first one was NachRiddles which is base on my dear brother’s book. MyGmach app is build base on my father idea. Every Saturday my dear brother used to wear a certain tie that was unique to the parsha on that Shabbat. After he passed, my father wanted to open tie Gmach - which is the way in the Jewish world to help each other without getting paid (in Hebrew it is an acronym for kindness which is pronounced Gemilot Hassadim [‘גמילות חסדים’]), and give anyone tie as needed.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Summary:&lt;/strong&gt; It is important to know how to work with the bash command line and get to know its environment. Writing scripts can greatly help before or during an penetration test, such as preparing a work plan that will include some pre-built scripts that should help us obtain certain information or manipulate a network that will in some way Users take involuntary actions so that we can obtain confidential or sensitive information.&lt;/p&gt;
+
+&lt;h1 id=&quot;chapter-3&quot;&gt;Chapter 3&lt;/h1&gt;
+&lt;h1 id=&quot;network-tools--other-cool-stuff&quot;&gt;Network tools &amp;amp; other cool stuff.&lt;/h1&gt;
+
+&lt;p&gt;In the offensive world there are a number of elements we have already highlighted in the past, one of which is the application of tools that can give us data or perform network-level operations, which can help us greatly, either to obtain information, or to perform certain actions.&lt;/p&gt;
+
+&lt;h2 id=&quot;netcat--ncat&quot;&gt;Netcat &amp;amp; Ncat&lt;/h2&gt;
+
+&lt;p&gt;The command for &lt;strong&gt;Netcat&lt;/strong&gt; is nc and according to man page that tool is used for checking TCP/UDP port that are open or listen to them. This is mean that I am able to use it to connect to some email server with pop3 like I used in telnet before.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/oscp/pop3.png&quot; alt=&quot;OSCP Post&quot; /&gt;
+&lt;strong&gt;Figure 50&lt;/strong&gt; POP3 used with telnet.&lt;/p&gt;
+
+&lt;p&gt;In my case the user and password are incorrect to this is why I have an error, but what I want to say is that with &lt;strong&gt;nc&lt;/strong&gt;, if we want to open connection to some mail as we done with telnet, we can do the same.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/oscp/pop3withnc.png&quot; alt=&quot;OSCP Post&quot; /&gt;
+&lt;strong&gt;Figure 50&lt;/strong&gt; POP3 used with netcat.&lt;/p&gt;
+
+&lt;p&gt;The &lt;strong&gt;-n&lt;/strong&gt; option means do not resolve the dns, and &lt;strong&gt;-v&lt;/strong&gt; are verbose, if we want to listen to some port with nc, we just need to specify the &lt;strong&gt;-l&lt;/strong&gt; option that stand for listen and &lt;strong&gt;-p&lt;/strong&gt; for specific port, we can also used verbose to get more information about the session, the coolest thing is that we can used netcat for chatting over the network, on one machine we need accomplish that command:&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;nc -lvp 555
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;One the other station, we will need to use nc to connect to the first one PC, and that everything that we will type will showup on the other machine.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/oscp/nc.png&quot; alt=&quot;OSCP Post&quot; /&gt;
+&lt;strong&gt;Figure 51&lt;/strong&gt; Netcat with two station chat.&lt;/p&gt;
+
+&lt;p&gt;We also can use netcat to create connection between two PC’s and transfer file using that connection, for doing so we need to use redirection.&lt;/p&gt;
+
+&lt;p&gt;On the server side which is the listener, we use output redirect to redirect the incoming file to our local file location.&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;nc -vlp 555 &amp;gt;  file.txt
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;On the client side we open connection with netcat and use input redirection to redirect the file we want to transfer to our netcat command, in this action we establish communication which contain the file, after the transfer will finish we will be able to view the file on the server side.&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;nc -v 172.16.0.196 555 &amp;lt; file.txt
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/oscp/transferfile.png&quot; alt=&quot;OSCP Post&quot; /&gt;
+&lt;strong&gt;Figure 52&lt;/strong&gt; Netcat transfer file.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Note:&lt;/strong&gt; in my case I used netcat from my local linux to my local linux, but I encourage you to try it from one machine to another.&lt;/p&gt;
+
+&lt;p&gt;With netcat we can also can make connection that will allow us to connect the remote machine terminal or in windows &lt;strong&gt;cmd&lt;/strong&gt;, to do so, we need to execute the netcat on the remote machine and useing executable command which is &lt;strong&gt;-e&lt;/strong&gt; option. With that option we can run netcat with some binary file that will execute immediately when the connection establish.&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;nc -vlp 555 -e cmd
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;strong&gt;Please note:&lt;/strong&gt; that command used on windows machine, so if you trying to test it on your linux, you may wanna do as I specify below. Also note that if the &lt;strong&gt;nc&lt;/strong&gt; command on windows doesn’t work, try to run &lt;strong&gt;ncat&lt;/strong&gt;, or download it from &lt;a href=&quot;https://nmap.org&quot;&gt;nmap.org&lt;/a&gt; site.&lt;/p&gt;
+
+&lt;p&gt;On my windows machine I run the follow, by using the &lt;strong&gt;-e&lt;/strong&gt; option I enable other clients to execute my &lt;strong&gt;cmd.exe&lt;/strong&gt;:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/oscp/netcatonwindows.png&quot; alt=&quot;OSCP Post&quot; /&gt;
+&lt;strong&gt;Figure 53&lt;/strong&gt; Netcat on windows machine.&lt;/p&gt;
+
+&lt;p&gt;In my machine, which is ubuntu, I run the following command to execute the remote windows machine cmd, as you can see I can run the &lt;strong&gt;ipconfig&lt;/strong&gt; which is suitable only on windows which this mean that I actually successfully execute the cmd binary program on my windows machine.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/oscp/nctowin.png&quot; alt=&quot;OSCP Post&quot; /&gt;
+&lt;strong&gt;Figure 54&lt;/strong&gt; Execute ipconfig on the remote machine.&lt;/p&gt;
+
+&lt;p&gt;Now,let’s try it on my other lab, I want to run executable command on my ubuntu, and trying to establish connection from Kali linux to my ubuntu. In that case I want to show you guys that the command are different because I have no &lt;strong&gt;-e&lt;/strong&gt; option in my netcat on my ubuntu, and yet it is possible to run the netcat to execute some binary on linux machine.&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;mkfifo fifofile
+cat &amp;lt; /home/fifofile | /bin/bash -i 2&amp;gt;&amp;amp;1 | nc -vlp 444 &amp;gt; /home/fifofile
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;mkfifo command create a fifo file which stand for &lt;strong&gt;First In First Out&lt;/strong&gt;, with the cat we use out fifofile and everything that goes into the file will spill into the cat command. On the sentence we build here we run bash as interactive which means that we going to create dialog between bash and our other command in our case we pipe it and use the bash to run everything that our cat have which going to be our fifofile, the redirect here use for redirect the error and output. in the third command which is the nc, we listening to port 444 and redirect the ouput to the same fifo file.&lt;/p&gt;
+
+&lt;p&gt;Now let’s demonstrate what will actually append when we will run that command our local linux machine and will try to connect it from other machine, in my case I using Kali and I run the following command.&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;nc -v 172.16.0.194 444
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;In my case the nc that listening to port 444 will accept the session from my Kali and redirect the session to our fifo file. Now, because our fifofile redirect to cat, this is mean that cat will try to display everything that the fifo get’s, we will pipe it and run bash on everything that cat trying to display and because bash is on interactive mode he will going to use as part of out fifofile as and spill to it the output and errors, so what we actually on the Kaly is the fifofile which implements our interaction with the bash.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/oscp/nconlinux.png&quot; alt=&quot;OSCP Post&quot; /&gt;
+&lt;strong&gt;Figure 55&lt;/strong&gt; Connection between Ubuntu and Kali and execute bash.&lt;/p&gt;
+
+&lt;p&gt;What I have shown here shows how creative you need to be to perform some networking operations, if you do not have the ability to do something because you do not have this option, it is important to think about how to get what we want and how to implement it. This may seem difficult at first, but after working a lot with some commands or programming language, you suddenly find yourself doing things beyond what the machine provides by default.&lt;/p&gt;
+
+&lt;p&gt;As penetration tester warrior you must beware for updates or other tools that can help you to accomplish you need better than what you have so far, in our case the &lt;strong&gt;ncat&lt;/strong&gt; is the upgrade of netcat, in that command we have more advance options like &lt;strong&gt;–ssl&lt;/strong&gt; which can implement a session with SSL encryption and that can prevent eavesdropping, and possibly even IDS detection.&lt;/p&gt;
+
+&lt;p&gt;If we want to execute some program with that command we will need to run &lt;strong&gt;–exec&lt;/strong&gt;, we also can allow only for specific host to connect our machine with &lt;strong&gt;–allow&lt;/strong&gt; option, we also have the &lt;strong&gt;-v -l&lt;/strong&gt; or &lt;strong&gt;-n&lt;/strong&gt; option as the same as in netcat.&lt;/p&gt;
+
+&lt;h2 id=&quot;wireshark&quot;&gt;Wireshark&lt;/h2&gt;
+
+&lt;p&gt;If you don’t read my old post, you may not know that I start my journey on the networking world or be more precisely Cisco networking world, I done everything I can to troubleshot some issue or problems that related to networking several years ago with Wireshark, this tool can help you see every ession that doesn’t encrypted over the interface that through him you grab the information, with Wirshark we can look at the session closely and trying to use the information for troubleshot and solve problems. In my case I used a lot to troubleshot TCP connection that was filed, in other case I look at connection to some site that will display correctly on one PC but not on the other, in third case I and my firnd treid to figure out way some VPN tunnel does note going up and so on.&lt;/p&gt;
+
+&lt;p&gt;If you want to see an example you can view my old &lt;a href=&quot;http://zwerd.com/2017/11/24/TCP-connection.html#history-of-tcp-in-rfcs-793-3168-3540&quot;&gt;TCP post&lt;/a&gt; that demonstrate the TCP connection by using Whireshark.&lt;/p&gt;
+
+&lt;p&gt;As a pentester you will want to use Wireshark or other tools that can sniff the network for learning about the network you going to test, so there is a several thing that can help if Wireshark are new to you, Wireshark is build Capture Engine level, and the level are done as follow:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Network &amp;gt; Capture Filter &amp;gt; Capture Engine &amp;gt; Display Filter&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;strong&gt;Network&lt;/strong&gt; - We sniff every packet that came on the network interface, this include packets who &lt;strong&gt;leave&lt;/strong&gt; the local machine and packets that transfer &lt;strong&gt;into&lt;/strong&gt; the local machine, if we sniff in that level, we will be able to see every packets that transfer through our port in or out, without any filter. As example on network device like router you can run some packets capturing and after you finish you can display if on the machine itself or some other third program like wireshark.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Capture Filter&lt;/strong&gt; - in that case, the network level have some filter capturing, so this is mean that after we will finish our sniff, we can only view the packets that were compatible with our filter, this can help you if you know that you need to take a capturing for long time and you want to capture out only specific things that can help you to investigate what you need. In the case of wireshark you will only see what your filter catch in and what you specified on your filter.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Capture Engine&lt;/strong&gt; - this refer to third party program like wireshark, you run it on some OS and capture above the Capture Filter, this is mean that if there is some filter on the local interface above the network level, on the wireshark we won’t be able to see other that that the filter catch.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Display Filter&lt;/strong&gt; - this is filter that we done above the wireshark, which mean that on the wireshark GUI we will filter out what we need from the capture file.&lt;/p&gt;
+
+&lt;p&gt;In the follow up example I open up my browser on Kali and tried to connect to some website, if some one sniff the connection, he will be able to see that my machine done DNS query for zwerd.com, after that there is start of TCP session which is &lt;strong&gt;three way handshake&lt;/strong&gt; and then he ask for &lt;strong&gt;/&lt;/strong&gt; which is the index.html which will done with the &lt;strong&gt;GET&lt;/strong&gt; command.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/oscp/wireshark.png&quot; alt=&quot;OSCP Post&quot; /&gt;
+&lt;strong&gt;Figure 56&lt;/strong&gt; DNS query and TCP session.&lt;/p&gt;
+
+&lt;p&gt;As a man in the middle we can also grab some information about the session that I saw on the wireshark, as example if we right click on the http packet and press on display HTTP stream, we can view the all HTTP steam that include the HTML that the user tried to get, some information about the source machine, like you case see that this was generate from linux machine by using Mozilla FireFox 60.0,  also from the server respond we can understand that zwerd.com are hosted in github.com, we can also extract the html that the client get and run in on our local machine.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/oscp/tcpstream.png&quot; alt=&quot;OSCP Post&quot; /&gt;
+&lt;strong&gt;Figure 57&lt;/strong&gt; HTTP session GET command.&lt;/p&gt;
+
+&lt;p&gt;So, it’s very important to know tools like Wireshark, you will use it a lot to understand what are the things you are going to face against the existing network protections you are testing. Finding information can greatly help with further assessment, as you understand how the environment is built you can draw conclusions that you can use in the following actions, and Wirshark is an integral part of this concept, knowing that it can give us a lot when you know how to use it wisely.&lt;/p&gt;
+
+&lt;h2 id=&quot;tcpdump&quot;&gt;tcpdump&lt;/h2&gt;
+
+&lt;p&gt;The tcpdump are used as the network level, we can use Capture Filter on that level and if after that we save the file, we open it with wireshark we will see only what was match to our filter.&lt;/p&gt;
+
+&lt;p&gt;If you read the ptwithkalilinux.pdf there is an example that done with file named &lt;a href=&quot;/files/password_cracking_filtered.pcap&quot;&gt;password_cracking_filtered.pcap&lt;/a&gt;, this file was taken on a firewall and that is a capture of network activity that contain some session https://admin.megacorpone.com:81/admin.&lt;/p&gt;
+
+&lt;p&gt;We can run tcpdump to read that file with the following command:&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;tcpdump -r password_cracking_filtered.pcap
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/oscp/tcpdumpread.png&quot; alt=&quot;OSCP Post&quot; /&gt;
+&lt;strong&gt;Figure 58&lt;/strong&gt; Using tcpdump to read the file.&lt;/p&gt;
+
+&lt;p&gt;Let’s say that we want to read field number 3 on each line and sort it, doto so we will run the following.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/oscp/tcpdumpwithbash.png&quot; alt=&quot;OSCP Post&quot; /&gt;
+&lt;strong&gt;Figure 58&lt;/strong&gt; Using tcpdump &amp;amp; bash commands find specific information.&lt;/p&gt;
+
+&lt;p&gt;This is way knowing how to use bash commands can help you to extract some information that you need as we saw before, in that case I use &lt;strong&gt;-r&lt;/strong&gt; for read the file, &lt;strong&gt;-n&lt;/strong&gt; don’t convert addresses, I pipe it all to awk which help me to view specific field with &lt;strong&gt;-F&lt;/strong&gt; and for the field separator I use space and frint field number 3, pipe again and sort with uniqueness line &lt;strong&gt;-u&lt;/strong&gt;, after that all we used head to display the first lines only.&lt;/p&gt;
+
+&lt;p&gt;We can also use tcpdump to view source host and checking out what he tried to do, as example of host 172.16.40.10&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;tcppdump -n src host 172.16.40.10 -r password_cracking_filtered.pcap
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/oscp/tcpdumpfilter.png&quot; alt=&quot;OSCP Post&quot; /&gt;
+&lt;strong&gt;Figure 59&lt;/strong&gt; tcpdump filter.&lt;/p&gt;
+
+&lt;p&gt;In the case of password_cracking_filtered.pcap file, we looking for the session between source host 208.68.234.99 to destination server 172.16.40.10 using port 81 which are the megacorpone corporation as you will see in the OSCP labs. We can use the &lt;strong&gt;-A&lt;/strong&gt; for print each packet in ASCII, we also want to see packets that contain PSH flag on the TCP segment,so we use &lt;code class=&quot;highlighter-rouge&quot;&gt;tcp[13]&lt;/code&gt; which is the 14th byte (0 are also included), &lt;strong&gt;more&lt;/strong&gt; can help us to control the displayed on the screen.&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;tcpdump -A -n 'tcp[13] = 24' -r password_cracking_filtered.pcap | more
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/oscp/tcpdumpPSH.png&quot; alt=&quot;OSCP Post&quot; /&gt;
+&lt;strong&gt;Figure 60&lt;/strong&gt; tcpdump PSH &amp;amp; ACK.&lt;/p&gt;
+
+&lt;p&gt;In that case we learn that the source 208.68.234.99 trying to GET/admin from admin.megacorpone.com using port 81 and he gets the error code &lt;strong&gt;401 Autorization Required&lt;/strong&gt;, but if we look further we can see that the same source gets the code &lt;strong&gt;301 Move Permanently&lt;/strong&gt; which mean that the login to this page was successfully at the end.&lt;/p&gt;
+
+&lt;p&gt;If you look closely, we will see on every login attempt in the &lt;strong&gt;Authorization&lt;/strong&gt; that have some bizarre string, that string is the cerdetional that the source user try to use in order to login, to view it as ascii we  can echo that string to base64.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/oscp/loginattempt.png&quot; alt=&quot;OSCP Post&quot; /&gt;
+&lt;strong&gt;Figure 61&lt;/strong&gt; Login attempt &amp;amp; base64.&lt;/p&gt;
+
+&lt;p&gt;Base64 is an encoding method that use to encode or decode string, in our case we decode it to see the string in ascii form, now after we know that there is a successful login attempt in that password_cracking_filtered.pcap, we can check the string on the &lt;strong&gt;Authorization&lt;/strong&gt; field and find the correct credential for admin login.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/oscp/loginattempt2.png&quot; alt=&quot;OSCP Post&quot; /&gt;
+&lt;strong&gt;Figure 62&lt;/strong&gt; successful login.&lt;/p&gt;
+
+&lt;p&gt;Now we surly know that the user in the case of code 301 use the correct username and password, so after we use the base64 method to decode the string, we know what is the correct username and password to login that web server:&lt;/p&gt;
+
+&lt;p&gt;username: &lt;strong&gt;admin&lt;/strong&gt; &lt;br /&gt;
+ password: &lt;strong&gt;nanotechnology1&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;##&lt;/p&gt;</content><author><name>Guy Zwerdling</name></author><category term="Pentest" /><summary type="html">I set myself a lot of goals this year to advance to the next level, among all the goals being the OSCP certification from Offensive Security. It's been a certification I've been talking about for years, since 2012, it's really time to sit down and do that certification. It all started when I was writing in a forum on computer communications, where I presented the dilemma, whether to study information security of companies that are involved in the field or something else when my goal is to be an expert in the cyber world.</summary></entry><entry><title type="html">MyGmach - My New Open Source App (react native app)</title><link href="http://localhost:4000/2019/02/17/new_open_source_app.html" rel="alternate" type="text/html" title="MyGmach - My New Open Source App (react native app)" /><published>2019-02-17T00:00:00+02:00</published><updated>2019-02-17T00:00:00+02:00</updated><id>http://localhost:4000/2019/02/17/new_open_source_app</id><content type="html" xml:base="http://localhost:4000/2019/02/17/new_open_source_app.html">&lt;p&gt;At last I finish another application using React Native for native mobile apps using JavaScript and React, the first one was NachRiddles which is base on my dear brother’s book. MyGmach app is build base on my father idea. Every Saturday my dear brother used to wear a certain tie that was unique to the parsha on that Shabbat. After he passed, my father wanted to open tie Gmach - which is the way in the Jewish world to help each other without getting paid (in Hebrew it is an acronym for kindness which is pronounced Gemilot Hassadim [‘גמילות חסדים’]), and give anyone tie as needed.&lt;/p&gt;
 
 &lt;p&gt;After my father told me about is idea, I start to work on MyGmach to build an application that allow to manage privet foundation with items in it, so i wrote document about the functionality that I want to build in that application.&lt;/p&gt;
 

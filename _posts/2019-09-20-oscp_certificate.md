@@ -813,4 +813,110 @@ Base64 is an encoding method that use to encode or decode string, in our case we
  username: **admin** <br>
  password: **nanotechnology1**
 
-##
+## Challenges 3
+
+In this challenge I use my Kali Linux, if you have not yet install Kali on virtualbox or as virtual machine I recommend to do so, but you can practice this challenge on other machine like any kind of linux or  windows server.
+
+1. Download the [this login form](/scripts/login.html) to your machine, this is an html with login page.
+2. Transfer this file to your Kali Linux machine using netcat or ncat.
+3. Run apache2 on Kali and bring up site with the login.html as the main index.
+4. Open wireshark on Kali and start to record the packets of your Kali interface, and try to login the site from other machine.
+5. find out the packets that contain the **username** and **password** you type on the login page.
+
+Now, please try to this challenge alone, after you done and successfully found the username and password you can jump to chapter number 4 or read the solution I specified here down below. let's get started.
+
+### 1. Download the login page.
+
+[This login page](/scripts/login.html) I found over the network and in this login page you have style section already written and javascript section inside that document, the idea of this exercise is to find the username and password you type on the login page by using wireshark.
+
+### 2. Transfer login.html to Kali using netcat
+
+I start up my Kali machine and checkout what is my ip address with ifconfig.
+
+![OSCP Post](/assets/images/oscp/kaliifconfig.png)
+**Figure 63** The IP on my Kali using ifconfig command.
+
+Now that I know that my ip address is 172.16.0.239, I need to start netcat on my kali, I am going to use netcat as server side inside my Kali and redirect what he gets on the session to file named login.html on the www folder.
+
+![OSCP Post](/assets/images/oscp/nconserver.png)
+**Figure 64** netcat on my Kali.
+
+On my Ubuntu I run the netcat and used redirect input with **nc** command, this action will trasfer the file to my Kali machine.
+
+![OSCP Post](/assets/images/oscp/nconclient.png)
+**Figure 65** netcat on my Ubuntu.
+
+
+As you can see from the screenshot of my Ubuntu, the connection was establish successfully, so let's check that we have that file on html folder, I used the **ls -l** command.
+
+![OSCP Post](/assets/images/oscp/lsonserver.png)
+**Figure 66** Login file are on my Kali.
+
+### 3. Start apache2 and check login page.
+
+On my Kali I start the apache and check to see what is the default webpage that I get.
+
+```
+service apache2 start
+```
+
+![OSCP Post](/assets/images/oscp/localhost.png)
+**Figure 67** Cant see the default page.
+
+I checked on config file, and found that the default can be found under port 8081 connections.
+
+![OSCP Post](/assets/images/oscp/apache2conf.png)
+**Figure 68** Config file of my apache2 service.
+
+I tried to connect my Kali by using port 8081 and I got the old page from challenge 1, I have teo option, chenge the index.html to be our login page or change on the conf file to bring up new default index file which going to be the login.html.
+
+![OSCP Post](/assets/images/oscp/defaultpage.png)
+**Figure 69** My default page from challenge 1.
+
+I decided to change my index.html and Instead of writing SSH it will be written LOGIN. On the index file I add up the lines needed for it to work properly. Also I restart the apache2 server in order my page will absorbed.
+
+![OSCP Post](/assets/images/oscp/defaultpage2.png)
+**Figure 70** My login page as the default.
+
+Now I can trying to move to my Ubuntu machine and check to see if I get that login page.
+
+### 4. Start wireshark and record the session to login page.
+
+On my ubuntu I opened Wireshark with sudo privilege, and start to capture on my local network interface to see that it active and I have traffic.
+
+![OSCP Post](/assets/images/oscp/wiresharkonclient.png)
+**Figure 71** The wireshark on my Ubuntu.
+
+As you can see it working so I opened up my browser and tried to connect my Kali using 172.16.0.239 address with port 8081.
+
+![OSCP Post](/assets/images/oscp/loginpage.png)
+**Figure 72** The login page.
+
+let's check now if we can login.
+
+![OSCP Post](/assets/images/oscp/webconnection.gif)
+**Figure 73** Tried to login.
+
+The login faild becouse I don't have the action file that need to take the username and password and check them over the database. but this action that I have done send the username and password to my Kali server anyway.
+
+![OSCP Post](/assets/images/oscp/actionpage.png)
+**Figure 74** Have no action page on my Kali.
+
+
+### 5. Find the User & Password
+
+I stopped my wireshark from sniffinig, It's time to check if I can find the user and password over my capturing record. I run the following filter to view only the connection  from my Ubuntu to the Kali.
+
+```
+ip.addr==172.16.0.239
+```
+
+![OSCP Post](/assets/images/oscp/wiresharkcheck.png)
+**Figure 75** We can see the packets.
+
+On the wireshark I have the record of the session I done from ubuntu to Kali, I can see that I tried to get the default page and the `/img_avatar2.png` which I don't have it on my Kali, this is way I get 404 error code on that action, I flipped further down and found the part related to the action page that I tried to POST the server, this action was done by click the login button, I opened the details and saw there the Form which contain the username and password that I typed.
+
+![OSCP Post](/assets/images/oscp/wiresharkuser&pass.png)
+**Figure 76** The captured user & pass.
+
+**Summary:** if we want to login to some server over the world wide web, it's a good idea to check and see that we use some encripted connection to that server using https, it also imported to see that certificate we use to encrypted our session to that server is update, if it's doesn't it is likely that your browser will warned you about that, If you do decide to go and proceed to the site anyway, you should not login to this site because the same situation we saw here, if someone is listening to the network (Man In The Middle) he can certainly see your username and password.

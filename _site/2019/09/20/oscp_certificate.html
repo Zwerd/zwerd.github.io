@@ -1143,7 +1143,111 @@ cat &lt; /home/fifofile | /bin/bash -i 2&gt;&amp;1 | nc -vlp 444 &gt; /home/fifo
 <p>username: <strong>admin</strong> <br />
  password: <strong>nanotechnology1</strong></p>
 
-<p>##</p>
+<h2 id="challenges-3">Challenges 3</h2>
+
+<p>In this challenge I use my Kali Linux, if you have not yet install Kali on virtualbox or as virtual machine I recommend to do so, but you can practice this challenge on other machine like any kind of linux or  windows server.</p>
+
+<ol>
+  <li>Download the <a href="/scripts/login.html">this login form</a> to your machine, this is an html with login page.</li>
+  <li>Transfer this file to your Kali Linux machine using netcat or ncat.</li>
+  <li>Run apache2 on Kali and bring up site with the login.html as the main index.</li>
+  <li>Open wireshark on Kali and start to record the packets of your Kali interface, and try to login the site from other machine.</li>
+  <li>find out the packets that contain the <strong>username</strong> and <strong>password</strong> you type on the login page.</li>
+</ol>
+
+<p>Now, please try to this challenge alone, after you done and successfully found the username and password you can jump to chapter number 4 or read the solution I specified here down below. let’s get started.</p>
+
+<h3 id="1-download-the-login-page">1. Download the login page.</h3>
+
+<p><a href="/scripts/login.html">This login page</a> I found over the network and in this login page you have style section already written and javascript section inside that document, the idea of this exercise is to find the username and password you type on the login page by using wireshark.</p>
+
+<h3 id="2-transfer-loginhtml-to-kali-using-netcat">2. Transfer login.html to Kali using netcat</h3>
+
+<p>I start up my Kali machine and checkout what is my ip address with ifconfig.</p>
+
+<p><img src="/assets/images/oscp/kaliifconfig.png" alt="OSCP Post" />
+<strong>Figure 63</strong> The IP on my Kali using ifconfig command.</p>
+
+<p>Now that I know that my ip address is 172.16.0.239, I need to start netcat on my kali, I am going to use netcat as server side inside my Kali and redirect what he gets on the session to file named login.html on the www folder.</p>
+
+<p><img src="/assets/images/oscp/nconserver.png" alt="OSCP Post" />
+<strong>Figure 64</strong> netcat on my Kali.</p>
+
+<p>On my Ubuntu I run the netcat and used redirect input with <strong>nc</strong> command, this action will trasfer the file to my Kali machine.</p>
+
+<p><img src="/assets/images/oscp/nconclient.png" alt="OSCP Post" />
+<strong>Figure 65</strong> netcat on my Ubuntu.</p>
+
+<p>As you can see from the screenshot of my Ubuntu, the connection was establish successfully, so let’s check that we have that file on html folder, I used the <strong>ls -l</strong> command.</p>
+
+<p><img src="/assets/images/oscp/lsonserver.png" alt="OSCP Post" />
+<strong>Figure 66</strong> Login file are on my Kali.</p>
+
+<h3 id="3-start-apache2-and-check-login-page">3. Start apache2 and check login page.</h3>
+
+<p>On my Kali I start the apache and check to see what is the default webpage that I get.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>service apache2 start
+</code></pre></div></div>
+
+<p><img src="/assets/images/oscp/localhost.png" alt="OSCP Post" />
+<strong>Figure 67</strong> Cant see the default page.</p>
+
+<p>I checked on config file, and found that the default can be found under port 8081 connections.</p>
+
+<p><img src="/assets/images/oscp/apache2conf.png" alt="OSCP Post" />
+<strong>Figure 68</strong> Config file of my apache2 service.</p>
+
+<p>I tried to connect my Kali by using port 8081 and I got the old page from challenge 1, I have teo option, chenge the index.html to be our login page or change on the conf file to bring up new default index file which going to be the login.html.</p>
+
+<p><img src="/assets/images/oscp/defaultpage.png" alt="OSCP Post" />
+<strong>Figure 69</strong> My default page from challenge 1.</p>
+
+<p>I decided to change my index.html and Instead of writing SSH it will be written LOGIN. On the index file I add up the lines needed for it to work properly. Also I restart the apache2 server in order my page will absorbed.</p>
+
+<p><img src="/assets/images/oscp/defaultpage2.png" alt="OSCP Post" />
+<strong>Figure 70</strong> My login page as the default.</p>
+
+<p>Now I can trying to move to my Ubuntu machine and check to see if I get that login page.</p>
+
+<h3 id="4-start-wireshark-and-record-the-session-to-login-page">4. Start wireshark and record the session to login page.</h3>
+
+<p>On my ubuntu I opened Wireshark with sudo privilege, and start to capture on my local network interface to see that it active and I have traffic.</p>
+
+<p><img src="/assets/images/oscp/wiresharkonclient.png" alt="OSCP Post" />
+<strong>Figure 71</strong> The wireshark on my Ubuntu.</p>
+
+<p>As you can see it working so I opened up my browser and tried to connect my Kali using 172.16.0.239 address with port 8081.</p>
+
+<p><img src="/assets/images/oscp/loginpage.png" alt="OSCP Post" />
+<strong>Figure 72</strong> The login page.</p>
+
+<p>let’s check now if we can login.</p>
+
+<p><img src="/assets/images/oscp/webconnection.gif" alt="OSCP Post" />
+<strong>Figure 73</strong> Tried to login.</p>
+
+<p>The login faild becouse I don’t have the action file that need to take the username and password and check them over the database. but this action that I have done send the username and password to my Kali server anyway.</p>
+
+<p><img src="/assets/images/oscp/actionpage.png" alt="OSCP Post" />
+<strong>Figure 74</strong> Have no action page on my Kali.</p>
+
+<h3 id="5-find-the-user--password">5. Find the User &amp; Password</h3>
+
+<p>I stopped my wireshark from sniffinig, It’s time to check if I can find the user and password over my capturing record. I run the following filter to view only the connection  from my Ubuntu to the Kali.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ip.addr==172.16.0.239
+</code></pre></div></div>
+
+<p><img src="/assets/images/oscp/wiresharkcheck.png" alt="OSCP Post" />
+<strong>Figure 75</strong> We can see the packets.</p>
+
+<p>On the wireshark I have the record of the session I done from ubuntu to Kali, I can see that I tried to get the default page and the <code class="highlighter-rouge">/img_avatar2.png</code> which I don’t have it on my Kali, this is way I get 404 error code on that action, I flipped further down and found the part related to the action page that I tried to POST the server, this action was done by click the login button, I opened the details and saw there the Form which contain the username and password that I typed.</p>
+
+<p><img src="/assets/images/oscp/wiresharkuser&amp;pass.png" alt="OSCP Post" />
+<strong>Figure 76</strong> The captured user &amp; pass.</p>
+
+<p><strong>Summary:</strong> if we want to login to some server over the world wide web, it’s a good idea to check and see that we use some encripted connection to that server using https, it also imported to see that certificate we use to encrypted our session to that server is update, if it’s doesn’t it is likely that your browser will warned you about that, If you do decide to go and proceed to the site anyway, you should not login to this site because the same situation we saw here, if someone is listening to the network (Man In The Middle) he can certainly see your username and password.</p>
 
     
 

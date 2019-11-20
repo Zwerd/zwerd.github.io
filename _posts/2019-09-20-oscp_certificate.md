@@ -407,7 +407,7 @@ cat /var/sys/file.log | grep '2019/04'
 **>** -  output redirection, we use this sign most of the time to save output of some value from the command line to file. you can redirect for other purpose, but most of the time this use to get out the value to file. As example:
 
 
-![sql-injection-044.png](/assets/images/outputredirect.png)
+![sql-injection-044.png](/assets/images/oscp/.png)
 **Figure 44** Redirection.
 
 In that case I used redirect to output the echoed string to file. If this file are didn't exist, that it create it, if the file are exist, it overwrite it.
@@ -920,3 +920,156 @@ On the wireshark I have the record of the session I done from ubuntu to Kali, I 
 **Figure 76** The captured user & pass.
 
 **Summary:** if we want to login to some server over the world wide web, it's a good idea to check and see that we use some encripted connection to that server using https, it also imported to see that certificate we use to encrypted our session to that server is update, if it's doesn't it is likely that your browser will warned you about that, If you do decide to go and proceed to the site anyway, you should not login to this site because the same situation we saw here, if someone is listening to the network (Man In The Middle) he can certainly see your username and password.
+
+# Chapter 4
+# Information Gathering
+
+Information gathering is importance step to know before we going to try break to some organization that you going to penetrate, in that step we can trying to get more relevant information that may give us a clue what we going against for, I mean surly you may find some phone and fax numbers and email addresses but you may find more interesting thing like what the service provider of that organization, what email service they use, is that email service are old? maybe you can find some exploit to that service and so on, mean, can you see were that is going? that information can be useful as more you proceed to hack the system.
+
+The way to find some information can be done by using some search engine or tool that can be found on your Kali, if we talking about online search engine, it may be a good idea how to use in google, you may read that line and say, "google? rubbish... nonsense! what I have to know about search on google? I just search it!", this is the point, in google as example we have word key that can maximize your results and find exactly what we are looking for.
+
+## Google Search Power
+
+In google we can use keys parameter for running the search we want, this is a sort of filter that can bring the most relevant results that can help use to achieve the information we want.
+
+The way you use the keys are as follow:
+```
+key:<search word>
+```
+
+- **inurl:** this option allow us to search specific word inside the url, this can bring us some url structure that can be vulnerable to some attack like sql injection or xss etc.
+
+- **intext:** this key can help us to search inside the body of the webgparg on in the source code, in that way we can search information that can been found over the source code of the page, we can find that this site bulder as example use particular hoster service that can be found vulnerable, or script code that build over some specific application that can seen vulnerable or worse, the site builder can leave a comment that can give us clue what the service that he use and what are the version of tham an if so we may recognize some weakness we can take advantage of to carry out our assault.
+
+- **filetype:** this option can been used to find specific file type on the site, if we found some file that we know what is the version of it, we may use it to exploit this site.
+
+- **intitle:** that option can found specific text inside the title of that web, this can be good to file some related things to that side, like lets say we want to find the admin page or more correctly admin directory, we can use the follow:
+```
+intitle:"index of /admin"
+```
+if the page admin contain some default view that is index of folder that title will be this page title so this option are handy.
+
+- **site:** that option can help us to search some string inside the specific site we used on our search, as example let's say that we done the following:
+```
+site:cisco.com
+```
+Int this case this can bring us all the results that come from cisco.com, we can combin other option with that option to find more specific stuff on this particular site.
+
+- **link:** this option can be used to find site that contain like to others, this can help us to find more information related to this site structure.
+
+- **-(sub tract/key)** this option can be any key we have, but with the **-sign** which tell the search engine to find everything excluding of our specific string, as example:
+```
+site:cisco.com -site:www.cisco.com
+```
+In that case we bring up results from cisco.com but exclude results related to www.cisco.com, that way can help us to find more relevant information.
+
+We can combine every key with others and that action can bring us interesting things, let's say that we search for passwordm we can run the follow:
+```
+inurl:passwd filetype:txt
+```
+
+In this example we search in google every url that contain the word passwd which have file type of `txt` extension, that can beeing handy if we try it on specific site lite let's say books24x7 which is site for book reading.
+
+![OSCP Post](/assets/images/oscp/books24x7.png)
+**Figure 77** books24x7 site.
+
+ I run the following:
+```
+inurl:passwd filetype:txt site:books24x7.com
+```
+
+And sure enough I found that this site contain some `txt` file with password.
+
+
+![OSCP Post](/assets/images/oscp/books24x7passwd.png)
+**Figure 77** books24x7 passwd search.
+
+I don't know way some one do such a thing, bring some open txt file to your site is not clever, so it may be a good idea not to do so.
+
+You may know about some title that appliance bring up, as an example, I know that my friend who work at some hotel, have some camera that view on the main entering from the down street, on that appliance the title is `Live view` and that camera is of axis, so I run the following just to see if some one over the net have an open access to this sort of camera:
+```
+intitle:"Live View" "axis"
+```
+
+That will bring up some site that have AXIS M1114 Network Camera of Heidelberg University on Germany which locate above some **foucault pendulum**,
+
+![OSCP Post](/assets/images/oscp/axis.png)
+**Figure 78** Foucault pendulum on Heidelberg University via AXIS M1114 Network Camera.
+
+Let's say that you came up to some organization and saw at the entrance some camera with logo or title of the company that sell that camera, maybe some simple search on google can give you how the managment of that camera look like and you may found some key that can be used on google and maybe you will find some free access to that comera, and if so, may be the camera is a part of their network and maybe you can advantage this case to penetrate in.
+
+It's can be handy to know that with google we can use regular expression like "or"=**|**, Or more targeted search by using brackets **()**, like in the following search:
+
+```
+filetype:pwd inurl:( service | authors | administrators | users )
+```
+
+Do you see which way this is going? So it's worth knowing and familiar with the tools available to us when it comes to a search engine like Google, which can be very useful to us.
+
+## Email Information Gathering
+
+When it came to emails, we can use google to find email by domain name, but we also have some tools that you should know. In the filed of emails gathering, the export name is Email Harvesting, like **thehavester** that can be use to done search task for email that related to some domain.
+
+### thehavester
+
+That tool can search an emails by using Google, Bing etc. When you trying to run some search with that tool he actually run GET command over that engine to search the email address that related for that domain, for example, I run that tool for searching over  google emails that related to cisco.com domains
+
+```
+theharvester -d cisco.com -b google
+```
+
+![OSCP Post](/assets/images/oscp/theharvester.png)
+**Figure 78** theharvester.
+
+
+the following is what thehavester was sent:
+```
+http://search?num=100&start=0&hl=en&meta=&q=%40%22cisco.com%22&User-Agent=Opera%2F9.80+%28X11%3B+Linux+i686%3B+U%3B+es-ES%29+Presto%2F2.8.131+Version%2F11.11
+```
+
+if you will try this like on your browser you will get some search page for cisco email that look like that:
+
+![OSCP Post](/assets/images/oscp/ciscosearch.png)
+**Figure 79** In my case I search for cisco emails.
+
+I didn't get any results on theharvester, if I run wireshark I will be able to see why,
+
+![OSCP Post](/assets/images/oscp/httpsearch.png)
+**Figure 80** Unreachable.
+
+You can see on the wireshark that I get error code 503 which is unreachable page, I cannot recover this request over the browser, but I can see how the search is look like, any way, we know that theharvester use http request and not https, maybe that is why we get 503, but know let's try it on the bing.
+```
+GET /search?q=%40cisco.com&count=50&first=250 HTTP/1.1
+```
+
+On that GET request we can see clirely that we trying to get results out of 50 counts which mean that the page we get will contain 50 results at one page and the results number is the first 250, this is mean that the page contain the result number 250 and display you the rest of the 50 related results which mean 250-300, please note that in bing the max is 45 results per page.
+
+![OSCP Post](/assets/images/oscp/ciscomails.png)
+**Figure 81** Cisco address.
+
+At the end I got number of relevant address that theharvester found by using bing as search engine. the following are the most used option:
+
+**d** - domain name, we can used this option to specify domain name or company name, theharvester will use that in his search over the search engine.
+
+**b** - database, with this option we setup the search engine like bing or google or censys, theharvester will used the search engine we setup for all of his searching, you can also run double search engine by using comma as separator.
+
+**l** - limit results,  in case you have  many results of one domain, you can limit them by using this option, in bing the limits are 50.
+
+**f** - this option allow you to save the results in xml format, you can elso redirect the result but with that option you be able to see the results on the screen which you can't with redirect.
+
+### whois
+
+That tool can be use to find out which is the service provider of site, when you run this command on your Kali this whois start TCP session to whois database with port 43 which is the standart tcp port for whois, the details you get you can also get on [www.whois.com](www.whois.com) which is the same database. The information whois can give you can contain address and email address for the organization you search for and phone number and street location, also ISP for that domain and date of update/created and so on.
+
+
+![OSCP Post](/assets/images/oscp/whois.png)
+**Figure 82** Whois tool, facebook search.
+
+you can also use IP address instead of domain name, whois can performe reverse lookup and find out more detail related for that domain.
+
+![OSCP Post](/assets/images/oscp/whois2.png)
+**Figure 83** Whois reverse lookup.
+
+### recon-ng
+
+that tool is loo like Metasploit Framework and feel in that way, we can use it to grab data about our target for using it later on. recon-ng use modals that we need to operate and setup what we need in order to make some task over the network, after we done to setup our need we use **run** command to start the scanning.

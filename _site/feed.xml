@@ -1,4 +1,139 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.5">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2019-11-14T12:08:33+02:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Zwerd</title><subtitle>A stunning blog of freaking PT warrior</subtitle><author><name>Guy Zwerdling</name></author><entry><title type="html">OSCP Certification Journey</title><link href="http://localhost:4000/2019/09/20/oscp_certificate.html" rel="alternate" type="text/html" title="OSCP Certification Journey" /><published>2019-09-20T00:00:00+03:00</published><updated>2019-09-20T00:00:00+03:00</updated><id>http://localhost:4000/2019/09/20/oscp_certificate</id><content type="html" xml:base="http://localhost:4000/2019/09/20/oscp_certificate.html">&lt;p&gt;I set myself a lot of goals this year to advance to the next level, among all the goals being the OSCP certification from Offensive Security. It’s been a certification I’ve been talking about for years, since 2012, it’s really time to sit down and do that certification. It all started when I was writing in a forum on computer communications, where I presented the dilemma, whether to study information security of companies that are involved in the field or something else when my goal is to be an expert in the cyber world.&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.5">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2019-11-20T17:53:43+02:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Zwerd</title><subtitle>A stunning blog of freaking PT warrior</subtitle><author><name>Guy Zwerdling</name></author><entry><title type="html">LPIC2 Certification Journey</title><link href="http://localhost:4000/2019/11/19/lpic2_certificate.html" rel="alternate" type="text/html" title="LPIC2 Certification Journey" /><published>2019-11-19T00:00:00+02:00</published><updated>2019-11-19T00:00:00+02:00</updated><id>http://localhost:4000/2019/11/19/lpic2_certificate</id><content type="html" xml:base="http://localhost:4000/2019/11/19/lpic2_certificate.html">&lt;p&gt;Today morning I received a message from LPI that my certificate will expire in 9 months and so it is time to start studying for the second Linux certification, this will advance me to the third Linux information security certification that I will search for, this certification is divided into two and the two parts are marked by two different codes: 201-450, 202-450&lt;/p&gt;
+
+&lt;p&gt;In this post I am going to go over each topic as listed on the LPI website, which means I will go over each tool and present it here, in each chapter I will show how to use these tools to get the same information that the subject of the test should deal with, at the end of each chapter I will present a challenge From most of the commands we learned and challenged you and me how to get the information to succeed.&lt;/p&gt;
+
+&lt;p&gt;If you want a brochure that deals with the topic extensively regardless of this post I recommend the booklet by Snow B.V. Her name: The LPIC-2 Exam Prep 6th edition, for version 4.5. This booklet helps me a lot and I recommend going through it at the same time, and yet I will try to elaborate as much as possible in the post here to be ready for the test.&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;#chapter-0&quot;&gt;Chapter 0&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h1 id=&quot;objective-201-450&quot;&gt;Objective 201-450&lt;/h1&gt;
+
+&lt;h2 id=&quot;chapter-0&quot;&gt;Chapter 0&lt;/h2&gt;
+&lt;h2 id=&quot;topic-200-capacity-planning&quot;&gt;Topic 200: Capacity Planning&lt;/h2&gt;
+
+&lt;p&gt;In this chapter, we need to address computer hardware issues and how to use Linux to make sure that, such as system resources and resources, it is important to know these concepts because these tools can help us deal with the resource utilization problem, and we may run software only after a long time Since running it, or it is possible that only a certain program after a certain operation will consume all the resources on the computer, in this case we want to know how to look at the resources and check which component utilizes it.&lt;/p&gt;
+
+&lt;p&gt;In this way we can know which program is the problematic and which program causes the computer to work slowly and even freeze. Most of the tools we present here are tools that show you how to see what your computer’s CPU is used for, what software is currently working, how many free memory we have, and a few other things to help us understand how the Linux operating system works.&lt;/p&gt;
+
+&lt;h3 id=&quot;stress&quot;&gt;stress&lt;/h3&gt;
+
+&lt;p&gt;In our case we can start some virtual machine to get ready and learn the commands, but how can we demonstrate some memory issues or CPU’s problems? in that case we can use &lt;strong&gt;stress&lt;/strong&gt;, that command can load up our memory and CPU’s to 100 percentage which can be handy if we want to view such issue with the command that supposed to help us find the program that cause to that issue.&lt;/p&gt;
+
+&lt;p&gt;I am use Ubuntu, and like on other system operation, I have system monitor that can help me to view my processes on my linux machine, if some program take more CPU than others I may feel like I have sort of slowness in my computer, so, using the system monitor can be handy to find what is the problem in my case.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/lpic2/systemmonitor.png&quot; alt=&quot;OSCP Post&quot; /&gt;
+&lt;strong&gt;Figure 1&lt;/strong&gt; System Monitor.&lt;/p&gt;
+
+&lt;p&gt;If some program utilizes the CPU overly you will see it on system monitor, on the resource the grap will jump up and on processes tab you can find what program utilizes how much from you CPU or memory, let’s run the following command.&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;stress -c 1
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;This command will &lt;strong&gt;dispatching the hug&lt;/strong&gt; lol! it utilizes one core of your CPU, in my case I have 4 CPU, so one of them will be loaded and I can see it on my system monitor resource tab.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/lpic2/sysmonstress.png&quot; alt=&quot;OSCP Post&quot; /&gt;
+&lt;strong&gt;Figure 2&lt;/strong&gt; System Monitor, one CPU are loaded over.&lt;/p&gt;
+
+&lt;p&gt;If I check out my processes list I will find that the stress program are running and utilizes at least 25% of my all CPU.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/lpic2/stressthecpu.png&quot; alt=&quot;OSCP Post&quot; /&gt;
+&lt;strong&gt;Figure 3&lt;/strong&gt; Stress program utilizes.&lt;/p&gt;
+
+&lt;p&gt;You can also run stress to utilizes the RAM, in that case you specify how much chunk you want to use, every chunk are 256mb, in my case I have 4 giga memory to use so to load it up I can run 15 chunk which is 3840 megabyte in total.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/lpic2/ramstress.png&quot; alt=&quot;OSCP Post&quot; /&gt;
+&lt;strong&gt;Figure 4&lt;/strong&gt; Stress the RAM.&lt;/p&gt;
+
+&lt;p&gt;You can see all of my &lt;code class=&quot;highlighter-rouge&quot;&gt;C^&lt;/code&gt; keys because I freak out, my computer was freezing and I can’t do anything but the &lt;code class=&quot;highlighter-rouge&quot;&gt;ctrl+C&lt;/code&gt; command, so now ufter it done I run 6 chunk that will not going to crash my system but at least I will be able to view the RAM used.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/lpic2/ramstress2.png&quot; alt=&quot;OSCP Post&quot; /&gt;
+&lt;strong&gt;Figure 5&lt;/strong&gt; Stress the RAM again.&lt;/p&gt;
+
+&lt;p&gt;You also can see on the resources that my memory really over load and my RAM is over 55% used and also my swap is over 59%, please remember that the swap is your virtual memory that run on your hard disk, which mean in my case on the hard disk I have 4 giga memory that been used as swap, if you see such of thing this is not normal and maybe the system are loaded, becouse as default the swap memory will never been use unless the regular memory are over and that the swap get to use.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/lpic2/resourcesramstress.png&quot; alt=&quot;OSCP Post&quot; /&gt;
+&lt;strong&gt;Figure 6&lt;/strong&gt; Stress the RAM, in resources.&lt;/p&gt;
+
+&lt;p&gt;You can also use stress to load the system by using that hard drive, just type the following command, that command can affect the &lt;strong&gt;io&lt;/strong&gt; which is the input/output wait and called &lt;strong&gt;i/o block&lt;/strong&gt;, this is a processes queue, if for some reason one process can’t run because the CPU are over loaded, that process will wait on until the CPU can handle it, the worst thing is that this process is on uninterruptable sleep mode which mean that you can’t even killed it.&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;stress --hdd 1
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;But let’s say that you are working at company X, and there you have some linux server without GUI, so in that case you may what to be familiar with the command that can help you to find the problem via terminal.&lt;/p&gt;
+
+&lt;h3 id=&quot;top&quot;&gt;Top&lt;/h3&gt;
+
+&lt;p&gt;That command can give us the same as the system monitor, you can view the percentage of CPU, RAM and more in the top table, so let’s look at that.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/lpic2/top.png&quot; alt=&quot;OSCP Post&quot; /&gt;
+&lt;strong&gt;Figure 7&lt;/strong&gt; top on terminal.&lt;/p&gt;
+
+&lt;p&gt;By typing the &lt;strong&gt;top&lt;/strong&gt; commend, as you can see, it bring me table that refresh every 3 second by default, you can change that value by using the &lt;code class=&quot;highlighter-rouge&quot;&gt;top -d 5&lt;/code&gt; command for 5 second, or inside the top screen press &lt;strong&gt;d&lt;/strong&gt; and it will ask you to setup new interval for screen update.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/lpic2/topd.png&quot; alt=&quot;OSCP Post&quot; /&gt;
+ &lt;strong&gt;Figure 8&lt;/strong&gt; Change interval with d.&lt;/p&gt;
+
+&lt;p&gt;You also can see the CPU in percentage, if you have 1 CPU that mean using full of that will be 100% and you will see this number on the cpu in the top command, if you have 4 CPU than if one of them are on the 100% utilizes, than in CPU field you will see 25%. You can also view every CPU separately by press 1 on your keyboard.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/lpic2/4cpu.png&quot; alt=&quot;OSCP Post&quot; /&gt;
+ &lt;strong&gt;Figure 9&lt;/strong&gt; Display every one of my CPU.&lt;/p&gt;
+
+&lt;p&gt;The information for every field over the CPU are as follow:&lt;/p&gt;
+
+&lt;p&gt;us: user cpu time (or) % CPU time spent in user space&lt;br /&gt;
+ sy: system cpu time (or) % CPU time spent in kernel space&lt;br /&gt;
+ ni: user nice cpu time (or) % CPU time spent on low priority processes&lt;br /&gt;
+ id: idle cpu time (or) % CPU time spent idle&lt;br /&gt;
+ wa: io wait cpu time (or) % CPU time spent in wait (on disk)&lt;br /&gt;
+ hi: hardware irq (or) % CPU time spent servicing/handling hardware interrupts&lt;br /&gt;
+ si: software irq (or) % CPU time spent servicing/handling software interrupts&lt;br /&gt;
+ st: steal time - - % CPU time in involuntary wait by virtual cpu while hypervisor is servicing another processor (or) % CPU time stolen from a virtual machine&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;By default the CPU tab are sort, which mean that you can see what program take more CPU than others, if you want to change this sort and resort it by memory, you can press on &lt;code class=&quot;highlighter-rouge&quot;&gt;shift+&amp;gt;&lt;/code&gt; that will sort the right column which is the RAM.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/lpic2/topmem.png&quot; alt=&quot;OSCP Post&quot; /&gt;
+ &lt;strong&gt;Figure 10&lt;/strong&gt; Sort the MEM.&lt;/p&gt;
+
+&lt;p&gt;If I will run stress now for check the cpu on the top, my cpu can cam up to 100% only if I type the command as follow:&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;stress -c 4
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;You can see that my CPU is nearly a hundred percent, so this is mean that if I done &lt;code class=&quot;highlighter-rouge&quot;&gt;stress -c 1&lt;/code&gt; it only load just one CPU core. The same will be in the case of memory as we saw earlier.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/lpic2/cpu100.png&quot; alt=&quot;OSCP Post&quot; /&gt;
+ &lt;strong&gt;Figure 11&lt;/strong&gt; CPU on 100%.&lt;/p&gt;
+
+&lt;p&gt;If I will load my hard drive, this can change the value of i/o wait time, on the top you can find it in the wa field.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/lpic2/topwa.png&quot; alt=&quot;OSCP Post&quot; /&gt;
+ &lt;strong&gt;Figure 12&lt;/strong&gt; Wait time are loaded.&lt;/p&gt;
+
+&lt;p&gt;Again, this case mean that we have process that use the hard drive and there is a program that on wait state that in sleep mode that we can’t kill.&lt;/p&gt;
+
+&lt;h3 id=&quot;iostat&quot;&gt;iostat&lt;/h3&gt;
+
+&lt;p&gt;According to man page, the iostat report Central Processing Unit (CPU) statistics and input/output statistics for devices and partitions. The iostat is a part of the sysstat package which mean that this packets contain several other tools and one of them is iostat, in my case I use Ubuntu, but if you are using some other operation system that doesn’t have that tool, just install it on you distribution, if it’s Debian like, you can use apt-get, if it is Fedora like, you can use yam, in my case to install the sysstat package I run the following:&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;sudo apt install sysstat
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;By runing the iostat we can find information about our system.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/lpic2/iostat.png&quot; alt=&quot;OSCP Post&quot; /&gt;
+&lt;strong&gt;Figure 1&lt;/strong&gt; Output of iostat.&lt;/p&gt;
+
+&lt;p&gt;The ouput contain the linux kernel version, which is Linux 4.15.0-66-generic and my PC name which is zwerd. you can also see the date (although for just date we use date command). we also can see the type of our opration system which is 64 bit in my case, and that I have 4 CPU available. avr-cpu display the CPU for every of the following&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;%user&lt;/strong&gt; - The CPU that used at the user or application level.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;%nice&lt;/strong&gt; - Every process consume the CPU, for every process there is a priority that can be use to decide who is more important and who is not, if you have up to 10 process on the backgound and they want to use CPU, the high-priority process will get consume the CPU before other, in that case the noce value will be negative which mean high-priority for that process.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;%system&lt;/strong&gt; - show the percentage of CPU utilization the been use by the kernel.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;%iowait&lt;/strong&gt; - stand for input/output wait, this is show the percentage of time that the CPU or CPUs were idle during which the system had an outstanding disk I/O request.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;%steal&lt;/strong&gt; - Show the percentage of time spent in involuntary wait by the virtual CPU or CPUs while the hypervisor was servicing another virtual processor.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;%idle&lt;/strong&gt; - Show the percentage of time that the CPU or CPUs were idle and the system did not have an outstanding disk I/O request.&lt;/p&gt;</content><author><name>Guy Zwerdling</name></author><category term="Linux" /><summary type="html">Today morning I received a message from LPI that my certificate will expire in 9 months and so it is time to start studying for the second Linux certification, this will advance me to the third Linux information security certification that will include what I am looking for, this certification is split in two</summary></entry><entry><title type="html">OSCP Certification Journey</title><link href="http://localhost:4000/2019/09/20/oscp_certificate.html" rel="alternate" type="text/html" title="OSCP Certification Journey" /><published>2019-09-20T00:00:00+03:00</published><updated>2019-09-20T00:00:00+03:00</updated><id>http://localhost:4000/2019/09/20/oscp_certificate</id><content type="html" xml:base="http://localhost:4000/2019/09/20/oscp_certificate.html">&lt;p&gt;I set myself a lot of goals this year to advance to the next level, among all the goals being the OSCP certification from Offensive Security. It’s been a certification I’ve been talking about for years, since 2012, it’s really time to sit down and do that certification. It all started when I was writing in a forum on computer communications, where I presented the dilemma, whether to study information security of companies that are involved in the field or something else when my goal is to be an expert in the cyber world.&lt;/p&gt;
 
 &lt;p&gt;Eventually, someone responded to me, depending on what I want to learn, whether I want to be on the attacker or on the defensive side, he introduced a number of certifications and wrote about each certification separately. Among all the certifications he presented were Cisco certificates, Check Point certificates, and all sorts of large companies that manufacture and market security sites that protect the entire corporate network.&lt;/p&gt;
 
@@ -380,7 +515,7 @@ color: green;
 
 &lt;p&gt;&lt;strong&gt;&amp;gt;&lt;/strong&gt; -  output redirection, we use this sign most of the time to save output of some value from the command line to file. you can redirect for other purpose, but most of the time this use to get out the value to file. As example:&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;/assets/images/outputredirect.png&quot; alt=&quot;sql-injection-044.png&quot; /&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/images/oscp/.png&quot; alt=&quot;sql-injection-044.png&quot; /&gt;
 &lt;strong&gt;Figure 44&lt;/strong&gt; Redirection.&lt;/p&gt;
 
 &lt;p&gt;In that case I used redirect to output the echoed string to file. If this file are didn’t exist, that it create it, if the file are exist, it overwrite it.&lt;/p&gt;
@@ -865,7 +1000,160 @@ cat &amp;lt; /home/fifofile | /bin/bash -i 2&amp;gt;&amp;amp;1 | nc -vlp 444 &am
 &lt;p&gt;&lt;img src=&quot;/assets/images/oscp/wiresharkuser&amp;amp;pass.png&quot; alt=&quot;OSCP Post&quot; /&gt;
 &lt;strong&gt;Figure 76&lt;/strong&gt; The captured user &amp;amp; pass.&lt;/p&gt;
 
-&lt;p&gt;&lt;strong&gt;Summary:&lt;/strong&gt; if we want to login to some server over the world wide web, it’s a good idea to check and see that we use some encripted connection to that server using https, it also imported to see that certificate we use to encrypted our session to that server is update, if it’s doesn’t it is likely that your browser will warned you about that, If you do decide to go and proceed to the site anyway, you should not login to this site because the same situation we saw here, if someone is listening to the network (Man In The Middle) he can certainly see your username and password.&lt;/p&gt;</content><author><name>Guy Zwerdling</name></author><category term="Pentest" /><summary type="html">I set myself a lot of goals this year to advance to the next level, among all the goals being the OSCP certification from Offensive Security. It's been a certification I've been talking about for years, since 2012, it's really time to sit down and do that certification. It all started when I was writing in a forum on computer communications, where I presented the dilemma, whether to study information security of companies that are involved in the field or something else when my goal is to be an expert in the cyber world.</summary></entry><entry><title type="html">MyGmach - My New Open Source App (react native app)</title><link href="http://localhost:4000/2019/02/17/new_open_source_app.html" rel="alternate" type="text/html" title="MyGmach - My New Open Source App (react native app)" /><published>2019-02-17T00:00:00+02:00</published><updated>2019-02-17T00:00:00+02:00</updated><id>http://localhost:4000/2019/02/17/new_open_source_app</id><content type="html" xml:base="http://localhost:4000/2019/02/17/new_open_source_app.html">&lt;p&gt;At last I finish another application using React Native for native mobile apps using JavaScript and React, the first one was NachRiddles which is base on my dear brother’s book. MyGmach app is build base on my father idea. Every Saturday my dear brother used to wear a certain tie that was unique to the parsha on that Shabbat. After he passed, my father wanted to open tie Gmach - which is the way in the Jewish world to help each other without getting paid (in Hebrew it is an acronym for kindness which is pronounced Gemilot Hassadim [‘גמילות חסדים’]), and give anyone tie as needed.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Summary:&lt;/strong&gt; if we want to login to some server over the world wide web, it’s a good idea to check and see that we use some encripted connection to that server using https, it also imported to see that certificate we use to encrypted our session to that server is update, if it’s doesn’t it is likely that your browser will warned you about that, If you do decide to go and proceed to the site anyway, you should not login to this site because the same situation we saw here, if someone is listening to the network (Man In The Middle) he can certainly see your username and password.&lt;/p&gt;
+
+&lt;h1 id=&quot;chapter-4&quot;&gt;Chapter 4&lt;/h1&gt;
+&lt;h1 id=&quot;information-gathering&quot;&gt;Information Gathering&lt;/h1&gt;
+
+&lt;p&gt;Information gathering is importance step to know before we going to try break to some organization that you going to penetrate, in that step we can trying to get more relevant information that may give us a clue what we going against for, I mean surly you may find some phone and fax numbers and email addresses but you may find more interesting thing like what the service provider of that organization, what email service they use, is that email service are old? maybe you can find some exploit to that service and so on, mean, can you see were that is going? that information can be useful as more you proceed to hack the system.&lt;/p&gt;
+
+&lt;p&gt;The way to find some information can be done by using some search engine or tool that can be found on your Kali, if we talking about online search engine, it may be a good idea how to use in google, you may read that line and say, “google? rubbish… nonsense! what I have to know about search on google? I just search it!”, this is the point, in google as example we have word key that can maximize your results and find exactly what we are looking for.&lt;/p&gt;
+
+&lt;h2 id=&quot;google-search-power&quot;&gt;Google Search Power&lt;/h2&gt;
+
+&lt;p&gt;In google we can use keys parameter for running the search we want, this is a sort of filter that can bring the most relevant results that can help use to achieve the information we want.&lt;/p&gt;
+
+&lt;p&gt;The way you use the keys are as follow:&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;key:&amp;lt;search word&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;strong&gt;inurl:&lt;/strong&gt; this option allow us to search specific word inside the url, this can bring us some url structure that can be vulnerable to some attack like sql injection or xss etc.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;strong&gt;intext:&lt;/strong&gt; this key can help us to search inside the body of the webgparg on in the source code, in that way we can search information that can been found over the source code of the page, we can find that this site bulder as example use particular hoster service that can be found vulnerable, or script code that build over some specific application that can seen vulnerable or worse, the site builder can leave a comment that can give us clue what the service that he use and what are the version of tham an if so we may recognize some weakness we can take advantage of to carry out our assault.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;strong&gt;filetype:&lt;/strong&gt; this option can been used to find specific file type on the site, if we found some file that we know what is the version of it, we may use it to exploit this site.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;intitle:&lt;/strong&gt; that option can found specific text inside the title of that web, this can be good to file some related things to that side, like lets say we want to find the admin page or more correctly admin directory, we can use the follow:
+    &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;intitle:&quot;index of /admin&quot;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
+    &lt;p&gt;if the page admin contain some default view that is index of folder that title will be this page title so this option are handy.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;site:&lt;/strong&gt; that option can help us to search some string inside the specific site we used on our search, as example let’s say that we done the following:
+    &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;site:cisco.com
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
+    &lt;p&gt;Int this case this can bring us all the results that come from cisco.com, we can combin other option with that option to find more specific stuff on this particular site.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;strong&gt;link:&lt;/strong&gt; this option can be used to find site that contain like to others, this can help us to find more information related to this site structure.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;-(sub tract/key)&lt;/strong&gt; this option can be any key we have, but with the &lt;strong&gt;-sign&lt;/strong&gt; which tell the search engine to find everything excluding of our specific string, as example:
+    &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;site:cisco.com -site:www.cisco.com
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
+    &lt;p&gt;In that case we bring up results from cisco.com but exclude results related to www.cisco.com, that way can help us to find more relevant information.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;We can combine every key with others and that action can bring us interesting things, let’s say that we search for passwordm we can run the follow:&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;inurl:passwd filetype:txt
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;In this example we search in google every url that contain the word passwd which have file type of &lt;code class=&quot;highlighter-rouge&quot;&gt;txt&lt;/code&gt; extension, that can beeing handy if we try it on specific site lite let’s say books24x7 which is site for book reading.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/oscp/books24x7.png&quot; alt=&quot;OSCP Post&quot; /&gt;
+&lt;strong&gt;Figure 77&lt;/strong&gt; books24x7 site.&lt;/p&gt;
+
+&lt;p&gt;I run the following:&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;inurl:passwd filetype:txt site:books24x7.com
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;And sure enough I found that this site contain some &lt;code class=&quot;highlighter-rouge&quot;&gt;txt&lt;/code&gt; file with password.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/oscp/books24x7passwd.png&quot; alt=&quot;OSCP Post&quot; /&gt;
+&lt;strong&gt;Figure 77&lt;/strong&gt; books24x7 passwd search.&lt;/p&gt;
+
+&lt;p&gt;I don’t know way some one do such a thing, bring some open txt file to your site is not clever, so it may be a good idea not to do so.&lt;/p&gt;
+
+&lt;p&gt;You may know about some title that appliance bring up, as an example, I know that my friend who work at some hotel, have some camera that view on the main entering from the down street, on that appliance the title is &lt;code class=&quot;highlighter-rouge&quot;&gt;Live view&lt;/code&gt; and that camera is of axis, so I run the following just to see if some one over the net have an open access to this sort of camera:&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;intitle:&quot;Live View&quot; &quot;axis&quot;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;That will bring up some site that have AXIS M1114 Network Camera of Heidelberg University on Germany which locate above some &lt;strong&gt;foucault pendulum&lt;/strong&gt;,&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/oscp/axis.png&quot; alt=&quot;OSCP Post&quot; /&gt;
+&lt;strong&gt;Figure 78&lt;/strong&gt; Foucault pendulum on Heidelberg University via AXIS M1114 Network Camera.&lt;/p&gt;
+
+&lt;p&gt;Let’s say that you came up to some organization and saw at the entrance some camera with logo or title of the company that sell that camera, maybe some simple search on google can give you how the managment of that camera look like and you may found some key that can be used on google and maybe you will find some free access to that comera, and if so, may be the camera is a part of their network and maybe you can advantage this case to penetrate in.&lt;/p&gt;
+
+&lt;table&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;It’s can be handy to know that with google we can use regular expression like “or”=**&lt;/td&gt;
+      &lt;td&gt;&lt;strong&gt;, Or more targeted search by using brackets **()&lt;/strong&gt;, like in the following search:&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;filetype:pwd inurl:( service | authors | administrators | users )
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Do you see which way this is going? So it’s worth knowing and familiar with the tools available to us when it comes to a search engine like Google, which can be very useful to us.&lt;/p&gt;
+
+&lt;h2 id=&quot;email-information-gathering&quot;&gt;Email Information Gathering&lt;/h2&gt;
+
+&lt;p&gt;When it came to emails, we can use google to find email by domain name, but we also have some tools that you should know. In the filed of emails gathering, the export name is Email Harvesting, like &lt;strong&gt;thehavester&lt;/strong&gt; that can be use to done search task for email that related to some domain.&lt;/p&gt;
+
+&lt;h3 id=&quot;thehavester&quot;&gt;thehavester&lt;/h3&gt;
+
+&lt;p&gt;That tool can search an emails by using Google, Bing etc. When you trying to run some search with that tool he actually run GET command over that engine to search the email address that related for that domain, for example, I run that tool for searching over  google emails that related to cisco.com domains&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;theharvester -d cisco.com -b google
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/oscp/theharvester.png&quot; alt=&quot;OSCP Post&quot; /&gt;
+&lt;strong&gt;Figure 78&lt;/strong&gt; theharvester.&lt;/p&gt;
+
+&lt;p&gt;the following is what thehavester was sent:&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;http://search?num=100&amp;amp;start=0&amp;amp;hl=en&amp;amp;meta=&amp;amp;q=%40%22cisco.com%22&amp;amp;User-Agent=Opera%2F9.80+%28X11%3B+Linux+i686%3B+U%3B+es-ES%29+Presto%2F2.8.131+Version%2F11.11
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;if you will try this like on your browser you will get some search page for cisco email that look like that:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/oscp/ciscosearch.png&quot; alt=&quot;OSCP Post&quot; /&gt;
+&lt;strong&gt;Figure 79&lt;/strong&gt; In my case I search for cisco emails.&lt;/p&gt;
+
+&lt;p&gt;I didn’t get any results on theharvester, if I run wireshark I will be able to see why,&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/oscp/httpsearch.png&quot; alt=&quot;OSCP Post&quot; /&gt;
+&lt;strong&gt;Figure 80&lt;/strong&gt; Unreachable.&lt;/p&gt;
+
+&lt;p&gt;You can see on the wireshark that I get error code 503 which is unreachable page, I cannot recover this request over the browser, but I can see how the search is look like, any way, we know that theharvester use http request and not https, maybe that is why we get 503, but know let’s try it on the bing.&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;GET /search?q=%40cisco.com&amp;amp;count=50&amp;amp;first=250 HTTP/1.1
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;On that GET request we can see clirely that we trying to get results out of 50 counts which mean that the page we get will contain 50 results at one page and the results number is the first 250, this is mean that the page contain the result number 250 and display you the rest of the 50 related results which mean 250-300, please note that in bing the max is 45 results per page.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/oscp/ciscomails.png&quot; alt=&quot;OSCP Post&quot; /&gt;
+&lt;strong&gt;Figure 81&lt;/strong&gt; Cisco address.&lt;/p&gt;
+
+&lt;p&gt;At the end I got number of relevant address that theharvester found by using bing as search engine. the following are the most used option:&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;d&lt;/strong&gt; - domain name, we can used this option to specify domain name or company name, theharvester will use that in his search over the search engine.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;b&lt;/strong&gt; - database, with this option we setup the search engine like bing or google or censys, theharvester will used the search engine we setup for all of his searching, you can also run double search engine by using comma as separator.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;l&lt;/strong&gt; - limit results,  in case you have  many results of one domain, you can limit them by using this option, in bing the limits are 50.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;f&lt;/strong&gt; - this option allow you to save the results in xml format, you can elso redirect the result but with that option you be able to see the results on the screen which you can’t with redirect.&lt;/p&gt;
+
+&lt;h3 id=&quot;whois&quot;&gt;whois&lt;/h3&gt;
+
+&lt;p&gt;That tool can be use to find out which is the service provider of site, when you run this command on your Kali this whois start TCP session to whois database with port 43 which is the standart tcp port for whois, the details you get you can also get on &lt;a href=&quot;www.whois.com&quot;&gt;www.whois.com&lt;/a&gt; which is the same database. The information whois can give you can contain address and email address for the organization you search for and phone number and street location, also ISP for that domain and date of update/created and so on.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/oscp/whois.png&quot; alt=&quot;OSCP Post&quot; /&gt;
+&lt;strong&gt;Figure 82&lt;/strong&gt; Whois tool, facebook search.&lt;/p&gt;
+
+&lt;p&gt;you can also use IP address instead of domain name, whois can performe reverse lookup and find out more detail related for that domain.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/oscp/whois2.png&quot; alt=&quot;OSCP Post&quot; /&gt;
+&lt;strong&gt;Figure 83&lt;/strong&gt; Whois reverse lookup.&lt;/p&gt;
+
+&lt;h3 id=&quot;recon-ng&quot;&gt;recon-ng&lt;/h3&gt;
+
+&lt;p&gt;that tool is loo like Metasploit Framework and feel in that way, we can use it to grab data about our target for using it later on. recon-ng use modals that we need to operate and setup what we need in order to make some task over the network, after we done to setup our need we use &lt;strong&gt;run&lt;/strong&gt; command to start the scanning.&lt;/p&gt;</content><author><name>Guy Zwerdling</name></author><category term="Pentest" /><summary type="html">I set myself a lot of goals this year to advance to the next level, among all the goals being the OSCP certification from Offensive Security. It's been a certification I've been talking about for years, since 2012, it's really time to sit down and do that certification. It all started when I was writing in a forum on computer communications, where I presented the dilemma, whether to study information security of companies that are involved in the field or something else when my goal is to be an expert in the cyber world.</summary></entry><entry><title type="html">MyGmach - My New Open Source App (react native app)</title><link href="http://localhost:4000/2019/02/17/new_open_source_app.html" rel="alternate" type="text/html" title="MyGmach - My New Open Source App (react native app)" /><published>2019-02-17T00:00:00+02:00</published><updated>2019-02-17T00:00:00+02:00</updated><id>http://localhost:4000/2019/02/17/new_open_source_app</id><content type="html" xml:base="http://localhost:4000/2019/02/17/new_open_source_app.html">&lt;p&gt;At last I finish another application using React Native for native mobile apps using JavaScript and React, the first one was NachRiddles which is base on my dear brother’s book. MyGmach app is build base on my father idea. Every Saturday my dear brother used to wear a certain tie that was unique to the parsha on that Shabbat. After he passed, my father wanted to open tie Gmach - which is the way in the Jewish world to help each other without getting paid (in Hebrew it is an acronym for kindness which is pronounced Gemilot Hassadim [‘גמילות חסדים’]), and give anyone tie as needed.&lt;/p&gt;
 
 &lt;p&gt;After my father told me about is idea, I start to work on MyGmach to build an application that allow to manage privet foundation with items in it, so i wrote document about the functionality that I want to build in that application.&lt;/p&gt;
 
@@ -2949,28 +3237,4 @@ The problem with that operation is that we always need to resend some packets th
 &lt;br /&gt;
 &lt;br /&gt;&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;/assets/images/app1.jpg&quot; alt=&quot;diamonds2&quot; title=&quot;diamonds2&quot; class=&quot;img-responsive&quot; height=&quot;500px&quot; width=&quot;400px&quot; /&gt;&lt;/p&gt;</content><author><name>Guy Zwerdling</name></author><summary type="html">k, so I finished the application, now it's on Google Play, the name of the app is &quot;Habia Histom Meni Kedem&quot; of &quot;Nach Riddle&quot;</summary></entry><entry><title type="html">CheckPoint</title><link href="http://localhost:4000/2017/10/22/CheckPoint.html" rel="alternate" type="text/html" title="CheckPoint" /><published>2017-10-22T00:00:00+03:00</published><updated>2017-10-22T00:00:00+03:00</updated><id>http://localhost:4000/2017/10/22/CheckPoint</id><content type="html" xml:base="http://localhost:4000/2017/10/22/CheckPoint.html">&lt;p&gt;CheckPoint have something that called SMART Architecture, that stand for Security Mgmt. Architerctor(SMART), and that architecture contain three stuff:&lt;/p&gt;
-&lt;ul&gt;
-  &lt;li&gt;&lt;strong&gt;console&lt;/strong&gt; that is the PC that connect to implying and configuring the organization policy.&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;Managment&lt;/strong&gt; which is a box that responsible for policies and implement them on the firewalls in the network.&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;Gateway (FW)&lt;/strong&gt; this is the firewall that the policies apply on it, so that is the force point of the policies of the management server.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;The principle in that architecture is simple, the policies will be manage on other box than the FW server, and in the FW server we only enforce that policy, no one can setup policies on the FW then the management, so keep in mine that every time we will setup some new rule we will configure it on the managment and after that we will apply it on the FW itself.&lt;/p&gt;
-
-&lt;p&gt;If we look on the traffic control method we have three main methods that CheckPoint work with:&lt;/p&gt;
-&lt;ul&gt;
-  &lt;li&gt;&lt;strong&gt;packets filtering&lt;/strong&gt; which enforce the policies of the FW, which mean that only traffic that allowed on the FW to transfer, that is the only traffic that will be transfer, that mean if we have a policy that allow all traffic within the network to be transfered to the external, in that case traffic will allow to transfer in that direction only, so on body from the external will allowed to go inside to the internal, so in short packets filtering is basically said this packets are allow and this packets are doesn’t, and the default operation is deny every traffic through the firewall, that mean that if you want to allow some traffic you must set it up on the FW with the management server.&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;Stateful&lt;/strong&gt; which mean that if some packet from the internal travel to the external we will allow only that traffic to go back because we know that the traffic start from the internal network. It we was implement the network to work only with Packet Filtering we was in trouble because we will be must allow any traffice in any direction, so this is the place that stateful inspection come along. Every traffic will record in some state table done by INSPECT engine and if the traffic that transffer from internal and come back to the FW and it is perfect it will allow to go foreword from the external to internal which mean for example if some one from the internal sent SYN to someone else we will expect to receive some SYN+ACK from the same someone that on the external, so in some case this traffic are allow by the stateful.&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;App. Awareness&lt;/strong&gt; is the way that the FW will know what is the type of the traffic which mean that the firewall know what is the application, as an example if the traffic is http, then we allow it to transfer, but if the traffic isn’t http it’s just telnet traffic that used port 80 we will disallow that, that mean the firewall knows how the application look like and base on that we can setup some rull that allow or deny some sort of traffic. So you may ask is it mean that the firewall look in every packets in digging to the application layer of that packet? so the  answer is no, the firewall allow that traffic to go along base on the first packets that arrived, if that packets contain legitimate application it will be transfer and record in the state table of INSPECT engine.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;This days the operation of the checkpoint called GAiA, in the passed it was IPSO and after that it was SecurePlatform (SPLAT), the GAiA is linux base so if you know linux then you are ready to go.&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;Highlights&lt;/strong&gt;:
-If we setup the firewall and the management in the same boxes, this implementation are called &lt;strong&gt;Standalone&lt;/strong&gt;, if the management server and the firewall server are separated, this is called &lt;strong&gt;Distributed&lt;/strong&gt; implementation.
-If we setup more that one firewall in the core, in that case we can set it as High Availability. we also can use the firewall as &lt;strong&gt;Routed&lt;/strong&gt; device or as &lt;strong&gt;Bridged&lt;/strong&gt; device, this mean that if we work in Routed mode the firewall will separate broadcast domain and if we used in Bridged mode the firewall can still to look through the packet up to application layer but in that mode we doesn’t need to setup separated IP addresses for every port, which mean the firewall also doesn’t separated broadcast domains.&lt;/p&gt;
-
-&lt;p&gt;I will setup CheckPoint firewall lab with R76 because that what I have (original disk), so for the brouser of today there is some issue  &lt;code class=&quot;highlighter-rouge&quot;&gt;ERR_SSL_VERSION_OR_CIPHER_MISMATCH&lt;/code&gt; so if you setup the machine and trying to connect them with you browser probably you will see this error, this error is related to some issue called SSL/TLS compression &lt;a href=&quot;http://cve.mitre.org/cgi-bin/cvename.cgi?name=cve-CVE-2012-4929&quot;&gt;CVE-2012-4929&lt;/a&gt;, so if you have some updated version of GAiA I think that you will not face with that issue, in my case I downgrade the IE browser and it work for me.&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;there will be a continue.&lt;/strong&gt;&lt;/p&gt;</content><author><name>Guy Zwerdling</name></author><category term="CheckPoint" /><summary type="html">Ok... so... for guy that write how to migrate from CheckPoint to PaloAlto is difficult to write again about checkpoint, but I think that checkpoint have some good stuff that we can play with and to learn from this stuff, so this is why I write this article, first of all I want to memorize myself the knowledge I have learn for my CCSA certification and to share it with you guys.</summary></entry></feed>
+&lt;p&gt;&lt;img src=&quot;/assets/images/app1.jpg&quot; alt=&quot;diamonds2&quot; title=&quot;diamonds2&quot; class=&quot;img-responsive&quot; height=&quot;500px&quot; width=&quot;400px&quot; /&gt;&lt;/p&gt;</content><author><name>Guy Zwerdling</name></author><summary type="html">k, so I finished the application, now it's on Google Play, the name of the app is &quot;Habia Histom Meni Kedem&quot; of &quot;Nach Riddle&quot;</summary></entry></feed>

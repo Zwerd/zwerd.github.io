@@ -1072,4 +1072,118 @@ you can also use IP address instead of domain name, whois can performe reverse l
 
 ### recon-ng
 
-that tool is loo like Metasploit Framework and feel in that way, we can use it to grab data about our target for using it later on. recon-ng use modals that we need to operate and setup what we need in order to make some task over the network, after we done to setup our need we use **run** command to start the scanning.
+That tool is look like Metasploit Framework and feel in that way, we can use it to grab data about our target for using it later on or finding vulnerabilities. recon-ng use modals that we need to operate and setup what we need in order to make some task over the network, after we done to setup our need we use **run** command to start the scanning.
+
+But before we look at that tool, you need  at least the version I use which is 5.0.0, if you don't have that version, the command I will going to show you here may not work for you. To install the latest version you can use the following command:
+```
+apt update && apt install recon-ng
+```
+
+If the machine complain about that you have the latest version, you may want to update the source.list repository on your Kali, but you can also clone it from git by using the following command:
+
+```
+git clone https://github.com/lanmaster53/recon-ng.git
+```
+
+after he finish to download the source git, use `cd` to jump in the folder and run the the following command by using pip3.
+```
+pip3 install -r REQUIREMENTS
+```
+if you don't have pip3, try pip instead, if that also not work you can install it by using the following command.
+```
+apt update && apt install python3-pip
+```
+
+Now, run recon-ng from that folder by using the current folder `./recon-ng`, this will bring you that recon-ng that you download, you can see the version on the load screen.
+
+![OSCP Post](/assets/images/oscp/recon-ng.png)
+**Figure 84** recon-ng verion 5.1.0.
+
+The first thing you will want to do is to view the marketplace, there you will see every module that you can use, in my case I search for module name xssed, that module can help us to find url of some domain that vulnerable for xss attacks.
+
+```
+marketplace info xss
+```
+
+After you find the module, you will need to install and load it up it by using the following
+```
+marketplace install xssed
+modules load xssed
+```
+
+After that done, you can view the option you can set into that module that can be use to search that vulnerabilities on some domain by using the following
+```
+options list
+```
+
+I saw on old version of recon that the command `show options` are being used, on the output you will see the minitable that contain the `SOURCE` which is the domain value we going to use, I already set up that domain by using the following command:
+```
+options set SOURCE cisco.com
+```
+
+After that, the last thing you will need to do is to run that module algorithm on that domain by using `run`.
+
+![OSCP Post](/assets/images/oscp/recon-ngxssed.png)
+**Figure 85** Using xss module in recon-ng.
+
+You can also use `info` to see what already setup on that option and change it if needed. If you want to go back to marketplace and search for other module just type `back` and you will be able to search for modal with `marketplace info <module>`. please note that in the module name you can type part string and he will find the all related thing that contain that string like as follow:
+```
+marketplace info xss
+```
+This command will be found every module that contain xss in the name, after you load some modules and let's say that you tryied out a lot of them, then you can use the following command to display which module you all ready load and ready for use.
+
+```
+modules search
+```
+Lats say in our case of information gathering we want to find out every subdomain of cisco.com, in that case we can use the google_site_web, so first of all we need to search if it exists on our recon-ng by using `marketplace search google_site_web`.
+
+![OSCP Post](/assets/images/oscp/reconsearchgoogle.png)
+**Figure 86** Search some google module on reacon-ng.
+
+After we found that we have google_site_web module, we load it up by using `modules load google_site_web`, and that command will open that module for us, now we need to know how to use it.
+
+![OSCP Post](/assets/images/oscp/reconoptions.png)
+**Figure 87** View our options.
+
+We also can use `info`, in our case we want to setup what domain we will use for searching the sub domain, the command we need now is `options set SOURCE cisco.com`, the output will specify the new SOURCE that we going to use.
+
+![OSCP Post](/assets/images/oscp/reconoptionsset.png)
+**Figure 88** Set our SOURCE.
+
+What we need to do now is just run it by using `run` command, on the screen you will see all information that this module found related to this domain.
+
+![OSCP Post](/assets/images/oscp/reconrun.png)
+**Figure 89** Run the module.
+
+You can view that information on recon table by using `show hosts` command. In my case I used the hackertarget to find information about tesla.com domain.
+
+![OSCP Post](/assets/images/oscp/reconshow.png)
+**Figure 90** Using show command.
+
+### DNS Enumeration
+
+Using DNS is another way lunch active information gathering, DNS can help us to find information like organization servers, addresses server names and more. the usual command that can be use to make query to some DNS server is `host`.
+
+![OSCP Post](/assets/images/oscp/host.png)
+**Figure 91** host command.
+
+In zwerd.com you can see what is the ip address for that host and what server handle it's mail service. You can specified what type of query you going to generate by using `-t` and you have many, like **ns** or **mx** and such. The **ns** are used as name servers and it resposible for give information about a server which mean this server have DNS record for the server you search for, as example if you run the following command.
+
+```
+host -t ns google.com
+```
+
+![OSCP Post](/assets/images/oscp/hostns.png)
+**Figure 92** NS records.
+
+In that case you can see the DNS server that contain the information about the domain google.com, you can do the same with mx recorde that will give you the name of the servers that resposible for the mail service for this domain.
+```
+host -t mx google.com
+```
+
+In case of subdomain you may see some alias record for other subdomain, in my case I run the following command `host www.cisco.com` and that command give me many alias for that sub domain.
+
+![OSCP Post](/assets/images/oscp/hostnscisco.png)
+**Figure 93** cisco subdomain records.
+
+If we what to grab the subdomain and search for any subdomain that domain contain, we can use `host` command for every thing that we thing that can be found as sub domain, like `www`, `ftp`, `owa`, `proxy`, and such, but in the case of linux you always need to thing out of the box, you can redirect these string like to some file and create bash script to manipulate that file.

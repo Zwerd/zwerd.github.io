@@ -436,7 +436,7 @@
 <p><img src="/assets/images/lpic2/resourcesramstress.png" alt="OSCP Post" />
 <strong>Figure 6</strong> Stress the RAM, in resources.</p>
 
-<p>You can also use stress to load the system by using that hard drive, just type the following command, that command can affect the <strong>io</strong> which is the input/output wait and called <strong>i/o block</strong>, this is a processes queue, if for some reason one process can’t run because the CPU are over loaded, that process will wait on until the CPU can handle it, the worst thing is that this process is on uninterruptable sleep mode which mean that you can’t even killed it.</p>
+<p>You can also use stress to load the system by using that hard drive, just type the following command, that command can affect the <strong>io</strong> which is the input/output wait and called <strong>i/o block</strong>, this is a processes queue, if for some reason one process can’t run because the CPU are over loaded, that process will wait on until the CPU can handle it, the worst thing about that is that this process is on <strong>uninterruptable sleep</strong> mode which mean that you can’t even killed it.</p>
 
 <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>stress --hdd 1
 </code></pre></div></div>
@@ -485,12 +485,79 @@
 <p><img src="/assets/images/lpic2/cpu100.png" alt="OSCP Post" />
  <strong>Figure 11</strong> CPU on 100%.</p>
 
-<p>If I will load my hard drive, this can change the value of i/o wait time, on the top you can find it in the wa field.</p>
+<p>If I will load my hard drive which mean in our case to use <code class="highlighter-rouge">stress --hdd 1</code> command, this can change the value of i/o wait time, on the top you can find it under <strong>wa</strong> field.</p>
 
 <p><img src="/assets/images/lpic2/topwa.png" alt="OSCP Post" />
  <strong>Figure 12</strong> Wait time are loaded.</p>
 
 <p>Again, this case mean that we have process that use the hard drive and there is a program that on wait state that in sleep mode that we can’t kill.</p>
+
+<h3 id="vmstat">vmstat</h3>
+
+<p>In that command we can view the memory that being used and CPU values, i/o and system utilizes, if you type this command you will get that information but that it, not like top that refresh itself every 3 second by default, but you can run it with refresh like, by using <strong>delay</strong> and <strong>count</strong> option. In the delay you specify how long to wait between every time it display you the information, the count is how many time it will repeat it self, in that case you can see the changes along the way.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>vmstat 3 5
+</code></pre></div></div>
+
+<p>In that case this command display report every 3 seconds and repeat that five times, as you can see on the output I have, the free memory change every 3 second and so in the cpu and i/o.</p>
+
+<p><img src="/assets/images/lpic2/vmstat.png" alt="OSCP Post" />
+<strong>Figure 12</strong> vmstat, 3 seconds delay, 5 count.</p>
+
+<p>You can view also only the disk i/o that display the read and write statistics by using <code class="highlighter-rouge">-d</code> option or memory statistics by using <code class="highlighter-rouge">-s</code> option. The following is the way to view the table in <strong>wide</strong> mode, it’s display more readable table which can help understand more.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>vmstat -w
+</code></pre></div></div>
+
+<p><img src="/assets/images/lpic2/vmstatwide.png" alt="OSCP Post" />
+<strong>Figure 13</strong> vmstat wide mode.</p>
+
+<p>You can combain the option as follow:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>vmstat -w 3 5
+</code></pre></div></div>
+
+<p>I have being seeing people that use that command in their program to track the operation of the memory and CPU, in the case of issue with the resources we have, you can find more useful commands than that.</p>
+
+<h3 id="free">free</h3>
+
+<p>In that command you can more easily understand your free memory that using mvstate in my opinion, because it allow you to view that memory by using megabyte instead of kilobyte that requires you to calculate these values.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>free -m
+</code></pre></div></div>
+<p>In my case I have 3823 MB memory in my computer, the memory that are used is 1999 MB and free memory is 124 MB, the shared memory in my case are 208MB, this is mean that there is a two or more process that can access that common memory, the buff/cache are the memory that in the buffer or cache, the consept of that is that if you used some program and close it, that memory going to cache, if you will open that program again, the memory are cached in, so it can bring up the program more quickly. However, if you need this memory, it will allow you to use the memory and get of the cache. In my case the memory that as being cached are 1699MB, available does include free column + a part of buff/cache which can be reused for current needs <em>immediately</em>.</p>
+
+<p><img src="/assets/images/lpic2/free.png" alt="OSCP Post" />
+<strong>Figure 14</strong> free memory in MB.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>free -h
+</code></pre></div></div>
+
+<p>You can also use the <strong>-h</strong> option which stand for human, it can help you more clearly to view the amount of memory that are used or free.</p>
+
+<p><img src="/assets/images/lpic2/freeh.png" alt="OSCP Post" />
+<strong>Figure 15</strong> free memory in GB.</p>
+
+<p>You can also use count which can help display the output several times like in  the vmstate, but we haven’t delay option, the delay will be 1 second.</p>
+
+<p><img src="/assets/images/lpic2/freecount.png" alt="OSCP Post" />
+<strong>Figure 16</strong> free 3 times count.</p>
+
+<p>The swap memory shouldn’t been used, because as we saw earlier that memory should be available only for case we have no memory to use in our system. In my case the was are use more that 300MB, which is note so good, because as I said that was normally are on value of 0. In Ubuntu the default value of the swap that can being used although we have free space in the memory is 60% of the swap in total, we can view our swap value in by using the command <code class="highlighter-rouge">cat /proc/sys/vm/swappiness</code>, in order to change that value we can use the following command:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sudo sysctl vm.swappiness=10
+</code></pre></div></div>
+
+<p>Please note that in the case of <strong>sysctl</strong>, the changing of swap is temporary value, which mean after reboot the value will go back to the last value, to make sure this value be permanent we need to change the <strong>vm.swappiness</strong> on the <code class="highlighter-rouge">/etc/sysctl.conf</code> file. The recommended value for the swap is 10% as much as I know, but you can experiment it.</p>
+
+<p>I use the following command for look on my memory changing:</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>stress -m 6
+</code></pre></div></div>
+
+<p>In that case you can see that swap are really working hard and the cache was release a bit, this is mean that my system going buggy behavior, and now we need to find what causes this issue.</p>
+
+<p><img src="/assets/images/lpic2/freestress.png" alt="OSCP Post" />
+<strong>Figure 17</strong> Memory are load up.</p>
 
 <h3 id="iostat">iostat</h3>
 
@@ -498,16 +565,16 @@
 <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sudo apt install sysstat
 </code></pre></div></div>
 
-<p>By runing the iostat we can find information about our system.</p>
+<p>By running the iostat we can find information about our i/o on our system.</p>
 
 <p><img src="/assets/images/lpic2/iostat.png" alt="OSCP Post" />
-<strong>Figure 1</strong> Output of iostat.</p>
+<strong>Figure 18</strong> Output of iostat.</p>
 
-<p>The ouput contain the linux kernel version, which is Linux 4.15.0-66-generic and my PC name which is zwerd. you can also see the date (although for just date we use date command). we also can see the type of our opration system which is 64 bit in my case, and that I have 4 CPU available. avr-cpu display the CPU for every of the following</p>
+<p>The ouput contain the linux kernel version, which is Linux 4.15.0-66-generic and my PC name which is zwerd. you can also see the date (although for just date we use date command). we also can see the type of our operation system which is 64 bit in my case, and that I have 4 CPU available. avr-cpu display the CPU for every of the following</p>
 
 <p><strong>%user</strong> - The CPU that used at the user or application level.</p>
 
-<p><strong>%nice</strong> - Every process consume the CPU, for every process there is a priority that can be use to decide who is more important and who is not, if you have up to 10 process on the backgound and they want to use CPU, the high-priority process will get consume the CPU before other, in that case the noce value will be negative which mean high-priority for that process.</p>
+<p><strong>%nice</strong> - Every process consume the CPU, for every process there is a priority that can be use to decide who is more important and who is not, if you have up to 10 process on the backgound and they want to use CPU, the high-priority process will get consume the CPU before other, in that case the nice value will be negative which mean high-priority for that process.</p>
 
 <p><strong>%system</strong> - show the percentage of CPU utilization the been use by the kernel.</p>
 
@@ -516,6 +583,44 @@
 <p><strong>%steal</strong> - Show the percentage of time spent in involuntary wait by the virtual CPU or CPUs while the hypervisor was servicing another virtual processor.</p>
 
 <p><strong>%idle</strong> - Show the percentage of time that the CPU or CPUs were idle and the system did not have an outstanding disk I/O request.</p>
+
+<p>Let’s load up my system to see the changes on our output, I use the command <code class="highlighter-rouge">stress --hdd 1</code>, if we use top command we will see the <strong>wa</strong> load up, which mean that we have many process that in wait time state and they wait for CPU that can process them.</p>
+
+<p><img src="/assets/images/lpic2/waittime.png" alt="OSCP Post" />
+<strong>Figure 19</strong> I/O wa by using top command.</p>
+
+<p>We can use <strong>-x</strong> for extended information that include utilization as well, we also can print out the output as that same way we done on vmstat, it can display output multiple time and delay from each as follow:</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>iostat -x 3 5
+</code></pre></div></div>
+<p>In that case it will print out every 3 second, 5 times.</p>
+
+<p><img src="/assets/images/lpic2/iostatx.png" alt="OSCP Post" />
+<strong>Figure 20</strong> iostat with extended.</p>
+
+<p>After I load up my hard disk by using stress, this what I got on the iostat output, you can see that the values on the output load a lot.</p>
+
+<p><img src="/assets/images/lpic2/iostatx2.png" alt="OSCP Post" />
+<strong>Figure 21</strong> iostat loadup.</p>
+
+<p>If you have more than one partition, you can use the option <strong>-p</strong>, this option displays statistics for block devices and all their partitions that are used by the system, you can also display it only for one partition by specify that partifion.</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>iostat -x -p sdb
+</code></pre></div></div>
+<p><img src="/assets/images/lpic2/iostatxp.png" alt="OSCP Post" />
+<strong>Figure 22</strong> iostat for specific partition.</p>
+
+<h3 id="iotop">iotop</h3>
+
+<p>If we found that we have some issue on the hard disk because let’s say we found on the iostat command that the i/o work really hard by view iowait that jump up to bigger number or by write and read values from the disk are greater then other, we can find out which program causes that problem, just type iotop.</p>
+
+<p><img src="/assets/images/lpic2/iotopstress.png" alt="OSCP Post" />
+<strong>Figure 23</strong> iotop example.</p>
+
+<p>In my case you can see that he tell us that the most utilizes program in the IO of our hard disk is stress, you also can see that he specify the hdd by side of that, which tell us what option has being used in stress command.</p>
+
+<p>In the iotop you can also see the swapin value, and in my case as you saw earlier, my swap are really utilizes by some program, so I checked it out and find what is the program that used my swap.</p>
+
+<p><img src="/assets/images/lpic2/iotopswap.png" alt="OSCP Post" />
+<strong>Figure 24</strong> iotop swapin view.</p>
 
     
 

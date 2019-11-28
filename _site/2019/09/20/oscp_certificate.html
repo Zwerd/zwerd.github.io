@@ -1400,7 +1400,109 @@ cat &lt; /home/fifofile | /bin/bash -i 2&gt;&amp;1 | nc -vlp 444 &gt; /home/fifo
 
 <h3 id="recon-ng">recon-ng</h3>
 
-<p>that tool is loo like Metasploit Framework and feel in that way, we can use it to grab data about our target for using it later on. recon-ng use modals that we need to operate and setup what we need in order to make some task over the network, after we done to setup our need we use <strong>run</strong> command to start the scanning.</p>
+<p>That tool is look like Metasploit Framework and feel in that way, we can use it to grab data about our target for using it later on or finding vulnerabilities. recon-ng use modals that we need to operate and setup what we need in order to make some task over the network, after we done to setup our need we use <strong>run</strong> command to start the scanning.</p>
+
+<p>But before we look at that tool, you need  at least the version I use which is 5.0.0, if you don’t have that version, the command I will going to show you here may not work for you. To install the latest version you can use the following command:</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>apt update &amp;&amp; apt install recon-ng
+</code></pre></div></div>
+
+<p>If the machine complain about that you have the latest version, you may want to update the source.list repository on your Kali, but you can also clone it from git by using the following command:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git clone https://github.com/lanmaster53/recon-ng.git
+</code></pre></div></div>
+
+<p>after he finish to download the source git, use <code class="highlighter-rouge">cd</code> to jump in the folder and run the the following command by using pip3.</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>pip3 install -r REQUIREMENTS
+</code></pre></div></div>
+<p>if you don’t have pip3, try pip instead, if that also not work you can install it by using the following command.</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>apt update &amp;&amp; apt install python3-pip
+</code></pre></div></div>
+
+<p>Now, run recon-ng from that folder by using the current folder <code class="highlighter-rouge">./recon-ng</code>, this will bring you that recon-ng that you download, you can see the version on the load screen.</p>
+
+<p><img src="/assets/images/oscp/recon-ng.png" alt="OSCP Post" />
+<strong>Figure 84</strong> recon-ng verion 5.1.0.</p>
+
+<p>The first thing you will want to do is to view the marketplace, there you will see every module that you can use, in my case I search for module name xssed, that module can help us to find url of some domain that vulnerable for xss attacks.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>marketplace info xss
+</code></pre></div></div>
+
+<p>After you find the module, you will need to install and load it up it by using the following</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>marketplace install xssed
+modules load xssed
+</code></pre></div></div>
+
+<p>After that done, you can view the option you can set into that module that can be use to search that vulnerabilities on some domain by using the following</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>options list
+</code></pre></div></div>
+
+<p>I saw on old version of recon that the command <code class="highlighter-rouge">show options</code> are being used, on the output you will see the minitable that contain the <code class="highlighter-rouge">SOURCE</code> which is the domain value we going to use, I already set up that domain by using the following command:</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>options set SOURCE cisco.com
+</code></pre></div></div>
+
+<p>After that, the last thing you will need to do is to run that module algorithm on that domain by using <code class="highlighter-rouge">run</code>.</p>
+
+<p><img src="/assets/images/oscp/recon-ngxssed.png" alt="OSCP Post" />
+<strong>Figure 85</strong> Using xss module in recon-ng.</p>
+
+<p>You can also use <code class="highlighter-rouge">info</code> to see what already setup on that option and change it if needed. If you want to go back to marketplace and search for other module just type <code class="highlighter-rouge">back</code> and you will be able to search for modal with <code class="highlighter-rouge">marketplace info &lt;module&gt;</code>. please note that in the module name you can type part string and he will find the all related thing that contain that string like as follow:</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>marketplace info xss
+</code></pre></div></div>
+<p>This command will be found every module that contain xss in the name, after you load some modules and let’s say that you tryied out a lot of them, then you can use the following command to display which module you all ready load and ready for use.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>modules search
+</code></pre></div></div>
+<p>Lats say in our case of information gathering we want to find out every subdomain of cisco.com, in that case we can use the google_site_web, so first of all we need to search if it exists on our recon-ng by using <code class="highlighter-rouge">marketplace search google_site_web</code>.</p>
+
+<p><img src="/assets/images/oscp/reconsearchgoogle.png" alt="OSCP Post" />
+<strong>Figure 86</strong> Search some google module on reacon-ng.</p>
+
+<p>After we found that we have google_site_web module, we load it up by using <code class="highlighter-rouge">modules load google_site_web</code>, and that command will open that module for us, now we need to know how to use it.</p>
+
+<p><img src="/assets/images/oscp/reconoptions.png" alt="OSCP Post" />
+<strong>Figure 87</strong> View our options.</p>
+
+<p>We also can use <code class="highlighter-rouge">info</code>, in our case we want to setup what domain we will use for searching the sub domain, the command we need now is <code class="highlighter-rouge">options set SOURCE cisco.com</code>, the output will specify the new SOURCE that we going to use.</p>
+
+<p><img src="/assets/images/oscp/reconoptionsset.png" alt="OSCP Post" />
+<strong>Figure 88</strong> Set our SOURCE.</p>
+
+<p>What we need to do now is just run it by using <code class="highlighter-rouge">run</code> command, on the screen you will see all information that this module found related to this domain.</p>
+
+<p><img src="/assets/images/oscp/reconrun.png" alt="OSCP Post" />
+<strong>Figure 89</strong> Run the module.</p>
+
+<p>You can view that information on recon table by using <code class="highlighter-rouge">show hosts</code> command. In my case I used the hackertarget to find information about tesla.com domain.</p>
+
+<p><img src="/assets/images/oscp/reconshow.png" alt="OSCP Post" />
+<strong>Figure 90</strong> Using show command.</p>
+
+<h3 id="dns-enumeration">DNS Enumeration</h3>
+
+<p>Using DNS is another way lunch active information gathering, DNS can help us to find information like organization servers, addresses server names and more. the usual command that can be use to make query to some DNS server is <code class="highlighter-rouge">host</code>.</p>
+
+<p><img src="/assets/images/oscp/host.png" alt="OSCP Post" />
+<strong>Figure 91</strong> host command.</p>
+
+<p>In zwerd.com you can see what is the ip address for that host and what server handle it’s mail service. You can specified what type of query you going to generate by using <code class="highlighter-rouge">-t</code> and you have many, like <strong>ns</strong> or <strong>mx</strong> and such. The <strong>ns</strong> are used as name servers and it resposible for give information about a server which mean this server have DNS record for the server you search for, as example if you run the following command.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>host -t ns google.com
+</code></pre></div></div>
+
+<p><img src="/assets/images/oscp/hostns.png" alt="OSCP Post" />
+<strong>Figure 92</strong> NS records.</p>
+
+<p>In that case you can see the DNS server that contain the information about the domain google.com, you can do the same with mx recorde that will give you the name of the servers that resposible for the mail service for this domain.</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>host -t mx google.com
+</code></pre></div></div>
+
+<p>In case of subdomain you may see some alias record for other subdomain, in my case I run the following command <code class="highlighter-rouge">host www.cisco.com</code> and that command give me many alias for that sub domain.</p>
+
+<p><img src="/assets/images/oscp/hostnscisco.png" alt="OSCP Post" />
+<strong>Figure 93</strong> cisco subdomain records.</p>
+
+<p>If we what to grab the subdomain and search for any subdomain that domain contain, we can use <code class="highlighter-rouge">host</code> command for every thing that we thing that can be found as sub domain, like <code class="highlighter-rouge">www</code>, <code class="highlighter-rouge">ftp</code>, <code class="highlighter-rouge">owa</code>, <code class="highlighter-rouge">proxy</code>, and such, but in the case of linux you always need to thing out of the box, you can redirect these string like to some file and create bash script to manipulate that file.</p>
 
     
 

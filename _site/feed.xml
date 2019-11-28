@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.5">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2019-11-20T17:53:43+02:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Zwerd</title><subtitle>A stunning blog of freaking PT warrior</subtitle><author><name>Guy Zwerdling</name></author><entry><title type="html">LPIC2 Certification Journey</title><link href="http://localhost:4000/2019/11/19/lpic2_certificate.html" rel="alternate" type="text/html" title="LPIC2 Certification Journey" /><published>2019-11-19T00:00:00+02:00</published><updated>2019-11-19T00:00:00+02:00</updated><id>http://localhost:4000/2019/11/19/lpic2_certificate</id><content type="html" xml:base="http://localhost:4000/2019/11/19/lpic2_certificate.html">&lt;p&gt;Today morning I received a message from LPI that my certificate will expire in 9 months and so it is time to start studying for the second Linux certification, this will advance me to the third Linux information security certification that I will search for, this certification is divided into two and the two parts are marked by two different codes: 201-450, 202-450&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.5">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2019-11-28T17:06:29+02:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Zwerd</title><subtitle>A stunning blog of freaking PT warrior</subtitle><author><name>Guy Zwerdling</name></author><entry><title type="html">LPIC2 Certification Journey</title><link href="http://localhost:4000/2019/11/19/lpic2_certificate.html" rel="alternate" type="text/html" title="LPIC2 Certification Journey" /><published>2019-11-19T00:00:00+02:00</published><updated>2019-11-19T00:00:00+02:00</updated><id>http://localhost:4000/2019/11/19/lpic2_certificate</id><content type="html" xml:base="http://localhost:4000/2019/11/19/lpic2_certificate.html">&lt;p&gt;Today morning I received a message from LPI that my certificate will expire in 9 months and so it is time to start studying for the second Linux certification, this will advance me to the third Linux information security certification that I will search for, this certification is divided into two and the two parts are marked by two different codes: 201-450, 202-450&lt;/p&gt;
 
 &lt;p&gt;In this post I am going to go over each topic as listed on the LPI website, which means I will go over each tool and present it here, in each chapter I will show how to use these tools to get the same information that the subject of the test should deal with, at the end of each chapter I will present a challenge From most of the commands we learned and challenged you and me how to get the information to succeed.&lt;/p&gt;
 
@@ -54,7 +54,7 @@
 &lt;p&gt;&lt;img src=&quot;/assets/images/lpic2/resourcesramstress.png&quot; alt=&quot;OSCP Post&quot; /&gt;
 &lt;strong&gt;Figure 6&lt;/strong&gt; Stress the RAM, in resources.&lt;/p&gt;
 
-&lt;p&gt;You can also use stress to load the system by using that hard drive, just type the following command, that command can affect the &lt;strong&gt;io&lt;/strong&gt; which is the input/output wait and called &lt;strong&gt;i/o block&lt;/strong&gt;, this is a processes queue, if for some reason one process can’t run because the CPU are over loaded, that process will wait on until the CPU can handle it, the worst thing is that this process is on uninterruptable sleep mode which mean that you can’t even killed it.&lt;/p&gt;
+&lt;p&gt;You can also use stress to load the system by using that hard drive, just type the following command, that command can affect the &lt;strong&gt;io&lt;/strong&gt; which is the input/output wait and called &lt;strong&gt;i/o block&lt;/strong&gt;, this is a processes queue, if for some reason one process can’t run because the CPU are over loaded, that process will wait on until the CPU can handle it, the worst thing about that is that this process is on &lt;strong&gt;uninterruptable sleep&lt;/strong&gt; mode which mean that you can’t even killed it.&lt;/p&gt;
 
 &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;stress --hdd 1
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
@@ -103,12 +103,79 @@
 &lt;p&gt;&lt;img src=&quot;/assets/images/lpic2/cpu100.png&quot; alt=&quot;OSCP Post&quot; /&gt;
  &lt;strong&gt;Figure 11&lt;/strong&gt; CPU on 100%.&lt;/p&gt;
 
-&lt;p&gt;If I will load my hard drive, this can change the value of i/o wait time, on the top you can find it in the wa field.&lt;/p&gt;
+&lt;p&gt;If I will load my hard drive which mean in our case to use &lt;code class=&quot;highlighter-rouge&quot;&gt;stress --hdd 1&lt;/code&gt; command, this can change the value of i/o wait time, on the top you can find it under &lt;strong&gt;wa&lt;/strong&gt; field.&lt;/p&gt;
 
 &lt;p&gt;&lt;img src=&quot;/assets/images/lpic2/topwa.png&quot; alt=&quot;OSCP Post&quot; /&gt;
  &lt;strong&gt;Figure 12&lt;/strong&gt; Wait time are loaded.&lt;/p&gt;
 
 &lt;p&gt;Again, this case mean that we have process that use the hard drive and there is a program that on wait state that in sleep mode that we can’t kill.&lt;/p&gt;
+
+&lt;h3 id=&quot;vmstat&quot;&gt;vmstat&lt;/h3&gt;
+
+&lt;p&gt;In that command we can view the memory that being used and CPU values, i/o and system utilizes, if you type this command you will get that information but that it, not like top that refresh itself every 3 second by default, but you can run it with refresh like, by using &lt;strong&gt;delay&lt;/strong&gt; and &lt;strong&gt;count&lt;/strong&gt; option. In the delay you specify how long to wait between every time it display you the information, the count is how many time it will repeat it self, in that case you can see the changes along the way.&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;vmstat 3 5
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;In that case this command display report every 3 seconds and repeat that five times, as you can see on the output I have, the free memory change every 3 second and so in the cpu and i/o.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/lpic2/vmstat.png&quot; alt=&quot;OSCP Post&quot; /&gt;
+&lt;strong&gt;Figure 12&lt;/strong&gt; vmstat, 3 seconds delay, 5 count.&lt;/p&gt;
+
+&lt;p&gt;You can view also only the disk i/o that display the read and write statistics by using &lt;code class=&quot;highlighter-rouge&quot;&gt;-d&lt;/code&gt; option or memory statistics by using &lt;code class=&quot;highlighter-rouge&quot;&gt;-s&lt;/code&gt; option. The following is the way to view the table in &lt;strong&gt;wide&lt;/strong&gt; mode, it’s display more readable table which can help understand more.&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;vmstat -w
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/lpic2/vmstatwide.png&quot; alt=&quot;OSCP Post&quot; /&gt;
+&lt;strong&gt;Figure 13&lt;/strong&gt; vmstat wide mode.&lt;/p&gt;
+
+&lt;p&gt;You can combain the option as follow:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;vmstat -w 3 5
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;I have being seeing people that use that command in their program to track the operation of the memory and CPU, in the case of issue with the resources we have, you can find more useful commands than that.&lt;/p&gt;
+
+&lt;h3 id=&quot;free&quot;&gt;free&lt;/h3&gt;
+
+&lt;p&gt;In that command you can more easily understand your free memory that using mvstate in my opinion, because it allow you to view that memory by using megabyte instead of kilobyte that requires you to calculate these values.&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;free -m
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;In my case I have 3823 MB memory in my computer, the memory that are used is 1999 MB and free memory is 124 MB, the shared memory in my case are 208MB, this is mean that there is a two or more process that can access that common memory, the buff/cache are the memory that in the buffer or cache, the consept of that is that if you used some program and close it, that memory going to cache, if you will open that program again, the memory are cached in, so it can bring up the program more quickly. However, if you need this memory, it will allow you to use the memory and get of the cache. In my case the memory that as being cached are 1699MB, available does include free column + a part of buff/cache which can be reused for current needs &lt;em&gt;immediately&lt;/em&gt;.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/lpic2/free.png&quot; alt=&quot;OSCP Post&quot; /&gt;
+&lt;strong&gt;Figure 14&lt;/strong&gt; free memory in MB.&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;free -h
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;You can also use the &lt;strong&gt;-h&lt;/strong&gt; option which stand for human, it can help you more clearly to view the amount of memory that are used or free.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/lpic2/freeh.png&quot; alt=&quot;OSCP Post&quot; /&gt;
+&lt;strong&gt;Figure 15&lt;/strong&gt; free memory in GB.&lt;/p&gt;
+
+&lt;p&gt;You can also use count which can help display the output several times like in  the vmstate, but we haven’t delay option, the delay will be 1 second.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/lpic2/freecount.png&quot; alt=&quot;OSCP Post&quot; /&gt;
+&lt;strong&gt;Figure 16&lt;/strong&gt; free 3 times count.&lt;/p&gt;
+
+&lt;p&gt;The swap memory shouldn’t been used, because as we saw earlier that memory should be available only for case we have no memory to use in our system. In my case the was are use more that 300MB, which is note so good, because as I said that was normally are on value of 0. In Ubuntu the default value of the swap that can being used although we have free space in the memory is 60% of the swap in total, we can view our swap value in by using the command &lt;code class=&quot;highlighter-rouge&quot;&gt;cat /proc/sys/vm/swappiness&lt;/code&gt;, in order to change that value we can use the following command:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;sudo sysctl vm.swappiness=10
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Please note that in the case of &lt;strong&gt;sysctl&lt;/strong&gt;, the changing of swap is temporary value, which mean after reboot the value will go back to the last value, to make sure this value be permanent we need to change the &lt;strong&gt;vm.swappiness&lt;/strong&gt; on the &lt;code class=&quot;highlighter-rouge&quot;&gt;/etc/sysctl.conf&lt;/code&gt; file. The recommended value for the swap is 10% as much as I know, but you can experiment it.&lt;/p&gt;
+
+&lt;p&gt;I use the following command for look on my memory changing:&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;stress -m 6
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;In that case you can see that swap are really working hard and the cache was release a bit, this is mean that my system going buggy behavior, and now we need to find what causes this issue.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/lpic2/freestress.png&quot; alt=&quot;OSCP Post&quot; /&gt;
+&lt;strong&gt;Figure 17&lt;/strong&gt; Memory are load up.&lt;/p&gt;
 
 &lt;h3 id=&quot;iostat&quot;&gt;iostat&lt;/h3&gt;
 
@@ -116,16 +183,16 @@
 &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;sudo apt install sysstat
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
-&lt;p&gt;By runing the iostat we can find information about our system.&lt;/p&gt;
+&lt;p&gt;By running the iostat we can find information about our i/o on our system.&lt;/p&gt;
 
 &lt;p&gt;&lt;img src=&quot;/assets/images/lpic2/iostat.png&quot; alt=&quot;OSCP Post&quot; /&gt;
-&lt;strong&gt;Figure 1&lt;/strong&gt; Output of iostat.&lt;/p&gt;
+&lt;strong&gt;Figure 18&lt;/strong&gt; Output of iostat.&lt;/p&gt;
 
-&lt;p&gt;The ouput contain the linux kernel version, which is Linux 4.15.0-66-generic and my PC name which is zwerd. you can also see the date (although for just date we use date command). we also can see the type of our opration system which is 64 bit in my case, and that I have 4 CPU available. avr-cpu display the CPU for every of the following&lt;/p&gt;
+&lt;p&gt;The ouput contain the linux kernel version, which is Linux 4.15.0-66-generic and my PC name which is zwerd. you can also see the date (although for just date we use date command). we also can see the type of our operation system which is 64 bit in my case, and that I have 4 CPU available. avr-cpu display the CPU for every of the following&lt;/p&gt;
 
 &lt;p&gt;&lt;strong&gt;%user&lt;/strong&gt; - The CPU that used at the user or application level.&lt;/p&gt;
 
-&lt;p&gt;&lt;strong&gt;%nice&lt;/strong&gt; - Every process consume the CPU, for every process there is a priority that can be use to decide who is more important and who is not, if you have up to 10 process on the backgound and they want to use CPU, the high-priority process will get consume the CPU before other, in that case the noce value will be negative which mean high-priority for that process.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;%nice&lt;/strong&gt; - Every process consume the CPU, for every process there is a priority that can be use to decide who is more important and who is not, if you have up to 10 process on the backgound and they want to use CPU, the high-priority process will get consume the CPU before other, in that case the nice value will be negative which mean high-priority for that process.&lt;/p&gt;
 
 &lt;p&gt;&lt;strong&gt;%system&lt;/strong&gt; - show the percentage of CPU utilization the been use by the kernel.&lt;/p&gt;
 
@@ -133,7 +200,45 @@
 
 &lt;p&gt;&lt;strong&gt;%steal&lt;/strong&gt; - Show the percentage of time spent in involuntary wait by the virtual CPU or CPUs while the hypervisor was servicing another virtual processor.&lt;/p&gt;
 
-&lt;p&gt;&lt;strong&gt;%idle&lt;/strong&gt; - Show the percentage of time that the CPU or CPUs were idle and the system did not have an outstanding disk I/O request.&lt;/p&gt;</content><author><name>Guy Zwerdling</name></author><category term="Linux" /><summary type="html">Today morning I received a message from LPI that my certificate will expire in 9 months and so it is time to start studying for the second Linux certification, this will advance me to the third Linux information security certification that will include what I am looking for, this certification is split in two</summary></entry><entry><title type="html">OSCP Certification Journey</title><link href="http://localhost:4000/2019/09/20/oscp_certificate.html" rel="alternate" type="text/html" title="OSCP Certification Journey" /><published>2019-09-20T00:00:00+03:00</published><updated>2019-09-20T00:00:00+03:00</updated><id>http://localhost:4000/2019/09/20/oscp_certificate</id><content type="html" xml:base="http://localhost:4000/2019/09/20/oscp_certificate.html">&lt;p&gt;I set myself a lot of goals this year to advance to the next level, among all the goals being the OSCP certification from Offensive Security. It’s been a certification I’ve been talking about for years, since 2012, it’s really time to sit down and do that certification. It all started when I was writing in a forum on computer communications, where I presented the dilemma, whether to study information security of companies that are involved in the field or something else when my goal is to be an expert in the cyber world.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;%idle&lt;/strong&gt; - Show the percentage of time that the CPU or CPUs were idle and the system did not have an outstanding disk I/O request.&lt;/p&gt;
+
+&lt;p&gt;Let’s load up my system to see the changes on our output, I use the command &lt;code class=&quot;highlighter-rouge&quot;&gt;stress --hdd 1&lt;/code&gt;, if we use top command we will see the &lt;strong&gt;wa&lt;/strong&gt; load up, which mean that we have many process that in wait time state and they wait for CPU that can process them.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/lpic2/waittime.png&quot; alt=&quot;OSCP Post&quot; /&gt;
+&lt;strong&gt;Figure 19&lt;/strong&gt; I/O wa by using top command.&lt;/p&gt;
+
+&lt;p&gt;We can use &lt;strong&gt;-x&lt;/strong&gt; for extended information that include utilization as well, we also can print out the output as that same way we done on vmstat, it can display output multiple time and delay from each as follow:&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;iostat -x 3 5
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;In that case it will print out every 3 second, 5 times.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/lpic2/iostatx.png&quot; alt=&quot;OSCP Post&quot; /&gt;
+&lt;strong&gt;Figure 20&lt;/strong&gt; iostat with extended.&lt;/p&gt;
+
+&lt;p&gt;After I load up my hard disk by using stress, this what I got on the iostat output, you can see that the values on the output load a lot.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/lpic2/iostatx2.png&quot; alt=&quot;OSCP Post&quot; /&gt;
+&lt;strong&gt;Figure 21&lt;/strong&gt; iostat loadup.&lt;/p&gt;
+
+&lt;p&gt;If you have more than one partition, you can use the option &lt;strong&gt;-p&lt;/strong&gt;, this option displays statistics for block devices and all their partitions that are used by the system, you can also display it only for one partition by specify that partifion.&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;iostat -x -p sdb
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/images/lpic2/iostatxp.png&quot; alt=&quot;OSCP Post&quot; /&gt;
+&lt;strong&gt;Figure 22&lt;/strong&gt; iostat for specific partition.&lt;/p&gt;
+
+&lt;h3 id=&quot;iotop&quot;&gt;iotop&lt;/h3&gt;
+
+&lt;p&gt;If we found that we have some issue on the hard disk because let’s say we found on the iostat command that the i/o work really hard by view iowait that jump up to bigger number or by write and read values from the disk are greater then other, we can find out which program causes that problem, just type iotop.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/lpic2/iotopstress.png&quot; alt=&quot;OSCP Post&quot; /&gt;
+&lt;strong&gt;Figure 23&lt;/strong&gt; iotop example.&lt;/p&gt;
+
+&lt;p&gt;In my case you can see that he tell us that the most utilizes program in the IO of our hard disk is stress, you also can see that he specify the hdd by side of that, which tell us what option has being used in stress command.&lt;/p&gt;
+
+&lt;p&gt;In the iotop you can also see the swapin value, and in my case as you saw earlier, my swap are really utilizes by some program, so I checked it out and find what is the program that used my swap.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/lpic2/iotopswap.png&quot; alt=&quot;OSCP Post&quot; /&gt;
+&lt;strong&gt;Figure 24&lt;/strong&gt; iotop swapin view.&lt;/p&gt;</content><author><name>Guy Zwerdling</name></author><category term="Linux" /><summary type="html">Today morning I received a message from LPI that my certificate will expire in 9 months and so it is time to start studying for the second Linux certification, this will advance me to the third Linux information security certification that will include what I am looking for, this certification is split in two</summary></entry><entry><title type="html">OSCP Certification Journey</title><link href="http://localhost:4000/2019/09/20/oscp_certificate.html" rel="alternate" type="text/html" title="OSCP Certification Journey" /><published>2019-09-20T00:00:00+03:00</published><updated>2019-09-20T00:00:00+03:00</updated><id>http://localhost:4000/2019/09/20/oscp_certificate</id><content type="html" xml:base="http://localhost:4000/2019/09/20/oscp_certificate.html">&lt;p&gt;I set myself a lot of goals this year to advance to the next level, among all the goals being the OSCP certification from Offensive Security. It’s been a certification I’ve been talking about for years, since 2012, it’s really time to sit down and do that certification. It all started when I was writing in a forum on computer communications, where I presented the dilemma, whether to study information security of companies that are involved in the field or something else when my goal is to be an expert in the cyber world.&lt;/p&gt;
 
 &lt;p&gt;Eventually, someone responded to me, depending on what I want to learn, whether I want to be on the attacker or on the defensive side, he introduced a number of certifications and wrote about each certification separately. Among all the certifications he presented were Cisco certificates, Check Point certificates, and all sorts of large companies that manufacture and market security sites that protect the entire corporate network.&lt;/p&gt;
 
@@ -1153,7 +1258,109 @@ cat &amp;lt; /home/fifofile | /bin/bash -i 2&amp;gt;&amp;amp;1 | nc -vlp 444 &am
 
 &lt;h3 id=&quot;recon-ng&quot;&gt;recon-ng&lt;/h3&gt;
 
-&lt;p&gt;that tool is loo like Metasploit Framework and feel in that way, we can use it to grab data about our target for using it later on. recon-ng use modals that we need to operate and setup what we need in order to make some task over the network, after we done to setup our need we use &lt;strong&gt;run&lt;/strong&gt; command to start the scanning.&lt;/p&gt;</content><author><name>Guy Zwerdling</name></author><category term="Pentest" /><summary type="html">I set myself a lot of goals this year to advance to the next level, among all the goals being the OSCP certification from Offensive Security. It's been a certification I've been talking about for years, since 2012, it's really time to sit down and do that certification. It all started when I was writing in a forum on computer communications, where I presented the dilemma, whether to study information security of companies that are involved in the field or something else when my goal is to be an expert in the cyber world.</summary></entry><entry><title type="html">MyGmach - My New Open Source App (react native app)</title><link href="http://localhost:4000/2019/02/17/new_open_source_app.html" rel="alternate" type="text/html" title="MyGmach - My New Open Source App (react native app)" /><published>2019-02-17T00:00:00+02:00</published><updated>2019-02-17T00:00:00+02:00</updated><id>http://localhost:4000/2019/02/17/new_open_source_app</id><content type="html" xml:base="http://localhost:4000/2019/02/17/new_open_source_app.html">&lt;p&gt;At last I finish another application using React Native for native mobile apps using JavaScript and React, the first one was NachRiddles which is base on my dear brother’s book. MyGmach app is build base on my father idea. Every Saturday my dear brother used to wear a certain tie that was unique to the parsha on that Shabbat. After he passed, my father wanted to open tie Gmach - which is the way in the Jewish world to help each other without getting paid (in Hebrew it is an acronym for kindness which is pronounced Gemilot Hassadim [‘גמילות חסדים’]), and give anyone tie as needed.&lt;/p&gt;
+&lt;p&gt;That tool is look like Metasploit Framework and feel in that way, we can use it to grab data about our target for using it later on or finding vulnerabilities. recon-ng use modals that we need to operate and setup what we need in order to make some task over the network, after we done to setup our need we use &lt;strong&gt;run&lt;/strong&gt; command to start the scanning.&lt;/p&gt;
+
+&lt;p&gt;But before we look at that tool, you need  at least the version I use which is 5.0.0, if you don’t have that version, the command I will going to show you here may not work for you. To install the latest version you can use the following command:&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;apt update &amp;amp;&amp;amp; apt install recon-ng
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;If the machine complain about that you have the latest version, you may want to update the source.list repository on your Kali, but you can also clone it from git by using the following command:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;git clone https://github.com/lanmaster53/recon-ng.git
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;after he finish to download the source git, use &lt;code class=&quot;highlighter-rouge&quot;&gt;cd&lt;/code&gt; to jump in the folder and run the the following command by using pip3.&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;pip3 install -r REQUIREMENTS
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;if you don’t have pip3, try pip instead, if that also not work you can install it by using the following command.&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;apt update &amp;amp;&amp;amp; apt install python3-pip
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Now, run recon-ng from that folder by using the current folder &lt;code class=&quot;highlighter-rouge&quot;&gt;./recon-ng&lt;/code&gt;, this will bring you that recon-ng that you download, you can see the version on the load screen.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/oscp/recon-ng.png&quot; alt=&quot;OSCP Post&quot; /&gt;
+&lt;strong&gt;Figure 84&lt;/strong&gt; recon-ng verion 5.1.0.&lt;/p&gt;
+
+&lt;p&gt;The first thing you will want to do is to view the marketplace, there you will see every module that you can use, in my case I search for module name xssed, that module can help us to find url of some domain that vulnerable for xss attacks.&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;marketplace info xss
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;After you find the module, you will need to install and load it up it by using the following&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;marketplace install xssed
+modules load xssed
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;After that done, you can view the option you can set into that module that can be use to search that vulnerabilities on some domain by using the following&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;options list
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;I saw on old version of recon that the command &lt;code class=&quot;highlighter-rouge&quot;&gt;show options&lt;/code&gt; are being used, on the output you will see the minitable that contain the &lt;code class=&quot;highlighter-rouge&quot;&gt;SOURCE&lt;/code&gt; which is the domain value we going to use, I already set up that domain by using the following command:&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;options set SOURCE cisco.com
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;After that, the last thing you will need to do is to run that module algorithm on that domain by using &lt;code class=&quot;highlighter-rouge&quot;&gt;run&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/oscp/recon-ngxssed.png&quot; alt=&quot;OSCP Post&quot; /&gt;
+&lt;strong&gt;Figure 85&lt;/strong&gt; Using xss module in recon-ng.&lt;/p&gt;
+
+&lt;p&gt;You can also use &lt;code class=&quot;highlighter-rouge&quot;&gt;info&lt;/code&gt; to see what already setup on that option and change it if needed. If you want to go back to marketplace and search for other module just type &lt;code class=&quot;highlighter-rouge&quot;&gt;back&lt;/code&gt; and you will be able to search for modal with &lt;code class=&quot;highlighter-rouge&quot;&gt;marketplace info &amp;lt;module&amp;gt;&lt;/code&gt;. please note that in the module name you can type part string and he will find the all related thing that contain that string like as follow:&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;marketplace info xss
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;This command will be found every module that contain xss in the name, after you load some modules and let’s say that you tryied out a lot of them, then you can use the following command to display which module you all ready load and ready for use.&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;modules search
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;Lats say in our case of information gathering we want to find out every subdomain of cisco.com, in that case we can use the google_site_web, so first of all we need to search if it exists on our recon-ng by using &lt;code class=&quot;highlighter-rouge&quot;&gt;marketplace search google_site_web&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/oscp/reconsearchgoogle.png&quot; alt=&quot;OSCP Post&quot; /&gt;
+&lt;strong&gt;Figure 86&lt;/strong&gt; Search some google module on reacon-ng.&lt;/p&gt;
+
+&lt;p&gt;After we found that we have google_site_web module, we load it up by using &lt;code class=&quot;highlighter-rouge&quot;&gt;modules load google_site_web&lt;/code&gt;, and that command will open that module for us, now we need to know how to use it.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/oscp/reconoptions.png&quot; alt=&quot;OSCP Post&quot; /&gt;
+&lt;strong&gt;Figure 87&lt;/strong&gt; View our options.&lt;/p&gt;
+
+&lt;p&gt;We also can use &lt;code class=&quot;highlighter-rouge&quot;&gt;info&lt;/code&gt;, in our case we want to setup what domain we will use for searching the sub domain, the command we need now is &lt;code class=&quot;highlighter-rouge&quot;&gt;options set SOURCE cisco.com&lt;/code&gt;, the output will specify the new SOURCE that we going to use.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/oscp/reconoptionsset.png&quot; alt=&quot;OSCP Post&quot; /&gt;
+&lt;strong&gt;Figure 88&lt;/strong&gt; Set our SOURCE.&lt;/p&gt;
+
+&lt;p&gt;What we need to do now is just run it by using &lt;code class=&quot;highlighter-rouge&quot;&gt;run&lt;/code&gt; command, on the screen you will see all information that this module found related to this domain.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/oscp/reconrun.png&quot; alt=&quot;OSCP Post&quot; /&gt;
+&lt;strong&gt;Figure 89&lt;/strong&gt; Run the module.&lt;/p&gt;
+
+&lt;p&gt;You can view that information on recon table by using &lt;code class=&quot;highlighter-rouge&quot;&gt;show hosts&lt;/code&gt; command. In my case I used the hackertarget to find information about tesla.com domain.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/oscp/reconshow.png&quot; alt=&quot;OSCP Post&quot; /&gt;
+&lt;strong&gt;Figure 90&lt;/strong&gt; Using show command.&lt;/p&gt;
+
+&lt;h3 id=&quot;dns-enumeration&quot;&gt;DNS Enumeration&lt;/h3&gt;
+
+&lt;p&gt;Using DNS is another way lunch active information gathering, DNS can help us to find information like organization servers, addresses server names and more. the usual command that can be use to make query to some DNS server is &lt;code class=&quot;highlighter-rouge&quot;&gt;host&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/oscp/host.png&quot; alt=&quot;OSCP Post&quot; /&gt;
+&lt;strong&gt;Figure 91&lt;/strong&gt; host command.&lt;/p&gt;
+
+&lt;p&gt;In zwerd.com you can see what is the ip address for that host and what server handle it’s mail service. You can specified what type of query you going to generate by using &lt;code class=&quot;highlighter-rouge&quot;&gt;-t&lt;/code&gt; and you have many, like &lt;strong&gt;ns&lt;/strong&gt; or &lt;strong&gt;mx&lt;/strong&gt; and such. The &lt;strong&gt;ns&lt;/strong&gt; are used as name servers and it resposible for give information about a server which mean this server have DNS record for the server you search for, as example if you run the following command.&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;host -t ns google.com
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/oscp/hostns.png&quot; alt=&quot;OSCP Post&quot; /&gt;
+&lt;strong&gt;Figure 92&lt;/strong&gt; NS records.&lt;/p&gt;
+
+&lt;p&gt;In that case you can see the DNS server that contain the information about the domain google.com, you can do the same with mx recorde that will give you the name of the servers that resposible for the mail service for this domain.&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;host -t mx google.com
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;In case of subdomain you may see some alias record for other subdomain, in my case I run the following command &lt;code class=&quot;highlighter-rouge&quot;&gt;host www.cisco.com&lt;/code&gt; and that command give me many alias for that sub domain.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/oscp/hostnscisco.png&quot; alt=&quot;OSCP Post&quot; /&gt;
+&lt;strong&gt;Figure 93&lt;/strong&gt; cisco subdomain records.&lt;/p&gt;
+
+&lt;p&gt;If we what to grab the subdomain and search for any subdomain that domain contain, we can use &lt;code class=&quot;highlighter-rouge&quot;&gt;host&lt;/code&gt; command for every thing that we thing that can be found as sub domain, like &lt;code class=&quot;highlighter-rouge&quot;&gt;www&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;ftp&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;owa&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;proxy&lt;/code&gt;, and such, but in the case of linux you always need to thing out of the box, you can redirect these string like to some file and create bash script to manipulate that file.&lt;/p&gt;</content><author><name>Guy Zwerdling</name></author><category term="Pentest" /><summary type="html">I set myself a lot of goals this year to advance to the next level, among all the goals being the OSCP certification from Offensive Security. It's been a certification I've been talking about for years, since 2012, it's really time to sit down and do that certification. It all started when I was writing in a forum on computer communications, where I presented the dilemma, whether to study information security of companies that are involved in the field or something else when my goal is to be an expert in the cyber world.</summary></entry><entry><title type="html">MyGmach - My New Open Source App (react native app)</title><link href="http://localhost:4000/2019/02/17/new_open_source_app.html" rel="alternate" type="text/html" title="MyGmach - My New Open Source App (react native app)" /><published>2019-02-17T00:00:00+02:00</published><updated>2019-02-17T00:00:00+02:00</updated><id>http://localhost:4000/2019/02/17/new_open_source_app</id><content type="html" xml:base="http://localhost:4000/2019/02/17/new_open_source_app.html">&lt;p&gt;At last I finish another application using React Native for native mobile apps using JavaScript and React, the first one was NachRiddles which is base on my dear brother’s book. MyGmach app is build base on my father idea. Every Saturday my dear brother used to wear a certain tie that was unique to the parsha on that Shabbat. After he passed, my father wanted to open tie Gmach - which is the way in the Jewish world to help each other without getting paid (in Hebrew it is an acronym for kindness which is pronounced Gemilot Hassadim [‘גמילות חסדים’]), and give anyone tie as needed.&lt;/p&gt;
 
 &lt;p&gt;After my father told me about is idea, I start to work on MyGmach to build an application that allow to manage privet foundation with items in it, so i wrote document about the functionality that I want to build in that application.&lt;/p&gt;
 

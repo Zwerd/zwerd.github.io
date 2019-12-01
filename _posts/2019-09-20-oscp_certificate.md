@@ -1245,6 +1245,12 @@ done
 
 
 ```
+**Please note:** don't forget to make that file executable by using `chmod +x script.sh`, after that run it by using the following
+
+```
+./script.sh <arg>
+```
+
 In that script we willing to get some argument `$1`, if none of argument was entered, we print on the screen direction how to run that script. In case we have argument entered, we check it ns server, if some ns server was found, we try the zone transfer technique by using `host`, if we found lead on some DNS address we grep it by "has address".
 
 I search over the INTERNET for file that contain list of domains, and found that [top50Domain.csv](https://moz.com/top-500/download/?table=top500Domains) file, so I run the following on my terminal to use that file on the script above.

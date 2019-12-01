@@ -1186,4 +1186,79 @@ In case of subdomain you may see some alias record for other subdomain, in my ca
 ![OSCP Post](/assets/images/oscp/hostnscisco.png)
 **Figure 93** cisco subdomain records.
 
-If we what to grab the subdomain and search for any subdomain that domain contain, we can use `host` command for every thing that we thing that can be found as sub domain, like `www`, `ftp`, `owa`, `proxy`, and such, but in the case of linux you always need to thing out of the box, you can redirect these string like to some file and create bash script to manipulate that file.
+If we what to grab the subdomain and search for any subdomain that domain contain, we can use `host` command for every thing that we think that can be found as sub domain, like `www`, `ftp`, `owa`, `proxy`, and such, but in the case of linux you always need to think out of the box, you can redirect these string to some file and create bash script to manipulate that file.
+
+```
+echo www > web.txt
+echo ftp >> web.txt
+echo owa >> web.txt
+echo proxy >> web.txt
+for subdomain in $(cat web.txt); do host $subdomain.cisco.com;done
+```
+
+![OSCP Post](/assets/images/oscp/hostscript.png)
+**Figure 94** Script for finding subdomain records.
+
+As you can see, `www` can be found, and that are alias of other sub domain name, so we get some redirect on redirect (that at least how I call it), in the case of `ftp` we can see that cisco have a `ftp` sub domain which can be use for FTP service, and the last two can't be found. So this is one way how can you create self tool that can be handy for finding such information.
+
+In the DNS world you can advantage some misconfigure DNS server if found, recording to the offensive book author, many sysadmin misconfigure their DNS servers which can be handy if you search for information and with luck found some way to grab more information about your target.
+
+In the case of DNS misconfiguration you can run simple `host` command that can give you more information about other servers that the target contain, and with their name you may understand what service such server willing to give, like in the ftp.cisco.com, in that case it look like that server are the FTP server of cisco company.
+
+The way to grab such information with `host` command is as follow:
+```
+host -l <domain name> <dns server addresses>
+```  
+
+As you already know, to get the server that handle the servers name in the organization, which is the DNS server, you just need to run `host -t ns <domain name>`, if you get some **ns** record this is the DNS server and that is the address you need to use in the above command.
+
+This technique is called DNS zone transfer, this is similar to replication of database between DNS servers. So if you have **luck** and you found some **leak** DNS server you can take advantage of that server, you just need to know how to do so.
+
+For example, take as target the domain `odi-x.com`, I run the following command cross that domain:
+```
+host -t ns odi-x.com
+```
+
+I found that this domain contain some dns servers so I run the comand to find misconfigure dns server, but in my case all the answers I got was REFUSED.
+
+![OSCP Post](/assets/images/oscp/hostdnsleak.png)
+**Figure 95** odi-x as target, no DNS leak was found.
+
+But in the case of large orgnization we want to automate the process and we will write some script that can take argument as the domain name and look for his **ns** servers, if ns record was found, the script proceed to check if the sysadmin misconfiguration his server by using the host command as we saw earlier.
+
+```
+if [ -z "$1" ]; then
+echo "[*] Simple Zone Transfer Script"
+echo "[*] Usage : $0 <domain name>"
+exit 0
+fi
+
+for server in $(host -t ns $1 | cut -d " " -f 4 ); do
+echo "check the domain $1 and ns $server"
+if [ $server != "NS" ];
+then
+        host -l $1  $server | grep "has address"
+else
+        echo "There is no NS record for $1 domain"
+fi
+done
+
+
+```
+In that script we willing to get some argument `$1`, if none of argument was entered, we print on the screen direction how to run that script. In case we have argument entered, we check it ns server, if some ns server was found, we try the zone transfer technique by using `host`, if we found lead on some DNS address we grep it by "has address".
+
+I search over the INTERNET for file that contain list of domains, and found that [top50Domain.csv](https://moz.com/top-500/download/?table=top500Domains) file, so I run the following on my terminal to use that file on the script above.
+```
+while IFS= read -r line; do
+    domains=$(echo $line | cut -d '"' -f 4)
+    echo "check $domains"
+		./script.sh $domains
+done < ./top500Domains.csv
+```
+I run this over to find a leak in some DNS server that can be found by using that list, and sure enough I found DNS server that related to `berkeley.edu` domain.
+
+
+![OSCP Post](/assets/images/oscp/hostleakdns.png)
+**Figure 96** DNS of berkeley.edu domain, the adns3.berkeley.edu give us information.
+
+I supposed that there is more DNS leak that can be found on that list, but that's it for now.

@@ -1267,4 +1267,22 @@ I run this over to find a leak in some DNS server that can be found by using tha
 ![OSCP Post](/assets/images/oscp/hostleakdns.png)
 **Figure 96** DNS of berkeley.edu domain, the adns3.berkeley.edu give us information.
 
-I supposed that there is more DNS leak that can be found on that list, but that's it for now.
+As you can see, big part of that addresses we found contain privet addresses, and this is what that DNS ZONE TRANSFER can give us, if someone have done misconfiguration of his DNS server this can allow leak of information that potential hackers can take advantage. In our case we can actually map the berkeley University network and if we find a way to get into their network, we can use the information we found to take additional actions that can be critical to the organization (in our case - the university).I supposed that there is more DNS leak that can be found on that list, but that's it for now.
+
+On Kali Linux we have tools that can help us to find the same information we did found by runing our script, the first one is **DNSRecon**, this tool are DNS enumeration script that was written in Python, in out case we going to run that tool against the berkeley.edu domain and check out if we have the same output we saw on our script. The command we going to run is as follow:
+```
+dnsrecon -d berkeley.edu -t axfr
+```
+The **-d** option used for domain name that we going to go against, the **-t** stend for type and the **axfr** are the DNS protocol that allow us to make replication of all the record that DNS have, this protocol are use to replicate one DNS server to another DNS server and that is what the AXFR is designed to do, and because the server is not hardened properly we can replicate to our local computer, even though it is not something that should be enabled, but only to the enterprise DNS servers.
+
+I found more records from 10.255 segment and in the list which was really long, I found the 7.120 server which are the 2401banc-lounge-ap1 server.
+
+![OSCP Post](/assets/images/oscp/dnsrecon.png)
+**Figure 97** Leak of information that found using dnsrecon.
+
+On that list you can see that the record type specified on every line, in our case the is also MX records. CNAME, AAAA and PTR.
+
+The second tool that we can use is **DNSEnum**, this tool check the domain we entered to find ZONE TRANSFER point at the organization DNS server, in my case it didn't find any record, so it is importance to know every tool, becouse in many case this tool can be handy, but on the other cases like in my case it is useless, I run it against my zwerd.com.
+
+![OSCP Post](/assets/images/oscp/dnsenum.png)
+**Figure 98** DNSEnum tool against zwerd.com domain.

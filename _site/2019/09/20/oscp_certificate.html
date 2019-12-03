@@ -1502,7 +1502,98 @@ modules load xssed
 <p><img src="/assets/images/oscp/hostnscisco.png" alt="OSCP Post" />
 <strong>Figure 93</strong> cisco subdomain records.</p>
 
-<p>If we what to grab the subdomain and search for any subdomain that domain contain, we can use <code class="highlighter-rouge">host</code> command for every thing that we thing that can be found as sub domain, like <code class="highlighter-rouge">www</code>, <code class="highlighter-rouge">ftp</code>, <code class="highlighter-rouge">owa</code>, <code class="highlighter-rouge">proxy</code>, and such, but in the case of linux you always need to thing out of the box, you can redirect these string like to some file and create bash script to manipulate that file.</p>
+<p>If we what to grab the subdomain and search for any subdomain that domain contain, we can use <code class="highlighter-rouge">host</code> command for every thing that we think that can be found as sub domain, like <code class="highlighter-rouge">www</code>, <code class="highlighter-rouge">ftp</code>, <code class="highlighter-rouge">owa</code>, <code class="highlighter-rouge">proxy</code>, and such, but in the case of linux you always need to think out of the box, you can redirect these string to some file and create bash script to manipulate that file.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>echo www &gt; web.txt
+echo ftp &gt;&gt; web.txt
+echo owa &gt;&gt; web.txt
+echo proxy &gt;&gt; web.txt
+for subdomain in $(cat web.txt); do host $subdomain.cisco.com;done
+</code></pre></div></div>
+
+<p><img src="/assets/images/oscp/hostscript.png" alt="OSCP Post" />
+<strong>Figure 94</strong> Script for finding subdomain records.</p>
+
+<p>As you can see, <code class="highlighter-rouge">www</code> can be found, and that are alias of other sub domain name, so we get some redirect on redirect (that at least how I call it), in the case of <code class="highlighter-rouge">ftp</code> we can see that cisco have a <code class="highlighter-rouge">ftp</code> sub domain which can be use for FTP service, and the last two can’t be found. So this is one way how can you create self tool that can be handy for finding such information.</p>
+
+<p>In the DNS world you can advantage some misconfigure DNS server if found, recording to the offensive book author, many sysadmin misconfigure their DNS servers which can be handy if you search for information and with luck found some way to grab more information about your target.</p>
+
+<p>In the case of DNS misconfiguration you can run simple <code class="highlighter-rouge">host</code> command that can give you more information about other servers that the target contain, and with their name you may understand what service such server willing to give, like in the ftp.cisco.com, in that case it look like that server are the FTP server of cisco company.</p>
+
+<p>The way to grab such information with <code class="highlighter-rouge">host</code> command is as follow:</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>host -l &lt;domain name&gt; &lt;dns server addresses&gt;
+</code></pre></div></div>
+
+<p>As you already know, to get the server that handle the servers name in the organization, which is the DNS server, you just need to run <code class="highlighter-rouge">host -t ns &lt;domain name&gt;</code>, if you get some <strong>ns</strong> record this is the DNS server and that is the address you need to use in the above command.</p>
+
+<p>This technique is called DNS zone transfer, this is similar to replication of database between DNS servers. So if you have <strong>luck</strong> and you found some <strong>leak</strong> DNS server you can take advantage of that server, you just need to know how to do so.</p>
+
+<p>For example, take as target the domain <code class="highlighter-rouge">odi-x.com</code>, I run the following command cross that domain:</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>host -t ns odi-x.com
+</code></pre></div></div>
+
+<p>I found that this domain contain some dns servers so I run the comand to find misconfigure dns server, but in my case all the answers I got was REFUSED.</p>
+
+<p><img src="/assets/images/oscp/hostdnsleak.png" alt="OSCP Post" />
+<strong>Figure 95</strong> odi-x as target, no DNS leak was found.</p>
+
+<p>But in the case of large orgnization we want to automate the process and we will write some script that can take argument as the domain name and look for his <strong>ns</strong> servers, if ns record was found, the script proceed to check if the sysadmin misconfiguration his server by using the host command as we saw earlier.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>if [ -z "$1" ]; then
+echo "[*] Simple Zone Transfer Script"
+echo "[*] Usage : $0 &lt;domain name&gt;"
+exit 0
+fi
+
+for server in $(host -t ns $1 | cut -d " " -f 4 ); do
+echo "check the domain $1 and ns $server"
+if [ $server != "NS" ];
+then
+        host -l $1  $server | grep "has address"
+else
+        echo "There is no NS record for $1 domain"
+fi
+done
+
+
+</code></pre></div></div>
+<p><strong>Please note:</strong> don’t forget to make that file executable by using <code class="highlighter-rouge">chmod +x script.sh</code>, after that run it by using the following</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>./script.sh &lt;arg&gt;
+</code></pre></div></div>
+
+<p>In that script we willing to get some argument <code class="highlighter-rouge">$1</code>, if none of argument was entered, we print on the screen direction how to run that script. In case we have argument entered, we check it ns server, if some ns server was found, we try the zone transfer technique by using <code class="highlighter-rouge">host</code>, if we found lead on some DNS address we grep it by “has address”.</p>
+
+<p>I search over the INTERNET for file that contain list of domains, and found that <a href="https://moz.com/top-500/download/?table=top500Domains">top50Domain.csv</a> file, so I run the following on my terminal to use that file on the script above.</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>while IFS= read -r line; do
+    domains=$(echo $line | cut -d '"' -f 4)
+    echo "check $domains"
+		./script.sh $domains
+done &lt; ./top500Domains.csv
+</code></pre></div></div>
+<p>I run this over to find a leak in some DNS server that can be found by using that list, and sure enough I found DNS server that related to <code class="highlighter-rouge">berkeley.edu</code> domain.</p>
+
+<p><img src="/assets/images/oscp/hostleakdns.png" alt="OSCP Post" />
+<strong>Figure 96</strong> DNS of berkeley.edu domain, the adns3.berkeley.edu give us information.</p>
+
+<p>As you can see, big part of that addresses we found contain privet addresses, and this is what that DNS ZONE TRANSFER can give us, if someone have done misconfiguration of his DNS server this can allow leak of information that potential hackers can take advantage. In our case we can actually map the berkeley University network and if we find a way to get into their network, we can use the information we found to take additional actions that can be critical to the organization (in our case - the university).I supposed that there is more DNS leak that can be found on that list, but that’s it for now.</p>
+
+<p>On Kali Linux we have tools that can help us to find the same information we did found by runing our script, the first one is <strong>DNSRecon</strong>, this tool are DNS enumeration script that was written in Python, in out case we going to run that tool against the berkeley.edu domain and check out if we have the same output we saw on our script. The command we going to run is as follow:</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>dnsrecon -d berkeley.edu -t axfr
+</code></pre></div></div>
+<p>The <strong>-d</strong> option used for domain name that we going to go against, the <strong>-t</strong> stend for type and the <strong>axfr</strong> are the DNS protocol that allow us to make replication of all the record that DNS have, this protocol are use to replicate one DNS server to another DNS server and that is what the AXFR is designed to do, and because the server is not hardened properly we can replicate to our local computer, even though it is not something that should be enabled, but only to the enterprise DNS servers.</p>
+
+<p>I found more records from 10.255 segment and in the list which was really long, I found the 7.120 server which are the 2401banc-lounge-ap1 server.</p>
+
+<p><img src="/assets/images/oscp/dnsrecon.png" alt="OSCP Post" />
+<strong>Figure 97</strong> Leak of information that found using dnsrecon.</p>
+
+<p>On that list you can see that the record type specified on every line, in our case the is also MX records. CNAME, AAAA and PTR.</p>
+
+<p>The second tool that we can use is <strong>DNSEnum</strong>, this tool check the domain we entered to find ZONE TRANSFER point at the organization DNS server, in my case it didn’t find any record, so it is importance to know every tool, becouse in many case this tool can be handy, but on the other cases like in my case it is useless, I run it against my zwerd.com.</p>
+
+<p><img src="/assets/images/oscp/dnsenum.png" alt="OSCP Post" />
+<strong>Figure 98</strong> DNSEnum tool against zwerd.com domain.</p>
 
     
 

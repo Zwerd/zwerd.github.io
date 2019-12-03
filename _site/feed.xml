@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.5">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2019-11-28T17:08:15+02:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Zwerd</title><subtitle>A stunning blog of freaking PT warrior</subtitle><author><name>Guy Zwerdling</name></author><entry><title type="html">LPIC2 Certification Journey</title><link href="http://localhost:4000/2019/11/19/lpic2_certificate.html" rel="alternate" type="text/html" title="LPIC2 Certification Journey" /><published>2019-11-19T00:00:00+02:00</published><updated>2019-11-19T00:00:00+02:00</updated><id>http://localhost:4000/2019/11/19/lpic2_certificate</id><content type="html" xml:base="http://localhost:4000/2019/11/19/lpic2_certificate.html">&lt;p&gt;Today morning I received a message from LPI that my certificate will expire in 9 months and so it is time to start studying for the second Linux certification, this will advance me to the third Linux information security certification that I will search for, this certification is divided into two and the two parts are marked by two different codes: 201-450, 202-450&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.5">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2019-12-03T15:24:38+02:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Zwerd</title><subtitle>A stunning blog of freaking PT warrior</subtitle><author><name>Guy Zwerdling</name></author><entry><title type="html">LPIC2 Certification Journey</title><link href="http://localhost:4000/2019/11/19/lpic2_certificate.html" rel="alternate" type="text/html" title="LPIC2 Certification Journey" /><published>2019-11-19T00:00:00+02:00</published><updated>2019-11-19T00:00:00+02:00</updated><id>http://localhost:4000/2019/11/19/lpic2_certificate</id><content type="html" xml:base="http://localhost:4000/2019/11/19/lpic2_certificate.html">&lt;p&gt;Today morning I received a message from LPI that my certificate will expire in 9 months and so it is time to start studying for the second Linux certification, this will advance me to the third Linux information security certification that I will search for, this certification is divided into two and the two parts are marked by two different codes: 201-450, 202-450&lt;/p&gt;
 
 &lt;p&gt;In this post I am going to go over each topic as listed on the LPI website, which means I will go over each tool and present it here, in each chapter I will show how to use these tools to get the same information that the subject of the test should deal with, at the end of each chapter I will present a challenge From most of the commands we learned and challenged you and me how to get the information to succeed.&lt;/p&gt;
 
@@ -179,7 +179,7 @@
 
 &lt;h3 id=&quot;iostat&quot;&gt;iostat&lt;/h3&gt;
 
-&lt;p&gt;According to man page, the iostat report Central Processing Unit (CPU) statistics and input/output statistics for devices and partitions. The iostat is a part of the sysstat package which mean that this packets contain several other tools and one of them is iostat, in my case I use Ubuntu, but if you are using some other operation system that doesn’t have that tool, just install it on you distribution, if it’s Debian like, you can use apt-get, if it is Fedora like, you can use yam, in my case to install the sysstat package I run the following:&lt;/p&gt;
+&lt;p&gt;According to man page, the iostat report Central Processing Unit (CPU) statistics and input/output statistics for devices and partitions. The iostat is a part of the &lt;strong&gt;sysstat&lt;/strong&gt; package which mean that this packets contain several other tools and one of them is iostat, in my case I use Ubuntu, but if you are using some other operation system that doesn’t have that tool, just install it on you distribution, if it’s Debian like, you can use apt-get, if it is Fedora like, you can use yam, in my case to install the sysstat package I run the following:&lt;/p&gt;
 &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;sudo apt install sysstat
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
@@ -226,19 +226,143 @@
 &lt;p&gt;&lt;img src=&quot;/assets/images/lpic2/iostatxp.png&quot; alt=&quot;OSCP Post&quot; /&gt;
 &lt;strong&gt;Figure 22&lt;/strong&gt; iostat for specific partition.&lt;/p&gt;
 
+&lt;h3 id=&quot;sar&quot;&gt;sar&lt;/h3&gt;
+
+&lt;p&gt;If you want to see the iowait like we saw on iostat but in the form of a display like in TOP command, you can use sar command. This command print out the current status of the  nice, system, iostat and others, you can use it to see on real time the status of your system activity.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/lpic2/sar.png&quot; alt=&quot;OSCP Post&quot; /&gt;
+&lt;strong&gt;Figure 23&lt;/strong&gt; sar command.&lt;/p&gt;
+
+&lt;p&gt;In my case I use sar to display state every second for 5 times, as I already write above, sar is part of sysstat, so if you have some issue to run it, you need to check that it’s enable on the file &lt;code class=&quot;highlighter-rouge&quot;&gt;/etc/default/sysstat&lt;/code&gt;:&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c&quot;&gt;#!/bin/bash&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;# Default settings for /etc/init.d/sysstat, /etc/cron.d/sysstat&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;# and /etc/cron.daily/sysstat files&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;#&lt;/span&gt;
+
+&lt;span class=&quot;c&quot;&gt;# Should sadc collect system activity informations? Valid values&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;# are &quot;true&quot; and &quot;false&quot;. Please do not put other values, they&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;# will be overwritten by debconf!&lt;/span&gt;
+&lt;span class=&quot;nv&quot;&gt;ENABLED&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;true&quot;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;You can run the command &lt;code class=&quot;highlighter-rouge&quot;&gt;sar -r 1 5&lt;/code&gt;, the &lt;strong&gt;-r&lt;/strong&gt; option stand for Report memory utilization statistics, on the output you can find the KBCOMMIT and %COMMIT which are the overall memory used including RAM and Swap.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/lpic2/sar.png&quot; alt=&quot;OSCP Post&quot; /&gt;
+&lt;strong&gt;Figure 24&lt;/strong&gt; sar memory used.&lt;/p&gt;
+
 &lt;h3 id=&quot;iotop&quot;&gt;iotop&lt;/h3&gt;
 
 &lt;p&gt;If we found that we have some issue on the hard disk because let’s say we found on the iostat command that the i/o work really hard by view iowait that jump up to bigger number or by write and read values from the disk are greater then other, we can find out which program causes that problem, just type iotop.&lt;/p&gt;
 
 &lt;p&gt;&lt;img src=&quot;/assets/images/lpic2/iotopstress.png&quot; alt=&quot;OSCP Post&quot; /&gt;
-&lt;strong&gt;Figure 23&lt;/strong&gt; iotop example.&lt;/p&gt;
+&lt;strong&gt;Figure 25&lt;/strong&gt; iotop example.&lt;/p&gt;
 
 &lt;p&gt;In my case you can see that he tell us that the most utilizes program in the IO of our hard disk is stress, you also can see that he specify the hdd by side of that, which tell us what option has being used in stress command.&lt;/p&gt;
 
 &lt;p&gt;In the iotop you can also see the swapin value, and in my case as you saw earlier, my swap are really utilizes by some program, so I checked it out and find what is the program that used my swap.&lt;/p&gt;
 
 &lt;p&gt;&lt;img src=&quot;/assets/images/lpic2/iotopswap.png&quot; alt=&quot;OSCP Post&quot; /&gt;
-&lt;strong&gt;Figure 24&lt;/strong&gt; iotop swapin view.&lt;/p&gt;</content><author><name>Guy Zwerdling</name></author><category term="Linux" /><summary type="html">Today morning I received a message from LPI that my certificate will expire in 9 months and so it is time to start studying for the second Linux certification, this will advance me to the third Linux information security certification that will include what I am looking for, this certification is split in two</summary></entry><entry><title type="html">OSCP Certification Journey</title><link href="http://localhost:4000/2019/09/20/oscp_certificate.html" rel="alternate" type="text/html" title="OSCP Certification Journey" /><published>2019-09-20T00:00:00+03:00</published><updated>2019-09-20T00:00:00+03:00</updated><id>http://localhost:4000/2019/09/20/oscp_certificate</id><content type="html" xml:base="http://localhost:4000/2019/09/20/oscp_certificate.html">&lt;p&gt;I set myself a lot of goals this year to advance to the next level, among all the goals being the OSCP certification from Offensive Security. It’s been a certification I’ve been talking about for years, since 2012, it’s really time to sit down and do that certification. It all started when I was writing in a forum on computer communications, where I presented the dilemma, whether to study information security of companies that are involved in the field or something else when my goal is to be an expert in the cyber world.&lt;/p&gt;
+&lt;strong&gt;Figure 25&lt;/strong&gt; iotop swapin view.&lt;/p&gt;
+
+&lt;h3 id=&quot;lsof&quot;&gt;lsof&lt;/h3&gt;
+
+&lt;p&gt;This command list open files on your system, which mean you will see all files that are use under you username, so if you run that command it is not very useful, but I tell you what, if you feel like you have some memory issue of hard disk working hard and you check and find what program are running, you can run &lt;code class=&quot;highlighter-rouge&quot;&gt;lsof&lt;/code&gt; and grep the program you suspect that make you the issue, and then you can see exactly what files are open with that related to this program.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/lpic2/lsof.png&quot; alt=&quot;OSCP Post&quot; /&gt;
+&lt;strong&gt;Figure 26&lt;/strong&gt; lsof.&lt;/p&gt;
+
+&lt;p&gt;Let’s run stress command for utilizes the hard disk and see if we can find the stress files.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/lpic2/lsofstress.png&quot; alt=&quot;OSCP Post&quot; /&gt;
+&lt;strong&gt;Figure 27&lt;/strong&gt; lsof stress files that are in use.&lt;/p&gt;
+
+&lt;p&gt;As you can see the binary file are in use, if you see that your computer are leak of speed because of some program and you want to check what files are used by that program, the lsof can be the solution for you.&lt;/p&gt;
+
+&lt;h3 id=&quot;uptime&quot;&gt;uptime&lt;/h3&gt;
+
+&lt;p&gt;This tool can tell you the how long the system has been running, also you can find out how much users connect to this PC and what is the load average, the load average first number represent the load time average for 1 minute, the second is for 5 minutes and the last one is for 15 minutes.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/lpic2/uptime.png&quot; alt=&quot;OSCP Post&quot; /&gt;
+&lt;strong&gt;Figure 28&lt;/strong&gt; uptime.&lt;/p&gt;
+
+&lt;p&gt;You can view the exec time in nice mode that can be display.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/lpic2/uptime2.png&quot; alt=&quot;OSCP Post&quot; /&gt;
+&lt;strong&gt;Figure 29&lt;/strong&gt; uptime.&lt;/p&gt;
+
+&lt;h3 id=&quot;w&quot;&gt;w&lt;/h3&gt;
+
+&lt;p&gt;This command show who is logged on and what they are doing, you  also can use the &lt;strong&gt;who&lt;/strong&gt; command, but this command can be handy in the network cases, let’s say that some one connect to your computer or server remotly, you can use this &lt;code class=&quot;highlighter-rouge&quot;&gt;w&lt;/code&gt; command for checking out what is the source ip of that user.&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;w -fi
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;The &lt;strong&gt;-f&lt;/strong&gt; option stand for from filed that will be specify on the output, the &lt;strong&gt;-i&lt;/strong&gt; display on that line the ip address rather the&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/lpic2/lsofremote.png&quot; alt=&quot;OSCP Post&quot; /&gt;
+&lt;strong&gt;Figure 30&lt;/strong&gt; remote connection.&lt;/p&gt;
+
+&lt;p&gt;You can see that I have two connection that one of them have IP address, I made this connection from other PC to my local computer, the first line specified my local user. You also can see that the remote user use &lt;code class=&quot;highlighter-rouge&quot;&gt;zsh&lt;/code&gt; program remotely, if I change it to bash on my other PC I will see that on the &lt;code class=&quot;highlighter-rouge&quot;&gt;w&lt;/code&gt; output&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/lpic2/lsofremote2.png&quot; alt=&quot;OSCP Post&quot; /&gt;
+&lt;strong&gt;Figure 31&lt;/strong&gt; Using bash instead of zsh.&lt;/p&gt;
+
+&lt;h3 id=&quot;netstat&quot;&gt;netstat&lt;/h3&gt;
+
+&lt;p&gt;This tool can help us to find out on the network level processes that using the network, and many connection that are open between your computer and the local network. But first of all it is important to know how we can look at the network level using netstat.&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;netstat -ie
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;This command will show us our local network interface with his IP address and MAC address which is the physical address of that interface.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/lpic2/netstat-ie.png&quot; alt=&quot;OSCP Post&quot; /&gt;
+&lt;strong&gt;Figure 32&lt;/strong&gt; My interfaces network.&lt;/p&gt;
+
+&lt;p&gt;It is the same as &lt;code class=&quot;highlighter-rouge&quot;&gt;ifconfig&lt;/code&gt;, you can also see the TX and RX which stand for transfer and receive of the bytes over that interface, the eno1 is my physical interface while my lo is the loopback, the interface I used right now is wlp2s0 which is my WIFI interface, you can see that the TX and RX on that interface are pretty high, you can grep that by using the “bytes”&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/lpic2/ifconfig.png&quot; alt=&quot;OSCP Post&quot; /&gt;
+&lt;strong&gt;Figure 33&lt;/strong&gt; TX and RX.&lt;/p&gt;
+
+&lt;p&gt;We also can use &lt;code class=&quot;highlighter-rouge&quot;&gt;netstat&lt;/code&gt; to get the statistics of our network interfaces, in that case we will see the count of IP pakets that go though our network interface, we can see the icmp packets that are used for PING traffic and also there is the TCP and UDP packets the go through out interfaces. If we see an error in one of the statistics under specific protocol/field we will know that something on our network are stoping us to get that streem of packets.&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;netstat -s
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/images/lpic2/netstat-s.png&quot; alt=&quot;OSCP Post&quot; /&gt;
+&lt;strong&gt;Figure 33&lt;/strong&gt; Statistics by using netstat.&lt;/p&gt;
+
+&lt;p&gt;You can also use &lt;code class=&quot;highlighter-rouge&quot;&gt;netstat -tuna&lt;/code&gt;, the &lt;strong&gt;-t&lt;/strong&gt; stand for TCP connection only while &lt;strong&gt;-u&lt;/strong&gt; stand for udp, the &lt;strong&gt;-n&lt;/strong&gt; will show the numericla address instead of trying to find the hostname, &lt;strong&gt;-a&lt;/strong&gt; stand for show both listening and non-listening sockets, so by running this command we can see the connection that are running over the network and their address&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/lpic2/netstat-tuna.png&quot; alt=&quot;OSCP Post&quot; /&gt;
+&lt;strong&gt;Figure 34&lt;/strong&gt; Statistics by using netstat.&lt;/p&gt;
+
+&lt;p&gt;The command I love to use is &lt;code class=&quot;highlighter-rouge&quot;&gt;netstat -aenp&lt;/code&gt; that can show you the program who use the connection and their process ID number which can be handy to find some process that use the connection and stop it by that ID number.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/lpic2/netstat-aenp.png&quot; alt=&quot;OSCP Post&quot; /&gt;
+&lt;strong&gt;Figure 35&lt;/strong&gt; Process ID of networking connection.&lt;/p&gt;
+
+&lt;h3 id=&quot;tip&quot;&gt;TIP&lt;/h3&gt;
+
+&lt;p&gt;If you found some program that make some issues on your commputer, let’s say that you run some script or some tool on your command line or you have some program on the GUI and you want to kill it, in that case you may want to know what is the ID number of that process, after you find out what is the process number ID, as example of &lt;code class=&quot;highlighter-rouge&quot;&gt;top&lt;/code&gt; command, you can kill it by using the following:&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;kill -9 &amp;lt;process ID&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;If the program was run on the terminal and you type &lt;code class=&quot;highlighter-rouge&quot;&gt;ctrl+z&lt;/code&gt; that it is on suspended state, this is mean that you can change that state and load it again or just kill it. For killing it you need the proccess ID, and if you didn’t record the number ID you can’t find that process on the &lt;code class=&quot;highlighter-rouge&quot;&gt;top&lt;/code&gt; because is on suspended, so to find this process ID you can type the follow:&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;ps -aux
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;This ps command can show you what is the process ID that are suspended and after that you can kill it. in the case of &lt;strong&gt;-aux&lt;/strong&gt; options, you will see all the process that run under your user, you also be able to see the command you type and suspended under the COMMAND column.&lt;/p&gt;
+
+&lt;p&gt;In the network cases process you can also use very handy command that can bring you more relevant information, as example let’s say that we want to see the bandwidth and the statistics of the utilization of that bandwidth with connection information like source and destination address, well for that case we can use &lt;code class=&quot;highlighter-rouge&quot;&gt;iftop&lt;/code&gt; command that can bring us information in real time about the traffic that go through out network interface, you can see by using that command the amount of bandwidth that are utilize by which host that have connection to our local computer.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/lpic2/iftop.gif&quot; alt=&quot;OSCP Post&quot; /&gt;
+&lt;strong&gt;Figure 36&lt;/strong&gt; bandwidth of connection in real time.&lt;/p&gt;
+
+&lt;p&gt;You can to see in real time the traffic that I have on my wlp2s0 interface. The bigest connection trafic will be on the top of the list and that can give you a clue if you have some program that take advantage of all your bandwidth you can see which is the destination address and go back to the netstat to check what is the process that run this connection.&lt;/p&gt;
+
+&lt;p&gt;Another handy tool you can use is &lt;code class=&quot;highlighter-rouge&quot;&gt;nload&lt;/code&gt;, this tool are monitor your bandwidth load, which mean you can see if you have a lot of traffic going on the incoming side or outgoing of you interface, in my case I connect to Mint Linux site to download some iso file that you can see my graph changing on the &lt;code class=&quot;highlighter-rouge&quot;&gt;nload&lt;/code&gt; command.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/lpic2/nload.gif&quot; alt=&quot;OSCP Post&quot; /&gt;
+&lt;strong&gt;Figure 37&lt;/strong&gt; Using nload and iftop to see the download traffic.&lt;/p&gt;
+
+&lt;p&gt;The graph load up and on the iftop we can see the address that have a connection to my computer which from him I download that iso file.&lt;/p&gt;</content><author><name>Guy Zwerdling</name></author><category term="Linux" /><summary type="html">Today morning I received a message from LPI that my certificate will expire in 9 months and so it is time to start studying for the second Linux certification, this will advance me to the third Linux information security certification that will include what I am looking for, this certification is split in two</summary></entry><entry><title type="html">OSCP Certification Journey</title><link href="http://localhost:4000/2019/09/20/oscp_certificate.html" rel="alternate" type="text/html" title="OSCP Certification Journey" /><published>2019-09-20T00:00:00+03:00</published><updated>2019-09-20T00:00:00+03:00</updated><id>http://localhost:4000/2019/09/20/oscp_certificate</id><content type="html" xml:base="http://localhost:4000/2019/09/20/oscp_certificate.html">&lt;p&gt;I set myself a lot of goals this year to advance to the next level, among all the goals being the OSCP certification from Offensive Security. It’s been a certification I’ve been talking about for years, since 2012, it’s really time to sit down and do that certification. It all started when I was writing in a forum on computer communications, where I presented the dilemma, whether to study information security of companies that are involved in the field or something else when my goal is to be an expert in the cyber world.&lt;/p&gt;
 
 &lt;p&gt;Eventually, someone responded to me, depending on what I want to learn, whether I want to be on the attacker or on the defensive side, he introduced a number of certifications and wrote about each certification separately. Among all the certifications he presented were Cisco certificates, Check Point certificates, and all sorts of large companies that manufacture and market security sites that protect the entire corporate network.&lt;/p&gt;
 
@@ -1360,7 +1484,98 @@ modules load xssed
 &lt;p&gt;&lt;img src=&quot;/assets/images/oscp/hostnscisco.png&quot; alt=&quot;OSCP Post&quot; /&gt;
 &lt;strong&gt;Figure 93&lt;/strong&gt; cisco subdomain records.&lt;/p&gt;
 
-&lt;p&gt;If we what to grab the subdomain and search for any subdomain that domain contain, we can use &lt;code class=&quot;highlighter-rouge&quot;&gt;host&lt;/code&gt; command for every thing that we thing that can be found as sub domain, like &lt;code class=&quot;highlighter-rouge&quot;&gt;www&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;ftp&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;owa&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;proxy&lt;/code&gt;, and such, but in the case of linux you always need to thing out of the box, you can redirect these string like to some file and create bash script to manipulate that file.&lt;/p&gt;</content><author><name>Guy Zwerdling</name></author><category term="Pentest" /><summary type="html">I set myself a lot of goals this year to advance to the next level, among all the goals being the OSCP certification from Offensive Security. It's been a certification I've been talking about for years, since 2012, it's really time to sit down and do that certification. It all started when I was writing in a forum on computer communications, where I presented the dilemma, whether to study information security of companies that are involved in the field or something else when my goal is to be an expert in the cyber world.</summary></entry><entry><title type="html">MyGmach - My New Open Source App (react native app)</title><link href="http://localhost:4000/2019/02/17/new_open_source_app.html" rel="alternate" type="text/html" title="MyGmach - My New Open Source App (react native app)" /><published>2019-02-17T00:00:00+02:00</published><updated>2019-02-17T00:00:00+02:00</updated><id>http://localhost:4000/2019/02/17/new_open_source_app</id><content type="html" xml:base="http://localhost:4000/2019/02/17/new_open_source_app.html">&lt;p&gt;At last I finish another application using React Native for native mobile apps using JavaScript and React, the first one was NachRiddles which is base on my dear brother’s book. MyGmach app is build base on my father idea. Every Saturday my dear brother used to wear a certain tie that was unique to the parsha on that Shabbat. After he passed, my father wanted to open tie Gmach - which is the way in the Jewish world to help each other without getting paid (in Hebrew it is an acronym for kindness which is pronounced Gemilot Hassadim [‘גמילות חסדים’]), and give anyone tie as needed.&lt;/p&gt;
+&lt;p&gt;If we what to grab the subdomain and search for any subdomain that domain contain, we can use &lt;code class=&quot;highlighter-rouge&quot;&gt;host&lt;/code&gt; command for every thing that we think that can be found as sub domain, like &lt;code class=&quot;highlighter-rouge&quot;&gt;www&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;ftp&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;owa&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;proxy&lt;/code&gt;, and such, but in the case of linux you always need to think out of the box, you can redirect these string to some file and create bash script to manipulate that file.&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;echo www &amp;gt; web.txt
+echo ftp &amp;gt;&amp;gt; web.txt
+echo owa &amp;gt;&amp;gt; web.txt
+echo proxy &amp;gt;&amp;gt; web.txt
+for subdomain in $(cat web.txt); do host $subdomain.cisco.com;done
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/oscp/hostscript.png&quot; alt=&quot;OSCP Post&quot; /&gt;
+&lt;strong&gt;Figure 94&lt;/strong&gt; Script for finding subdomain records.&lt;/p&gt;
+
+&lt;p&gt;As you can see, &lt;code class=&quot;highlighter-rouge&quot;&gt;www&lt;/code&gt; can be found, and that are alias of other sub domain name, so we get some redirect on redirect (that at least how I call it), in the case of &lt;code class=&quot;highlighter-rouge&quot;&gt;ftp&lt;/code&gt; we can see that cisco have a &lt;code class=&quot;highlighter-rouge&quot;&gt;ftp&lt;/code&gt; sub domain which can be use for FTP service, and the last two can’t be found. So this is one way how can you create self tool that can be handy for finding such information.&lt;/p&gt;
+
+&lt;p&gt;In the DNS world you can advantage some misconfigure DNS server if found, recording to the offensive book author, many sysadmin misconfigure their DNS servers which can be handy if you search for information and with luck found some way to grab more information about your target.&lt;/p&gt;
+
+&lt;p&gt;In the case of DNS misconfiguration you can run simple &lt;code class=&quot;highlighter-rouge&quot;&gt;host&lt;/code&gt; command that can give you more information about other servers that the target contain, and with their name you may understand what service such server willing to give, like in the ftp.cisco.com, in that case it look like that server are the FTP server of cisco company.&lt;/p&gt;
+
+&lt;p&gt;The way to grab such information with &lt;code class=&quot;highlighter-rouge&quot;&gt;host&lt;/code&gt; command is as follow:&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;host -l &amp;lt;domain name&amp;gt; &amp;lt;dns server addresses&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;As you already know, to get the server that handle the servers name in the organization, which is the DNS server, you just need to run &lt;code class=&quot;highlighter-rouge&quot;&gt;host -t ns &amp;lt;domain name&amp;gt;&lt;/code&gt;, if you get some &lt;strong&gt;ns&lt;/strong&gt; record this is the DNS server and that is the address you need to use in the above command.&lt;/p&gt;
+
+&lt;p&gt;This technique is called DNS zone transfer, this is similar to replication of database between DNS servers. So if you have &lt;strong&gt;luck&lt;/strong&gt; and you found some &lt;strong&gt;leak&lt;/strong&gt; DNS server you can take advantage of that server, you just need to know how to do so.&lt;/p&gt;
+
+&lt;p&gt;For example, take as target the domain &lt;code class=&quot;highlighter-rouge&quot;&gt;odi-x.com&lt;/code&gt;, I run the following command cross that domain:&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;host -t ns odi-x.com
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;I found that this domain contain some dns servers so I run the comand to find misconfigure dns server, but in my case all the answers I got was REFUSED.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/oscp/hostdnsleak.png&quot; alt=&quot;OSCP Post&quot; /&gt;
+&lt;strong&gt;Figure 95&lt;/strong&gt; odi-x as target, no DNS leak was found.&lt;/p&gt;
+
+&lt;p&gt;But in the case of large orgnization we want to automate the process and we will write some script that can take argument as the domain name and look for his &lt;strong&gt;ns&lt;/strong&gt; servers, if ns record was found, the script proceed to check if the sysadmin misconfiguration his server by using the host command as we saw earlier.&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;if [ -z &quot;$1&quot; ]; then
+echo &quot;[*] Simple Zone Transfer Script&quot;
+echo &quot;[*] Usage : $0 &amp;lt;domain name&amp;gt;&quot;
+exit 0
+fi
+
+for server in $(host -t ns $1 | cut -d &quot; &quot; -f 4 ); do
+echo &quot;check the domain $1 and ns $server&quot;
+if [ $server != &quot;NS&quot; ];
+then
+        host -l $1  $server | grep &quot;has address&quot;
+else
+        echo &quot;There is no NS record for $1 domain&quot;
+fi
+done
+
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;&lt;strong&gt;Please note:&lt;/strong&gt; don’t forget to make that file executable by using &lt;code class=&quot;highlighter-rouge&quot;&gt;chmod +x script.sh&lt;/code&gt;, after that run it by using the following&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;./script.sh &amp;lt;arg&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;In that script we willing to get some argument &lt;code class=&quot;highlighter-rouge&quot;&gt;$1&lt;/code&gt;, if none of argument was entered, we print on the screen direction how to run that script. In case we have argument entered, we check it ns server, if some ns server was found, we try the zone transfer technique by using &lt;code class=&quot;highlighter-rouge&quot;&gt;host&lt;/code&gt;, if we found lead on some DNS address we grep it by “has address”.&lt;/p&gt;
+
+&lt;p&gt;I search over the INTERNET for file that contain list of domains, and found that &lt;a href=&quot;https://moz.com/top-500/download/?table=top500Domains&quot;&gt;top50Domain.csv&lt;/a&gt; file, so I run the following on my terminal to use that file on the script above.&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;while IFS= read -r line; do
+    domains=$(echo $line | cut -d '&quot;' -f 4)
+    echo &quot;check $domains&quot;
+		./script.sh $domains
+done &amp;lt; ./top500Domains.csv
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;I run this over to find a leak in some DNS server that can be found by using that list, and sure enough I found DNS server that related to &lt;code class=&quot;highlighter-rouge&quot;&gt;berkeley.edu&lt;/code&gt; domain.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/oscp/hostleakdns.png&quot; alt=&quot;OSCP Post&quot; /&gt;
+&lt;strong&gt;Figure 96&lt;/strong&gt; DNS of berkeley.edu domain, the adns3.berkeley.edu give us information.&lt;/p&gt;
+
+&lt;p&gt;As you can see, big part of that addresses we found contain privet addresses, and this is what that DNS ZONE TRANSFER can give us, if someone have done misconfiguration of his DNS server this can allow leak of information that potential hackers can take advantage. In our case we can actually map the berkeley University network and if we find a way to get into their network, we can use the information we found to take additional actions that can be critical to the organization (in our case - the university).I supposed that there is more DNS leak that can be found on that list, but that’s it for now.&lt;/p&gt;
+
+&lt;p&gt;On Kali Linux we have tools that can help us to find the same information we did found by runing our script, the first one is &lt;strong&gt;DNSRecon&lt;/strong&gt;, this tool are DNS enumeration script that was written in Python, in out case we going to run that tool against the berkeley.edu domain and check out if we have the same output we saw on our script. The command we going to run is as follow:&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;dnsrecon -d berkeley.edu -t axfr
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;The &lt;strong&gt;-d&lt;/strong&gt; option used for domain name that we going to go against, the &lt;strong&gt;-t&lt;/strong&gt; stend for type and the &lt;strong&gt;axfr&lt;/strong&gt; are the DNS protocol that allow us to make replication of all the record that DNS have, this protocol are use to replicate one DNS server to another DNS server and that is what the AXFR is designed to do, and because the server is not hardened properly we can replicate to our local computer, even though it is not something that should be enabled, but only to the enterprise DNS servers.&lt;/p&gt;
+
+&lt;p&gt;I found more records from 10.255 segment and in the list which was really long, I found the 7.120 server which are the 2401banc-lounge-ap1 server.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/oscp/dnsrecon.png&quot; alt=&quot;OSCP Post&quot; /&gt;
+&lt;strong&gt;Figure 97&lt;/strong&gt; Leak of information that found using dnsrecon.&lt;/p&gt;
+
+&lt;p&gt;On that list you can see that the record type specified on every line, in our case the is also MX records. CNAME, AAAA and PTR.&lt;/p&gt;
+
+&lt;p&gt;The second tool that we can use is &lt;strong&gt;DNSEnum&lt;/strong&gt;, this tool check the domain we entered to find ZONE TRANSFER point at the organization DNS server, in my case it didn’t find any record, so it is importance to know every tool, becouse in many case this tool can be handy, but on the other cases like in my case it is useless, I run it against my zwerd.com.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/oscp/dnsenum.png&quot; alt=&quot;OSCP Post&quot; /&gt;
+&lt;strong&gt;Figure 98&lt;/strong&gt; DNSEnum tool against zwerd.com domain.&lt;/p&gt;</content><author><name>Guy Zwerdling</name></author><category term="Pentest" /><summary type="html">I set myself a lot of goals this year to advance to the next level, among all the goals being the OSCP certification from Offensive Security. It's been a certification I've been talking about for years, since 2012, it's really time to sit down and do that certification. It all started when I was writing in a forum on computer communications, where I presented the dilemma, whether to study information security of companies that are involved in the field or something else when my goal is to be an expert in the cyber world.</summary></entry><entry><title type="html">MyGmach - My New Open Source App (react native app)</title><link href="http://localhost:4000/2019/02/17/new_open_source_app.html" rel="alternate" type="text/html" title="MyGmach - My New Open Source App (react native app)" /><published>2019-02-17T00:00:00+02:00</published><updated>2019-02-17T00:00:00+02:00</updated><id>http://localhost:4000/2019/02/17/new_open_source_app</id><content type="html" xml:base="http://localhost:4000/2019/02/17/new_open_source_app.html">&lt;p&gt;At last I finish another application using React Native for native mobile apps using JavaScript and React, the first one was NachRiddles which is base on my dear brother’s book. MyGmach app is build base on my father idea. Every Saturday my dear brother used to wear a certain tie that was unique to the parsha on that Shabbat. After he passed, my father wanted to open tie Gmach - which is the way in the Jewish world to help each other without getting paid (in Hebrew it is an acronym for kindness which is pronounced Gemilot Hassadim [‘גמילות חסדים’]), and give anyone tie as needed.&lt;/p&gt;
 
 &lt;p&gt;After my father told me about is idea, I start to work on MyGmach to build an application that allow to manage privet foundation with items in it, so i wrote document about the functionality that I want to build in that application.&lt;/p&gt;
 

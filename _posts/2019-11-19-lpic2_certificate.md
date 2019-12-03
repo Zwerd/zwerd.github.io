@@ -204,12 +204,13 @@ In that case you can see that swap are really working hard and the cache was rel
 
 ### iostat
 
-According to man page, the iostat report Central Processing Unit (CPU) statistics and input/output statistics for devices and partitions. The iostat is a part of the sysstat package which mean that this packets contain several other tools and one of them is iostat, in my case I use Ubuntu, but if you are using some other operation system that doesn't have that tool, just install it on you distribution, if it's Debian like, you can use apt-get, if it is Fedora like, you can use yam, in my case to install the sysstat package I run the following:
+According to man page, the iostat report Central Processing Unit (CPU) statistics and input/output statistics for devices and partitions. The iostat is a part of the **sysstat** package which mean that this packets contain several other tools and one of them is iostat, in my case I use Ubuntu, but if you are using some other operation system that doesn't have that tool, just install it on you distribution, if it's Debian like, you can use apt-get, if it is Fedora like, you can use yam, in my case to install the sysstat package I run the following:
 ```
 sudo apt install sysstat
 ```
 
 By running the iostat we can find information about our i/o on our system.
+
 
 ![OSCP Post](/assets/images/lpic2/iostat.png)
 **Figure 18** Output of iostat.
@@ -255,17 +256,149 @@ iostat -x -p sdb
 ![OSCP Post](/assets/images/lpic2/iostatxp.png)
 **Figure 22** iostat for specific partition.
 
+### sar
+
+If you want to see the iowait like we saw on iostat but in the form of a display like in TOP command, you can use sar command. This command print out the current status of the  nice, system, iostat and others, you can use it to see on real time the status of your system activity.
+
+![OSCP Post](/assets/images/lpic2/sar.png)
+**Figure 23** sar command.
+
+In my case I use sar to display state every second for 5 times, as I already write above, sar is part of sysstat, so if you have some issue to run it, you need to check that it's enable on the file `/etc/default/sysstat`:
+```
+#!/bin/bash
+# Default settings for /etc/init.d/sysstat, /etc/cron.d/sysstat
+# and /etc/cron.daily/sysstat files
+#
+
+# Should sadc collect system activity informations? Valid values
+# are "true" and "false". Please do not put other values, they
+# will be overwritten by debconf!
+ENABLED="true"
+```
+
+You can run the command `sar -r 1 5`, the **-r** option stand for Report memory utilization statistics, on the output you can find the KBCOMMIT and %COMMIT which are the overall memory used including RAM and Swap.
+
+
+![OSCP Post](/assets/images/lpic2/sar.png)
+**Figure 24** sar memory used.
 
 ### iotop
 
 If we found that we have some issue on the hard disk because let's say we found on the iostat command that the i/o work really hard by view iowait that jump up to bigger number or by write and read values from the disk are greater then other, we can find out which program causes that problem, just type iotop.
 
 ![OSCP Post](/assets/images/lpic2/iotopstress.png)
-**Figure 23** iotop example.
+**Figure 25** iotop example.
 
 In my case you can see that he tell us that the most utilizes program in the IO of our hard disk is stress, you also can see that he specify the hdd by side of that, which tell us what option has being used in stress command.
 
 In the iotop you can also see the swapin value, and in my case as you saw earlier, my swap are really utilizes by some program, so I checked it out and find what is the program that used my swap.
 
 ![OSCP Post](/assets/images/lpic2/iotopswap.png)
-**Figure 24** iotop swapin view.
+**Figure 25** iotop swapin view.
+
+### lsof
+
+This command list open files on your system, which mean you will see all files that are use under you username, so if you run that command it is not very useful, but I tell you what, if you feel like you have some memory issue of hard disk working hard and you check and find what program are running, you can run `lsof` and grep the program you suspect that make you the issue, and then you can see exactly what files are open with that related to this program.
+
+
+![OSCP Post](/assets/images/lpic2/lsof.png)
+**Figure 26** lsof.
+
+Let's run stress command for utilizes the hard disk and see if we can find the stress files.
+
+![OSCP Post](/assets/images/lpic2/lsofstress.png)
+**Figure 27** lsof stress files that are in use.
+
+As you can see the binary file are in use, if you see that your computer are leak of speed because of some program and you want to check what files are used by that program, the lsof can be the solution for you.
+
+### uptime
+
+This tool can tell you the how long the system has been running, also you can find out how much users connect to this PC and what is the load average, the load average first number represent the load time average for 1 minute, the second is for 5 minutes and the last one is for 15 minutes.
+
+![OSCP Post](/assets/images/lpic2/uptime.png)
+**Figure 28** uptime.
+
+You can view the exec time in nice mode that can be display.
+
+![OSCP Post](/assets/images/lpic2/uptime2.png)
+**Figure 29** uptime.
+
+### w
+
+This command show who is logged on and what they are doing, you  also can use the **who** command, but this command can be handy in the network cases, let's say that some one connect to your computer or server remotly, you can use this `w` command for checking out what is the source ip of that user.
+
+```
+w -fi
+```
+
+The **-f** option stand for from filed that will be specify on the output, the **-i** display on that line the ip address rather the
+
+![OSCP Post](/assets/images/lpic2/lsofremote.png)
+**Figure 30** remote connection.
+
+You can see that I have two connection that one of them have IP address, I made this connection from other PC to my local computer, the first line specified my local user. You also can see that the remote user use `zsh` program remotely, if I change it to bash on my other PC I will see that on the `w` output
+
+![OSCP Post](/assets/images/lpic2/lsofremote2.png)
+**Figure 31** Using bash instead of zsh.
+
+### netstat
+
+This tool can help us to find out on the network level processes that using the network, and many connection that are open between your computer and the local network. But first of all it is important to know how we can look at the network level using netstat.
+```
+netstat -ie
+```
+
+This command will show us our local network interface with his IP address and MAC address which is the physical address of that interface.  
+
+![OSCP Post](/assets/images/lpic2/netstat-ie.png)
+**Figure 32** My interfaces network.
+
+It is the same as `ifconfig`, you can also see the TX and RX which stand for transfer and receive of the bytes over that interface, the eno1 is my physical interface while my lo is the loopback, the interface I used right now is wlp2s0 which is my WIFI interface, you can see that the TX and RX on that interface are pretty high, you can grep that by using the "bytes"
+
+![OSCP Post](/assets/images/lpic2/ifconfig.png)
+**Figure 33** TX and RX.
+
+We also can use `netstat` to get the statistics of our network interfaces, in that case we will see the count of IP pakets that go though our network interface, we can see the icmp packets that are used for PING traffic and also there is the TCP and UDP packets the go through out interfaces. If we see an error in one of the statistics under specific protocol/field we will know that something on our network are stoping us to get that streem of packets.
+
+```
+netstat -s
+```
+![OSCP Post](/assets/images/lpic2/netstat-s.png)
+**Figure 33** Statistics by using netstat.
+
+You can also use `netstat -tuna`, the **-t** stand for TCP connection only while **-u** stand for udp, the **-n** will show the numericla address instead of trying to find the hostname, **-a** stand for show both listening and non-listening sockets, so by running this command we can see the connection that are running over the network and their address
+
+
+![OSCP Post](/assets/images/lpic2/netstat-tuna.png)
+**Figure 34** Statistics by using netstat.
+
+The command I love to use is `netstat -aenp` that can show you the program who use the connection and their process ID number which can be handy to find some process that use the connection and stop it by that ID number.
+
+![OSCP Post](/assets/images/lpic2/netstat-aenp.png)
+**Figure 35** Process ID of networking connection.
+
+### TIP
+
+If you found some program that make some issues on your commputer, let's say that you run some script or some tool on your command line or you have some program on the GUI and you want to kill it, in that case you may want to know what is the ID number of that process, after you find out what is the process number ID, as example of `top` command, you can kill it by using the following:
+```
+kill -9 <process ID>
+```
+If the program was run on the terminal and you type `ctrl+z` that it is on suspended state, this is mean that you can change that state and load it again or just kill it. For killing it you need the proccess ID, and if you didn't record the number ID you can't find that process on the `top` because is on suspended, so to find this process ID you can type the follow:
+```
+ps -aux
+```
+This ps command can show you what is the process ID that are suspended and after that you can kill it. in the case of **-aux** options, you will see all the process that run under your user, you also be able to see the command you type and suspended under the COMMAND column.
+
+In the network cases process you can also use very handy command that can bring you more relevant information, as example let's say that we want to see the bandwidth and the statistics of the utilization of that bandwidth with connection information like source and destination address, well for that case we can use `iftop` command that can bring us information in real time about the traffic that go through out network interface, you can see by using that command the amount of bandwidth that are utilize by which host that have connection to our local computer.
+
+![OSCP Post](/assets/images/lpic2/iftop.gif)
+**Figure 36** bandwidth of connection in real time.
+
+You can to see in real time the traffic that I have on my wlp2s0 interface. The bigest connection trafic will be on the top of the list and that can give you a clue if you have some program that take advantage of all your bandwidth you can see which is the destination address and go back to the netstat to check what is the process that run this connection.
+
+Another handy tool you can use is `nload`, this tool are monitor your bandwidth load, which mean you can see if you have a lot of traffic going on the incoming side or outgoing of you interface, in my case I connect to Mint Linux site to download some iso file that you can see my graph changing on the `nload` command.
+
+![OSCP Post](/assets/images/lpic2/nload.gif)
+**Figure 37** Using nload and iftop to see the download traffic.
+
+The graph load up and on the iftop we can see the address that have a connection to my computer which from him I download that iso file.

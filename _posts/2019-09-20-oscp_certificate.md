@@ -1286,3 +1286,30 @@ The second tool that we can use is **DNSEnum**, this tool check the domain we en
 
 ![OSCP Post](/assets/images/oscp/dnsenum.png)
 **Figure 98** DNSEnum tool against zwerd.com domain.
+
+### Port Scanning
+
+Another Information Gathering that you can perform is port scan, this action can give you a clue about service that are open and so they are in used, please remember that on the port scanning field you on the active phase like the author of the offensive security book like to call it, it's mean that every scan you may done will create network noises, so be very very careful or some one will detecting you and stop the attack you were about to make.
+
+As you already know TCP connection came up after tree way handshake was done, you can read more about that in my other [TCP connection](http://zwerd.com/2017/11/24/TCP-connection.html#basic-tcp-functionality-and-basic-flags-like-syn-ack-fin) post, baisicly if the three way handshake end successfully it's mean that this port we tried to connect to are open, in some cases we can know what services that port gives and that can be handy to know what is the purpose of the server at least what connection meant to be.
+
+We can use **nc** command to check the connectivity by running the following command.
+```
+nc -nvv -w 1 -z 8.8.8.8 50-53
+```
+The **-n** option disable the resolutions for the hostname, the **-v** stand for verbose and in my case is very verbose, **-w** are used for time wait as 1 second and **-z** tell the `nc` not to send any data over the connection, the port that I specified are the port we going to scan over the 8.8.8.8 server.
+
+
+![OSCP Post](/assets/images/oscp/nc-scan.png)
+**Figure 99** port scan with nc.
+
+You can see that I have succeed on port 53, so now I know that this server are open for DNS service, please note, in some cases the port you may find open may used for other service if the system administrator customize it.
+
+On every such scan the `nc` done the three way handshake, if there no an answer for 1 second, the `nc` go to scan the next port and  again he tried to open up new connection to that server with that port number.
+
+If we look at wireshark that record my connection we will find that this connection was done over TCP and we can see the three way handshake. That's how the `nc` know that this port are open.
+
+![OSCP Post](/assets/images/oscp/nc-wireshark.png)
+**Figure 100** Three way handshake.
+
+In the case of UDP, we have not three way handshake technique so in that case if the port are not in use we will get ICMP packet that complain that this port unreachable.

@@ -389,6 +389,18 @@ ps -aux
 ```
 This ps command can show you what is the process ID that are suspended and after that you can kill it. in the case of **-aux** options, you will see all the process that run under your user, you also be able to see the command you type and suspended under the COMMAND column.
 
+If you want to view in more visualize mode you can use `pstree`, this command display tree of process, that's mean that you can more quickly understand how is the parent and child of process. if you use `pstree -a` you will see the agrument of the program or command that are run on your system. If you want to see specific process on the list you can type the `pstree -H <PID>`, in that way the all tree print out on the screen but every process that related to chrome will be highlighted.
+
+![OSCP Post](/assets/images/lpic2/pstree.png)
+**Figure 35** Chrome process ID using pstree.
+
+If you wnat to see just that process without all the tree we can use `pstree -s <PID>`.
+
+![OSCP Post](/assets/images/lpic2/pstree-s.png)
+**Figure 36** Chrome processes.
+
+
+
 In the network cases process you can also use very handy command that can bring you more relevant information, as example let's say that we want to see the bandwidth and the statistics of the utilization of that bandwidth with connection information like source and destination address, well for that case we can use `iftop` command that can bring us information in real time about the traffic that go through out network interface, you can see by using that command the amount of bandwidth that are utilize by which host that have connection to our local computer.
 
 ![OSCP Post](/assets/images/lpic2/iftop.gif)
@@ -402,3 +414,21 @@ Another handy tool you can use is `nload`, this tool are monitor your bandwidth 
 **Figure 37** Using nload and iftop to see the download traffic.
 
 The graph load up and on the iftop we can see the address that have a connection to my computer which from him I download that iso file.
+
+You can also use `iptraf` or `iptraf-ng` these tools allow you to see the connectiviry of TCP connection that came to your computer.
+
+![OSCP Post](/assets/images/lpic2/iptraf.gif)
+**Figure 38** TCP traffic.
+
+### Network Monitoring
+
+Let's say you work at the IT position on some organization and you got some call from the support team that tell you they have some client that his computer work slowly in every action over the network or internet, in that case you will need to check and troubleshoot that issue, you need to find out if the slowness appear when the client work on the internet or on his local network, to do so we have many tools that can help us in these cases.
+
+One of that tools are the `iperf`, this command can check the bandwidth between two point over the network, this is mean that we can use it to check if the local network have the slowness issue of not, the other tool you can use is **speed test**, you can find one on online website that can check the bandwidth between you and the internet, in that case you will be able to see if the slowness are appear over the internet.
+
+ Let's start with speed test that I found *speedtest.net*, you just need to click the button and this site will give you the details.
+
+ ![OSCP Post](/assets/images/lpic2/speedtest.gif)
+ **Figure 39** Speed Test.
+
+In the case of `iperf` we have two mode, server mode and client mode, it dosn't matter were you run each mode, what is matter is what is the bandwidth between them, on the client side we need to run `iperf -c <server address>`, on the server side we just need the command `iperf -s`, after we run it the detail about the bandwidth between the server and client will reveal.

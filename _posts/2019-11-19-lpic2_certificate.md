@@ -432,3 +432,17 @@ One of that tools are the `iperf`, this command can check the bandwidth between 
  **Figure 39** Speed Test.
 
 In the case of `iperf` we have two mode, server mode and client mode, it dosn't matter were you run each mode, what is matter is what is the bandwidth between them, on the client side we need to run `iperf -c <server address>`, on the server side we just need the command `iperf -s`, after we run it the detail about the bandwidth between the server and client will reveal.
+
+![OSCP Post](/assets/images/lpic2/iperf.png)
+**Figure 40** Iperf.
+
+You can see that in my case the bandwidth from my computer to another in my lab is 2.57GB which is good for me, in the case of our example that you have client that complain about slow network, you may have to check several thing, the first one is to check his and other computer connectivity out of the local network with speed test, after that you will go to the second check which is bandwidth test between two local computer. If on the first test using the speed test, let's say you found that the client computer work slow by speed test and other computer aren't, then you run the second test which is the iperf and found low bandwidth connectivity between the two, in that case it's mean that we have local network problem that can be found on the local network interface or the nearly network device like switch or router.
+
+On the LPI site under 200.2 object you can found that they want the student will have awareness of monitoring solutions such as Icinga2, Nagios, collectd, MRTG and Cacti, well these programs can be install on you computer or other server and you can monitor the resource you have, but the Cacti is monitor program for network connectivity and so the collectd, so I don't really understand way they want to have a knowledge of these program, in the day day life I don't thing I am going to use such program to monitor my network resource, but in the case of these program, all of them work in the browser, this is mean that you have some URL and you can view the bandwidth or interfaces status etc.
+
+### Challenge
+
+1. create some jumbo file that contain more that 10GB.
+2. Transfer that file to other computer in your lab by using `nc` command.
+3. Check and view the transformation and bandwidth utilization.
+4. Check the CPU and RAM used during the transformation.

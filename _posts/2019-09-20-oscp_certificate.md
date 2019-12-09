@@ -1313,3 +1313,24 @@ If we look at wireshark that record my connection we will find that this connect
 **Figure 100** Three way handshake.
 
 In the case of UDP, we have not three way handshake technique so in that case if the port are not in use we will get ICMP packet that complain that this port unreachable.
+
+Vary useful tool that used for port scanning is **nmap**, this tool can trying to find open ports which can be around 1000 ports scan or more, but the worse thing which that tool that it is make really big nose on the network we scan with, becouse it trying to scan every port on particular machine and that can to bring us to be catch.
+
+As example we can use nmap to see which hosts on our segment are working and connectiong to the local network as follow:
+```
+nmap -v -sn 172.16.0.160-252 -oG nmap-output.txt
+```
+
+In that case the **-v** option used for verbose, the **-sn** used for only host discovering and this is why I range it out, **-oG** is for grepable output which I going to grep from that file the data I search for, as example
+```
+grep open nmap-output.txt | cut -d " " -f2
+```
+
+This command will cut the IP address of the machine which found as open on my scan, and this is just one way to using nmap to scan your network, you can use nmap to check what is the OS of your target by using the option **-O**.
+
+![OSCP Post](/assets/images/oscp/nmapOS.png)
+**Figure 101** nmap OS scan.
+
+In my case you can see that the device is Samsung which this can be found by the mac address my device have, and also nmap knows that is a linux device, this is done by the traffic the nmap recieve, you see, every operation system have it's default traffic setting, like TTL value and TCP windows size, this can be hady for nmap to find the OS of the target for you.
+
+You can also use the GUI which can bring you some nice visual graph of the network you scan

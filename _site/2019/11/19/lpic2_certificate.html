@@ -732,6 +732,16 @@
 </code></pre></div></div>
 <p>This ps command can show you what is the process ID that are suspended and after that you can kill it. in the case of <strong>-aux</strong> options, you will see all the process that run under your user, you also be able to see the command you type and suspended under the COMMAND column.</p>
 
+<p>If you want to view in more visualize mode you can use <code class="highlighter-rouge">pstree</code>, this command display tree of process, that’s mean that you can more quickly understand how is the parent and child of process. if you use <code class="highlighter-rouge">pstree -a</code> you will see the agrument of the program or command that are run on your system. If you want to see specific process on the list you can type the <code class="highlighter-rouge">pstree -H &lt;PID&gt;</code>, in that way the all tree print out on the screen but every process that related to chrome will be highlighted.</p>
+
+<p><img src="/assets/images/lpic2/pstree.png" alt="OSCP Post" />
+<strong>Figure 35</strong> Chrome process ID using pstree.</p>
+
+<p>If you wnat to see just that process without all the tree we can use <code class="highlighter-rouge">pstree -s &lt;PID&gt;</code>.</p>
+
+<p><img src="/assets/images/lpic2/pstree-s.png" alt="OSCP Post" />
+<strong>Figure 36</strong> Chrome processes.</p>
+
 <p>In the network cases process you can also use very handy command that can bring you more relevant information, as example let’s say that we want to see the bandwidth and the statistics of the utilization of that bandwidth with connection information like source and destination address, well for that case we can use <code class="highlighter-rouge">iftop</code> command that can bring us information in real time about the traffic that go through out network interface, you can see by using that command the amount of bandwidth that are utilize by which host that have connection to our local computer.</p>
 
 <p><img src="/assets/images/lpic2/iftop.gif" alt="OSCP Post" />
@@ -745,6 +755,40 @@
 <strong>Figure 37</strong> Using nload and iftop to see the download traffic.</p>
 
 <p>The graph load up and on the iftop we can see the address that have a connection to my computer which from him I download that iso file.</p>
+
+<p>You can also use <code class="highlighter-rouge">iptraf</code> or <code class="highlighter-rouge">iptraf-ng</code> these tools allow you to see the connectiviry of TCP connection that came to your computer.</p>
+
+<p><img src="/assets/images/lpic2/iptraf.gif" alt="OSCP Post" />
+<strong>Figure 38</strong> TCP traffic.</p>
+
+<h3 id="network-monitoring">Network Monitoring</h3>
+
+<p>Let’s say you work at the IT position on some organization and you got some call from the support team that tell you they have some client that his computer work slowly in every action over the network or internet, in that case you will need to check and troubleshoot that issue, you need to find out if the slowness appear when the client work on the internet or on his local network, to do so we have many tools that can help us in these cases.</p>
+
+<p>One of that tools are the <code class="highlighter-rouge">iperf</code>, this command can check the bandwidth between two point over the network, this is mean that we can use it to check if the local network have the slowness issue of not, the other tool you can use is <strong>speed test</strong>, you can find one on online website that can check the bandwidth between you and the internet, in that case you will be able to see if the slowness are appear over the internet.</p>
+
+<p>Let’s start with speed test that I found <em>speedtest.net</em>, you just need to click the button and this site will give you the details.</p>
+
+<p><img src="/assets/images/lpic2/speedtest.gif" alt="OSCP Post" />
+ <strong>Figure 39</strong> Speed Test.</p>
+
+<p>In the case of <code class="highlighter-rouge">iperf</code> we have two mode, server mode and client mode, it dosn’t matter were you run each mode, what is matter is what is the bandwidth between them, on the client side we need to run <code class="highlighter-rouge">iperf -c &lt;server address&gt;</code>, on the server side we just need the command <code class="highlighter-rouge">iperf -s</code>, after we run it the detail about the bandwidth between the server and client will reveal.</p>
+
+<p><img src="/assets/images/lpic2/iperf.png" alt="OSCP Post" />
+<strong>Figure 40</strong> Iperf.</p>
+
+<p>You can see that in my case the bandwidth from my computer to another in my lab is 2.57GB which is good for me, in the case of our example that you have client that complain about slow network, you may have to check several thing, the first one is to check his and other computer connectivity out of the local network with speed test, after that you will go to the second check which is bandwidth test between two local computer. If on the first test using the speed test, let’s say you found that the client computer work slow by speed test and other computer aren’t, then you run the second test which is the iperf and found low bandwidth connectivity between the two, in that case it’s mean that we have local network problem that can be found on the local network interface or the nearly network device like switch or router.</p>
+
+<p>On the LPI site under 200.2 object you can found that they want the student will have awareness of monitoring solutions such as Icinga2, Nagios, collectd, MRTG and Cacti, well these programs can be install on you computer or other server and you can monitor the resource you have, but the Cacti is monitor program for network connectivity and so the collectd, so I don’t really understand way they want to have a knowledge of these program, in the day day life I don’t thing I am going to use such program to monitor my network resource, but in the case of these program, all of them work in the browser, this is mean that you have some URL and you can view the bandwidth or interfaces status etc.</p>
+
+<h3 id="challenge">Challenge</h3>
+
+<ol>
+  <li>create some jumbo file that contain more that 10GB.</li>
+  <li>Transfer that file to other computer in your lab by using <code class="highlighter-rouge">nc</code> command.</li>
+  <li>Check and view the transformation and bandwidth utilization.</li>
+  <li>Check the CPU and RAM used during the transformation.</li>
+</ol>
 
     
 

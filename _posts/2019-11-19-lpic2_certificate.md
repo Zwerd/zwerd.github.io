@@ -442,7 +442,57 @@ On the LPI site under 200.2 object you can found that they want the student will
 
 ### Challenge
 
-1. create some jumbo file that contain more that 10GB.
-2. Transfer that file to other computer in your lab by using `nc` command.
+1. create some large file that contain more that 100MB.
+2. Transfer that file from other computer in your lab by using `nc` command.
 3. Check and view the transformation and bandwidth utilization.
-4. Check the CPU and RAM used during the transformation.
+4. Check the CPU and RAM used during the transformation and find the PID.
+
+This is simple challenge but it can help us to rule the commands we learn so far, I know that there is a new command in that challenge like `nc`, but it you going to linux field you need to have a clue how to solve issue and problems alone by searching the solution and be comfortable with new commands on cli.
+
+1. To create large file I used the `fallocate`, this command can create for you file in any size you will need, in my case it was very useful.
+```
+fallocate -l 100M megafile.pno
+```
+
+This is not really matter what extension for that file you will create, what is matter is that file are in the size we want which is 100 MegaByte.
+
+![OSCP Post](/assets/images/lpic2/ls-l.png)
+**Figure 41** ls -l.
+
+2. I created that file on my Kali linux so I tryied to transfer it back to my Ubuntu, on my Ubuntu I set up the netcat to play as server with the following command
+```
+nc -vlp 1007 > megabyte.png
+```
+On the client which going to be my Kali linux, I run the following command:
+```
+nc -v 172.16.1.0 1007 < megabyte.png
+```
+
+Please note that in my segment the subnet contain more than 254 address which is classless of 23 as prefix, also note the redirection, on the client side I redirect the megabyte.txt file to the connection that I am going to have with netcat, on the server side I redirect the output from netcat to the megabyte.txt which will going to be the same as on my Kali.
+
+![OSCP Post](/assets/images/lpic2/nc.png)
+**Figure 42** Netcat on my Ubuntu, the address is of my Kali.
+
+3. Wile the file are transfer I run on my Ubuntu the command we saw earlier to view the utilization of the bandwidth on the network interface, the first one was `nload` command that will give us the information in a half of second what go through in your interface.
+
+![OSCP Post](/assets/images/lpic2/nloadcheck.png)
+**Figure 43** nload on my Ubuntu.
+
+I can see that there is a tranformation or more likely data that go through my interface network, but I can see the connection it self, that go in and out through my interface, in that case I needed to use `iftop` which can tell us each connection what is the source address and the destination.
+
+![OSCP Post](/assets/images/lpic2/iftopcheck.png)
+**Figure 44** iftop on my Ubuntu.
+
+You can see the address 172.16.1.0 which is my computer, the Kali has the 172.16.0.251 address, so now we know that there is connection between us and other machine and we know that data are transfer in this connection.
+
+4. Now let's say that we want to check the state of our system, like checking the CPU and RAM that used, I run the `top` command and found some process that showed up on the top of my list, so this is the process that I want to look at it.
+
+![OSCP Post](/assets/images/lpic2/topcheck.png)
+**Figure 45** top on my Ubuntu.
+
+You can see that I have the PID, so now we want to find and check the state of disk IO, because remember, if there is utilize of the CPU and RUN, something like that can be a program that run on our disk, in my case I know that some program are running on my Ubuntu, so I run `iotop` command which can tell me what was done on the disk.
+
+![OSCP Post](/assets/images/lpic2/iotopcheck.png)
+**Figure 46** iotop on my Ubuntu.
+
+Now you can see by filter the PID we found earlier and found the program that run on our PC, in my case it's `nc` program and it's also showed me part the `nc` command which contain the port 1007.

@@ -22,6 +22,12 @@ If you want a brochure that deals with the topic extensively regardless of this 
 ## Chapter 0
 ## Topic 200: Capacity Planning
 
+Before we start I think is good to memorize way we here to learn linux, just think about world without linux, the power that linux give us and the world is limit less, we can take that technologist and use it to bring new ideas and invention to the world. So at the start I think it is good to take a look of some comedy short video that I found.
+
+
+<iframe width="560" height="315" src="https://www.youtube.com/watch?v=GqMAj8udtDo" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+
+
 In this chapter, we need to address computer hardware issues and how to use Linux to make sure that, such as system resources and resources, it is important to know these concepts because these tools can help us deal with the resource utilization problem, and we may run software only after a long time Since running it, or it is possible that only a certain program after a certain operation will consume all the resources on the computer, in this case we want to know how to look at the resources and check which component utilizes it.
 
 In this way we can know which program is the problematic and which program causes the computer to work slowly and even freeze. Most of the tools we present here are tools that show you how to see what your computer's CPU is used for, what software is currently working, how many free memory we have, and a few other things to help us understand how the Linux operating system works.
@@ -449,7 +455,9 @@ On the LPI site under 200.2 object you can found that they want the student will
 
 This is simple challenge but it can help us to rule the commands we learn so far, I know that there is a new command in that challenge like `nc`, but it you going to linux field you need to have a clue how to solve issue and problems alone by searching the solution and be comfortable with new commands on cli.
 
-1. To create large file I used the `fallocate`, this command can create for you file in any size you will need, in my case it was very useful.
+### 1. Create file of 100MB
+
+To create large file I used the `fallocate`, this command can create for you file in any size you will need, in my case it was very useful.
 ```
 fallocate -l 100M megafile.pno
 ```
@@ -459,7 +467,9 @@ This is not really matter what extension for that file you will create, what is 
 ![OSCP Post](/assets/images/lpic2/ls-l.png)
 **Figure 41** ls -l.
 
-2. I created that file on my Kali linux so I tryied to transfer it back to my Ubuntu, on my Ubuntu I set up the netcat to play as server with the following command
+### 2. Transfer the file you have to other computer in the LAB.
+
+I created that file on my Kali linux so I tryied to transfer it back to my Ubuntu, on my Ubuntu I set up the netcat to play as server with the following command
 ```
 nc -vlp 1007 > megabyte.png
 ```
@@ -473,7 +483,10 @@ Please note that in my segment the subnet contain more than 254 address which is
 ![OSCP Post](/assets/images/lpic2/nc.png)
 **Figure 42** Netcat on my Ubuntu, the address is of my Kali.
 
-3. Wile the file are transfer I run on my Ubuntu the command we saw earlier to view the utilization of the bandwidth on the network interface, the first one was `nload` command that will give us the information in a half of second what go through in your interface.
+### 3. Check bandwidth and utilization.
+
+
+Wile the file are transfer I run on my Ubuntu the command we saw earlier to view the utilization of the bandwidth on the network interface, the first one was `nload` command that will give us the information in a half of second what go through in your interface.
 
 ![OSCP Post](/assets/images/lpic2/nloadcheck.png)
 **Figure 43** nload on my Ubuntu.
@@ -485,7 +498,9 @@ I can see that there is a tranformation or more likely data that go through my i
 
 You can see the address 172.16.1.0 which is my computer, the Kali has the 172.16.0.251 address, so now we know that there is connection between us and other machine and we know that data are transfer in this connection.
 
-4. Now let's say that we want to check the state of our system, like checking the CPU and RAM that used, I run the `top` command and found some process that showed up on the top of my list, so this is the process that I want to look at it.
+### 4. Find the PID of the utilize program.
+
+Now let's say that we want to check the state of our system, like checking the CPU and RAM that used, I run the `top` command and found some process that showed up on the top of my list, so this is the process that I want to look at it.
 
 ![OSCP Post](/assets/images/lpic2/topcheck.png)
 **Figure 45** top on my Ubuntu.
@@ -496,3 +511,5 @@ You can see that I have the PID, so now we want to find and check the state of d
 **Figure 46** iotop on my Ubuntu.
 
 Now you can see by filter the PID we found earlier and found the program that run on our PC, in my case it's `nc` program and it's also showed me part the `nc` command which contain the port 1007.
+
+**Summery:** it is important to know how to read and found information of some program in our linux operation system to deal with utilization issues or network problem, the PID can be your best friend to address the issue out but it's important to know that if we decided to kill process, this action may not be the best solution for that issue, because maybe that problem will appear back again tomorrow, the best solution can be found on the dip level of that issue, we just need to understand why that issue appear and for what it depends, after we found that we may have the ultimate solution that can migrate that issue for best.

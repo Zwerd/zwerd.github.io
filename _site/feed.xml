@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.5">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2019-12-08T16:56:45+02:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Zwerd</title><subtitle>A stunning blog of freaking PT warrior</subtitle><author><name>Guy Zwerdling</name></author><entry><title type="html">LPIC2 Certification Journey</title><link href="http://localhost:4000/2019/11/19/lpic2_certificate.html" rel="alternate" type="text/html" title="LPIC2 Certification Journey" /><published>2019-11-19T00:00:00+02:00</published><updated>2019-11-19T00:00:00+02:00</updated><id>http://localhost:4000/2019/11/19/lpic2_certificate</id><content type="html" xml:base="http://localhost:4000/2019/11/19/lpic2_certificate.html">&lt;p&gt;Today morning I received a message from LPI that my certificate will expire in 9 months and so it is time to start studying for the second Linux certification, this will advance me to the third Linux information security certification that I will search for, this certification is divided into two and the two parts are marked by two different codes: 201-450, 202-450&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.5">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2019-12-10T21:14:18+02:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Zwerd</title><subtitle>A stunning blog of freaking PT warrior</subtitle><author><name>Guy Zwerdling</name></author><entry><title type="html">LPIC2 Certification Journey</title><link href="http://localhost:4000/2019/11/19/lpic2_certificate.html" rel="alternate" type="text/html" title="LPIC2 Certification Journey" /><published>2019-11-19T00:00:00+02:00</published><updated>2019-11-19T00:00:00+02:00</updated><id>http://localhost:4000/2019/11/19/lpic2_certificate</id><content type="html" xml:base="http://localhost:4000/2019/11/19/lpic2_certificate.html">&lt;p&gt;Today morning I received a message from LPI that my certificate will expire in 9 months and so it is time to start studying for the second Linux certification, this will advance me to the third Linux information security certification that I will search for, this certification is divided into two and the two parts are marked by two different codes: 201-450, 202-450&lt;/p&gt;
 
 &lt;p&gt;In this post I am going to go over each topic as listed on the LPI website, which means I will go over each tool and present it here, in each chapter I will show how to use these tools to get the same information that the subject of the test should deal with, at the end of each chapter I will present a challenge From most of the commands we learned and challenged you and me how to get the information to succeed.&lt;/p&gt;
 
@@ -12,6 +12,10 @@
 
 &lt;h2 id=&quot;chapter-0&quot;&gt;Chapter 0&lt;/h2&gt;
 &lt;h2 id=&quot;topic-200-capacity-planning&quot;&gt;Topic 200: Capacity Planning&lt;/h2&gt;
+
+&lt;p&gt;Before we start I think is good to memorize way we here to learn linux, just think about world without linux, the power that linux give us and the world is limit less, we can take that technologist and use it to bring new ideas and invention to the world. So at the start I think it is good to take a look of some comedy short video that I found.&lt;/p&gt;
+
+&lt;iframe width=&quot;560&quot; height=&quot;315&quot; src=&quot;https://www.youtube.com/watch?v=GqMAj8udtDo&quot; frameborder=&quot;0&quot; allow=&quot;autoplay; encrypted-media&quot; allowfullscreen=&quot;&quot;&gt;&lt;/iframe&gt;
 
 &lt;p&gt;In this chapter, we need to address computer hardware issues and how to use Linux to make sure that, such as system resources and resources, it is important to know these concepts because these tools can help us deal with the resource utilization problem, and we may run software only after a long time Since running it, or it is possible that only a certain program after a certain operation will consume all the resources on the computer, in this case we want to know how to look at the resources and check which component utilizes it.&lt;/p&gt;
 
@@ -402,11 +406,68 @@
 &lt;h3 id=&quot;challenge&quot;&gt;Challenge&lt;/h3&gt;
 
 &lt;ol&gt;
-  &lt;li&gt;create some jumbo file that contain more that 10GB.&lt;/li&gt;
-  &lt;li&gt;Transfer that file to other computer in your lab by using &lt;code class=&quot;highlighter-rouge&quot;&gt;nc&lt;/code&gt; command.&lt;/li&gt;
+  &lt;li&gt;create some large file that contain more that 100MB.&lt;/li&gt;
+  &lt;li&gt;Transfer that file from other computer in your lab by using &lt;code class=&quot;highlighter-rouge&quot;&gt;nc&lt;/code&gt; command.&lt;/li&gt;
   &lt;li&gt;Check and view the transformation and bandwidth utilization.&lt;/li&gt;
-  &lt;li&gt;Check the CPU and RAM used during the transformation.&lt;/li&gt;
-&lt;/ol&gt;</content><author><name>Guy Zwerdling</name></author><category term="Linux" /><summary type="html">Today morning I received a message from LPI that my certificate will expire in 9 months and so it is time to start studying for the second Linux certification, this will advance me to the third Linux information security certification that will include what I am looking for, this certification is split in two</summary></entry><entry><title type="html">OSCP Certification Journey</title><link href="http://localhost:4000/2019/09/20/oscp_certificate.html" rel="alternate" type="text/html" title="OSCP Certification Journey" /><published>2019-09-20T00:00:00+03:00</published><updated>2019-09-20T00:00:00+03:00</updated><id>http://localhost:4000/2019/09/20/oscp_certificate</id><content type="html" xml:base="http://localhost:4000/2019/09/20/oscp_certificate.html">&lt;p&gt;I set myself a lot of goals this year to advance to the next level, among all the goals being the OSCP certification from Offensive Security. It’s been a certification I’ve been talking about for years, since 2012, it’s really time to sit down and do that certification. It all started when I was writing in a forum on computer communications, where I presented the dilemma, whether to study information security of companies that are involved in the field or something else when my goal is to be an expert in the cyber world.&lt;/p&gt;
+  &lt;li&gt;Check the CPU and RAM used during the transformation and find the PID.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;This is simple challenge but it can help us to rule the commands we learn so far, I know that there is a new command in that challenge like &lt;code class=&quot;highlighter-rouge&quot;&gt;nc&lt;/code&gt;, but it you going to linux field you need to have a clue how to solve issue and problems alone by searching the solution and be comfortable with new commands on cli.&lt;/p&gt;
+
+&lt;h3 id=&quot;1-create-file-of-100mb&quot;&gt;1. Create file of 100MB&lt;/h3&gt;
+
+&lt;p&gt;To create large file I used the &lt;code class=&quot;highlighter-rouge&quot;&gt;fallocate&lt;/code&gt;, this command can create for you file in any size you will need, in my case it was very useful.&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;fallocate -l 100M megafile.pno
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;This is not really matter what extension for that file you will create, what is matter is that file are in the size we want which is 100 MegaByte.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/lpic2/ls-l.png&quot; alt=&quot;OSCP Post&quot; /&gt;
+&lt;strong&gt;Figure 41&lt;/strong&gt; ls -l.&lt;/p&gt;
+
+&lt;h3 id=&quot;2-transfer-the-file-you-have-to-other-computer-in-the-lab&quot;&gt;2. Transfer the file you have to other computer in the LAB.&lt;/h3&gt;
+
+&lt;p&gt;I created that file on my Kali linux so I tryied to transfer it back to my Ubuntu, on my Ubuntu I set up the netcat to play as server with the following command&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;nc -vlp 1007 &amp;gt; megabyte.png
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;On the client which going to be my Kali linux, I run the following command:&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;nc -v 172.16.1.0 1007 &amp;lt; megabyte.png
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Please note that in my segment the subnet contain more than 254 address which is classless of 23 as prefix, also note the redirection, on the client side I redirect the megabyte.txt file to the connection that I am going to have with netcat, on the server side I redirect the output from netcat to the megabyte.txt which will going to be the same as on my Kali.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/lpic2/nc.png&quot; alt=&quot;OSCP Post&quot; /&gt;
+&lt;strong&gt;Figure 42&lt;/strong&gt; Netcat on my Ubuntu, the address is of my Kali.&lt;/p&gt;
+
+&lt;h3 id=&quot;3-check-bandwidth-and-utilization&quot;&gt;3. Check bandwidth and utilization.&lt;/h3&gt;
+
+&lt;p&gt;Wile the file are transfer I run on my Ubuntu the command we saw earlier to view the utilization of the bandwidth on the network interface, the first one was &lt;code class=&quot;highlighter-rouge&quot;&gt;nload&lt;/code&gt; command that will give us the information in a half of second what go through in your interface.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/lpic2/nloadcheck.png&quot; alt=&quot;OSCP Post&quot; /&gt;
+&lt;strong&gt;Figure 43&lt;/strong&gt; nload on my Ubuntu.&lt;/p&gt;
+
+&lt;p&gt;I can see that there is a tranformation or more likely data that go through my interface network, but I can see the connection it self, that go in and out through my interface, in that case I needed to use &lt;code class=&quot;highlighter-rouge&quot;&gt;iftop&lt;/code&gt; which can tell us each connection what is the source address and the destination.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/lpic2/iftopcheck.png&quot; alt=&quot;OSCP Post&quot; /&gt;
+&lt;strong&gt;Figure 44&lt;/strong&gt; iftop on my Ubuntu.&lt;/p&gt;
+
+&lt;p&gt;You can see the address 172.16.1.0 which is my computer, the Kali has the 172.16.0.251 address, so now we know that there is connection between us and other machine and we know that data are transfer in this connection.&lt;/p&gt;
+
+&lt;h3 id=&quot;4-find-the-pid-of-the-utilize-program&quot;&gt;4. Find the PID of the utilize program.&lt;/h3&gt;
+
+&lt;p&gt;Now let’s say that we want to check the state of our system, like checking the CPU and RAM that used, I run the &lt;code class=&quot;highlighter-rouge&quot;&gt;top&lt;/code&gt; command and found some process that showed up on the top of my list, so this is the process that I want to look at it.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/lpic2/topcheck.png&quot; alt=&quot;OSCP Post&quot; /&gt;
+&lt;strong&gt;Figure 45&lt;/strong&gt; top on my Ubuntu.&lt;/p&gt;
+
+&lt;p&gt;You can see that I have the PID, so now we want to find and check the state of disk IO, because remember, if there is utilize of the CPU and RUN, something like that can be a program that run on our disk, in my case I know that some program are running on my Ubuntu, so I run &lt;code class=&quot;highlighter-rouge&quot;&gt;iotop&lt;/code&gt; command which can tell me what was done on the disk.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/lpic2/iotopcheck.png&quot; alt=&quot;OSCP Post&quot; /&gt;
+&lt;strong&gt;Figure 46&lt;/strong&gt; iotop on my Ubuntu.&lt;/p&gt;
+
+&lt;p&gt;Now you can see by filter the PID we found earlier and found the program that run on our PC, in my case it’s &lt;code class=&quot;highlighter-rouge&quot;&gt;nc&lt;/code&gt; program and it’s also showed me part the &lt;code class=&quot;highlighter-rouge&quot;&gt;nc&lt;/code&gt; command which contain the port 1007.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Summery:&lt;/strong&gt; it is important to know how to read and found information of some program in our linux operation system to deal with utilization issues or network problem, the PID can be your best friend to address the issue out but it’s important to know that if we decided to kill process, this action may not be the best solution for that issue, because maybe that problem will appear back again tomorrow, the best solution can be found on the dip level of that issue, we just need to understand why that issue appear and for what it depends, after we found that we may have the ultimate solution that can migrate that issue for best.&lt;/p&gt;</content><author><name>Guy Zwerdling</name></author><category term="Linux" /><summary type="html">Today morning I received a message from LPI that my certificate will expire in 9 months and so it is time to start studying for the second Linux certification, this will advance me to the third Linux information security certification that will include what I am looking for, this certification is split in two</summary></entry><entry><title type="html">OSCP Certification Journey</title><link href="http://localhost:4000/2019/09/20/oscp_certificate.html" rel="alternate" type="text/html" title="OSCP Certification Journey" /><published>2019-09-20T00:00:00+03:00</published><updated>2019-09-20T00:00:00+03:00</updated><id>http://localhost:4000/2019/09/20/oscp_certificate</id><content type="html" xml:base="http://localhost:4000/2019/09/20/oscp_certificate.html">&lt;p&gt;I set myself a lot of goals this year to advance to the next level, among all the goals being the OSCP certification from Offensive Security. It’s been a certification I’ve been talking about for years, since 2012, it’s really time to sit down and do that certification. It all started when I was writing in a forum on computer communications, where I presented the dilemma, whether to study information security of companies that are involved in the field or something else when my goal is to be an expert in the cyber world.&lt;/p&gt;
 
 &lt;p&gt;Eventually, someone responded to me, depending on what I want to learn, whether I want to be on the attacker or on the defensive side, he introduced a number of certifications and wrote about each certification separately. Among all the certifications he presented were Cisco certificates, Check Point certificates, and all sorts of large companies that manufacture and market security sites that protect the entire corporate network.&lt;/p&gt;
 

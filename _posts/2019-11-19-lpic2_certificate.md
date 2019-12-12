@@ -15,7 +15,7 @@ If you want a brochure that deals with the topic extensively regardless of this 
 
 
 - [Chapter 0](#chapter-0)
-
+- [Chapter 1](#chapter-1)
 
 # Objective 201-450
 
@@ -513,3 +513,112 @@ You can see that I have the PID, so now we want to find and check the state of d
 Now you can see by filter the PID we found earlier and found the program that run on our PC, in my case it's `nc` program and it's also showed me part the `nc` command which contain the port 1007.
 
 **Summery:** it is important to know how to read and found information of some program in our linux operation system to deal with utilization issues or network problem, the PID can be your best friend to address the issue out but it's important to know that if we decided to kill process, this action may not be the best solution for that issue, because maybe that problem will appear back again tomorrow, the best solution can be found on the dip level of that issue, we just need to understand why that issue appear and for what it depends, after we found that we may have the ultimate solution that can migrate that issue for best.
+
+## Chapter 1
+## Topic 201: Linux Kernel
+
+When we talk about linux kernel we want to be able to find out what is our linux kernel version and how to read that version, which mean how we know if that version is stable or be familiar with more details that this version number contain.
+
+First of all let's check our version number, we can done that by using the `uname -a` command, this command will print out the version number and the name of our machine also time and date and even what is out computer architecture, which is 64bit in my case.
+
+![LPIC2 Post](/assets/images/lpic2/uname-a.png)
+**Figure 47** My linux kernel core.
+
+The first number is the version number, in my case it is kernel version 4, the next number is the major revision which is my case is 15 and the third number is the minor revision number, the fourth number is the patch level. In the past, in the version of the kernel was a general rule in the number version, in the second number every odd number was as developed version, and the even number was as stable version, as example the 1.5.2 kernel was under development and version 1.6.2 was known as stable kernel version, when the kernel version 2.6.x came along it stay for long time without numerate the number except the last one number, because version 2.6.was awesome and fourth number for the patch number, one more thing that you need to know is that after thay release the version 2.6, thay get ride of the odd/even number and every new release is stable and not under development, every stable version will develop and update on a new version.
+
+When the version of that kernel raise up and was 2.6.39.4 than Linus Torvalds decided update the enumerating to be more like the old one, which is the first number will be the kernel version, the second will be the kernel release and the third will be the minor revision which is stable or patch to update abilities on the kernel. You may somtime see like a fourth number which play as a path, in my case of **72-generic** this is the Ubuntu specific patch they done.
+
+You can find the versions of kernels that you have in you linux machine under the /lib/modules folder and in each one we can found every modules that are run on our system.
+
+![LPIC2 Post](/assets/images/lpic2/kernels.png)
+**Figure 48** My kernels.
+
+We can go to the kernel archive and found there the kernel that are stable and under operation release use. the meaning of longterm is that this kernel version will be available for long time because one of the operation system like ubuntu or centOS or red hat and such may maintain and using this kernel version, this is why you may be seeing some old kernel version in that site.
+
+![LPIC2 Post](/assets/images/lpic2/linuxkernels.png)
+**Figure 49** Kernels archive.
+
+If we going to the kernel folder under the kernels version that I showed up earlier, we will see that every module lies on the most appropriate folder.
+
+![LPIC2 Post](/assets/images/lpic2/kernelfolder.png)
+**Figure 50** Kernels folder.
+
+In the net folder we will find every module that related to the network card and such, in the fs folder we may found thing that related to the file system, if you want to see every module that are enable on your system, you can just type `lsmod`.
+
+![LPIC2 Post](/assets/images/lpic2/modules.png)
+**Figure 51** lsmod to see the modules.
+
+As you can see the modules that are enable print out on my screen with `lsmod`, you can see the module name and it's size, you can also see what modules are depends on which of the modules as example the **vboxdrv** module is the module that responsible for the vbox on my PC I guess, and there is three modules that relay and depend on that one which are vboxpci, vboxnetadp and vboxnetflt.
+
+You can remove module by using `rmmod` you just need to know what is the module name, as example, let's say that we want the floppy out, so we can grep it in `lsmod`.
+
+![LPIC2 Post](/assets/images/lpic2/lsmodgrep.png)
+**Figure 52** find out the floppy by `lsmod`.
+
+Now, in order to pop it out we need to use `rmmod` with the name of that module.
+
+![LPIC2 Post](/assets/images/lpic2/rmmod.png)
+**Figure 53** Remove the floppy module.
+
+If we want the module back in, we need to use `insmod`, but for insert back from the dead some lost module we need to let him know the exact path for it. we can use `find` for finding that module.
+
+![LPIC2 Post](/assets/images/lpic2/grepfloppy.png)
+**Figure 54** finding the path for floppy module.
+
+We now can use this path to insert that module back in. You can see that now I can find that floppy module in the active module list of `lsmod`
+
+![LPIC2 Post](/assets/images/lpic2/grepfloppy.png)
+**Figure 55** Inserting the floppy.
+
+There is another way to remove module from the active list by using `modprobe`, in this command we can remove module and insert it back without specified the full path.
+
+![LPIC2 Post](/assets/images/lpic2/modprobe.png)
+**Figure 56** Modprobe for remove and adding module.
+
+The command `modprobe` know what is the path of every module by using the **modules.dep** file, this file contain every module and it's information and dependencies, to update this file we can use `depmod -a` that will go and insert the information of the modules to this file.
+
+important thing you may want to know is that module that have dependencies can't be remove out because it in use, in that case we will need to remove the modules that are use this module.
+
+![LPIC2 Post](/assets/images/lpic2/modprobe-r.png)
+**Figure 57** Remove module, error because it in used.
+
+We can get more information about the module by using `modeinfo`, by using this commend we can found the path for that module, dependencies, version and more parameters that module have, so, in case we want some module use specific parameter, we will remove that module and use `modprobe` to insert it with the relevant parameter.
+
+![LPIC2 Post](/assets/images/lpic2/modinfo.png)
+**Figure 58** Module info by using modinfo.
+
+As you can see the usbcore have the param nousb which is boolean, you can insert that module and using that param as example `modprobe usbcore nousb=N`.
+
+Please remember that all we talk about are the modules and not the kernel option itself, like enable the NAT operation for example. Option like that can be found on /proc/sys/kernel, in this folder you will found every option that are enable on your carnel, if you want to watch the configuration file which from there you enable them, you need to check the sysctl.conf that can found on the **/etc** folder, in that file you can enable more functionality of the system, like enable ip forwording or such.
+
+You also have the command `sysctl` which can help you to see add change the option of your operation system
+
+
+![LPIC2 Post](/assets/images/lpic2/sysctl.png)
+**Figure 59** View the option that enable on my PC.
+
+As an example we want to change some value of the running setting:
+
+```
+sysctl -w vm.vfs_cache_pressure=80
+
+```
+
+This command will change the vfs_cache_pressure to value of 80, but please note that this change are made on the running kernel, which mean if you go for reboot the default setting will come in place, if you want to make this changes permanent you need to make these changes on the sysctl.conf file.
+
+You may ask how the linux kernel knows when some device pluge in and lunch his apropriate module, this is done by the **udev**, this udev responsible for such a thing so he know to load up the usb module when some USB device pluge in.
+
+You can see what going on your commputer by using some command that related to udev, such as `lsusb` which can show us the devices related to usb,`lspci` that responsible for CPI bridge or the `dmesg` that show us all the log we have from the system like in the boot which we can see on the boot the logs that our system run while bring the OS up.
+
+ We also have the `udevadm monitor` which can bring to the screen logs from the system in real time, you can see on the next gif how it work, I pluge in my sundisk device and he found it and load it's logs to my screen, he also showed us the remove log when I remove my device from that computer
+
+ ![LPIC2 Post](/assets/images/lpic2/udevadmmonitor.gif)
+ **Figure 60** UDEV monitor in real time.
+
+You also need to know that there is a blacklist of modules because let's say that you pluge in some device that have number of driver on you kernel that can support it, but you may want to use just one of them that are the best used for you.
+
+![LPIC2 Post](/assets/images/lpic2/blacklist.png)
+ **Figure 61** blacklist.conf file.
+
+In my case you can see that in the blacklist I have the
+eepro100 module which mean that if ethernet card pluge in, do not use that old driver, so that is the purpose of that blacklist.

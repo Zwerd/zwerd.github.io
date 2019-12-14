@@ -25,7 +25,7 @@ If you want a brochure that deals with the topic extensively regardless of this 
 Before we start I think is good to memorize way we here to learn linux, just think about world without linux, the power that linux give us and the world is limit less, we can take that technologist and use it to bring new ideas and invention to the world. So at the start I think it is good to take a look of some comedy short video that I found.
 
 
-<iframe width="560" height="315" src="https://www.youtube.com/watch?v=GqMAj8udtDo" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+<iframe width="560" height="315" src="https://www.youtube.com/watch?v=GqMAj8udtDo&output=embed" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
 
 
 In this chapter, we need to address computer hardware issues and how to use Linux to make sure that, such as system resources and resources, it is important to know these concepts because these tools can help us deal with the resource utilization problem, and we may run software only after a long time Since running it, or it is possible that only a certain program after a certain operation will consume all the resources on the computer, in this case we want to know how to look at the resources and check which component utilizes it.
@@ -423,7 +423,7 @@ The graph load up and on the iftop we can see the address that have a connection
 
 You can also use `iptraf` or `iptraf-ng` these tools allow you to see the connectiviry of TCP connection that came to your computer.
 
-![OSCP Post](/assets/images/lpic2/iptraf.gif)
+![OSCP Post](/assets/images/lpic2/iptraf.png)
 **Figure 38** TCP traffic.
 
 ### Network Monitoring
@@ -434,7 +434,7 @@ One of that tools are the `iperf`, this command can check the bandwidth between 
 
  Let's start with speed test that I found *speedtest.net*, you just need to click the button and this site will give you the details.
 
- ![OSCP Post](/assets/images/lpic2/speedtest.gif)
+ ![OSCP Post](/assets/images/lpic2/speedtest.png)
  **Figure 39** Speed Test.
 
 In the case of `iperf` we have two mode, server mode and client mode, it dosn't matter were you run each mode, what is matter is what is the bandwidth between them, on the client side we need to run `iperf -c <server address>`, on the server side we just need the command `iperf -s`, after we run it the detail about the bandwidth between the server and client will reveal.

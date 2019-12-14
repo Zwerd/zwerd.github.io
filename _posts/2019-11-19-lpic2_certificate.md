@@ -25,7 +25,7 @@ If you want a brochure that deals with the topic extensively regardless of this 
 Before we start I think is good to memorize way we here to learn linux, just think about world without linux, the power that linux give us and the world is limit less, we can take that technologist and use it to bring new ideas and invention to the world. So at the start I think it is good to take a look of some comedy short video that I found.
 
 
-<iframe width="560" height="315" src="https://www.youtube.com/watch?v=GqMAj8udtDo&output=embed" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/GqMAj8udtDo" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
 
 
 In this chapter, we need to address computer hardware issues and how to use Linux to make sure that, such as system resources and resources, it is important to know these concepts because these tools can help us deal with the resource utilization problem, and we may run software only after a long time Since running it, or it is possible that only a certain program after a certain operation will consume all the resources on the computer, in this case we want to know how to look at the resources and check which component utilizes it.

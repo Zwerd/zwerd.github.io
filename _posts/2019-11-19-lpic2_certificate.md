@@ -524,9 +524,9 @@ First of all let's check our version number, we can done that by using the `unam
 ![LPIC2 Post](/assets/images/lpic2/uname-a.png)
 **Figure 47** My linux kernel core.
 
-The first number is the version number, in my case it is kernel version 4, the next number is the major revision which is my case is 15 and the third number is the minor revision number, the fourth number is the patch level. In the past, in the version of the kernel was a general rule in the number version, in the second number every odd number was as developed version, and the even number was as stable version, as example the 1.5.2 kernel was under development and version 1.6.2 was known as stable kernel version, when the kernel version 2.6.x came along it stay for long time without numerate the number except the last one number, because version 2.6.was awesome and fourth number for the patch number, one more thing that you need to know is that after thay release the version 2.6, thay get ride of the odd/even number and every new release is stable and not under development, every stable version will develop and update on a new version.
+The first number is the version number, in my case it is kernel version 4, the next number is the major revision which is my case is 15 and the third number is the minor revision number, the fourth number is the patch level. In the past, in the version of the kernel was a general rule in the number version, in the second number every odd number was as developed version, and the even number was as stable version, as example the 1.5.2 kernel was under development and version 1.6.2 was known as stable kernel version, when the kernel version 2.6.x came along it stay for long time without numerate the number except the last one number, because version 2.6.was awesome and fourth number for the patch number, one more thing that you need to know is that after they release the version 2.6, they get ride of the odd/even number and every new release is stable and not under development, every stable version will develop and update on a new version.
 
-When the version of that kernel raise up and was 2.6.39.4 than Linus Torvalds decided update the enumerating to be more like the old one, which is the first number will be the kernel version, the second will be the kernel release and the third will be the minor revision which is stable or patch to update abilities on the kernel. You may somtime see like a fourth number which play as a path, in my case of **72-generic** this is the Ubuntu specific patch they done.
+When the version of that kernel raise up and was 2.6.39.4 than Linus Torvalds decided update the enumerating to be more like the old one, which is the first number will be major release, the second will be minor release and the third will be the minor revision which is stable or patch to update abilities on the kernel. You may somtime see like a fourth number which play as a path, in my case of **72-generic** this is the Ubuntu specific patch they done.
 
 You can find the versions of kernels that you have in you linux machine under the /lib/modules folder and in each one we can found every modules that are run on our system.
 
@@ -589,7 +589,7 @@ We can get more information about the module by using `modeinfo`, by using this 
 
 As you can see the usbcore have the param nousb which is boolean, you can insert that module and using that param as example `modprobe usbcore nousb=N`.
 
-Please remember that all we talk about are the modules and not the kernel option itself, like enable the NAT operation for example. Option like that can be found on /proc/sys/kernel, in this folder you will found every option that are enable on your carnel, if you want to watch the configuration file which from there you enable them, you need to check the sysctl.conf that can found on the **/etc** folder, in that file you can enable more functionality of the system, like enable ip forwording or such.
+Please remember that all we talk about are the modules and not the kernel option itself, like enable the NAT operation for example. Option like that can be found on /proc/sys/kernel, in this folder you will found every option that are enable on your kernel, if you want to watch the configuration file which from there you enable them, you need to check the sysctl.conf that can found on the **/etc** folder, in that file you can enable more functionality of the system, like enable ip forwording or such.
 
 You also have the command `sysctl` which can help you to see add change the option of your operation system
 
@@ -620,5 +620,156 @@ You also need to know that there is a blacklist of modules because let's say tha
 ![LPIC2 Post](/assets/images/lpic2/blacklist.png)
  **Figure 61** blacklist.conf file.
 
-In my case you can see that in the blacklist I have the
-eepro100 module which mean that if ethernet card pluge in, do not use that old driver, so that is the purpose of that blacklist.
+In my case you can see that in the blacklist I have the eepro100 module which mean that if ethernet card pluge in, do not use that old driver, so that is the purpose of that blacklist.
+
+Now let's say that we want to compile our own kernel so that our kernel will be the latest kernel that can be found in the [linux kernel archive](https://www.kernel.org/).
+
+In the reality, if you asking why you ever customize you own kernel, it can be because you have some old linux system that used for just one purpose like FTP server or somthing like that, in that case you may want to compile kernel without any modules that you know you probably won't be in use.
+
+So first of all, I will display here the compilation and install of new kernel on my kali linux which is virtual machine that I use a lot, you can read more about that in my other PWK post. My current kernel version are 5.2.0 and I am going to compile kernel 5.4.3 which is that latest version in the kernel archive at this writing time.
+
+We need to use the */usr/src/* directory as our kernel, so after we download the source code and decompress it we need to create kernel folder or at least make symbol link to the kernel folder named kernel. After we download the kernel file from the kernel archive we can extract it by using the `tar` command.
+
+```
+tar -Jxvf <path to the compress file>
+```
+
+![LPIC2 Post](/assets/images/lpic2/tar.png)
+ **Figure 62** tar the kernel file.
+
+ Than I run the following command in order to make the symbolic line to kernel folder.
+```
+ ln -s /linux-5.4.3 linux
+```
+
+Please note that on the linux folder that we created we have the document for every module that can be use under our system.
+
+For compiling the kernel we need tools that can help us to do so, in my case I need **build-essential** which is the Informational list of build-essential packages.
+```
+apt-get install build-essential
+```
+
+If you want to make kernel on fedora like distro you may need to install "Development Tools", **qt-devel** and **ncurses-devel**.
+
+Now we want to customize the kernel, to do so we going to use `make` command, this command help us to prepare the kernel and create the configuration that needed, the `make` command work with target, which mean that we choose some target that tall the `make` what to do, as example
+```
+make clear
+```
+
+This `make` command going to remove most generated files, it also keep the configuration and enough build support to build external modules.
+
+The first thing we going to do is the `make mrpreper` command which going to remove all generated files + config + various backup files, this will make the kernel as fresh, like let's say that you make some kernel file but didn't install it because you has some other thing to do, and after a while you came back to you computer so you can clean up what you did and start over.
+
+After that we going to configure the kernel, to do so we can use `make xconfig`, this will bring up configuration window in GUI mode that you can setup what you need in your kernel by using you mouse and mark the setting you want.
+
+![LPIC2 Post](/assets/images/lpic2/tar.png)
+ **Figure 62** tar the kernel file.
+
+I my Kali linux I hade a lot of issue that related to some pkg that was needed, if you have such an error, the log of that error will tell you what pkg is missing and all you have to do is apt get install that pkg.
+
+In my case I mange to run xconfig which bring me the configuration menu in GUI mode up to the scree,
+
+![LPIC2 Post](/assets/images/lpic2/xconfig.png)
+**Figure 63** GUI for configuration menu.
+
+After that case I decided to run the kernel compiling stuff under other machine, and we will continue to see more in my VM ubuntu.
+
+On my Ubuntu I run the `make menuconfig`, and that bring me the menu for the configuration in my terminal, in this menu we can choose line in the xconfig the setting we want to be on our kernel.
+
+![LPIC2 Post](/assets/images/lpic2/menuconfig.png)
+**Figure 64** Setup config in terminal mode.
+
+In that menu we have several option for each device driver, the `M` stand for module, this is mean that this driver can be use as a module if needed but it is not part of the kernel, however the asterisk sign **"*"** stand for that module will be a part of the kernel and if so, you won't be able to disable that module from your system, now, if you leave the chosen feature (module) empty, this will mean that this module won't be available, this is mean that we won't be able to load it to the kernel even as module.
+
+![LPIC2 Post](/assets/images/lpic2/menuconfig2.png)
+**Figure 65** My settings.
+
+You can see that the Hardware Monitoring support mark with asterisk which mean that this module will be loaded to the kernel, than we won't be able to disable it, the Remote controller support will be load up as modularize feature which mean that we will be able to load or disable this module if needed, I unmark the Sound card which mean that this module are disable and can't be use as a part of the kernel.
+
+Now after we finish we need to save our configuration, this action will create some *.config* file that can be showed under our linux folder.
+
+![LPIC2 Post](/assets/images/lpic2/configfile.png)
+**Figure 66** My *.config* file.
+
+This file contain all of our configuration, you can also use `make config`, but this option will bring you a lot of questions that you must answer, and if you done any mistake you will need to start over, this is way the other option are recommended.
+
+If you use `make oldconfig` it will take the configuration of the running kernel and load it up to your config file which can be very convenient if you want just enable or disable specific module.
+
+Now we want to make the compilation, so we need to run `make bzImage`, this going to take some time, this command will create for us the image file. Please remember that **zImage** are used for tiny file (512k) and bzImage are used for more larger files.
+
+In my case when I tried to run `make bzImage` I got error about the *openssl* that can be found, after searching this error on google I found that I need to install libssl-dev which used for openssh development pkg.
+
+![LPIC2 Post](/assets/images/lpic2/opensslerror.png)
+**Figure 67** openssl error.
+
+I tried to run the `make bzImage` again and now it work, I saw few warning messages that complain about pkg that are missing but it keep the process to make the bzImage which going to be our kernel that contain the permanent modules for our operation system.
+
+After it done to do it's magic, the kernel will be at the *arch/x86/boot/bzImage*, and now we need to compile the modules, we can done it by using the command `make modules` and it also will take a mount of time.
+
+At the end of this process it will run **depmod** which will create the **modules.dep** file which contain all the modules information and dependencies.
+
+After the `make modules` finish we can find the modules we compile under the */lib/modules/* folder which will be contain the modules folder as the name of the kernel version we compile.
+
+Now we need to install the modules with the command `make modules_install` it will install the modules under the /lib/modules/*kernel-version* which is the kernel version of our modules.
+
+At the end of modules installation you will see that it run **depmod** which is build the list of every module and it's dependencies, now all we need to run is `make install`, this command will install the kernel on our system and it use `dracut` which going to make some changes in our boot folder and in the GRUB to make some new option to load the new installing kernel so we can choose it one the GRUB menu, it also create the **initrd** which is minimal file that use in the RAM to load up the kernel.
+
+Just think about that, you boot up your system and your GRUB need to load up your kernel, your kernel contain many modules for manage the devices parts, he need to load tham up from the hard disk, but there is a problem, he can use the hard disk becouse he need module to do so and all of the module are in the hard drive, so for this issue there is the initrd, this file contain minimal modules that needed to load the hard disk for example, after that he load the kernel which will be able to load more kernel from the hard disk.
+
+You can find the initrd under boot folder, usually every kernel have it's own initrd, in my case my ubuntu contain 2 image of the kernel, one is 4.15.0-70 and the other is 4.15.0-72, the same numbering code have on my initrd files.
+
+![LPIC2 Post](/assets/images/lpic2/initrdfile.png)
+**Figure 68** initrd files.
+
+Let's take a closer look at this file, it will help you understand more about this file, so I'm run the command `file` on one of the init file to check what is the type of that file, in that way I will be able to find out how to read that file.
+
+![LPIC2 Post](/assets/images/lpic2/initfile.png)
+**Figure 69** the file type.
+
+As you can see the type of this file is an archive and it's **cpio** file which is compress, so now we know that we need to decompress this file in order to be able to read it, to do so I going to use `cpio` command.
+
+
+![LPIC2 Post](/assets/images/lpic2/cpio.png)
+**Figure 70** Extract from cpio file.
+
+
+The option **-i** stand for extract files from an archive and the **-d** create leading directories where needed, the **-m** retain previous file modification times when creating files and **-v** used for verbose.
+
+In our case we can see the folder that `cpio` extract to and this can give us a clue about the init file, but if you notice, at the end of the output was print out 56 blocks, and every block is 512 bytes so we viw write now in the first 33280 bytes of this file, but as you saw before, this file contain 54M which are more bigger then 33K we saw, so were is the rest of that file?
+
+This situation lets us know that not all the file was open by the cpio, and the rest of that can be something else or new cpio file because in the cpio there is an header that he knows the start and finish of file, so we need the rest of the file, to achieve that goal we can use `dd` to take fixed size for that file and output it to use file.
+
+```
+dd if=initrd.img-4.15.0-70-generic of=initrd.img-4.15.0-70-generic_OUT bs=512 skip=56
+```
+
+In this command I specified the input file which is the **initrd.img-4.15.0-70-generic** and the output file going to be **initrd.img-4.15.0-70-generic_OUT**, the block size are 512 bytes and we want to skip the first 56 blocks.
+
+![LPIC2 Post](/assets/images/lpic2/dd.png)
+**Figure 71** Create new file using dd.
+
+What we need now is to use file again to see what is the type of our new file we have.
+
+![LPIC2 Post](/assets/images/lpic2/outfile.png)
+**Figure 72** The second file.
+
+So this also cpio file, I used cpio to extract that file and found other files that was extracted out.
+
+![LPIC2 Post](/assets/images/lpic2/secondfile.png)
+**Figure 73** Extract again using cpio.
+
+Now we need to repeat the process again with dd and after that using `file` command. You can see that we found gzip file so now we need to use gzip to see the contect of that file, in the gzip case the file must contain extension of gzip else we will get some error, so I use mv to change the extension and that use the `gzip` command.
+
+```
+gzip -dlv initrd.img-4.15.0-72-generic_OUT2.gz
+```
+
+This will bring file name **initrd.img-4.15.0-72-generic_OUT2** so now we need to check that file type again. in my case it was cpio. so I decompress it.
+
+![LPIC2 Post](/assets/images/lpic2/cpiolastfile.png)
+**Figure 74** Extract again using cpio.
+
+To see if this is the end of our search of initrd we can can use `dd` and if he print out record of zero, it's mean that this is it.
+
+![LPIC2 Post](/assets/images/lpic2/ddagain.png)
+**Figure 75** This is it.

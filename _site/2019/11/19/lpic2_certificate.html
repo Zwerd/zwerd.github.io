@@ -384,7 +384,7 @@
 
 <p>In this post I am going to go over each topic as listed on the LPI website, which means I will go over each tool and present it here, in each chapter I will show how to use these tools to get the same information that the subject of the test should deal with, at the end of each chapter I will present a challenge From most of the commands we learned and challenged you and me how to get the information to succeed.</p>
 
-<p>If you want a brochure that deals with the topic extensively regardless of this post I recommend the booklet by Snow B.V. Her name: The LPIC-2 Exam Prep 6th edition, for version 4.5. This booklet helps me a lot and I recommend going through it at the same time, and yet I will try to elaborate as much as possible in the post here to be ready for the test.</p>
+<p>If you want a brochure that deals with the topic extensively regardless of this post I recommend the booklet by Snow B.V. Her name: <a href="/assets/download/lpic2.pdf">The LPIC-2 Exam Prep 6th edition, for version 4.5</a>. This booklet helps me a lot and I recommend going through it at the same time, and yet I will try to elaborate as much as possible in the post here to be ready for the test.</p>
 
 <ul>
   <li><a href="#chapter-0">Chapter 0</a></li>
@@ -862,9 +862,9 @@
 <p><img src="/assets/images/lpic2/uname-a.png" alt="LPIC2 Post" />
 <strong>Figure 47</strong> My linux kernel core.</p>
 
-<p>The first number is the version number, in my case it is kernel version 4, the next number is the major revision which is my case is 15 and the third number is the minor revision number, the fourth number is the patch level. In the past, in the version of the kernel was a general rule in the number version, in the second number every odd number was as developed version, and the even number was as stable version, as example the 1.5.2 kernel was under development and version 1.6.2 was known as stable kernel version, when the kernel version 2.6.x came along it stay for long time without numerate the number except the last one number, because version 2.6.was awesome and fourth number for the patch number, one more thing that you need to know is that after thay release the version 2.6, thay get ride of the odd/even number and every new release is stable and not under development, every stable version will develop and update on a new version.</p>
+<p>The first number is the version number, in my case it is kernel version 4, the next number is the major revision which is my case is 15 and the third number is the minor revision number, the fourth number is the patch level. In the past, in the version of the kernel was a general rule in the number version, in the second number every odd number was as developed version, and the even number was as stable version, as example the 1.5.2 kernel was under development and version 1.6.2 was known as stable kernel version, when the kernel version 2.6.x came along it stay for long time without numerate the number except the last one number, because version 2.6.was awesome and fourth number for the patch number, one more thing that you need to know is that after they release the version 2.6, they get ride of the odd/even number and every new release is stable and not under development, every stable version will develop and update on a new version.</p>
 
-<p>When the version of that kernel raise up and was 2.6.39.4 than Linus Torvalds decided update the enumerating to be more like the old one, which is the first number will be the kernel version, the second will be the kernel release and the third will be the minor revision which is stable or patch to update abilities on the kernel. You may somtime see like a fourth number which play as a path, in my case of <strong>72-generic</strong> this is the Ubuntu specific patch they done.</p>
+<p>When the version of that kernel raise up and was 2.6.39.4 than Linus Torvalds decided update the enumerating to be more like the old one, which is the first number will be major release, the second will be minor release and the third will be the minor revision which is stable or patch to update abilities on the kernel. You may somtime see like a fourth number which play as a path, in my case of <strong>72-generic</strong> this is the Ubuntu specific patch they done.</p>
 
 <p>You can find the versions of kernels that you have in you linux machine under the /lib/modules folder and in each one we can found every modules that are run on our system.</p>
 
@@ -927,7 +927,7 @@
 
 <p>As you can see the usbcore have the param nousb which is boolean, you can insert that module and using that param as example <code class="highlighter-rouge">modprobe usbcore nousb=N</code>.</p>
 
-<p>Please remember that all we talk about are the modules and not the kernel option itself, like enable the NAT operation for example. Option like that can be found on /proc/sys/kernel, in this folder you will found every option that are enable on your carnel, if you want to watch the configuration file which from there you enable them, you need to check the sysctl.conf that can found on the <strong>/etc</strong> folder, in that file you can enable more functionality of the system, like enable ip forwording or such.</p>
+<p>Please remember that all we talk about are the modules and not the kernel option itself, like enable the NAT operation for example. Option like that can be found on /proc/sys/kernel, in this folder you will found every option that are enable on your kernel, if you want to watch the configuration file which from there you enable them, you need to check the sysctl.conf that can found on the <strong>/etc</strong> folder, in that file you can enable more functionality of the system, like enable ip forwording or such.</p>
 
 <p>You also have the command <code class="highlighter-rouge">sysctl</code> which can help you to see add change the option of your operation system</p>
 
@@ -942,22 +942,223 @@
 
 <p>This command will change the vfs_cache_pressure to value of 80, but please note that this change are made on the running kernel, which mean if you go for reboot the default setting will come in place, if you want to make this changes permanent you need to make these changes on the sysctl.conf file.</p>
 
-<p>You may ask how the linux kernel knows when some device pluge in and lunch his apropriate module, this is done by the <strong>udev</strong>, this udev responsible for such a thing so he know to load up the usb module when some USB device pluge in.</p>
+<p>You may ask how the linux kernel knows when some device pluge in and lunch his appropriate module, this is done by the <strong>udev</strong>, this udev responsible for such a thing so he know to load up the usb module when some USB device pluge in.</p>
 
 <p>You can see what going on your commputer by using some command that related to udev, such as <code class="highlighter-rouge">lsusb</code> which can show us the devices related to usb,<code class="highlighter-rouge">lspci</code> that responsible for CPI bridge or the <code class="highlighter-rouge">dmesg</code> that show us all the log we have from the system like in the boot which we can see on the boot the logs that our system run while bring the OS up.</p>
 
-<p>We also have the <code class="highlighter-rouge">udevadm monitor</code> which can bring to the screen logs from the system in real time, you can see on the next gif how it work, I pluge in my sundisk device and he found it and load it’s logs to my screen, he also showed us the remove log when I remove my device from that computer</p>
+<p>We also have the <code class="highlighter-rouge">udevadm monitor</code> which can bring to the screen logs from the system in real time, you can see on the next gif how it work, I plug in my sundisk device and the <strong>udev</strong> found it and load it’s logs to my screen, he also showed us the remove log when I remove my device from that computer</p>
 
 <p><img src="/assets/images/lpic2/udevadmmonitor.gif" alt="LPIC2 Post" />
  <strong>Figure 60</strong> UDEV monitor in real time.</p>
 
-<p>You also need to know that there is a blacklist of modules because let’s say that you pluge in some device that have number of driver on you kernel that can support it, but you may want to use just one of them that are the best used for you.</p>
+<p>You also need to know that there is a blacklist of modules because let’s say that you plug in some device that have number of driver on you kernel that can support it, but you may want to use just one of them that are the best used for you.</p>
 
 <p><img src="/assets/images/lpic2/blacklist.png" alt="LPIC2 Post" />
  <strong>Figure 61</strong> blacklist.conf file.</p>
 
-<p>In my case you can see that in the blacklist I have the
-eepro100 module which mean that if ethernet card pluge in, do not use that old driver, so that is the purpose of that blacklist.</p>
+<p>In my case you can see that in the blacklist I have the eepro100 module which mean that if Ethernet card plug in, do not use that old driver, so that is the purpose of that blacklist.</p>
+
+<p>Now let’s say that we want to compile our own kernel so that our kernel will be the latest kernel that can be found in the <a href="https://www.kernel.org/">linux kernel archive</a>.</p>
+
+<p>In the reality, if you asking why you ever customize you own kernel, it can be because you have some old linux system that used for just one purpose like FTP server or somthing like that, in that case you may want to compile kernel without any modules that you know you probably won’t be in use.</p>
+
+<p>So first of all, I will display here the compilation and install of new kernel on my kali linux which is virtual machine that I use a lot, you can read more about that in my other PWK post. My current kernel version are 5.2.0 and I am going to compile kernel 5.4.3 which is that latest version in the kernel archive at this writing time.</p>
+
+<p>We need to use the <em>/usr/src/</em> directory as our kernel, so after we download the source code and decompress it we need to create kernel folder or at least make symbol link to the kernel folder named kernel. After we download the kernel file from the kernel archive we can extract it by using the <code class="highlighter-rouge">tar</code> command.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>tar -Jxvf &lt;path to the compress file&gt;
+</code></pre></div></div>
+
+<p><img src="/assets/images/lpic2/tar.png" alt="LPIC2 Post" />
+ <strong>Figure 62</strong> tar the kernel file.</p>
+
+<p>Than I run the following command in order to make the symbolic line to kernel folder.</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code> ln -s /linux-5.4.3 linux
+</code></pre></div></div>
+
+<p>Please note that on the linux folder that we created we have the document for every module that can be use under our system.</p>
+
+<p>For compiling the kernel we need tools that can help us to do so, in my case I need <strong>build-essential</strong> which is the Informational list of build-essential packages.</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>apt-get install build-essential
+</code></pre></div></div>
+
+<p>If you want to make kernel on fedora like distro you may need to install “Development Tools”, <strong>qt-devel</strong> and <strong>ncurses-devel</strong>.</p>
+
+<p>Now we want to customize the kernel, to do so we going to use <code class="highlighter-rouge">make</code> command, this command help us to prepare the kernel and create the configuration that needed, the <code class="highlighter-rouge">make</code> command work with target, which mean that we choose some target that tall the <code class="highlighter-rouge">make</code> what to do, as example</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>make clear
+</code></pre></div></div>
+
+<p>This <code class="highlighter-rouge">make</code> command going to remove most generated files, it also keep the configuration and enough build support to build external modules.</p>
+
+<p>The first thing we going to do is the <code class="highlighter-rouge">make mrpreper</code> command which going to remove all generated files + config + various backup files, this will make the kernel as fresh, like let’s say that you make some kernel file but didn’t install it because you has some other thing to do, and after a while you came back to you computer so you can clean up what you did and start over.</p>
+
+<p>After that we going to configure the kernel, to do so we can use <code class="highlighter-rouge">make xconfig</code>, this will bring up configuration window in GUI mode that you can setup what you need in your kernel by using you mouse and mark the setting you want.</p>
+
+<p><img src="/assets/images/lpic2/tar.png" alt="LPIC2 Post" />
+ <strong>Figure 62</strong> tar the kernel file.</p>
+
+<p>I my Kali linux I hade a lot of issue that related to some pkg that was needed, if you have such an error, the log of that error will tell you what pkg is missing and all you have to do is apt get install that pkg.</p>
+
+<p>In my case I mange to run xconfig which bring me the configuration menu in GUI mode up to the scree,</p>
+
+<p><img src="/assets/images/lpic2/xconfig.png" alt="LPIC2 Post" />
+<strong>Figure 63</strong> GUI for configuration menu.</p>
+
+<p>After that case I decided to run the kernel compiling stuff under other machine, and we will continue to see more in my VM ubuntu.</p>
+
+<p>On my Ubuntu I run the <code class="highlighter-rouge">make menuconfig</code>, and that bring me the menu for the configuration in my terminal, in this menu we can choose line in the xconfig the setting we want to be on our kernel.</p>
+
+<p><img src="/assets/images/lpic2/menuconfig.png" alt="LPIC2 Post" />
+<strong>Figure 64</strong> Setup config in terminal mode.</p>
+
+<p>In that menu we have several option for each device driver, the <code class="highlighter-rouge">M</code> stand for module, this is mean that this driver can be use as a module if needed but it is not part of the kernel, however the asterisk sign <strong>“*“</strong> stand for that module will be a part of the kernel and if so, you won’t be able to disable that module from your system, now, if you leave the chosen feature (module) empty, this will mean that this module won’t be available, this is mean that we won’t be able to load it to the kernel even as module.</p>
+
+<p><img src="/assets/images/lpic2/menuconfig2.png" alt="LPIC2 Post" />
+<strong>Figure 65</strong> My settings.</p>
+
+<p>You can see that the Hardware Monitoring support mark with asterisk which mean that this module will be loaded to the kernel, than we won’t be able to disable it, the Remote controller support will be load up as modularize feature which mean that we will be able to load or disable this module if needed, I unmark the Sound card which mean that this module are disable and can’t be use as a part of the kernel.</p>
+
+<p>Now after we finish we need to save our configuration, this action will create some <em>.config</em> file that can be showed under our linux folder.</p>
+
+<p><img src="/assets/images/lpic2/configfile.png" alt="LPIC2 Post" />
+<strong>Figure 66</strong> My <em>.config</em> file.</p>
+
+<p>This file contain all of our configuration, you can also use <code class="highlighter-rouge">make config</code>, but this option will bring you a lot of questions that you must answer, and if you done any mistake you will need to start over, this is way the other option are recommended.</p>
+
+<p>If you use <code class="highlighter-rouge">make oldconfig</code> it will take the configuration of the running kernel and load it up to your config file which can be very convenient if you want just enable or disable specific module.</p>
+
+<p>Now we want to make the compilation, so we need to run <code class="highlighter-rouge">make bzImage</code>, this going to take some time, this command will create for us the image file. Please remember that <strong>zImage</strong> are used for tiny file (512k) and bzImage are used for more larger files.</p>
+
+<p>In my case when I tried to run <code class="highlighter-rouge">make bzImage</code> I got error about the <em>openssl</em> that can be found, after searching this error on google I found that I need to install libssl-dev which used for openssh development pkg.</p>
+
+<p><img src="/assets/images/lpic2/opensslerror.png" alt="LPIC2 Post" />
+<strong>Figure 67</strong> openssl error.</p>
+
+<p>I tried to run the <code class="highlighter-rouge">make bzImage</code> again and now it work, I saw few warning messages that complain about pkg that are missing but it keep the process to make the bzImage which going to be our kernel that contain the permanent modules for our operation system.</p>
+
+<p>After it done to do it’s magic, the kernel will be at the <em>arch/x86/boot/bzImage</em>, and now we need to compile the modules, we can done it by using the command <code class="highlighter-rouge">make modules</code> and it also will take a mount of time.</p>
+
+<p>At the end of this process it will run <strong>depmod</strong> which will create the <strong>modules.dep</strong> file which contain all the modules information and dependencies.</p>
+
+<p>After the <code class="highlighter-rouge">make modules</code> finish we can find the modules we compile under the <em>/lib/modules/</em> folder which will be contain the modules folder as the name of the kernel version we compile.</p>
+
+<p>Now we need to install the modules with the command <code class="highlighter-rouge">make modules_install</code> it will install the modules under the /lib/modules/<em>kernel-version</em> which is the kernel version of our modules.</p>
+
+<p>At the end of modules installation you will see that it run <strong>depmod</strong> which is build the list of every module and it’s dependencies, now all we need to run is <code class="highlighter-rouge">make install</code>, this command will install the kernel on our system and it use <code class="highlighter-rouge">dracut</code> which going to make some changes in our boot folder and in the GRUB to make some new option to load the new installing kernel so we can choose it one the GRUB menu, it also create the <strong>initrd</strong> which is minimal file that use in the RAM to load up the kernel.</p>
+
+<p>Just think about that, you boot up your system and your GRUB need to load up your kernel, your kernel contain many modules for manage the devices parts, he need to load them up from the hard disk, but there is a problem, he can’t use the hard disk because he need module to do so and all of the module are in the hard drive, so for this issue there is the initrd, this file contain minimal modules that needed to load the hard disk for example, after that he load the kernel which will be able to load more kernel from the hard disk.</p>
+
+<p>You can find the initrd under boot folder, usually every kernel have it’s own initrd, in my case my ubuntu contain 2 image of the kernel, one is 4.15.0-70 and the other is 4.15.0-72, the same numbering code have on my initrd files.</p>
+
+<p><img src="/assets/images/lpic2/initrdfiles.png" alt="LPIC2 Post" />
+<strong>Figure 68</strong> initrd files.</p>
+
+<p>Let’s take a closer look at this file, it will help you understand more about this file, so I’m run the command <code class="highlighter-rouge">file</code> on one of the init file to check what is the type of that file, in that way I will be able to find out how to read that file.</p>
+
+<p><img src="/assets/images/lpic2/initfile.png" alt="LPIC2 Post" />
+<strong>Figure 69</strong> the file type.</p>
+
+<p>As you can see the type of this file is an archive and it’s <strong>cpio</strong> file which is compress, so now we know that we need to decompress this file in order to be able to read it, to do so I going to use <code class="highlighter-rouge">cpio</code> command.</p>
+
+<p><img src="/assets/images/lpic2/cpio.png" alt="LPIC2 Post" />
+<strong>Figure 70</strong> Extract from cpio file.</p>
+
+<p>The option <strong>-i</strong> stand for extract files from an archive and the <strong>-d</strong> create leading directories where needed, the <strong>-m</strong> retain previous file modification times when creating files and <strong>-v</strong> used for verbose.</p>
+
+<p>In our case we can see the folder that <code class="highlighter-rouge">cpio</code> extract to and this can give us a clue about the init file, but if you notice, at the end of the output was print out 56 blocks, and every block is 512 bytes so we viw write now in the first 33280 bytes of this file, but as you saw before, this file contain 54M which are more bigger then 33K we saw, so were is the rest of that file?</p>
+
+<p>This situation lets us know that not all the file was open by the cpio, and the rest of that can be something else or new cpio file because in the cpio there is an header that he knows the start and finish of file, so we need the rest of the file, to achieve that goal we can use <code class="highlighter-rouge">dd</code> to take fixed size for that file and output it to use file.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>dd if=initrd.img-4.15.0-70-generic of=initrd.img-4.15.0-70-generic_OUT bs=512 skip=56
+</code></pre></div></div>
+
+<p>In this command I specified the input file which is the <strong>initrd.img-4.15.0-70-generic</strong> and the output file going to be <strong>initrd.img-4.15.0-70-generic_OUT</strong>, the block size are 512 bytes and we want to skip the first 56 blocks.</p>
+
+<p><img src="/assets/images/lpic2/dd.png" alt="LPIC2 Post" />
+<strong>Figure 71</strong> Create new file using dd.</p>
+
+<p>What we need now is to use file again to see what is the type of our new file we have.</p>
+
+<p><img src="/assets/images/lpic2/outfile.png" alt="LPIC2 Post" />
+<strong>Figure 72</strong> The second file.</p>
+
+<p>So this also cpio file, I used cpio to extract that file and found other files that was extracted out.</p>
+
+<p><img src="/assets/images/lpic2/secondfile.png" alt="LPIC2 Post" />
+<strong>Figure 73</strong> Extract again using cpio.</p>
+
+<p>Now we need to repeat the process again with dd and after that using <code class="highlighter-rouge">file</code> command. You can see that we found gzip file so now we need to use gzip to see the contect of that file, in the gzip case the file must contain extension of gzip else we will get some error, so I use mv to change the extension and that use the <code class="highlighter-rouge">gzip</code> command.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>gzip -dlv initrd.img-4.15.0-72-generic_OUT2.gz
+</code></pre></div></div>
+
+<p>This will bring file name <strong>initrd.img-4.15.0-72-generic_OUT2</strong> so now we need to check that file type again. in my case it was cpio. so I decompress it.</p>
+
+<p><img src="/assets/images/lpic2/cpiolastfile.png" alt="LPIC2 Post" />
+<strong>Figure 74</strong> Extract again using cpio.</p>
+
+<p>To see if this is the end of our search of initrd we can can use <code class="highlighter-rouge">dd</code> and if he print out record of zero, it’s mean that this is it.</p>
+
+<p><img src="/assets/images/lpic2/ddagain.png" alt="LPIC2 Post" />
+<strong>Figure 75</strong> This is it.</p>
+
+<h3 id="challenge-1">Challenge</h3>
+
+<ol>
+  <li>Create your minimal linux kernel and archive it as iso file (you can use the minimal linux live project).</li>
+  <li>Run the file on virtual machine and check if it working correctly.</li>
+  <li>check if you have network activity, if you haven’t, try to solved it and check connectivity on your local lab.</li>
+</ol>
+
+<p>To solve this issue I will go with you step by step how to make new minimal linux kernel, I am going to use the minimal linux live project that was written by davidov.i@gmail.com, you can find the minimal linux document at the following URL:<a href="http://minimal.linux-bg.org/the_dao_of_minimal_linux_live.txt">Minimal Linux Tutorial</a>.</p>
+
+<h3 id="1-create-minimal-linux-kernel">1. Create minimal linux kernel.</h3>
+
+<p>So first of all I login to the following URL:http://minimal.linux-bg.org/, I download the file <strong>minimal_linux_live_15-Dec-2019_src.tar.xz</strong>, I extract the file by using <code class="highlighter-rouge">tar -Jxvf</code> and folder with the same name was created on the local directory which are contain the script file for making new ios image, the name of that file is <strong>build_minimal_linux_live.sh</strong> which is executable file.</p>
+
+<p>By running this file we run all of the script that exist in that folder, like <strong>02_build_kernel.sh</strong> and <strong>05_prepare_sysroot.sh</strong>.</p>
+
+<p><img src="/assets/images/lpic2/scripts.png" alt="LPIC2 Post" />
+<strong>Figure 76</strong> our scripts.</p>
+
+<p>while running that script, on my terminal I saw what he did which going to create new file and setup the <strong>.config</strong> file and make it and create initramfs which going to be use under the iso file which I am going to have after that script will done it magic, and this take long time to cook, but on the second script <strong>02_build_kernel.sh</strong> you can see that we use mrproper to clear the local config file and after that we going to create new config file base on the kernel.config file.</p>
+
+<p><img src="/assets/images/lpic2/makeconfig.png" alt="LPIC2 Post" />
+<strong>Figure 77</strong> make config file.</p>
+
+<p>Now we need to find the <strong>iso</strong> file which we going to use on our virtual machine, in my case I have vbox to I am going to create new machine with that file image and load the machine up.</p>
+
+<p>The <strong>iso</strong> was created on the current directory named <strong>./minimal_linux_live.iso</strong>, I found that by using the follosing command.</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>find . | grep "\.iso"
+</code></pre></div></div>
+
+<p>Now I need to transfer that to my local machine, I not going to use usb or any sort of device, I am going to run <code class="highlighter-rouge">nc</code> again and transfer the file over my local network.</p>
+
+<p><img src="/assets/images/lpic2/isofile.png" alt="LPIC2 Post" />
+<strong>Figure 78</strong> My new iso file.</p>
+
+<h3 id="2-load-up-the-iso-file-in-the-vm-machine">2. load up the iso file in the vm machine</h3>
+
+<p>So now I create new machine and set my iso file as the disk to load it at boot time.</p>
+
+<p><img src="/assets/images/lpic2/minimallinux.png" alt="LPIC2 Post" />
+<strong>Figure 79</strong> My minimal linux.</p>
+
+<p>You can see that it start to boot up, and I need is to wait and see if it going to bring me some minimal linux environment with tools to work with.</p>
+
+<p><img src="/assets/images/lpic2/linuxlive.png" alt="LPIC2 Post" />
+<strong>Figure 79</strong> My minimal linux.</p>
+
+<p>It’s look good and I succesfully run some bash commands. I also have network interface with IP address that he get by DHCP.</p>
+
+<h3 id="3-check-network-connectivity">3. check network connectivity.</h3>
+
+<p>I just run pint to 8.8.8.8 with is google dns server and I saw reply from this server.</p>
+
+<p><img src="/assets/images/lpic2/ping.png" alt="LPIC2 Post" />
+<strong>Figure 80</strong> Checking network connectiviry.</p>
+
+<p>So we finish our challenge, so we can proceed foreword to the next chapter.</p>
 
     
 

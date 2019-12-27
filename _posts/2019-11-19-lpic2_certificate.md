@@ -11,7 +11,7 @@ Today morning I received a message from LPI that my certificate will expire in 9
 
 In this post I am going to go over each topic as listed on the LPI website, which means I will go over each tool and present it here, in each chapter I will show how to use these tools to get the same information that the subject of the test should deal with, at the end of each chapter I will present a challenge From most of the commands we learned and challenged you and me how to get the information to succeed.
 
-If you want a brochure that deals with the topic extensively regardless of this post I recommend the booklet by Snow B.V. Her name: The LPIC-2 Exam Prep 6th edition, for version 4.5. This booklet helps me a lot and I recommend going through it at the same time, and yet I will try to elaborate as much as possible in the post here to be ready for the test.
+If you want a brochure that deals with the topic extensively regardless of this post I recommend the booklet by Snow B.V. Her name: [The LPIC-2 Exam Prep 6th edition, for version 4.5](/assets/download/lpic2.pdf). This booklet helps me a lot and I recommend going through it at the same time, and yet I will try to elaborate as much as possible in the post here to be ready for the test.
 
 
 - [Chapter 0](#chapter-0)
@@ -606,21 +606,21 @@ sysctl -w vm.vfs_cache_pressure=80
 
 This command will change the vfs_cache_pressure to value of 80, but please note that this change are made on the running kernel, which mean if you go for reboot the default setting will come in place, if you want to make this changes permanent you need to make these changes on the sysctl.conf file.
 
-You may ask how the linux kernel knows when some device pluge in and lunch his apropriate module, this is done by the **udev**, this udev responsible for such a thing so he know to load up the usb module when some USB device pluge in.
+You may ask how the linux kernel knows when some device pluge in and lunch his appropriate module, this is done by the **udev**, this udev responsible for such a thing so he know to load up the usb module when some USB device pluge in.
 
 You can see what going on your commputer by using some command that related to udev, such as `lsusb` which can show us the devices related to usb,`lspci` that responsible for CPI bridge or the `dmesg` that show us all the log we have from the system like in the boot which we can see on the boot the logs that our system run while bring the OS up.
 
- We also have the `udevadm monitor` which can bring to the screen logs from the system in real time, you can see on the next gif how it work, I pluge in my sundisk device and he found it and load it's logs to my screen, he also showed us the remove log when I remove my device from that computer
+We also have the `udevadm monitor` which can bring to the screen logs from the system in real time, you can see on the next gif how it work, I plug in my sundisk device and the **udev** found it and load it's logs to my screen, he also showed us the remove log when I remove my device from that computer
 
  ![LPIC2 Post](/assets/images/lpic2/udevadmmonitor.gif)
  **Figure 60** UDEV monitor in real time.
 
-You also need to know that there is a blacklist of modules because let's say that you pluge in some device that have number of driver on you kernel that can support it, but you may want to use just one of them that are the best used for you.
+You also need to know that there is a blacklist of modules because let's say that you plug in some device that have number of driver on you kernel that can support it, but you may want to use just one of them that are the best used for you.
 
 ![LPIC2 Post](/assets/images/lpic2/blacklist.png)
  **Figure 61** blacklist.conf file.
 
-In my case you can see that in the blacklist I have the eepro100 module which mean that if ethernet card pluge in, do not use that old driver, so that is the purpose of that blacklist.
+In my case you can see that in the blacklist I have the eepro100 module which mean that if Ethernet card plug in, do not use that old driver, so that is the purpose of that blacklist.
 
 Now let's say that we want to compile our own kernel so that our kernel will be the latest kernel that can be found in the [linux kernel archive](https://www.kernel.org/).
 
@@ -714,11 +714,11 @@ Now we need to install the modules with the command `make modules_install` it wi
 
 At the end of modules installation you will see that it run **depmod** which is build the list of every module and it's dependencies, now all we need to run is `make install`, this command will install the kernel on our system and it use `dracut` which going to make some changes in our boot folder and in the GRUB to make some new option to load the new installing kernel so we can choose it one the GRUB menu, it also create the **initrd** which is minimal file that use in the RAM to load up the kernel.
 
-Just think about that, you boot up your system and your GRUB need to load up your kernel, your kernel contain many modules for manage the devices parts, he need to load tham up from the hard disk, but there is a problem, he can use the hard disk becouse he need module to do so and all of the module are in the hard drive, so for this issue there is the initrd, this file contain minimal modules that needed to load the hard disk for example, after that he load the kernel which will be able to load more kernel from the hard disk.
+Just think about that, you boot up your system and your GRUB need to load up your kernel, your kernel contain many modules for manage the devices parts, he need to load them up from the hard disk, but there is a problem, he can't use the hard disk because he need module to do so and all of the module are in the hard drive, so for this issue there is the initrd, this file contain minimal modules that needed to load the hard disk for example, after that he load the kernel which will be able to load more kernel from the hard disk.
 
 You can find the initrd under boot folder, usually every kernel have it's own initrd, in my case my ubuntu contain 2 image of the kernel, one is 4.15.0-70 and the other is 4.15.0-72, the same numbering code have on my initrd files.
 
-![LPIC2 Post](/assets/images/lpic2/initrdfile.png)
+![LPIC2 Post](/assets/images/lpic2/initrdfiles.png)
 **Figure 68** initrd files.
 
 Let's take a closer look at this file, it will help you understand more about this file, so I'm run the command `file` on one of the init file to check what is the type of that file, in that way I will be able to find out how to read that file.
@@ -773,3 +773,63 @@ To see if this is the end of our search of initrd we can can use `dd` and if he 
 
 ![LPIC2 Post](/assets/images/lpic2/ddagain.png)
 **Figure 75** This is it.
+
+### Challenge
+
+1. Create your minimal linux kernel and archive it as iso file (you can use the minimal linux live project).
+2. Run the file on virtual machine and check if it working correctly.
+3. check if you have network activity, if you haven't, try to solved it and check connectivity on your local lab.
+
+To solve this issue I will go with you step by step how to make new minimal linux kernel, I am going to use the minimal linux live project that was written by davidov.i@gmail.com, you can find the minimal linux document at the following URL:[Minimal Linux Tutorial](http://minimal.linux-bg.org/the_dao_of_minimal_linux_live.txt).
+
+
+### 1. Create minimal linux kernel.
+
+So first of all I login to the following URL:http://minimal.linux-bg.org/, I download the file **minimal_linux_live_15-Dec-2019_src.tar.xz**, I extract the file by using `tar -Jxvf` and folder with the same name was created on the local directory which are contain the script file for making new ios image, the name of that file is **build_minimal_linux_live.sh** which is executable file.
+
+By running this file we run all of the script that exist in that folder, like **02_build_kernel.sh** and **05_prepare_sysroot.sh**.
+
+![LPIC2 Post](/assets/images/lpic2/scripts.png)
+**Figure 76** our scripts.
+
+while running that script, on my terminal I saw what he did which going to create new file and setup the **.config** file and make it and create initramfs which going to be use under the iso file which I am going to have after that script will done it magic, and this take long time to cook, but on the second script **02_build_kernel.sh** you can see that we use mrproper to clear the local config file and after that we going to create new config file base on the kernel.config file.
+
+![LPIC2 Post](/assets/images/lpic2/makeconfig.png)
+**Figure 77** make config file.
+
+Now we need to find the **iso** file which we going to use on our virtual machine, in my case I have vbox to I am going to create new machine with that file image and load the machine up.
+
+The **iso** was created on the current directory named **./minimal_linux_live.iso**, I found that by using the follosing command.
+```
+find . | grep "\.iso"
+```
+
+Now I need to transfer that to my local machine, I not going to use usb or any sort of device, I am going to run `nc` again and transfer the file over my local network.
+
+![LPIC2 Post](/assets/images/lpic2/isofile.png)
+**Figure 78** My new iso file.
+
+### 2. load up the iso file in the vm machine
+
+So now I create new machine and set my iso file as the disk to load it at boot time.
+
+
+![LPIC2 Post](/assets/images/lpic2/minimallinux.png)
+**Figure 79** My minimal linux.
+
+You can see that it start to boot up, and I need is to wait and see if it going to bring me some minimal linux environment with tools to work with.
+
+
+![LPIC2 Post](/assets/images/lpic2/linuxlive.png)
+**Figure 79** My minimal linux.
+
+It's look good and I succesfully run some bash commands. I also have network interface with IP address that he get by DHCP.
+
+### 3. check network connectivity.
+
+I just run pint to 8.8.8.8 with is google dns server and I saw reply from this server.
+
+![LPIC2 Post](/assets/images/lpic2/ping.png)
+**Figure 80** Checking network connectiviry.
+
+So we finish our challenge, so we can proceed foreword to the next chapter.

@@ -1,8 +1,8 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.5">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2019-12-14T22:46:06+02:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Zwerd</title><subtitle>A stunning blog of freaking PT warrior</subtitle><author><name>Guy Zwerdling</name></author><entry><title type="html">LPIC2 Certification Journey</title><link href="http://localhost:4000/2019/11/19/lpic2_certificate.html" rel="alternate" type="text/html" title="LPIC2 Certification Journey" /><published>2019-11-19T00:00:00+02:00</published><updated>2019-11-19T00:00:00+02:00</updated><id>http://localhost:4000/2019/11/19/lpic2_certificate</id><content type="html" xml:base="http://localhost:4000/2019/11/19/lpic2_certificate.html">&lt;p&gt;Today morning I received a message from LPI that my certificate will expire in 9 months and so it is time to start studying for the second Linux certification, this will advance me to the third Linux information security certification that I will search for, this certification is divided into two and the two parts are marked by two different codes: 201-450, 202-450&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.5">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2019-12-27T10:33:07+02:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Zwerd</title><subtitle>A stunning blog of freaking PT warrior</subtitle><author><name>Guy Zwerdling</name></author><entry><title type="html">LPIC2 Certification Journey</title><link href="http://localhost:4000/2019/11/19/lpic2_certificate.html" rel="alternate" type="text/html" title="LPIC2 Certification Journey" /><published>2019-11-19T00:00:00+02:00</published><updated>2019-11-19T00:00:00+02:00</updated><id>http://localhost:4000/2019/11/19/lpic2_certificate</id><content type="html" xml:base="http://localhost:4000/2019/11/19/lpic2_certificate.html">&lt;p&gt;Today morning I received a message from LPI that my certificate will expire in 9 months and so it is time to start studying for the second Linux certification, this will advance me to the third Linux information security certification that I will search for, this certification is divided into two and the two parts are marked by two different codes: 201-450, 202-450&lt;/p&gt;
 
 &lt;p&gt;In this post I am going to go over each topic as listed on the LPI website, which means I will go over each tool and present it here, in each chapter I will show how to use these tools to get the same information that the subject of the test should deal with, at the end of each chapter I will present a challenge From most of the commands we learned and challenged you and me how to get the information to succeed.&lt;/p&gt;
 
-&lt;p&gt;If you want a brochure that deals with the topic extensively regardless of this post I recommend the booklet by Snow B.V. Her name: The LPIC-2 Exam Prep 6th edition, for version 4.5. This booklet helps me a lot and I recommend going through it at the same time, and yet I will try to elaborate as much as possible in the post here to be ready for the test.&lt;/p&gt;
+&lt;p&gt;If you want a brochure that deals with the topic extensively regardless of this post I recommend the booklet by Snow B.V. Her name: &lt;a href=&quot;/assets/download/lpic2.pdf&quot;&gt;The LPIC-2 Exam Prep 6th edition, for version 4.5&lt;/a&gt;. This booklet helps me a lot and I recommend going through it at the same time, and yet I will try to elaborate as much as possible in the post here to be ready for the test.&lt;/p&gt;
 
 &lt;ul&gt;
   &lt;li&gt;&lt;a href=&quot;#chapter-0&quot;&gt;Chapter 0&lt;/a&gt;&lt;/li&gt;
@@ -480,9 +480,9 @@
 &lt;p&gt;&lt;img src=&quot;/assets/images/lpic2/uname-a.png&quot; alt=&quot;LPIC2 Post&quot; /&gt;
 &lt;strong&gt;Figure 47&lt;/strong&gt; My linux kernel core.&lt;/p&gt;
 
-&lt;p&gt;The first number is the version number, in my case it is kernel version 4, the next number is the major revision which is my case is 15 and the third number is the minor revision number, the fourth number is the patch level. In the past, in the version of the kernel was a general rule in the number version, in the second number every odd number was as developed version, and the even number was as stable version, as example the 1.5.2 kernel was under development and version 1.6.2 was known as stable kernel version, when the kernel version 2.6.x came along it stay for long time without numerate the number except the last one number, because version 2.6.was awesome and fourth number for the patch number, one more thing that you need to know is that after thay release the version 2.6, thay get ride of the odd/even number and every new release is stable and not under development, every stable version will develop and update on a new version.&lt;/p&gt;
+&lt;p&gt;The first number is the version number, in my case it is kernel version 4, the next number is the major revision which is my case is 15 and the third number is the minor revision number, the fourth number is the patch level. In the past, in the version of the kernel was a general rule in the number version, in the second number every odd number was as developed version, and the even number was as stable version, as example the 1.5.2 kernel was under development and version 1.6.2 was known as stable kernel version, when the kernel version 2.6.x came along it stay for long time without numerate the number except the last one number, because version 2.6.was awesome and fourth number for the patch number, one more thing that you need to know is that after they release the version 2.6, they get ride of the odd/even number and every new release is stable and not under development, every stable version will develop and update on a new version.&lt;/p&gt;
 
-&lt;p&gt;When the version of that kernel raise up and was 2.6.39.4 than Linus Torvalds decided update the enumerating to be more like the old one, which is the first number will be the kernel version, the second will be the kernel release and the third will be the minor revision which is stable or patch to update abilities on the kernel. You may somtime see like a fourth number which play as a path, in my case of &lt;strong&gt;72-generic&lt;/strong&gt; this is the Ubuntu specific patch they done.&lt;/p&gt;
+&lt;p&gt;When the version of that kernel raise up and was 2.6.39.4 than Linus Torvalds decided update the enumerating to be more like the old one, which is the first number will be major release, the second will be minor release and the third will be the minor revision which is stable or patch to update abilities on the kernel. You may somtime see like a fourth number which play as a path, in my case of &lt;strong&gt;72-generic&lt;/strong&gt; this is the Ubuntu specific patch they done.&lt;/p&gt;
 
 &lt;p&gt;You can find the versions of kernels that you have in you linux machine under the /lib/modules folder and in each one we can found every modules that are run on our system.&lt;/p&gt;
 
@@ -545,7 +545,7 @@
 
 &lt;p&gt;As you can see the usbcore have the param nousb which is boolean, you can insert that module and using that param as example &lt;code class=&quot;highlighter-rouge&quot;&gt;modprobe usbcore nousb=N&lt;/code&gt;.&lt;/p&gt;
 
-&lt;p&gt;Please remember that all we talk about are the modules and not the kernel option itself, like enable the NAT operation for example. Option like that can be found on /proc/sys/kernel, in this folder you will found every option that are enable on your carnel, if you want to watch the configuration file which from there you enable them, you need to check the sysctl.conf that can found on the &lt;strong&gt;/etc&lt;/strong&gt; folder, in that file you can enable more functionality of the system, like enable ip forwording or such.&lt;/p&gt;
+&lt;p&gt;Please remember that all we talk about are the modules and not the kernel option itself, like enable the NAT operation for example. Option like that can be found on /proc/sys/kernel, in this folder you will found every option that are enable on your kernel, if you want to watch the configuration file which from there you enable them, you need to check the sysctl.conf that can found on the &lt;strong&gt;/etc&lt;/strong&gt; folder, in that file you can enable more functionality of the system, like enable ip forwording or such.&lt;/p&gt;
 
 &lt;p&gt;You also have the command &lt;code class=&quot;highlighter-rouge&quot;&gt;sysctl&lt;/code&gt; which can help you to see add change the option of your operation system&lt;/p&gt;
 
@@ -560,22 +560,223 @@
 
 &lt;p&gt;This command will change the vfs_cache_pressure to value of 80, but please note that this change are made on the running kernel, which mean if you go for reboot the default setting will come in place, if you want to make this changes permanent you need to make these changes on the sysctl.conf file.&lt;/p&gt;
 
-&lt;p&gt;You may ask how the linux kernel knows when some device pluge in and lunch his apropriate module, this is done by the &lt;strong&gt;udev&lt;/strong&gt;, this udev responsible for such a thing so he know to load up the usb module when some USB device pluge in.&lt;/p&gt;
+&lt;p&gt;You may ask how the linux kernel knows when some device pluge in and lunch his appropriate module, this is done by the &lt;strong&gt;udev&lt;/strong&gt;, this udev responsible for such a thing so he know to load up the usb module when some USB device pluge in.&lt;/p&gt;
 
 &lt;p&gt;You can see what going on your commputer by using some command that related to udev, such as &lt;code class=&quot;highlighter-rouge&quot;&gt;lsusb&lt;/code&gt; which can show us the devices related to usb,&lt;code class=&quot;highlighter-rouge&quot;&gt;lspci&lt;/code&gt; that responsible for CPI bridge or the &lt;code class=&quot;highlighter-rouge&quot;&gt;dmesg&lt;/code&gt; that show us all the log we have from the system like in the boot which we can see on the boot the logs that our system run while bring the OS up.&lt;/p&gt;
 
-&lt;p&gt;We also have the &lt;code class=&quot;highlighter-rouge&quot;&gt;udevadm monitor&lt;/code&gt; which can bring to the screen logs from the system in real time, you can see on the next gif how it work, I pluge in my sundisk device and he found it and load it’s logs to my screen, he also showed us the remove log when I remove my device from that computer&lt;/p&gt;
+&lt;p&gt;We also have the &lt;code class=&quot;highlighter-rouge&quot;&gt;udevadm monitor&lt;/code&gt; which can bring to the screen logs from the system in real time, you can see on the next gif how it work, I plug in my sundisk device and the &lt;strong&gt;udev&lt;/strong&gt; found it and load it’s logs to my screen, he also showed us the remove log when I remove my device from that computer&lt;/p&gt;
 
 &lt;p&gt;&lt;img src=&quot;/assets/images/lpic2/udevadmmonitor.gif&quot; alt=&quot;LPIC2 Post&quot; /&gt;
  &lt;strong&gt;Figure 60&lt;/strong&gt; UDEV monitor in real time.&lt;/p&gt;
 
-&lt;p&gt;You also need to know that there is a blacklist of modules because let’s say that you pluge in some device that have number of driver on you kernel that can support it, but you may want to use just one of them that are the best used for you.&lt;/p&gt;
+&lt;p&gt;You also need to know that there is a blacklist of modules because let’s say that you plug in some device that have number of driver on you kernel that can support it, but you may want to use just one of them that are the best used for you.&lt;/p&gt;
 
 &lt;p&gt;&lt;img src=&quot;/assets/images/lpic2/blacklist.png&quot; alt=&quot;LPIC2 Post&quot; /&gt;
  &lt;strong&gt;Figure 61&lt;/strong&gt; blacklist.conf file.&lt;/p&gt;
 
-&lt;p&gt;In my case you can see that in the blacklist I have the
-eepro100 module which mean that if ethernet card pluge in, do not use that old driver, so that is the purpose of that blacklist.&lt;/p&gt;</content><author><name>Guy Zwerdling</name></author><category term="Linux" /><summary type="html">Today morning I received a message from LPI that my certificate will expire in 9 months and so it is time to start studying for the second Linux certification, this will advance me to the third Linux information security certification that will include what I am looking for, this certification is split in two</summary></entry><entry><title type="html">OSCP Certification Journey</title><link href="http://localhost:4000/2019/09/20/oscp_certificate.html" rel="alternate" type="text/html" title="OSCP Certification Journey" /><published>2019-09-20T00:00:00+03:00</published><updated>2019-09-20T00:00:00+03:00</updated><id>http://localhost:4000/2019/09/20/oscp_certificate</id><content type="html" xml:base="http://localhost:4000/2019/09/20/oscp_certificate.html">&lt;p&gt;I set myself a lot of goals this year to advance to the next level, among all the goals being the OSCP certification from Offensive Security. It’s been a certification I’ve been talking about for years, since 2012, it’s really time to sit down and do that certification. It all started when I was writing in a forum on computer communications, where I presented the dilemma, whether to study information security of companies that are involved in the field or something else when my goal is to be an expert in the cyber world.&lt;/p&gt;
+&lt;p&gt;In my case you can see that in the blacklist I have the eepro100 module which mean that if Ethernet card plug in, do not use that old driver, so that is the purpose of that blacklist.&lt;/p&gt;
+
+&lt;p&gt;Now let’s say that we want to compile our own kernel so that our kernel will be the latest kernel that can be found in the &lt;a href=&quot;https://www.kernel.org/&quot;&gt;linux kernel archive&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;In the reality, if you asking why you ever customize you own kernel, it can be because you have some old linux system that used for just one purpose like FTP server or somthing like that, in that case you may want to compile kernel without any modules that you know you probably won’t be in use.&lt;/p&gt;
+
+&lt;p&gt;So first of all, I will display here the compilation and install of new kernel on my kali linux which is virtual machine that I use a lot, you can read more about that in my other PWK post. My current kernel version are 5.2.0 and I am going to compile kernel 5.4.3 which is that latest version in the kernel archive at this writing time.&lt;/p&gt;
+
+&lt;p&gt;We need to use the &lt;em&gt;/usr/src/&lt;/em&gt; directory as our kernel, so after we download the source code and decompress it we need to create kernel folder or at least make symbol link to the kernel folder named kernel. After we download the kernel file from the kernel archive we can extract it by using the &lt;code class=&quot;highlighter-rouge&quot;&gt;tar&lt;/code&gt; command.&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;tar -Jxvf &amp;lt;path to the compress file&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/lpic2/tar.png&quot; alt=&quot;LPIC2 Post&quot; /&gt;
+ &lt;strong&gt;Figure 62&lt;/strong&gt; tar the kernel file.&lt;/p&gt;
+
+&lt;p&gt;Than I run the following command in order to make the symbolic line to kernel folder.&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt; ln -s /linux-5.4.3 linux
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Please note that on the linux folder that we created we have the document for every module that can be use under our system.&lt;/p&gt;
+
+&lt;p&gt;For compiling the kernel we need tools that can help us to do so, in my case I need &lt;strong&gt;build-essential&lt;/strong&gt; which is the Informational list of build-essential packages.&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;apt-get install build-essential
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;If you want to make kernel on fedora like distro you may need to install “Development Tools”, &lt;strong&gt;qt-devel&lt;/strong&gt; and &lt;strong&gt;ncurses-devel&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;p&gt;Now we want to customize the kernel, to do so we going to use &lt;code class=&quot;highlighter-rouge&quot;&gt;make&lt;/code&gt; command, this command help us to prepare the kernel and create the configuration that needed, the &lt;code class=&quot;highlighter-rouge&quot;&gt;make&lt;/code&gt; command work with target, which mean that we choose some target that tall the &lt;code class=&quot;highlighter-rouge&quot;&gt;make&lt;/code&gt; what to do, as example&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;make clear
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;This &lt;code class=&quot;highlighter-rouge&quot;&gt;make&lt;/code&gt; command going to remove most generated files, it also keep the configuration and enough build support to build external modules.&lt;/p&gt;
+
+&lt;p&gt;The first thing we going to do is the &lt;code class=&quot;highlighter-rouge&quot;&gt;make mrpreper&lt;/code&gt; command which going to remove all generated files + config + various backup files, this will make the kernel as fresh, like let’s say that you make some kernel file but didn’t install it because you has some other thing to do, and after a while you came back to you computer so you can clean up what you did and start over.&lt;/p&gt;
+
+&lt;p&gt;After that we going to configure the kernel, to do so we can use &lt;code class=&quot;highlighter-rouge&quot;&gt;make xconfig&lt;/code&gt;, this will bring up configuration window in GUI mode that you can setup what you need in your kernel by using you mouse and mark the setting you want.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/lpic2/tar.png&quot; alt=&quot;LPIC2 Post&quot; /&gt;
+ &lt;strong&gt;Figure 62&lt;/strong&gt; tar the kernel file.&lt;/p&gt;
+
+&lt;p&gt;I my Kali linux I hade a lot of issue that related to some pkg that was needed, if you have such an error, the log of that error will tell you what pkg is missing and all you have to do is apt get install that pkg.&lt;/p&gt;
+
+&lt;p&gt;In my case I mange to run xconfig which bring me the configuration menu in GUI mode up to the scree,&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/lpic2/xconfig.png&quot; alt=&quot;LPIC2 Post&quot; /&gt;
+&lt;strong&gt;Figure 63&lt;/strong&gt; GUI for configuration menu.&lt;/p&gt;
+
+&lt;p&gt;After that case I decided to run the kernel compiling stuff under other machine, and we will continue to see more in my VM ubuntu.&lt;/p&gt;
+
+&lt;p&gt;On my Ubuntu I run the &lt;code class=&quot;highlighter-rouge&quot;&gt;make menuconfig&lt;/code&gt;, and that bring me the menu for the configuration in my terminal, in this menu we can choose line in the xconfig the setting we want to be on our kernel.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/lpic2/menuconfig.png&quot; alt=&quot;LPIC2 Post&quot; /&gt;
+&lt;strong&gt;Figure 64&lt;/strong&gt; Setup config in terminal mode.&lt;/p&gt;
+
+&lt;p&gt;In that menu we have several option for each device driver, the &lt;code class=&quot;highlighter-rouge&quot;&gt;M&lt;/code&gt; stand for module, this is mean that this driver can be use as a module if needed but it is not part of the kernel, however the asterisk sign &lt;strong&gt;“*“&lt;/strong&gt; stand for that module will be a part of the kernel and if so, you won’t be able to disable that module from your system, now, if you leave the chosen feature (module) empty, this will mean that this module won’t be available, this is mean that we won’t be able to load it to the kernel even as module.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/lpic2/menuconfig2.png&quot; alt=&quot;LPIC2 Post&quot; /&gt;
+&lt;strong&gt;Figure 65&lt;/strong&gt; My settings.&lt;/p&gt;
+
+&lt;p&gt;You can see that the Hardware Monitoring support mark with asterisk which mean that this module will be loaded to the kernel, than we won’t be able to disable it, the Remote controller support will be load up as modularize feature which mean that we will be able to load or disable this module if needed, I unmark the Sound card which mean that this module are disable and can’t be use as a part of the kernel.&lt;/p&gt;
+
+&lt;p&gt;Now after we finish we need to save our configuration, this action will create some &lt;em&gt;.config&lt;/em&gt; file that can be showed under our linux folder.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/lpic2/configfile.png&quot; alt=&quot;LPIC2 Post&quot; /&gt;
+&lt;strong&gt;Figure 66&lt;/strong&gt; My &lt;em&gt;.config&lt;/em&gt; file.&lt;/p&gt;
+
+&lt;p&gt;This file contain all of our configuration, you can also use &lt;code class=&quot;highlighter-rouge&quot;&gt;make config&lt;/code&gt;, but this option will bring you a lot of questions that you must answer, and if you done any mistake you will need to start over, this is way the other option are recommended.&lt;/p&gt;
+
+&lt;p&gt;If you use &lt;code class=&quot;highlighter-rouge&quot;&gt;make oldconfig&lt;/code&gt; it will take the configuration of the running kernel and load it up to your config file which can be very convenient if you want just enable or disable specific module.&lt;/p&gt;
+
+&lt;p&gt;Now we want to make the compilation, so we need to run &lt;code class=&quot;highlighter-rouge&quot;&gt;make bzImage&lt;/code&gt;, this going to take some time, this command will create for us the image file. Please remember that &lt;strong&gt;zImage&lt;/strong&gt; are used for tiny file (512k) and bzImage are used for more larger files.&lt;/p&gt;
+
+&lt;p&gt;In my case when I tried to run &lt;code class=&quot;highlighter-rouge&quot;&gt;make bzImage&lt;/code&gt; I got error about the &lt;em&gt;openssl&lt;/em&gt; that can be found, after searching this error on google I found that I need to install libssl-dev which used for openssh development pkg.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/lpic2/opensslerror.png&quot; alt=&quot;LPIC2 Post&quot; /&gt;
+&lt;strong&gt;Figure 67&lt;/strong&gt; openssl error.&lt;/p&gt;
+
+&lt;p&gt;I tried to run the &lt;code class=&quot;highlighter-rouge&quot;&gt;make bzImage&lt;/code&gt; again and now it work, I saw few warning messages that complain about pkg that are missing but it keep the process to make the bzImage which going to be our kernel that contain the permanent modules for our operation system.&lt;/p&gt;
+
+&lt;p&gt;After it done to do it’s magic, the kernel will be at the &lt;em&gt;arch/x86/boot/bzImage&lt;/em&gt;, and now we need to compile the modules, we can done it by using the command &lt;code class=&quot;highlighter-rouge&quot;&gt;make modules&lt;/code&gt; and it also will take a mount of time.&lt;/p&gt;
+
+&lt;p&gt;At the end of this process it will run &lt;strong&gt;depmod&lt;/strong&gt; which will create the &lt;strong&gt;modules.dep&lt;/strong&gt; file which contain all the modules information and dependencies.&lt;/p&gt;
+
+&lt;p&gt;After the &lt;code class=&quot;highlighter-rouge&quot;&gt;make modules&lt;/code&gt; finish we can find the modules we compile under the &lt;em&gt;/lib/modules/&lt;/em&gt; folder which will be contain the modules folder as the name of the kernel version we compile.&lt;/p&gt;
+
+&lt;p&gt;Now we need to install the modules with the command &lt;code class=&quot;highlighter-rouge&quot;&gt;make modules_install&lt;/code&gt; it will install the modules under the /lib/modules/&lt;em&gt;kernel-version&lt;/em&gt; which is the kernel version of our modules.&lt;/p&gt;
+
+&lt;p&gt;At the end of modules installation you will see that it run &lt;strong&gt;depmod&lt;/strong&gt; which is build the list of every module and it’s dependencies, now all we need to run is &lt;code class=&quot;highlighter-rouge&quot;&gt;make install&lt;/code&gt;, this command will install the kernel on our system and it use &lt;code class=&quot;highlighter-rouge&quot;&gt;dracut&lt;/code&gt; which going to make some changes in our boot folder and in the GRUB to make some new option to load the new installing kernel so we can choose it one the GRUB menu, it also create the &lt;strong&gt;initrd&lt;/strong&gt; which is minimal file that use in the RAM to load up the kernel.&lt;/p&gt;
+
+&lt;p&gt;Just think about that, you boot up your system and your GRUB need to load up your kernel, your kernel contain many modules for manage the devices parts, he need to load them up from the hard disk, but there is a problem, he can’t use the hard disk because he need module to do so and all of the module are in the hard drive, so for this issue there is the initrd, this file contain minimal modules that needed to load the hard disk for example, after that he load the kernel which will be able to load more kernel from the hard disk.&lt;/p&gt;
+
+&lt;p&gt;You can find the initrd under boot folder, usually every kernel have it’s own initrd, in my case my ubuntu contain 2 image of the kernel, one is 4.15.0-70 and the other is 4.15.0-72, the same numbering code have on my initrd files.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/lpic2/initrdfiles.png&quot; alt=&quot;LPIC2 Post&quot; /&gt;
+&lt;strong&gt;Figure 68&lt;/strong&gt; initrd files.&lt;/p&gt;
+
+&lt;p&gt;Let’s take a closer look at this file, it will help you understand more about this file, so I’m run the command &lt;code class=&quot;highlighter-rouge&quot;&gt;file&lt;/code&gt; on one of the init file to check what is the type of that file, in that way I will be able to find out how to read that file.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/lpic2/initfile.png&quot; alt=&quot;LPIC2 Post&quot; /&gt;
+&lt;strong&gt;Figure 69&lt;/strong&gt; the file type.&lt;/p&gt;
+
+&lt;p&gt;As you can see the type of this file is an archive and it’s &lt;strong&gt;cpio&lt;/strong&gt; file which is compress, so now we know that we need to decompress this file in order to be able to read it, to do so I going to use &lt;code class=&quot;highlighter-rouge&quot;&gt;cpio&lt;/code&gt; command.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/lpic2/cpio.png&quot; alt=&quot;LPIC2 Post&quot; /&gt;
+&lt;strong&gt;Figure 70&lt;/strong&gt; Extract from cpio file.&lt;/p&gt;
+
+&lt;p&gt;The option &lt;strong&gt;-i&lt;/strong&gt; stand for extract files from an archive and the &lt;strong&gt;-d&lt;/strong&gt; create leading directories where needed, the &lt;strong&gt;-m&lt;/strong&gt; retain previous file modification times when creating files and &lt;strong&gt;-v&lt;/strong&gt; used for verbose.&lt;/p&gt;
+
+&lt;p&gt;In our case we can see the folder that &lt;code class=&quot;highlighter-rouge&quot;&gt;cpio&lt;/code&gt; extract to and this can give us a clue about the init file, but if you notice, at the end of the output was print out 56 blocks, and every block is 512 bytes so we viw write now in the first 33280 bytes of this file, but as you saw before, this file contain 54M which are more bigger then 33K we saw, so were is the rest of that file?&lt;/p&gt;
+
+&lt;p&gt;This situation lets us know that not all the file was open by the cpio, and the rest of that can be something else or new cpio file because in the cpio there is an header that he knows the start and finish of file, so we need the rest of the file, to achieve that goal we can use &lt;code class=&quot;highlighter-rouge&quot;&gt;dd&lt;/code&gt; to take fixed size for that file and output it to use file.&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;dd if=initrd.img-4.15.0-70-generic of=initrd.img-4.15.0-70-generic_OUT bs=512 skip=56
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;In this command I specified the input file which is the &lt;strong&gt;initrd.img-4.15.0-70-generic&lt;/strong&gt; and the output file going to be &lt;strong&gt;initrd.img-4.15.0-70-generic_OUT&lt;/strong&gt;, the block size are 512 bytes and we want to skip the first 56 blocks.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/lpic2/dd.png&quot; alt=&quot;LPIC2 Post&quot; /&gt;
+&lt;strong&gt;Figure 71&lt;/strong&gt; Create new file using dd.&lt;/p&gt;
+
+&lt;p&gt;What we need now is to use file again to see what is the type of our new file we have.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/lpic2/outfile.png&quot; alt=&quot;LPIC2 Post&quot; /&gt;
+&lt;strong&gt;Figure 72&lt;/strong&gt; The second file.&lt;/p&gt;
+
+&lt;p&gt;So this also cpio file, I used cpio to extract that file and found other files that was extracted out.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/lpic2/secondfile.png&quot; alt=&quot;LPIC2 Post&quot; /&gt;
+&lt;strong&gt;Figure 73&lt;/strong&gt; Extract again using cpio.&lt;/p&gt;
+
+&lt;p&gt;Now we need to repeat the process again with dd and after that using &lt;code class=&quot;highlighter-rouge&quot;&gt;file&lt;/code&gt; command. You can see that we found gzip file so now we need to use gzip to see the contect of that file, in the gzip case the file must contain extension of gzip else we will get some error, so I use mv to change the extension and that use the &lt;code class=&quot;highlighter-rouge&quot;&gt;gzip&lt;/code&gt; command.&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;gzip -dlv initrd.img-4.15.0-72-generic_OUT2.gz
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;This will bring file name &lt;strong&gt;initrd.img-4.15.0-72-generic_OUT2&lt;/strong&gt; so now we need to check that file type again. in my case it was cpio. so I decompress it.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/lpic2/cpiolastfile.png&quot; alt=&quot;LPIC2 Post&quot; /&gt;
+&lt;strong&gt;Figure 74&lt;/strong&gt; Extract again using cpio.&lt;/p&gt;
+
+&lt;p&gt;To see if this is the end of our search of initrd we can can use &lt;code class=&quot;highlighter-rouge&quot;&gt;dd&lt;/code&gt; and if he print out record of zero, it’s mean that this is it.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/lpic2/ddagain.png&quot; alt=&quot;LPIC2 Post&quot; /&gt;
+&lt;strong&gt;Figure 75&lt;/strong&gt; This is it.&lt;/p&gt;
+
+&lt;h3 id=&quot;challenge-1&quot;&gt;Challenge&lt;/h3&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;Create your minimal linux kernel and archive it as iso file (you can use the minimal linux live project).&lt;/li&gt;
+  &lt;li&gt;Run the file on virtual machine and check if it working correctly.&lt;/li&gt;
+  &lt;li&gt;check if you have network activity, if you haven’t, try to solved it and check connectivity on your local lab.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;To solve this issue I will go with you step by step how to make new minimal linux kernel, I am going to use the minimal linux live project that was written by davidov.i@gmail.com, you can find the minimal linux document at the following URL:&lt;a href=&quot;http://minimal.linux-bg.org/the_dao_of_minimal_linux_live.txt&quot;&gt;Minimal Linux Tutorial&lt;/a&gt;.&lt;/p&gt;
+
+&lt;h3 id=&quot;1-create-minimal-linux-kernel&quot;&gt;1. Create minimal linux kernel.&lt;/h3&gt;
+
+&lt;p&gt;So first of all I login to the following URL:http://minimal.linux-bg.org/, I download the file &lt;strong&gt;minimal_linux_live_15-Dec-2019_src.tar.xz&lt;/strong&gt;, I extract the file by using &lt;code class=&quot;highlighter-rouge&quot;&gt;tar -Jxvf&lt;/code&gt; and folder with the same name was created on the local directory which are contain the script file for making new ios image, the name of that file is &lt;strong&gt;build_minimal_linux_live.sh&lt;/strong&gt; which is executable file.&lt;/p&gt;
+
+&lt;p&gt;By running this file we run all of the script that exist in that folder, like &lt;strong&gt;02_build_kernel.sh&lt;/strong&gt; and &lt;strong&gt;05_prepare_sysroot.sh&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/lpic2/scripts.png&quot; alt=&quot;LPIC2 Post&quot; /&gt;
+&lt;strong&gt;Figure 76&lt;/strong&gt; our scripts.&lt;/p&gt;
+
+&lt;p&gt;while running that script, on my terminal I saw what he did which going to create new file and setup the &lt;strong&gt;.config&lt;/strong&gt; file and make it and create initramfs which going to be use under the iso file which I am going to have after that script will done it magic, and this take long time to cook, but on the second script &lt;strong&gt;02_build_kernel.sh&lt;/strong&gt; you can see that we use mrproper to clear the local config file and after that we going to create new config file base on the kernel.config file.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/lpic2/makeconfig.png&quot; alt=&quot;LPIC2 Post&quot; /&gt;
+&lt;strong&gt;Figure 77&lt;/strong&gt; make config file.&lt;/p&gt;
+
+&lt;p&gt;Now we need to find the &lt;strong&gt;iso&lt;/strong&gt; file which we going to use on our virtual machine, in my case I have vbox to I am going to create new machine with that file image and load the machine up.&lt;/p&gt;
+
+&lt;p&gt;The &lt;strong&gt;iso&lt;/strong&gt; was created on the current directory named &lt;strong&gt;./minimal_linux_live.iso&lt;/strong&gt;, I found that by using the follosing command.&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;find . | grep &quot;\.iso&quot;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Now I need to transfer that to my local machine, I not going to use usb or any sort of device, I am going to run &lt;code class=&quot;highlighter-rouge&quot;&gt;nc&lt;/code&gt; again and transfer the file over my local network.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/lpic2/isofile.png&quot; alt=&quot;LPIC2 Post&quot; /&gt;
+&lt;strong&gt;Figure 78&lt;/strong&gt; My new iso file.&lt;/p&gt;
+
+&lt;h3 id=&quot;2-load-up-the-iso-file-in-the-vm-machine&quot;&gt;2. load up the iso file in the vm machine&lt;/h3&gt;
+
+&lt;p&gt;So now I create new machine and set my iso file as the disk to load it at boot time.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/lpic2/minimallinux.png&quot; alt=&quot;LPIC2 Post&quot; /&gt;
+&lt;strong&gt;Figure 79&lt;/strong&gt; My minimal linux.&lt;/p&gt;
+
+&lt;p&gt;You can see that it start to boot up, and I need is to wait and see if it going to bring me some minimal linux environment with tools to work with.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/lpic2/linuxlive.png&quot; alt=&quot;LPIC2 Post&quot; /&gt;
+&lt;strong&gt;Figure 79&lt;/strong&gt; My minimal linux.&lt;/p&gt;
+
+&lt;p&gt;It’s look good and I succesfully run some bash commands. I also have network interface with IP address that he get by DHCP.&lt;/p&gt;
+
+&lt;h3 id=&quot;3-check-network-connectivity&quot;&gt;3. check network connectivity.&lt;/h3&gt;
+
+&lt;p&gt;I just run pint to 8.8.8.8 with is google dns server and I saw reply from this server.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/lpic2/ping.png&quot; alt=&quot;LPIC2 Post&quot; /&gt;
+&lt;strong&gt;Figure 80&lt;/strong&gt; Checking network connectiviry.&lt;/p&gt;
+
+&lt;p&gt;So we finish our challenge, so we can proceed foreword to the next chapter.&lt;/p&gt;</content><author><name>Guy Zwerdling</name></author><category term="Linux" /><summary type="html">Today morning I received a message from LPI that my certificate will expire in 9 months and so it is time to start studying for the second Linux certification, this will advance me to the third Linux information security certification that will include what I am looking for, this certification is split in two</summary></entry><entry><title type="html">OSCP Certification Journey</title><link href="http://localhost:4000/2019/09/20/oscp_certificate.html" rel="alternate" type="text/html" title="OSCP Certification Journey" /><published>2019-09-20T00:00:00+03:00</published><updated>2019-09-20T00:00:00+03:00</updated><id>http://localhost:4000/2019/09/20/oscp_certificate</id><content type="html" xml:base="http://localhost:4000/2019/09/20/oscp_certificate.html">&lt;p&gt;I set myself a lot of goals this year to advance to the next level, among all the goals being the OSCP certification from Offensive Security. It’s been a certification I’ve been talking about for years, since 2012, it’s really time to sit down and do that certification. It all started when I was writing in a forum on computer communications, where I presented the dilemma, whether to study information security of companies that are involved in the field or something else when my goal is to be an expert in the cyber world.&lt;/p&gt;
 
 &lt;p&gt;Eventually, someone responded to me, depending on what I want to learn, whether I want to be on the attacker or on the defensive side, he introduced a number of certifications and wrote about each certification separately. Among all the certifications he presented were Cisco certificates, Check Point certificates, and all sorts of large companies that manufacture and market security sites that protect the entire corporate network.&lt;/p&gt;
 

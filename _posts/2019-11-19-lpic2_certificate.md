@@ -16,6 +16,7 @@ If you want a brochure that deals with the topic extensively regardless of this 
 
 - [Chapter 0](#chapter-0)
 - [Chapter 1](#chapter-1)
+- [Chapter 2](#chapter-2)
 
 # Objective 201-450
 
@@ -827,9 +828,310 @@ It's look good and I succesfully run some bash commands. I also have network int
 
 ### 3. check network connectivity.
 
-I just run pint to 8.8.8.8 with is google dns server and I saw reply from this server.
+I just run ping to 8.8.8.8 with is google dns server and I saw reply from this server.
 
 ![LPIC2 Post](/assets/images/lpic2/ping.png)
 **Figure 80** Checking network connectiviry.
 
 So we finish our challenge, so we can proceed foreword to the next chapter.
+
+## Chapter 2
+## Topic 202: System Startup
+
+In linux systems we have the way to control the system mode we going to load up, we have numbers of system mode type that some of that very useful and some of them are not in use, as example one of them is full system mode that contain everything that normal system can contain for work, we have also single user mode that can be use to do specific thing on the machine, that sort of control tool called runlevel. In the linux world we can use run level to boot up specific mode of our operation system.
+
+We can setup also runlevel as we want, as example we can enable create runlevel that enable on the system the mail service and disable apache2, in that way we can customize the system with specific tools and program that can be work on it, this is quite useful because let's say you have user on your organization that use tools that related to design pictures or document and he need connectivity to the network and this is it, in that case why we allow the **vsftpd** service for example, this is not useful for that user, so we can disable that on customize runlevel.
+
+If we talk about systems like Red Hat systems in my case centOS you can run **runlevel**, this command will show us the runlevel that our system run for, in my case it was **N 5**.
+
+![LPIC2 Post](/assets/images/lpic2/runlevel.png)
+**Figure 81** My runlevel on centOS.
+
+The **5** means that we working now with runlevel 5, the **N** means that the previous runlevel was none, if we change the run level for 3, the numbers will be **5 3**. To change the runlevel on the running machine we can use the **telinit**.
+
+![LPIC2 Post](/assets/images/lpic2/runlevel3.png)
+**Figure 82** init 3 on centOS.
+
+You can see that I on the command line level, so in that case I can change it again to  level 5 and it will bring up the GUI environment again, you can see now that if I run runlevel command I can see that the last runlevel was 3, and now it set on level 5.
+
+![LPIC2 Post](/assets/images/lpic2/runlevel5.png)
+**Figure 83** init 5 on centOS.
+
+Now let's look on the configuration file of that inittab, you can find that file on /etc/inittab, this configuration file contain several init level. 0 - halt which mean that if we use that init, the system will go shutdown, this is why it is recommended not to setup the runlevel at this init level or at level 6, 1 - single user mode for administrative tasks, 2  is multiuser mode without NFS and 3 is fill multiuser mode, 5 is x11 which have the nice GUI view with desktop environment.
+
+![LPIC2 Post](/assets/images/lpic2/inittab-centos.png)
+**Figure 84** inittab file on centOS.
+
+You can see on the bottom of that file the line `id:5:initdefault:`, we can change it value to what init level we want and on the next boot it will bring the new init level up, what you mast not do on that file is to setup the run level for 0 or 6 which cause your system won't be able to load the user enviroment and we can't work in that case.
+
+If you want to see your level on Debian like as Ubuntu you can also run `runlevel` command or check your **sysinit.config** file on */etc/init.d* folder this file contain the init level for distribution like Debian and you can change it what ever you like but please notice that this run level in my case on Ubuntu is pretty different from Red Hat like distrabution, in my case I found that information in the man page of `telinit` file.
+
+![LPIC2 Post](/assets/images/lpic2/initman.png)
+**Figure 85** Runlevels on Ubuntu.
+
+You can see that the most used are 2, 3, 4, 5 and they call it SysV instead of runlevel. You also can see the current runlevel you run on Ubuntu on the rc-sysinit.conf file.
+
+![LPIC2 Post](/assets/images/lpic2/inittab.png)
+**Figure 86** rc-sysinit.conf file on Ubuntu.
+
+
+Let's go back to centOS machine, we have folder called rc.d which contain the folders for each runlevel, as example the *rc3.d* is conatin simbolic link of the utility that going to be active on that run level.  
+
+![LPIC2 Post](/assets/images/lpic2/rc3.png)
+**Figure 87** rc3 on centOS.
+
+Every simbolic contain in it's name sign for it's operation on that system, as example as you can see the first one utility is **K01smartd** the K stand for KILL which mean that this smartd will kill down if we change the current run level to number 3 on flay, the numbering is the sort of every utility, which mean the system will go every utility and take care of it, in my case the **smartd** will killed first and **oddjobd** is the second one service that going to be kill.
+
+We also have service with their name contain S which stand for start, in that case the system will go one by one and start every such service, so as you can see we can change specific runlevel and disable it's working services or enable others by just chaning the name of the simbolic link, as example in the case of **K01smartd**.
+```
+mv K01smartd S01smartd
+```
+
+In that case if I switch to run level 3, I will be able to use smard service. You may also notice the numbering on every service, this number are allow us to choose the order of execute every service under this run level, We also change use tool to do that task `chkconfig`, if you run `chkconfig --list` it will bring you the list of every service and it's operation state of every run level.
+
+![LPIC2 Post](/assets/images/lpic2/chkconfig--list.png)
+**Figure 88** list on chkconfig.
+
+In my case I run the following command.
+
+```
+chkconfig smartd on
+```
+This will bring the smartd to be active in run level 2 - 5.
+
+![LPIC2 Post](/assets/images/lpic2/smartd.png)
+**Figure 89** list on chkconfig - smartd are active.
+
+To change this service mode back you just need to use `off` option.
+```
+chkconfig smartd off
+```
+
+
+On Ubuntu the *rc* folders can be found under */etc* and the concept is the same as we saw on centOS, the difference is on the change mode utility, in Ubuntu it's **update-rc.d** and it's do the same as we done with chkconfig.
+
+```
+update-rc.d dnsmasq start
+```
+If you want to change the operation state permanently you need to use disable or enable instead start or stop. You can also remove it from the symbolic links with the remove option.
+
+So far we saw the command `chkconfig` that can help us to view all the services on centOS system or any Red Hat like distribution, on Ubuntu we can use the command `netstat -tulpn` as we saw on chapter 1, but for the matter fact we can use more handy command like `service --status-all`, this command will show us every service that exist on our system and each status.
+
+![LPIC2 Post](/assets/images/lpic2/service--status-all.png)
+**Figure 90** all services on my system.
+
+We also can use systemd which can bring us more clear state of our services, all we need to do is to run systemctl.
+
+![LPIC2 Post](/assets/images/lpic2/systemd.png)
+**Figure 90** Systemctl command.
+
+Systemd can used to define the system state, we have extensions named **.target** or **.service** and etc, for example `ls /usr/lib/systemd/user` this command will bring us list of file in the user folder and you will see some services there.
+
+![LPIC2 Post](/assets/images/lpic2/systemduser.png)
+**Figure 91** systemd user command.
+
+Of figure 90 you can see that some services are enable and some of them are disable, the services that are on static state means that they have some service that they depend of, so if you want to kill that service it's can't be done until we will stop the depended service.
+
+So we saw that the services are lived in `/usr/lib/systemd` and also in `/etc/systemd/system`, if we take a look on one of them we will see some lines that systemd use them to know how to start or kill service.
+
+![LPIC2 Post](/assets/images/lpic2/catservice.png)
+**Figure 92** the service itself on system.
+
+As you can see this file contain some description and after field, this after field mean that the services - NetworkManager-wait-online.service network.target network-online.dbus.service, must be on enable state and only **after** that was done, we can bring the teamviewerd.service service up. you can see also the **ExecStart** field that contain the exact command for running that service.
+
+If you check, you will find that most of the services are symbolic link to other location and most of them are for `/lib/systemd/system`.
+
+![LPIC2 Post](/assets/images/lpic2/lssystem.png)
+**Figure 93** Symbolic links.
+
+If we will use the `list-units` option in systemctl we will may see some services that was failed on the boot time or later, in this case if that service are importance we can bring it up by start it, or enable it.
+
+For summery, this systemd with the `systemctl` command is another way to check and set the init files, this is also applied on many linux system like Red Hat and opensuse servers for enterprise, there is some distribution that don't use systemd, but this is only on the desktop linux version, it's more likely to find systemd in used on enterprises systems.
+
+Now, for this chapter 2 we need also be familiar with GRAB legacy and GRAB2, this GRAB stand for GRand Unified Bootloader, this is bootloader which mean this is the first menu that the computer bring up, in this menu we can choose what operation system we want to load up, let's say that you have some DELL PC and you want that one partition will be Windows and the other contain Linux, you can do so and the GRAB is the menu which bring you the option to choose between the OS's.
+
+You must also be familiar with the different between those two, GRAB legacy is the first version of that GRAB project and on the most linux version you may see that GRAB is on version 0.97 like as follow in centOS (version 6)
+
+![LPIC2 Post](/assets/images/lpic2/GRAB1.png)
+**Figure 94** GRAB 1 which is the GRAB legacy.
+
+You can see that in my case the GRAB menu doest contain any other option except centOS 6, I want to show you how this is done, so for that case I download Ubuntu 9 which contain GRAB legacy, I also will install Windows XP on my virtual machine and I will create two partition which one of them will contain the Linux and the other will be Windows, please note that windows contain some different boot loader but this is beyond the scope of our LPIC2 exam.
+
+If you want to do this exercies on you virtual machine you can download Ubuntu 9 from the following URL:
+http://old-releases.ubuntu.com/releases/9.04/ubuntu-9.04-desktop-i386.iso
+
+You can also find the Windows XP on the following link:
+https://ia802908.us.archive.org/26/items/WinXPProSP3x86/en_windows_xp_professional_with_service_pack_3_x86_cd_vl_x14-73974.iso
+
+Product key for windows XP:
+```
+3D2W3-8DJM6-YKQRB-B2XDB-TVQHF
+```
+
+What we going to do is to install the Windows XP on virtual machine and after that load up the Ubuntu 9 from bootable device and load up the Ubuntu, this Ubuntu will sense the windows and it will ask us to done the installation side by side the Windows and for that he will create partition for it's installation and will setup the GRAB legacy menu for us.
+
+So first of all I install windows XP on my virtual machine, this task doesn't take long time to do, just run through the installation processes till it finish.
+
+![LPIC2 Post](/assets/images/lpic2/windowssetup.png)
+**Figure 95** Windows XP setup.
+
+After it done I had clean and nice desktop so now it time to start the Ubuntu through bootable device and checkout what append.
+
+![LPIC2 Post](/assets/images/lpic2/windowsxp-screen.png)
+**Figure 96** Windows XP Desktop.
+
+I am usin virtual box as my virtual machine so I added new optical disk which is my Ubuntu9 and bring that optical disk to be on the first option in my boot order.
+
+
+![LPIC2 Post](/assets/images/lpic2/bootorder.png)
+**Figure 97** Boot order.
+
+I start the virtual machine again and my Ubuntu popup it's installation manu.
+
+![LPIC2 Post](/assets/images/lpic2/ubuntu9.png)
+**Figure 98** Boot Ubuntu 9.
+
+In the installation menu my Ubuntu detect that there is an Windows XP installed on the hard disk, so it give me the option for install the Ubuntu OS side by side the Windows OS.
+
+
+![LPIC2 Post](/assets/images/lpic2/sidebysideubuntu.png)
+**Figure 99** OS's side by side.
+
+After I choose that option it resize the partition size for me, now al I have to do is the usual staff, to choose user name and password for that OS.
+
+![LPIC2 Post](/assets/images/lpic2/ubuntuinstalation.png)
+**Figure 100** Ubuntu 9 installation process.
+
+After it finish it restart and bring up the GRUB menu, however it's doesn't show me what is the version which normally on the upper bar menu.
+
+![LPIC2 Post](/assets/images/lpic2/grubmenu.png)
+**Figure 101** GRUB menu.
+
+I boot up my Ubuntu 9 to view the GRUB menu, to check the version just run the `grub-install --version`, this command will print the current version of our GRUB.
+
+![LPIC2 Post](/assets/images/lpic2/mygrubversion.png)
+**Figure 102** GRUB version.
+
+in the case of GRUB legacy we have two file that are important, the first is **menu.lst** which is pointer file to grub.conf,  the second is grub.conf which contain the configuration file for the GRUB menu. In Ubuntu 9 we only have menu.lst which we can change if we want to change the GRUB menu.
+
+In the `menu.lst` file there is many option that comment out, the most importance thing is can be found on the end of that file, the `kernel` option and `initrd`.
+
+![LPIC2 Post](/assets/images/lpic2/gruboptions.png)
+**Figure 103** GRUB options in menu.lst.
+
+Please remember that if you have some issue with GRUB and after boot you find yourself in `grub>` command line, you can type `help` which will reveal the command that can be use, but you can also setup the kernel path for the kernel file and the initrd as the same you saw in the **menu.lst** file.
+
+You also need to specify the root partition, which in our case can be a problem because this is some UUID with some long number that must be specified, so if we don't know the UUID we can bootup from some bootable device and find that information on the `/etc/fstab` file.
+
+![LPIC2 Post](/assets/images/lpic2/fstab.png)
+**Figure 104** fstab file.
+
+We will see more as we proceed, now I want to show you the same on centOS, in the operation system we have the grab.conf which is the pointer to menu.lst
+
+![LPIC2 Post](/assets/images/lpic2/centosmenu.png)
+**Figure 105** menu.lst on centOS.
+
+In that case we have 'mapper' which is long, this also can be found in `fstab` file as we saw earlier.
+
+If for some reason you get stack on `grub>` and you know shorly that this is GRUB2, for your kernel file you need specified the `linux` with it's vmlinuz file and the `inited` file, you can also use `ls` command which reveal the partitions and `set` which will give you clue about all value that are set on your grub, and if needed change every value you need.
+
+Please remember that like in GRAB legacy you must specified the root partition with the `linux` kernel line on the GRUB2.
+
+You can also practices on the grub menu without to mack changes on your actual system, juest when the grub menu reveal it self, press `c` for command line or `e` for edit the chosen line in the menu.
+
+![LPIC2 Post](/assets/images/lpic2/grub1.png)
+**Figure 106** GRUB 1 command line.
+
+After you finish up the settings just type boot and it's will boot up the system with your config, if you set it correctly it will bring up your system, if not it will bring the GRUB menu again and it is the same in the case of GRUB1 and GRUB2.
+
+### Challenge
+1. Upload to your chosen system, it can be any virtual system that contain only GRUB legacy.
+2. Change the run level for number 0 or 6 on the system.
+3. Try to bring up the system by changing the runlevel to the first runlevel again in the GRUB menu.
+4. do the same exercise on GRUB2 system.
+
+### 1. Upload OS with GRUB legacy.
+
+I am going to use my virtual machine that I show you before, please remember that I have two OS on that machine, the first is Ubuntu 9 with contain the GRUB legacy and the second is Windows XP.
+
+Right now that machine working fine and it load the GRUB and give me the option to choose what operation system I want to load up, so I load my Ubuntu and opened the terminal right after it load succesfully.
+
+![LPIC2 Post](/assets/images/lpic2/ubuntu9terminal.png)
+**Figure 107** Ubuntu 9 with terminal open.
+
+### 2. Change the RUNLEVEL.
+
+To check what is the current runlevel we need to type the command `runlevel`, in my case my Ubuntu on runlevel 2.
+
+![LPIC2 Post](/assets/images/lpic2/ubunturunlevel.png)
+**Figure 108** Ubuntu runlevel.
+
+if you remember in Ubuntu we have argument for runlevel that are from 2-5 and they specified the multi-user mode like we saw in the man page for telinit, for changing the run level we can using  `telinit` command.
+
+I choose to use `telinit 6` for changing the runlevel to 6 which will cause the system to reboot every time you load up the OS.
+
+After I done so the system goes down and restart again,
+but it load the system and doesn't restart again like it should do, so I check it again with `runlevel` command and I found that it on runlevel 2.
+
+![LPIC2 Post](/assets/images/lpic2/ubunturunlevel2.png)
+**Figure 109** Ubuntu runlevel 2.
+
+So now I need to find out how to change the runlevel permanently, for doing so I found out that there is some script that set the runlevel by using telinit on startup, that file is `/etc/event.d/rc-default` and I changed the last statement to run `telinit 6` this should run for runlevel 6 permanently.
+
+
+![LPIC2 Post](/assets/images/lpic2/runlevel.gif)
+**Figure 110** Changing the runlevel 2 to 6 which is reboot.
+
+In the GIF image you can see that I change the `rc-default` file for `telinit 6`, this is the default script that run right after the system is bootup, so in that case it reboot itself again, this is cause for reboot loop that if someone that doesn't have the knowledge in Linux, he won't be able to bring the system up in that situation.
+
+### 3. change back to runlevel 2 on the GRUB.
+
+So far for now it's problem because the changes we made make the system to be in reboot loop, we can solve it simply by made some changes in the GRUB menu, we just need to change the value `quiet sptash` on the kernel line to `single` which going to bring us single mode and we will be able to see it on the runlevel after we start up.
+
+![LPIC2 Post](/assets/images/lpic2/signlemode.png)
+**Figure 111** Changing for signle mode in the GRUB.
+
+Now all I done is press enter and **b** for boot and the system give me the following menu.
+
+![LPIC2 Post](/assets/images/lpic2/recovery.png)
+**Figure 112** Recovery mode.
+
+After I choose the **resume normal boot** the system load up and I was able to run the terminal in my Ubuntu, I type `runlevel` and it echoed out `S 2`, but when I checked on the `/etc/event.d/rc-default` I saw that the lest telinit is still on 6 which is not good.
+
+I change that file for `telinit 2` and save it, after that I reboot the system and it load up again like charm.
+
+### 4. Do the same on system with GRUB2.
+
+I checked if I have some OS that contain GRUB2, I found that I have virtual machine with Ubuntu 18, the GRUB file in that system need to be at the following path `/etc/default/grub`, I load that system and didn't see the GRUB2 menu, so I need to make changes in the GRUB file.
+
+You can see that I comment out the **GRUB_DEFAULT** and **GRUB_TIMEOUT_STYLE**, and change the **GRUB_TIMEOUT** to value 10 instead of 0.
+
+![LPIC2 Post](/assets/images/lpic2/grub2.png)
+**Figure 113** GRUB2 file.
+
+Now all I need to do is run update-grub, and I may need to run it with sudo, now if I reboot the system it will bring me the GRUB menu.
+
+![LPIC2 Post](/assets/images/lpic2/grub2menu.png)
+**Figure 113** GRUB2 menu.
+
+Now we need to make the same issue we have done on Ubuntu 9, for that I am using systemctl which can help me to setup the default runlevel.
+
+![LPIC2 Post](/assets/images/lpic2/systemctl.png)
+**Figure 114** systemctl.
+
+Now if I trying to restart the system it will be boot again in loop which is exactly what we needed.
+
+![LPIC2 Post](/assets/images/lpic2/grub2.gif)
+**Figure 115** GRUB 2 on Ubuntu 18 in loop mode.
+
+To solve it we need to get in the kernel line in the GRUB and change it. I found the `quiet splash` and remove it, I write 5 for runlevel 5 and press **F10** for reboot and sure enough it boot up the OS GUI.
+
+![LPIC2 Post](/assets/images/lpic2/grub2runlevel.png)
+**Figure 116** add runlevel5 in GRUB2.
+
+Now all I have to do is to type `systemctl set-default runlevel5.target` and that it, if I try to reboot the system it will reboot without any problem like we had before.
+
+![LPIC2 Post](/assets/images/lpic2/systemctl-runlevel5.png)
+**Figure 117** Changing to runlevel5 using systemctl.
+
+Please note that I am using Ubuntu which more like Debian, if you use centOS you may use and change `inittab` file.

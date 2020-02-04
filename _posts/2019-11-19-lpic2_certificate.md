@@ -17,6 +17,7 @@ If you want a brochure that deals with the topic extensively regardless of this 
 - [Chapter 0](#chapter-0)
 - [Chapter 1](#chapter-1)
 - [Chapter 2](#chapter-2)
+- [Chapter 3](#chapter-3)
 
 # Objective 201-450
 
@@ -1135,3 +1136,305 @@ Now all I have to do is to type `systemctl set-default runlevel5.target` and tha
 **Figure 117** Changing to runlevel5 using systemctl.
 
 Please note that I am using Ubuntu which more like Debian, if you use centOS you may use and change `inittab` file.
+
+## Chapter 3
+## Topic 203: Filesystem and Devices
+
+When the Linux system is boot up, there is several thing that going on in the background, one of them is what we called **mount**, every device or storage we have connected to our PC will be mounted, in that way we will be able to use this device and view it's content. In case we connect some USB device or other storage to our PC and we didn't see the device, this may be because our don't know how to mount or how to read the device, so we need to know how to look on it and how to solve such an issues.
+
+Every device we have on our PC and the system can see it, will be likely to list in the **fstab** file, this file can be found on */etc/fstab*, in that file we will see every device that going to be mount.
+
+![LPIC2 Post](/assets/images/lpic2/fstabfile.png)
+**Figure 118** fstab file.
+
+In that file we can find several things, first is the device drive, in my case the following drive */dev/mapper/vg_centos-lv_root* is mount on the root folder, the root folder as you should know is **/**, the type of that device filesystem is **ext4**. You should know that there is several type of filesystem, as example of ext2, ext3 and ext4, the different between those three is historically, basically on the ext2 filesystem there is no support of **journaling**, journaling is process that can help us to avoid errors in case there is a power outage, let's say we start to saved some document we write and the power goes off, if the saveing dosn't finish this is data that lost, the same is on our case, we write data to the disk and if the power goes off we may have some issue to read the data from that disk or alternatively we may be unavailable to read any data from the disk, there is several way to solved that issue (we will look on that as we foreword) but in the ext3 there is a **jounaling** that can solve that issue before it appear, the ext3 filesystem write some journal which is **metadata** that tracking down every access that done on the disk and in that way if the power outage was occur, he know exactly were it done and can repair that alone or by using fsck tool.
+
+The ext4 filesystem is more advance then ext3, is support in really large file and there is more feature that we have on ext4, what we need to know is that we have more than one filesystem type, so in the fidure 118 you can see that my root drive will use ext4 filesystem, the fourth entry can be use to allow the system run that drive on some group or some mode, in my case it is defaults which is mean according the man page of mount that it support of the rw, suid, dev, exec, auto, nouser, and async options.
+
+The fifth value mostly be zero, but I don't really know why in my case it's one, this stand for dump which mean to dump all the file on mounting process, but as much as I know this no used any more, the sixth entry
+is the mount max count, this is mean that if we unmount and mount again the disk up to the max value, on the next boot it will be check with the fsck for errors.
+
+And this is all you need to know about the fstab file, we will look on that file more as we proceed, but I want you to know that there is more filesystem that I specified here:
+```
+ext2
+ext3
+ext4
+btrfs
+XFS
+ZFS
+```
+You can see the all list on wikipedia, but this I think what we will look at in this chapter. If you want to look which drive use what type of filesystem, you can run the **mount** command. This command will bring you in live what devices we have mount, what is the filesystem type and were point it mount.
+
+![LPIC2 Post](/assets/images/lpic2/mount.png)
+**Figure 119** The mount command.
+
+You need to knew that the same data that we can see with the mount command can be found on the **mtab** file, which stand for mount tab, this file contain the exact information we can view with the mount command, but there is other file on the */proc/mounts* that can give you the same information also.
+
+![LPIC2 Post](/assets/images/lpic2/mounts.png)
+**Figure 120** The mounts file on the proc folder.
+
+The first element on the line is the mounted device, the second element is the mount point, the third element is the file system type, the fourth element lists mount flags (credit [Fibrevillage](http://fibrevillage.com/sysadmin/278-understanding-the-difference-between-etc-mtab-and-proc-mounts-on-linux))and the two last flag are as I specified with the details about the **fstab** file.
+
+You can also see on the **fstab** that I have some UUID that point on the */boot* folder, the UUID stand for **Universally Unique IDentifier** and will be consist of numbers and letters arbitrarily. If we want to add to fstab file some device and let's say we want to add it be specify the UUID, so we can find that information be using the **blkid** command.
+
+![LPIC2 Post](/assets/images/lpic2/blkid.png)
+**Figure 121** The blkid command.
+
+So you can find your device name and his UUID for use in the fstab file. Let's say that your linux computer is working right know and you want to mount some drive you plug in, let's say that the Linux can
+see that device but didn't mount it, we can use the **mount** command for mount it or alternatively **umount** for unmount other device we want to plug out.
+
+```
+mount /dev/sdb1 /mnt/5M
+```
+
+In that case I specified the device location and the mount point which is */mnt/5M*, of course, if you connect your USB you need to know what is the device location, in my case it's sdb and I created the sdb1 partition with **fdisk**, you may know that fdisk tool is lean in LPIC1 this is why I don't elaborate about that tool.
+
+By default, the Linux kernel writes data to disk asynchronously, this is mean that every data that we write is buffered (cached) in memory, in the optimal time your Linux will write the data to the disk, by optimal I mean when he have free memory that he can use then it will write the data down to the disk, if we want to synchronize that data immediately we can use **sync** command that will force synchronization to the disk.
+
+We will use the **sync** command in case we anticipate the system to be unstable, or the storage device to become suddenly unavailable because let's say you going to make some critical changes to your system. If you use just the **sync** command or `sudo sync`, it will sync all of your system, but you can also synchronize only one device as follow:
+```
+sudo sync /dev/sdb1
+```
+this will sync only the sdb1 partition in the sdb device.
+
+If you remember we talk about the swap in that post earlier, and as you already know the swap is actually the memory that use directly from the disk, only when the RAM are full then the swap take an action, if we want to create swap by using the **mkswap** command, we have also the way to start that swap or disable it. The **swapon** command used for enable and start swap while **swapoff** used for disabling it, you also can check the **fstab** as we saw earlier to see the swap partition.
+
+Let's say that you tried to to mount some disk and you get some error that say that you can't mount that device because the system found that is damage or you just want to check that disk, in that case you can use **fsck** for error checking and repairing, in the fstab file section we talk about that in this file we have information of what is the MAX count of mounting the disk before it get checked in boot time, that **fsck** have the information in that fstab file what is the filesystem type for each device. If we want to to run that command alone we can use **fsck** as example:
+```
+fsck /dev/sdb1
+```
+
+This command will use *fsck.filetype* that available under linux and instead of filetype it should be the name of the filetype as example **fsck.ext3**. If you run this command and it's say that the disk is clean so far so god! it's meant it checked it successfully. If you can't remember what is your filesystem type, just run **blkid** which give you the UUID as we saw earlier and the type of the filesystem, but usually you just need to run **fsck** and it work fine.
+
+After you connect disk to your system and run fdisk tool to make partition on that disk, you need to make filesystem ready for use, to doing so you need to run **mkfs** with the specified filesystem type, as example:
+```
+mkfs.ext4 /dev/sdb1
+```
+
+This command will make the filesystem as ext4 type, only after that you will be able to run **mount**, in general you didn't need to run mount with the **-t** option for filesystem type, but if it doesn't work because let's say this is msdos type, than you can use this option.
+
+Before we mount the disk, let's look at the **dumpe2fs** command output, this command can bring us a lot of information about the disk, but right know what we want to see is our superblock so I grep it out as follow:
+
+![LPIC2 Post](/assets/images/lpic2/dumpe2fs.png)
+**Figure 122** The dumpe2fs command.
+
+You can see that the primary superblock start at 0, the first backup is start at 32768 and so on, so, if we have some damage disk we can run fsck to fix it, and for doing so we will need to know from what superblock to make the fix, so it will bring up the backup so the data on that disk will not lost which is good, but there is a problem, if the disk are damage we will never be able to see the blocks we have so we only can guess that number or we can run the following command:
+```
+mkfs.ext4 -n /dev/sdc1
+```
+
+We will use this command only if we know that the filesystem for that partition is ext4, if so that command with **-n** option wouldn't create filesystem on the partition but it will run as if he would done it's process on the disk, so in that case we will be able to see the blocks and use the numbers of the super block on the **fsck** for trying to fixing the filesystem.
+
+After we connect the device to our Linux and we run **fdisk** successfully and created partition and we format the filesystem with **mkfs** and we mount the disk for file system point, we can find information about the disk more quickly by using **tune2fs**.
+
+This **tune2fs** will bring us information such as the UUID, the mount point, filesystem features, mount time and even the MAX mount count we saw at the **fstab** file, you also be able to see how much time this disk was mounted, so if we set the MAX mount to be 5 mounts before the disk checking will done and we mount the disk 6 time, on the next boot up it will run fsck on that disk and the mount counter on **tune2fs** will be 0.
+
+We also can use **debugfs** to get more information  about the device, if we run that tool we will be in debug like system, inside of it if we type **ls** it will bring us more details then the normal **ls** done, we also can type **lsdel** which bring us all file in that device that was delited, normally you wouldn't to see anything becouse **rm** do greate job of deleting file.
+
+We also can specified what is the superblock we want to read and what is the size of block with the following command:
+
+```
+debugfs -b 1024 -s 0 /dev/sdb1
+```
+
+The **-b** option stend for block size, the **-s** stand for superblock which in my case is 0, this is mean that I trying to read superblock 0 while the size is 1024 for block to read.
+
+![LPIC2 Post](/assets/images/lpic2/debugfs.png)
+**Figure 123** The debugfs tool.
+
+You can also run **debugfs** without parameters and you be able to debug the disk, in my case I just want to show you how can you check a specific superblock in the disk.
+
+So far we talk about ext2, ext3 and ext4, we have more filesystem type like **btrfs** which is what I want to display now, this **btrfs** have more features then we have in ext4, like support in more large file zise like 16 EiB on disk, which is 2^64 byte which is realy big, it also support RAID functionality, and snapshotting and more feature then we saw so far.
+
+First of all let's talk about the RAID functionality, we will view on the RAID in the next chapter also but the basic of it is that this RAID can help to do some backup or more likely to distribute the data on the drives which can be handy if one or more of the data is corrupted, because if on disk went done, you still have data that you can use on another disk, we will talk about that later on, but right know you need to know that **btrfs** support in RAID in such of thing that we can adding more disk to the system which we have RAID on it, I mean more devices can be added after the filesystem (which is btrfs) was created.
+
+To make **btrfs** filesystem we can use the **mkfs.btrfs** command and we can run that command on multiple devices like as follow:
+
+```
+mkfs.btrfs /dev/sda /dev/sdb /dev/sdc /dev/sdd
+```
+
+If we want to use **btrfs** for run snapshotting on the disk before we will make some changes for the system, there is a simple way to make backup and that allow us to have the exact files on other folder.
+
+At first we mount our **btrfs** to mount point which is in my case */mnt/btrfs*.
+```
+mount -t btrfs /dev/sdb1 /mnt/btrfs
+```
+
+Now we need to create something that called **subvalume**, which we can use that for snapshotting as we proceed foreword.
+
+```
+btrfs subvalume create root
+btrfs subvalume create home
+btrfs subvalume create snapshot
+```
+
+After that if we run `ls` we will can see that folders that we created, now let's say that we have many files on those folder and we want to snapshot that, so we can backup the files with the following command.
+
+```
+btrfs subvalume snapshot home ./snapshot/190320_snap
+```
+
+In this case I run snapshot for my *home* directory and that folder created under snapshot folder with the name 190330_snap which stand for *19.03.2020 snapshot*, if I had some truble with the home directory I can use my 190320_snap and restore from that files as needed.
+
+You have also more two command that can be use to delete subvalume or list of all your subvalume:
+```
+btrfs subvalume delete ./snapshot/190320_snap
+btrfs subvalume list /mnt/btrfs
+```
+
+You can also find more information in the [ramsdenj.com](https://ramsdenj.com/2016/04/05/using-btrfs-for-easy-backup-and-rollback.html), but you may want to know how to specified the btrfs on the fstab file, because if you write at the option defaults or something else that we saw earlier in EXT this will not work, the option you need to write at fstab file is as follow:
+```
+/dev/sdb1  /mnt/btrfs    btrfs   rw,noatime,discard,ssd,space_cache    0 0
+```
+
+Please remember that btrfs have it's own way to check and repair error, you can't use **fsck** tool for that kind of filesystem, and the same principle on the **XFS** filesystem, let's format the sdb device for XFS and after that you can see that I tried to run fsck.
+
+
+![LPIC2 Post](/assets/images/lpic2/xfs.png)
+**Figure 124** The xfs file system by using fsck.
+
+You can see that it's can't read the superblock, so for make checking on XFS we will use the following:
+```
+xfs_repair -n /dev/sdb1
+```
+
+We also can use `xfs_info` for finding more information about that disk, this tool can give use information like bzise and block size, we also have the option to use xfs_check for checking whether the XFS filesystem is consistent.
+
+You also need to be aware about SMART for the LPIC2 exam, SMART are stand for Self-Monitoring and Reporting Technology System, we have the **smartctl** and **smartd**, the first one are use for scan devices and print the information about them, the second one is a deamon that will attempt to enable SMARTmonitoring and polls these and SCSI devices every 30 minutes.
+
+SMART are technology that build in the drive, so the **smartctl** and **smartd** are just tool that can be use to access that disk and bring a various log for us, but in case you drive didn't support SMART those tools are useless for you, mostly the SMART can be found on ATA and SCSI drive, in case you have those drive you need to install the package that called smartmontools
+```
+sudo apt-get install smartmontools
+```
+
+If we use the **smartctl** we can check to see information about the disk by using the following command:
+```
+smartctl --test=short /dev/sda
+```
+
+This command will produce a short test on the disk, you have also a long one but let's look on that one, this will tell you that the test is run and how much time it's gonna take, mostly it tells you that you must wait 1 minutes for test to complete and it will run in the back ground.
+
+After it finish it will bring you the data collection for the drive, like how much time the hard drive are power on, program failed count, Report Uncorrect for error that found on the disk and more information that can give us a clue what is the status of our disk.
+
+We also have the file on the following directory */etc/default/smartmontools*, on that file we can uncomment the the line who related to smartd start on boot time, if we uncomment that line, the check for the disk will run every time we will boot the PC, and if it will find any errors on the disk it will email us about the information it found.
+```
+start_smart=yes
+```
+
+To start the smartd we just need to run `service smartmontools start` which will bring up that deamon and this will run in the background and look for error or bad information that we need to be aware for.
+
+There is more filesystem type that we need to know for the LPIC2 exam which is ZFS which was develop by Sum Microsystems, correctly only Ubuntu support that and offers kernel integration for ZFS. We have alot of command that can be use for ZFS type, such as `zpool list -v` which can show us the pools, the pools are the logical volume managment and can consist out of single or multiple disks. We can add for a one pool many disks so that can be handy in case of data recovery.
+
+We also can see the status of the pool by running the follow up command:
+```
+sudo zpool status -v
+```
+
+Did you know that we have the option to mount disk manly from the network automatically by connect to that directory?
+
+By using **autofs** we can do just that, we run configuration of autofs and only when we trying to connect the nfs server directory, only than this directory will mount on our system and we will be able to see every file on that directory, what we need to achieve that is first of all install autofs and setup the configuration file, on the server side we need to make a shared folder for nfs technologies.
+
+So, let's start on the server side, I am running Ubuntu 18 on vbox, we need to install the following:
+```
+sudo apt install nfs-kernel-server
+```
+
+This command will install the nfs as server side and we can use that to allow users connect for nfs folders, now we need to create folder which will be use as nfs folder and set to it permission and user/group.
+```
+mkdir /home/guy/files
+chown nobody:nogroup /home/guy/files
+chmod 777 /home/guy/files
+```
+
+Now we need to create export configuration for this folder, in this export we will specify the path to the nfs folder and the source IP client that will be able to connect to this folder.
+```
+sudo vi /etc/exports
+```
+
+![LPIC2 Post](/assets/images/lpic2/exports.png)
+**Figure 125** The exports file that contain the export folder.
+
+As you can see I specified the path to that folder and set the source IP which be allow to connect that folder remotely, this is the IP of my client, you also can see that this folder is with **rw** permission and in **sync** state, please remember that the server IP in my case is 172.16.0.192.
+
+Now, after we saved the exports file we need to run another command for enable our changes, and restart the **nfs-kernel-server** service.
+```
+sudo exportfs -arvf
+sudo service nfs-kernel-server restart
+```
+
+And this is it, now we have server that allow the *files* folder to be export as nfs and allow to our client to connect it, so let's start setup the **autofs** on our client.
+
+First of all in my client I need to install the autofs
+```
+sudo apt install autofs
+```
+
+After that we can found that we have new files on etc folder which all of them contain configuration for automatically mount filesystem to our machine.
+
+![LPIC2 Post](/assets/images/lpic2/autofs.png)
+**Figure 126** The configuration file for autofs.
+
+We interested in the **auto.nfs** file and **auto.master** file, the master file is the main configuration for our auto mount folders, so we need to setup new one for nfs folder, in my case I setup the following:
+```
+/home/zwerd/nfs /etc/auto.nfs
+```
+The path to /home/zwerd/nfs is the folder that will contain the mount folder which will gonna be **files** folder as we saw on my server and the configuration for mounting can be found on the /etc/auto.nfs file.
+
+If we go to the auto.nfs file we will find one line that setup the mount point as follow:
+```
+files 172.16.0.192:/home/guy/files
+```
+
+In that file we specified **files** which going to be the mount point under **nfs** folder in out system, that mount pointer point to my server which is 172.16.0.192 and contain the the path to the **files** folder on the server.
+
+Now we need to restart the autofs service and after that we will be able to connect to **files** folder and see it's content.
+```
+sudo service autofs restart
+```
+![LPIC2 Post](/assets/images/lpic2/automount.gif)
+**Figure 127** Auto mount on my client.
+
+For the EXAM we need to know more thing like ISO files and encription. The original **ISO 9660** is being around for a long time, in that format there was an issue that at first it didn't support for long filename, so for support this the **Joliet** extension came alone which have a support for longer filenames, but Joliet doesn't support in permission which mean that if we make some CD with this extension we can't store the permissions on the disk, so for solve it the **Rock Ridge** can be use and allow us to use permissions on the CD, the last extension of ISO 9660 is **El Torito** which allow us to make a bootable disk.
+
+Please remember that ISO 9660 is for CD's only, the **UDF** (Universal Disk Format) can support in CD and also DVD. In Linux world we have an utilities that can help us to create **iso** file and burn that to the disk.
+
+Let's create our own CD dile image, so in my case I have the folder **Jack and Jill (2011)** that contain... Guess what... Jack and Jill of course which is Adam Sendler movie, and let's say that I want to burn it to the disk, I can simply make an iso file by using the follow up command:
+```
+mkisofs -r -o jeck_and_jill.iso ./Downloads/Jack\ and\ Jill\ \(2011\)
+```
+
+In this command I use the option **-r** which tell it to use **Rock Ridge** and save the permission on the output file, the output file name gonna be jeck_and_jill.iso and the input is of course the path to the movie folder.
+
+
+![LPIC2 Post](/assets/images/lpic2/isoimage.png)
+**Figure 128** My new iso file in my downloads folder.
+
+If we need to make a bootable image we can use **-b** option, or if we want to burn ir to DVD file we can use the **-udf** option, in my case I haven't manual page for this command but I can run **mkisofs --help** to see that options,
+
+Let's talk about encrypted drive, in case you want to make sure your data is safe, you can encript the device who contain the data, in that way is someone will steal your disk, you can be sure that the data itself are safe and encrypted, for that situation we can use **cryptsetup**.
+
+This **cryptsetup** can be use on the drive we choose in order to encrypt that drive, we just need to run some of the command we saw before, I will run it quickly.
+
+![LPIC2 Post](/assets/images/lpic2/mounted.png)
+**Figure 129** You can see I have mounted drive.
+
+I have mounted partition from my sdb drive which is sdb1, you can see that the filesystem type is XFS, now I need to run the following command:
+```
+sudo cryptsetup -v -y luksFormat /dev/sdb1
+```
+
+![LPIC2 Post](/assets/images/lpic2/cryptsetup.png)
+**Figure 130** cryptsetup encrypt my drive.
+
+This command will ask for password and encrypt the all drive, the **-v** stand for verbose, **-y** stand for verified-pass which mean that by using that option it ask for password twice and if we miss typing he will alert it, by using that command the drive will be encrypted and now if we connect that divice again we need to run the following command to open it again.
+
+
+```
+sudo cryptsetup luksOpen /dev/sdb1 sdb1
+```
+
+![LPIC2 Post](/assets/images/lpic2/cryptsetupopen.png)
+**Figure 139** cryptsetup open my drive.
+
+Now we just need to mount the drive and we can use it, every time we connect the drive even on the GUI like Ubuntu he will ask for password, it he dosn't we can alwase use this open command for opening that drive.

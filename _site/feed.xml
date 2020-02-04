@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.5">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2020-01-13T15:51:17+02:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Zwerd</title><subtitle>A stunning blog of freaking PT warrior</subtitle><author><name>Guy Zwerdling</name></author><entry><title type="html">LPIC2 Certification Journey</title><link href="http://localhost:4000/2019/11/19/lpic2_certificate.html" rel="alternate" type="text/html" title="LPIC2 Certification Journey" /><published>2019-11-19T00:00:00+02:00</published><updated>2019-11-19T00:00:00+02:00</updated><id>http://localhost:4000/2019/11/19/lpic2_certificate</id><content type="html" xml:base="http://localhost:4000/2019/11/19/lpic2_certificate.html">&lt;p&gt;Today morning I received a message from LPI that my certificate will expire in 9 months and so it is time to start studying for the second Linux certification, this will advance me to the third Linux information security certification that I will search for, this certification is divided into two and the two parts are marked by two different codes: 201-450, 202-450&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.5">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2020-02-04T19:09:59+02:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Zwerd</title><subtitle>A stunning blog of freaking PT warrior</subtitle><author><name>Guy Zwerdling</name></author><entry><title type="html">LPIC2 Certification Journey</title><link href="http://localhost:4000/2019/11/19/lpic2_certificate.html" rel="alternate" type="text/html" title="LPIC2 Certification Journey" /><published>2019-11-19T00:00:00+02:00</published><updated>2019-11-19T00:00:00+02:00</updated><id>http://localhost:4000/2019/11/19/lpic2_certificate</id><content type="html" xml:base="http://localhost:4000/2019/11/19/lpic2_certificate.html">&lt;p&gt;Today morning I received a message from LPI that my certificate will expire in 9 months and so it is time to start studying for the second Linux certification, this will advance me to the third Linux information security certification that I will search for, this certification is divided into two and the two parts are marked by two different codes: 201-450, 202-450&lt;/p&gt;
 
 &lt;p&gt;In this post I am going to go over each topic as listed on the LPI website, which means I will go over each tool and present it here, in each chapter I will show how to use these tools to get the same information that the subject of the test should deal with, at the end of each chapter I will present a challenge From most of the commands we learned and challenged you and me how to get the information to succeed.&lt;/p&gt;
 
@@ -8,6 +8,7 @@
   &lt;li&gt;&lt;a href=&quot;#chapter-0&quot;&gt;Chapter 0&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;#chapter-1&quot;&gt;Chapter 1&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;#chapter-2&quot;&gt;Chapter 2&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#chapter-3&quot;&gt;Chapter 3&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;h1 id=&quot;objective-201-450&quot;&gt;Objective 201-450&lt;/h1&gt;
@@ -1070,7 +1071,277 @@ but it load the system and doesn’t restart again like it should do, so I check
 &lt;p&gt;&lt;img src=&quot;/assets/images/lpic2/systemctl-runlevel5.png&quot; alt=&quot;LPIC2 Post&quot; /&gt;
 &lt;strong&gt;Figure 117&lt;/strong&gt; Changing to runlevel5 using systemctl.&lt;/p&gt;
 
-&lt;p&gt;Please note that I am using Ubuntu which more like Debian, if you use centOS you may use and change &lt;code class=&quot;highlighter-rouge&quot;&gt;inittab&lt;/code&gt; file.&lt;/p&gt;</content><author><name>Guy Zwerdling</name></author><category term="Linux" /><summary type="html">Today morning I received a message from LPI that my certificate will expire in 9 months and so it is time to start studying for the second Linux certification, this will advance me to the third Linux information security certification that will include what I am looking for, this certification is split in two</summary></entry><entry><title type="html">OSCP Certification Journey</title><link href="http://localhost:4000/2019/09/20/oscp_certificate.html" rel="alternate" type="text/html" title="OSCP Certification Journey" /><published>2019-09-20T00:00:00+03:00</published><updated>2019-09-20T00:00:00+03:00</updated><id>http://localhost:4000/2019/09/20/oscp_certificate</id><content type="html" xml:base="http://localhost:4000/2019/09/20/oscp_certificate.html">&lt;p&gt;I set myself a lot of goals this year to advance to the next level, among all the goals being the OSCP certification from Offensive Security. It’s been a certification I’ve been talking about for years, since 2012, it’s really time to sit down and do that certification. It all started when I was writing in a forum on computer communications, where I presented the dilemma, whether to study information security of companies that are involved in the field or something else when my goal is to be an expert in the cyber world.&lt;/p&gt;
+&lt;p&gt;Please note that I am using Ubuntu which more like Debian, if you use centOS you may use and change &lt;code class=&quot;highlighter-rouge&quot;&gt;inittab&lt;/code&gt; file.&lt;/p&gt;
+
+&lt;h2 id=&quot;chapter-3&quot;&gt;Chapter 3&lt;/h2&gt;
+&lt;h2 id=&quot;topic-203-filesystem-and-devices&quot;&gt;Topic 203: Filesystem and Devices&lt;/h2&gt;
+
+&lt;p&gt;When the Linux system is boot up, there is several thing that going on in the background, one of them is what we called &lt;strong&gt;mount&lt;/strong&gt;, every device or storage we have connected to our PC will be mounted, in that way we will be able to use this device and view it’s content. In case we connect some USB device or other storage to our PC and we didn’t see the device, this may be because our don’t know how to mount or how to read the device, so we need to know how to look on it and how to solve such an issues.&lt;/p&gt;
+
+&lt;p&gt;Every device we have on our PC and the system can see it, will be likely to list in the &lt;strong&gt;fstab&lt;/strong&gt; file, this file can be found on &lt;em&gt;/etc/fstab&lt;/em&gt;, in that file we will see every device that going to be mount.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/lpic2/fstabfile.png&quot; alt=&quot;LPIC2 Post&quot; /&gt;
+&lt;strong&gt;Figure 118&lt;/strong&gt; fstab file.&lt;/p&gt;
+
+&lt;p&gt;In that file we can find several things, first is the device drive, in my case the following drive &lt;em&gt;/dev/mapper/vg_centos-lv_root&lt;/em&gt; is mount on the root folder, the root folder as you should know is &lt;strong&gt;/&lt;/strong&gt;, the type of that device filesystem is &lt;strong&gt;ext4&lt;/strong&gt;. You should know that there is several type of filesystem, as example of ext2, ext3 and ext4, the different between those three is historically, basically on the ext2 filesystem there is no support of &lt;strong&gt;journaling&lt;/strong&gt;, journaling is process that can help us to avoid errors in case there is a power outage, let’s say we start to saved some document we write and the power goes off, if the saveing dosn’t finish this is data that lost, the same is on our case, we write data to the disk and if the power goes off we may have some issue to read the data from that disk or alternatively we may be unavailable to read any data from the disk, there is several way to solved that issue (we will look on that as we foreword) but in the ext3 there is a &lt;strong&gt;jounaling&lt;/strong&gt; that can solve that issue before it appear, the ext3 filesystem write some journal which is &lt;strong&gt;metadata&lt;/strong&gt; that tracking down every access that done on the disk and in that way if the power outage was occur, he know exactly were it done and can repair that alone or by using fsck tool.&lt;/p&gt;
+
+&lt;p&gt;The ext4 filesystem is more advance then ext3, is support in really large file and there is more feature that we have on ext4, what we need to know is that we have more than one filesystem type, so in the fidure 118 you can see that my root drive will use ext4 filesystem, the fourth entry can be use to allow the system run that drive on some group or some mode, in my case it is defaults which is mean according the man page of mount that it support of the rw, suid, dev, exec, auto, nouser, and async options.&lt;/p&gt;
+
+&lt;p&gt;The fifth value mostly be zero, but I don’t really know why in my case it’s one, this stand for dump which mean to dump all the file on mounting process, but as much as I know this no used any more, the sixth entry
+is the mount max count, this is mean that if we unmount and mount again the disk up to the max value, on the next boot it will be check with the fsck for errors.&lt;/p&gt;
+
+&lt;p&gt;And this is all you need to know about the fstab file, we will look on that file more as we proceed, but I want you to know that there is more filesystem that I specified here:&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;ext2
+ext3
+ext4
+btrfs
+XFS
+ZFS
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;You can see the all list on wikipedia, but this I think what we will look at in this chapter. If you want to look which drive use what type of filesystem, you can run the &lt;strong&gt;mount&lt;/strong&gt; command. This command will bring you in live what devices we have mount, what is the filesystem type and were point it mount.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/lpic2/mount.png&quot; alt=&quot;LPIC2 Post&quot; /&gt;
+&lt;strong&gt;Figure 119&lt;/strong&gt; The mount command.&lt;/p&gt;
+
+&lt;p&gt;You need to knew that the same data that we can see with the mount command can be found on the &lt;strong&gt;mtab&lt;/strong&gt; file, which stand for mount tab, this file contain the exact information we can view with the mount command, but there is other file on the &lt;em&gt;/proc/mounts&lt;/em&gt; that can give you the same information also.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/lpic2/mounts.png&quot; alt=&quot;LPIC2 Post&quot; /&gt;
+&lt;strong&gt;Figure 120&lt;/strong&gt; The mounts file on the proc folder.&lt;/p&gt;
+
+&lt;p&gt;The first element on the line is the mounted device, the second element is the mount point, the third element is the file system type, the fourth element lists mount flags (credit &lt;a href=&quot;http://fibrevillage.com/sysadmin/278-understanding-the-difference-between-etc-mtab-and-proc-mounts-on-linux&quot;&gt;Fibrevillage&lt;/a&gt;)and the two last flag are as I specified with the details about the &lt;strong&gt;fstab&lt;/strong&gt; file.&lt;/p&gt;
+
+&lt;p&gt;You can also see on the &lt;strong&gt;fstab&lt;/strong&gt; that I have some UUID that point on the &lt;em&gt;/boot&lt;/em&gt; folder, the UUID stand for &lt;strong&gt;Universally Unique IDentifier&lt;/strong&gt; and will be consist of numbers and letters arbitrarily. If we want to add to fstab file some device and let’s say we want to add it be specify the UUID, so we can find that information be using the &lt;strong&gt;blkid&lt;/strong&gt; command.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/lpic2/blkid.png&quot; alt=&quot;LPIC2 Post&quot; /&gt;
+&lt;strong&gt;Figure 121&lt;/strong&gt; The blkid command.&lt;/p&gt;
+
+&lt;p&gt;So you can find your device name and his UUID for use in the fstab file. Let’s say that your linux computer is working right know and you want to mount some drive you plug in, let’s say that the Linux can
+see that device but didn’t mount it, we can use the &lt;strong&gt;mount&lt;/strong&gt; command for mount it or alternatively &lt;strong&gt;umount&lt;/strong&gt; for unmount other device we want to plug out.&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;mount /dev/sdb1 /mnt/5M
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;In that case I specified the device location and the mount point which is &lt;em&gt;/mnt/5M&lt;/em&gt;, of course, if you connect your USB you need to know what is the device location, in my case it’s sdb and I created the sdb1 partition with &lt;strong&gt;fdisk&lt;/strong&gt;, you may know that fdisk tool is lean in LPIC1 this is why I don’t elaborate about that tool.&lt;/p&gt;
+
+&lt;p&gt;By default, the Linux kernel writes data to disk asynchronously, this is mean that every data that we write is buffered (cached) in memory, in the optimal time your Linux will write the data to the disk, by optimal I mean when he have free memory that he can use then it will write the data down to the disk, if we want to synchronize that data immediately we can use &lt;strong&gt;sync&lt;/strong&gt; command that will force synchronization to the disk.&lt;/p&gt;
+
+&lt;p&gt;We will use the &lt;strong&gt;sync&lt;/strong&gt; command in case we anticipate the system to be unstable, or the storage device to become suddenly unavailable because let’s say you going to make some critical changes to your system. If you use just the &lt;strong&gt;sync&lt;/strong&gt; command or &lt;code class=&quot;highlighter-rouge&quot;&gt;sudo sync&lt;/code&gt;, it will sync all of your system, but you can also synchronize only one device as follow:&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;sudo sync /dev/sdb1
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;this will sync only the sdb1 partition in the sdb device.&lt;/p&gt;
+
+&lt;p&gt;If you remember we talk about the swap in that post earlier, and as you already know the swap is actually the memory that use directly from the disk, only when the RAM are full then the swap take an action, if we want to create swap by using the &lt;strong&gt;mkswap&lt;/strong&gt; command, we have also the way to start that swap or disable it. The &lt;strong&gt;swapon&lt;/strong&gt; command used for enable and start swap while &lt;strong&gt;swapoff&lt;/strong&gt; used for disabling it, you also can check the &lt;strong&gt;fstab&lt;/strong&gt; as we saw earlier to see the swap partition.&lt;/p&gt;
+
+&lt;p&gt;Let’s say that you tried to to mount some disk and you get some error that say that you can’t mount that device because the system found that is damage or you just want to check that disk, in that case you can use &lt;strong&gt;fsck&lt;/strong&gt; for error checking and repairing, in the fstab file section we talk about that in this file we have information of what is the MAX count of mounting the disk before it get checked in boot time, that &lt;strong&gt;fsck&lt;/strong&gt; have the information in that fstab file what is the filesystem type for each device. If we want to to run that command alone we can use &lt;strong&gt;fsck&lt;/strong&gt; as example:&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;fsck /dev/sdb1
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;This command will use &lt;em&gt;fsck.filetype&lt;/em&gt; that available under linux and instead of filetype it should be the name of the filetype as example &lt;strong&gt;fsck.ext3&lt;/strong&gt;. If you run this command and it’s say that the disk is clean so far so god! it’s meant it checked it successfully. If you can’t remember what is your filesystem type, just run &lt;strong&gt;blkid&lt;/strong&gt; which give you the UUID as we saw earlier and the type of the filesystem, but usually you just need to run &lt;strong&gt;fsck&lt;/strong&gt; and it work fine.&lt;/p&gt;
+
+&lt;p&gt;After you connect disk to your system and run fdisk tool to make partition on that disk, you need to make filesystem ready for use, to doing so you need to run &lt;strong&gt;mkfs&lt;/strong&gt; with the specified filesystem type, as example:&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;mkfs.ext4 /dev/sdb1
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;This command will make the filesystem as ext4 type, only after that you will be able to run &lt;strong&gt;mount&lt;/strong&gt;, in general you didn’t need to run mount with the &lt;strong&gt;-t&lt;/strong&gt; option for filesystem type, but if it doesn’t work because let’s say this is msdos type, than you can use this option.&lt;/p&gt;
+
+&lt;p&gt;Before we mount the disk, let’s look at the &lt;strong&gt;dumpe2fs&lt;/strong&gt; command output, this command can bring us a lot of information about the disk, but right know what we want to see is our superblock so I grep it out as follow:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/lpic2/dumpe2fs.png&quot; alt=&quot;LPIC2 Post&quot; /&gt;
+&lt;strong&gt;Figure 122&lt;/strong&gt; The dumpe2fs command.&lt;/p&gt;
+
+&lt;p&gt;You can see that the primary superblock start at 0, the first backup is start at 32768 and so on, so, if we have some damage disk we can run fsck to fix it, and for doing so we will need to know from what superblock to make the fix, so it will bring up the backup so the data on that disk will not lost which is good, but there is a problem, if the disk are damage we will never be able to see the blocks we have so we only can guess that number or we can run the following command:&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;mkfs.ext4 -n /dev/sdc1
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;We will use this command only if we know that the filesystem for that partition is ext4, if so that command with &lt;strong&gt;-n&lt;/strong&gt; option wouldn’t create filesystem on the partition but it will run as if he would done it’s process on the disk, so in that case we will be able to see the blocks and use the numbers of the super block on the &lt;strong&gt;fsck&lt;/strong&gt; for trying to fixing the filesystem.&lt;/p&gt;
+
+&lt;p&gt;After we connect the device to our Linux and we run &lt;strong&gt;fdisk&lt;/strong&gt; successfully and created partition and we format the filesystem with &lt;strong&gt;mkfs&lt;/strong&gt; and we mount the disk for file system point, we can find information about the disk more quickly by using &lt;strong&gt;tune2fs&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;p&gt;This &lt;strong&gt;tune2fs&lt;/strong&gt; will bring us information such as the UUID, the mount point, filesystem features, mount time and even the MAX mount count we saw at the &lt;strong&gt;fstab&lt;/strong&gt; file, you also be able to see how much time this disk was mounted, so if we set the MAX mount to be 5 mounts before the disk checking will done and we mount the disk 6 time, on the next boot up it will run fsck on that disk and the mount counter on &lt;strong&gt;tune2fs&lt;/strong&gt; will be 0.&lt;/p&gt;
+
+&lt;p&gt;We also can use &lt;strong&gt;debugfs&lt;/strong&gt; to get more information  about the device, if we run that tool we will be in debug like system, inside of it if we type &lt;strong&gt;ls&lt;/strong&gt; it will bring us more details then the normal &lt;strong&gt;ls&lt;/strong&gt; done, we also can type &lt;strong&gt;lsdel&lt;/strong&gt; which bring us all file in that device that was delited, normally you wouldn’t to see anything becouse &lt;strong&gt;rm&lt;/strong&gt; do greate job of deleting file.&lt;/p&gt;
+
+&lt;p&gt;We also can specified what is the superblock we want to read and what is the size of block with the following command:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;debugfs -b 1024 -s 0 /dev/sdb1
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;The &lt;strong&gt;-b&lt;/strong&gt; option stend for block size, the &lt;strong&gt;-s&lt;/strong&gt; stand for superblock which in my case is 0, this is mean that I trying to read superblock 0 while the size is 1024 for block to read.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/lpic2/debugfs.png&quot; alt=&quot;LPIC2 Post&quot; /&gt;
+&lt;strong&gt;Figure 123&lt;/strong&gt; The debugfs tool.&lt;/p&gt;
+
+&lt;p&gt;You can also run &lt;strong&gt;debugfs&lt;/strong&gt; without parameters and you be able to debug the disk, in my case I just want to show you how can you check a specific superblock in the disk.&lt;/p&gt;
+
+&lt;p&gt;So far we talk about ext2, ext3 and ext4, we have more filesystem type like &lt;strong&gt;btrfs&lt;/strong&gt; which is what I want to display now, this &lt;strong&gt;btrfs&lt;/strong&gt; have more features then we have in ext4, like support in more large file zise like 16 EiB on disk, which is 2^64 byte which is realy big, it also support RAID functionality, and snapshotting and more feature then we saw so far.&lt;/p&gt;
+
+&lt;p&gt;First of all let’s talk about the RAID functionality, we will view on the RAID in the next chapter also but the basic of it is that this RAID can help to do some backup or more likely to distribute the data on the drives which can be handy if one or more of the data is corrupted, because if on disk went done, you still have data that you can use on another disk, we will talk about that later on, but right know you need to know that &lt;strong&gt;btrfs&lt;/strong&gt; support in RAID in such of thing that we can adding more disk to the system which we have RAID on it, I mean more devices can be added after the filesystem (which is btrfs) was created.&lt;/p&gt;
+
+&lt;p&gt;To make &lt;strong&gt;btrfs&lt;/strong&gt; filesystem we can use the &lt;strong&gt;mkfs.btrfs&lt;/strong&gt; command and we can run that command on multiple devices like as follow:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;mkfs.btrfs /dev/sda /dev/sdb /dev/sdc /dev/sdd
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;If we want to use &lt;strong&gt;btrfs&lt;/strong&gt; for run snapshotting on the disk before we will make some changes for the system, there is a simple way to make backup and that allow us to have the exact files on other folder.&lt;/p&gt;
+
+&lt;p&gt;At first we mount our &lt;strong&gt;btrfs&lt;/strong&gt; to mount point which is in my case &lt;em&gt;/mnt/btrfs&lt;/em&gt;.&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;mount -t btrfs /dev/sdb1 /mnt/btrfs
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Now we need to create something that called &lt;strong&gt;subvalume&lt;/strong&gt;, which we can use that for snapshotting as we proceed foreword.&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;btrfs subvalume create root
+btrfs subvalume create home
+btrfs subvalume create snapshot
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;After that if we run &lt;code class=&quot;highlighter-rouge&quot;&gt;ls&lt;/code&gt; we will can see that folders that we created, now let’s say that we have many files on those folder and we want to snapshot that, so we can backup the files with the following command.&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;btrfs subvalume snapshot home ./snapshot/190320_snap
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;In this case I run snapshot for my &lt;em&gt;home&lt;/em&gt; directory and that folder created under snapshot folder with the name 190330_snap which stand for &lt;em&gt;19.03.2020 snapshot&lt;/em&gt;, if I had some truble with the home directory I can use my 190320_snap and restore from that files as needed.&lt;/p&gt;
+
+&lt;p&gt;You have also more two command that can be use to delete subvalume or list of all your subvalume:&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;btrfs subvalume delete ./snapshot/190320_snap
+btrfs subvalume list /mnt/btrfs
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;You can also find more information in the &lt;a href=&quot;https://ramsdenj.com/2016/04/05/using-btrfs-for-easy-backup-and-rollback.html&quot;&gt;ramsdenj.com&lt;/a&gt;, but you may want to know how to specified the btrfs on the fstab file, because if you write at the option defaults or something else that we saw earlier in EXT this will not work, the option you need to write at fstab file is as follow:&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;/dev/sdb1  /mnt/btrfs    btrfs   rw,noatime,discard,ssd,space_cache    0 0
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Please remember that btrfs have it’s own way to check and repair error, you can’t use &lt;strong&gt;fsck&lt;/strong&gt; tool for that kind of filesystem, and the same principle on the &lt;strong&gt;XFS&lt;/strong&gt; filesystem, let’s format the sdb device for XFS and after that you can see that I tried to run fsck.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/lpic2/xfs.png&quot; alt=&quot;LPIC2 Post&quot; /&gt;
+&lt;strong&gt;Figure 124&lt;/strong&gt; The xfs file system by using fsck.&lt;/p&gt;
+
+&lt;p&gt;You can see that it’s can’t read the superblock, so for make checking on XFS we will use the following:&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;xfs_repair -n /dev/sdb1
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;We also can use &lt;code class=&quot;highlighter-rouge&quot;&gt;xfs_info&lt;/code&gt; for finding more information about that disk, this tool can give use information like bzise and block size, we also have the option to use xfs_check for checking whether the XFS filesystem is consistent.&lt;/p&gt;
+
+&lt;p&gt;You also need to be aware about SMART for the LPIC2 exam, SMART are stand for Self-Monitoring and Reporting Technology System, we have the &lt;strong&gt;smartctl&lt;/strong&gt; and &lt;strong&gt;smartd&lt;/strong&gt;, the first one are use for scan devices and print the information about them, the second one is a deamon that will attempt to enable SMARTmonitoring and polls these and SCSI devices every 30 minutes.&lt;/p&gt;
+
+&lt;p&gt;SMART are technology that build in the drive, so the &lt;strong&gt;smartctl&lt;/strong&gt; and &lt;strong&gt;smartd&lt;/strong&gt; are just tool that can be use to access that disk and bring a various log for us, but in case you drive didn’t support SMART those tools are useless for you, mostly the SMART can be found on ATA and SCSI drive, in case you have those drive you need to install the package that called smartmontools&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;sudo apt-get install smartmontools
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;If we use the &lt;strong&gt;smartctl&lt;/strong&gt; we can check to see information about the disk by using the following command:&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;smartctl --test=short /dev/sda
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;This command will produce a short test on the disk, you have also a long one but let’s look on that one, this will tell you that the test is run and how much time it’s gonna take, mostly it tells you that you must wait 1 minutes for test to complete and it will run in the back ground.&lt;/p&gt;
+
+&lt;p&gt;After it finish it will bring you the data collection for the drive, like how much time the hard drive are power on, program failed count, Report Uncorrect for error that found on the disk and more information that can give us a clue what is the status of our disk.&lt;/p&gt;
+
+&lt;p&gt;We also have the file on the following directory &lt;em&gt;/etc/default/smartmontools&lt;/em&gt;, on that file we can uncomment the the line who related to smartd start on boot time, if we uncomment that line, the check for the disk will run every time we will boot the PC, and if it will find any errors on the disk it will email us about the information it found.&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;start_smart=yes
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;To start the smartd we just need to run &lt;code class=&quot;highlighter-rouge&quot;&gt;service smartmontools start&lt;/code&gt; which will bring up that deamon and this will run in the background and look for error or bad information that we need to be aware for.&lt;/p&gt;
+
+&lt;p&gt;There is more filesystem type that we need to know for the LPIC2 exam which is ZFS which was develop by Sum Microsystems, correctly only Ubuntu support that and offers kernel integration for ZFS. We have alot of command that can be use for ZFS type, such as &lt;code class=&quot;highlighter-rouge&quot;&gt;zpool list -v&lt;/code&gt; which can show us the pools, the pools are the logical volume managment and can consist out of single or multiple disks. We can add for a one pool many disks so that can be handy in case of data recovery.&lt;/p&gt;
+
+&lt;p&gt;We also can see the status of the pool by running the follow up command:&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;sudo zpool status -v
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Did you know that we have the option to mount disk manly from the network automatically by connect to that directory?&lt;/p&gt;
+
+&lt;p&gt;By using &lt;strong&gt;autofs&lt;/strong&gt; we can do just that, we run configuration of autofs and only when we trying to connect the nfs server directory, only than this directory will mount on our system and we will be able to see every file on that directory, what we need to achieve that is first of all install autofs and setup the configuration file, on the server side we need to make a shared folder for nfs technologies.&lt;/p&gt;
+
+&lt;p&gt;So, let’s start on the server side, I am running Ubuntu 18 on vbox, we need to install the following:&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;sudo apt install nfs-kernel-server
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;This command will install the nfs as server side and we can use that to allow users connect for nfs folders, now we need to create folder which will be use as nfs folder and set to it permission and user/group.&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;mkdir /home/guy/files
+chown nobody:nogroup /home/guy/files
+chmod 777 /home/guy/files
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Now we need to create export configuration for this folder, in this export we will specify the path to the nfs folder and the source IP client that will be able to connect to this folder.&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;sudo vi /etc/exports
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/lpic2/exports.png&quot; alt=&quot;LPIC2 Post&quot; /&gt;
+&lt;strong&gt;Figure 125&lt;/strong&gt; The exports file that contain the export folder.&lt;/p&gt;
+
+&lt;p&gt;As you can see I specified the path to that folder and set the source IP which be allow to connect that folder remotely, this is the IP of my client, you also can see that this folder is with &lt;strong&gt;rw&lt;/strong&gt; permission and in &lt;strong&gt;sync&lt;/strong&gt; state, please remember that the server IP in my case is 172.16.0.192.&lt;/p&gt;
+
+&lt;p&gt;Now, after we saved the exports file we need to run another command for enable our changes, and restart the &lt;strong&gt;nfs-kernel-server&lt;/strong&gt; service.&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;sudo exportfs -arvf
+sudo service nfs-kernel-server restart
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;And this is it, now we have server that allow the &lt;em&gt;files&lt;/em&gt; folder to be export as nfs and allow to our client to connect it, so let’s start setup the &lt;strong&gt;autofs&lt;/strong&gt; on our client.&lt;/p&gt;
+
+&lt;p&gt;First of all in my client I need to install the autofs&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;sudo apt install autofs
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;After that we can found that we have new files on etc folder which all of them contain configuration for automatically mount filesystem to our machine.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/lpic2/autofs.png&quot; alt=&quot;LPIC2 Post&quot; /&gt;
+&lt;strong&gt;Figure 126&lt;/strong&gt; The configuration file for autofs.&lt;/p&gt;
+
+&lt;p&gt;We interested in the &lt;strong&gt;auto.nfs&lt;/strong&gt; file and &lt;strong&gt;auto.master&lt;/strong&gt; file, the master file is the main configuration for our auto mount folders, so we need to setup new one for nfs folder, in my case I setup the following:&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;/home/zwerd/nfs /etc/auto.nfs
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;The path to /home/zwerd/nfs is the folder that will contain the mount folder which will gonna be &lt;strong&gt;files&lt;/strong&gt; folder as we saw on my server and the configuration for mounting can be found on the /etc/auto.nfs file.&lt;/p&gt;
+
+&lt;p&gt;If we go to the auto.nfs file we will find one line that setup the mount point as follow:&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;files 172.16.0.192:/home/guy/files
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;In that file we specified &lt;strong&gt;files&lt;/strong&gt; which going to be the mount point under &lt;strong&gt;nfs&lt;/strong&gt; folder in out system, that mount pointer point to my server which is 172.16.0.192 and contain the the path to the &lt;strong&gt;files&lt;/strong&gt; folder on the server.&lt;/p&gt;
+
+&lt;p&gt;Now we need to restart the autofs service and after that we will be able to connect to &lt;strong&gt;files&lt;/strong&gt; folder and see it’s content.&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;sudo service autofs restart
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/images/lpic2/automount.gif&quot; alt=&quot;LPIC2 Post&quot; /&gt;
+&lt;strong&gt;Figure 127&lt;/strong&gt; Auto mount on my client.&lt;/p&gt;
+
+&lt;p&gt;For the EXAM we need to know more thing like ISO files and encription. The original &lt;strong&gt;ISO 9660&lt;/strong&gt; is being around for a long time, in that format there was an issue that at first it didn’t support for long filename, so for support this the &lt;strong&gt;Joliet&lt;/strong&gt; extension came alone which have a support for longer filenames, but Joliet doesn’t support in permission which mean that if we make some CD with this extension we can’t store the permissions on the disk, so for solve it the &lt;strong&gt;Rock Ridge&lt;/strong&gt; can be use and allow us to use permissions on the CD, the last extension of ISO 9660 is &lt;strong&gt;El Torito&lt;/strong&gt; which allow us to make a bootable disk.&lt;/p&gt;
+
+&lt;p&gt;Please remember that ISO 9660 is for CD’s only, the &lt;strong&gt;UDF&lt;/strong&gt; (Universal Disk Format) can support in CD and also DVD. In Linux world we have an utilities that can help us to create &lt;strong&gt;iso&lt;/strong&gt; file and burn that to the disk.&lt;/p&gt;
+
+&lt;p&gt;Let’s create our own CD dile image, so in my case I have the folder &lt;strong&gt;Jack and Jill (2011)&lt;/strong&gt; that contain… Guess what… Jack and Jill of course which is Adam Sendler movie, and let’s say that I want to burn it to the disk, I can simply make an iso file by using the follow up command:&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;mkisofs -r -o jeck_and_jill.iso ./Downloads/Jack\ and\ Jill\ \(2011\)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;In this command I use the option &lt;strong&gt;-r&lt;/strong&gt; which tell it to use &lt;strong&gt;Rock Ridge&lt;/strong&gt; and save the permission on the output file, the output file name gonna be jeck_and_jill.iso and the input is of course the path to the movie folder.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/lpic2/isoimage.png&quot; alt=&quot;LPIC2 Post&quot; /&gt;
+&lt;strong&gt;Figure 128&lt;/strong&gt; My new iso file in my downloads folder.&lt;/p&gt;
+
+&lt;p&gt;If we need to make a bootable image we can use &lt;strong&gt;-b&lt;/strong&gt; option, or if we want to burn ir to DVD file we can use the &lt;strong&gt;-udf&lt;/strong&gt; option, in my case I haven’t manual page for this command but I can run &lt;strong&gt;mkisofs –help&lt;/strong&gt; to see that options,&lt;/p&gt;
+
+&lt;p&gt;Let’s talk about encrypted drive, in case you want to make sure your data is safe, you can encript the device who contain the data, in that way is someone will steal your disk, you can be sure that the data itself are safe and encrypted, for that situation we can use &lt;strong&gt;cryptsetup&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;p&gt;This &lt;strong&gt;cryptsetup&lt;/strong&gt; can be use on the drive we choose in order to encrypt that drive, we just need to run some of the command we saw before, I will run it quickly.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/lpic2/mounted.png&quot; alt=&quot;LPIC2 Post&quot; /&gt;
+&lt;strong&gt;Figure 129&lt;/strong&gt; You can see I have mounted drive.&lt;/p&gt;
+
+&lt;p&gt;I have mounted partition from my sdb drive which is sdb1, you can see that the filesystem type is XFS, now I need to run the following command:&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;sudo cryptsetup -v -y luksFormat /dev/sdb1
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/lpic2/cryptsetup.png&quot; alt=&quot;LPIC2 Post&quot; /&gt;
+&lt;strong&gt;Figure 130&lt;/strong&gt; cryptsetup encrypt my drive.&lt;/p&gt;
+
+&lt;p&gt;This command will ask for password and encrypt the all drive, the &lt;strong&gt;-v&lt;/strong&gt; stand for verbose, &lt;strong&gt;-y&lt;/strong&gt; stand for verified-pass which mean that by using that option it ask for password twice and if we miss typing he will alert it, by using that command the drive will be encrypted and now if we connect that divice again we need to run the following command to open it again.&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;sudo cryptsetup luksOpen /dev/sdb1 sdb1
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/lpic2/cryptsetupopen.png&quot; alt=&quot;LPIC2 Post&quot; /&gt;
+&lt;strong&gt;Figure 139&lt;/strong&gt; cryptsetup open my drive.&lt;/p&gt;
+
+&lt;p&gt;Now we just need to mount the drive and we can use it, every time we connect the drive even on the GUI like Ubuntu he will ask for password, it he dosn’t we can alwase use this open command for opening that drive.&lt;/p&gt;</content><author><name>Guy Zwerdling</name></author><category term="Linux" /><summary type="html">Today morning I received a message from LPI that my certificate will expire in 9 months and so it is time to start studying for the second Linux certification, this will advance me to the third Linux information security certification that will include what I am looking for, this certification is split in two</summary></entry><entry><title type="html">OSCP Certification Journey</title><link href="http://localhost:4000/2019/09/20/oscp_certificate.html" rel="alternate" type="text/html" title="OSCP Certification Journey" /><published>2019-09-20T00:00:00+03:00</published><updated>2019-09-20T00:00:00+03:00</updated><id>http://localhost:4000/2019/09/20/oscp_certificate</id><content type="html" xml:base="http://localhost:4000/2019/09/20/oscp_certificate.html">&lt;p&gt;I set myself a lot of goals this year to advance to the next level, among all the goals being the OSCP certification from Offensive Security. It’s been a certification I’ve been talking about for years, since 2012, it’s really time to sit down and do that certification. It all started when I was writing in a forum on computer communications, where I presented the dilemma, whether to study information security of companies that are involved in the field or something else when my goal is to be an expert in the cyber world.&lt;/p&gt;
 
 &lt;p&gt;Eventually, someone responded to me, depending on what I want to learn, whether I want to be on the attacker or on the defensive side, he introduced a number of certifications and wrote about each certification separately. Among all the certifications he presented were Cisco certificates, Check Point certificates, and all sorts of large companies that manufacture and market security sites that protect the entire corporate network.&lt;/p&gt;
 

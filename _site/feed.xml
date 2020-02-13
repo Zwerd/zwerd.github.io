@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.5">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2020-02-04T19:09:59+02:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Zwerd</title><subtitle>A stunning blog of freaking PT warrior</subtitle><author><name>Guy Zwerdling</name></author><entry><title type="html">LPIC2 Certification Journey</title><link href="http://localhost:4000/2019/11/19/lpic2_certificate.html" rel="alternate" type="text/html" title="LPIC2 Certification Journey" /><published>2019-11-19T00:00:00+02:00</published><updated>2019-11-19T00:00:00+02:00</updated><id>http://localhost:4000/2019/11/19/lpic2_certificate</id><content type="html" xml:base="http://localhost:4000/2019/11/19/lpic2_certificate.html">&lt;p&gt;Today morning I received a message from LPI that my certificate will expire in 9 months and so it is time to start studying for the second Linux certification, this will advance me to the third Linux information security certification that I will search for, this certification is divided into two and the two parts are marked by two different codes: 201-450, 202-450&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.5">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2020-02-09T15:23:32+02:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Zwerd</title><subtitle>A stunning blog of freaking PT warrior</subtitle><author><name>Guy Zwerdling</name></author><entry><title type="html">LPIC2 Certification Journey</title><link href="http://localhost:4000/2019/11/19/lpic2_certificate.html" rel="alternate" type="text/html" title="LPIC2 Certification Journey" /><published>2019-11-19T00:00:00+02:00</published><updated>2019-11-19T00:00:00+02:00</updated><id>http://localhost:4000/2019/11/19/lpic2_certificate</id><content type="html" xml:base="http://localhost:4000/2019/11/19/lpic2_certificate.html">&lt;p&gt;Today morning I received a message from LPI that my certificate will expire in 9 months and so it is time to start studying for the second Linux certification, this will advance me to the third Linux information security certification that I will search for, this certification is divided into two and the two parts are marked by two different codes: 201-450, 202-450&lt;/p&gt;
 
 &lt;p&gt;In this post I am going to go over each topic as listed on the LPI website, which means I will go over each tool and present it here, in each chapter I will show how to use these tools to get the same information that the subject of the test should deal with, at the end of each chapter I will present a challenge From most of the commands we learned and challenged you and me how to get the information to succeed.&lt;/p&gt;
 
@@ -1341,7 +1341,233 @@ sudo service nfs-kernel-server restart
 &lt;p&gt;&lt;img src=&quot;/assets/images/lpic2/cryptsetupopen.png&quot; alt=&quot;LPIC2 Post&quot; /&gt;
 &lt;strong&gt;Figure 139&lt;/strong&gt; cryptsetup open my drive.&lt;/p&gt;
 
-&lt;p&gt;Now we just need to mount the drive and we can use it, every time we connect the drive even on the GUI like Ubuntu he will ask for password, it he dosn’t we can alwase use this open command for opening that drive.&lt;/p&gt;</content><author><name>Guy Zwerdling</name></author><category term="Linux" /><summary type="html">Today morning I received a message from LPI that my certificate will expire in 9 months and so it is time to start studying for the second Linux certification, this will advance me to the third Linux information security certification that will include what I am looking for, this certification is split in two</summary></entry><entry><title type="html">OSCP Certification Journey</title><link href="http://localhost:4000/2019/09/20/oscp_certificate.html" rel="alternate" type="text/html" title="OSCP Certification Journey" /><published>2019-09-20T00:00:00+03:00</published><updated>2019-09-20T00:00:00+03:00</updated><id>http://localhost:4000/2019/09/20/oscp_certificate</id><content type="html" xml:base="http://localhost:4000/2019/09/20/oscp_certificate.html">&lt;p&gt;I set myself a lot of goals this year to advance to the next level, among all the goals being the OSCP certification from Offensive Security. It’s been a certification I’ve been talking about for years, since 2012, it’s really time to sit down and do that certification. It all started when I was writing in a forum on computer communications, where I presented the dilemma, whether to study information security of companies that are involved in the field or something else when my goal is to be an expert in the cyber world.&lt;/p&gt;
+&lt;p&gt;Now we just need to mount the drive and we can use it, every time we connect the drive even on the GUI like Ubuntu he will ask for password, it he dosn’t we can alwase use this open command for opening that drive.&lt;/p&gt;
+
+&lt;h2 id=&quot;chapter-4&quot;&gt;Chapter 4&lt;/h2&gt;
+&lt;h2 id=&quot;topic-204-advanced-storage-device-administration&quot;&gt;Topic 204: Advanced Storage Device Administration.&lt;/h2&gt;
+
+&lt;p&gt;This objective includes using and configuring RAID 0, 1 and 5, so let’s start and talk about RAID. This RAID technology in the present help to make live backup every time we write data to the disk, this is mean that if one of the disks that the RAID setup on die, we have a backup on the others disk and the data will never being corrupted, this is a very cool staff, but you have to be aware of it that not all of the RAID perform such data saving.&lt;/p&gt;
+
+&lt;p&gt;RAID 0 is the first one and not contain any sort of backup, what we do with that RAID is to use RAID on top of two or more disk and every data that go down and save in with RAID0 it will save random data on random disks, so we have no much control over RAID 0 to save data when some of the disk found unreadable.&lt;/p&gt;
+
+&lt;p&gt;RAID 1 however have backup for every data you save on the disk, let’s say that we have two disk and on every disk we setup only one partition, after that we run RAID 1 a top on that and start to save data on the RAID 1, in that case every data are duplicated and save twice, one on the first disk and one on the second, in that way if disk one was corrupted we have full backup on disk two.&lt;/p&gt;
+
+&lt;p&gt;RAID 5 for me is more complicated to understand but I will try the best to explain it down, RAID 5 can only be used when we have 3 or more disk, on top of it we activate RAID 5 and the data can be save over that disks with plus data that called &lt;strong&gt;parity&lt;/strong&gt;, this parity is the sum in XOR which mean the following:&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;0 xor 0 = 0
+0 xor 1 = 1
+1 xor 1 = 0
+1 xor 0 = 1
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;So let’s say that we have three hard drive and on top of it we activate RAID 5, what actually gonna append is that the data is save on the disk as a packets, every packets can contain the same amount of bits, so let’s say that every packet contain 4 bit and we have data that we want to save that are is 8 bits, so the first packet (with 4 bits) are save on disk one, the second packet save on disk two, on the disk three the RAID calculate the XOR sum of each of the data we daved, so in that case if one of the disk goes down, we still have half of the data and we can use the parity to calculate the lost data.&lt;/p&gt;
+
+&lt;p&gt;You can see visual example under that &lt;a href=&quot;https://www.youtube.com/watch?v=y71Xf0C3Xf8&quot;&gt;link&lt;/a&gt;, after you have the knowledge of how RAID 0, 1 and 5 works we can start to setup it on our virtual machine.&lt;/p&gt;
+
+&lt;p&gt;Let’s create RAID by using our disk, in my case I have two disks that I can use &lt;code class=&quot;highlighter-rouge&quot;&gt;/dev/sdd&lt;/code&gt; and &lt;code class=&quot;highlighter-rouge&quot;&gt;/dev/sde&lt;/code&gt; each is in side of 4M, first of all we check the following file to know if we have any RAID on the system:&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;cat /proc/mdstat
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/lpic2/mdstat.png&quot; alt=&quot;LPIC2 Post&quot; /&gt;
+&lt;strong&gt;Figure 140&lt;/strong&gt; RAID status in mdstat file.&lt;/p&gt;
+
+&lt;p&gt;If we have some RAID it will be list in that file, now we need to run fdisk in order to prepare our disks for RAID use, so we run the following command:&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;sudo fdisk /dev/sdd
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;At first we will going to create partition by using the &lt;strong&gt;n&lt;/strong&gt; option and we proceed all of the queries it jump on the screen, after we finish we need to change the partition from Linux to support RAID.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/lpic2/fdisk.png&quot; alt=&quot;LPIC2 Post&quot; /&gt;
+&lt;strong&gt;Figure 141&lt;/strong&gt; Create new primary partition.&lt;/p&gt;
+
+&lt;p&gt;In my case you can see that I have some error, this is because my old partition on that disk was with ext2 filesystem so this is why you see this signature. Now we need to change this to support RAID, we need to know the code number for that so we can use &lt;strong&gt;l&lt;/strong&gt; option.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/lpic2/fdisklist.png&quot; alt=&quot;LPIC2 Post&quot; /&gt;
+&lt;strong&gt;Figure 142&lt;/strong&gt; list the option we have with fdisk.&lt;/p&gt;
+
+&lt;p&gt;You can see that the type for RAID is fd, so we need to insert &lt;strong&gt;t&lt;/strong&gt; to change the type of the partition and after that type &lt;strong&gt;fd&lt;/strong&gt; to choose the RAID and now we need to do is to save that changes, we need also do the same for /dev/sde.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/lpic2/fdisksave.png&quot; alt=&quot;LPIC2 Post&quot; /&gt;
+&lt;strong&gt;Figure 143&lt;/strong&gt; Save the configuration we done.&lt;/p&gt;
+
+&lt;p&gt;After we finish to setup both of the disks, we will find these new partition by using ls over &lt;code class=&quot;highlighter-rouge&quot;&gt;dev&lt;/code&gt; and we will find that we have &lt;code class=&quot;highlighter-rouge&quot;&gt;sdd1&lt;/code&gt; and &lt;code class=&quot;highlighter-rouge&quot;&gt;sde1&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/lpic2/lsfordev.png&quot; alt=&quot;LPIC2 Post&quot; /&gt;
+&lt;strong&gt;Figure 144&lt;/strong&gt; My new partitions.&lt;/p&gt;
+
+&lt;p&gt;We need also to run &lt;strong&gt;mdadm&lt;/strong&gt; tool for setup the RAID drive, in this command we also need to specify what RIAD level is gonna be, 0, 1 or 5 so you can run the following:&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;mdadm --create --verbose /dev/md0 --level=1 --raid-devices=2 /dev/sdd1 /dev/sde1
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;In this command we create new RAID so this is why we use &lt;strong&gt;–create&lt;/strong&gt; option, we also want to see more output so we using &lt;strong&gt;–verbose&lt;/strong&gt; option, after that we choose the device name, please note that this command go and create the md0 for us, we also choose the level 1 which is RAID 1, but please remember that if you choose RAID level 3 you need to choose at least three devices, the next option is &lt;strong&gt;–raid-devices=2&lt;/strong&gt; which let the mdadm to use two devices in that RAID.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/lpic2/mdadm.png&quot; alt=&quot;LPIC2 Post&quot; /&gt;
+&lt;strong&gt;Figure 145&lt;/strong&gt; Using mdadm command with super-user.&lt;/p&gt;
+
+&lt;p&gt;After that the &lt;code class=&quot;highlighter-rouge&quot;&gt;md0&lt;/code&gt; will created and now we need just to mount that normally and start to use it, so first of all we use &lt;strong&gt;mkfs.ext4&lt;/strong&gt; for setup the filesystem type and after that &lt;strong&gt;mount&lt;/strong&gt; as ext4 to some new folder, in my case this is the RAID folder under &lt;em&gt;/mnt&lt;/em&gt; directory.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/lpic2/mountraid.png&quot; alt=&quot;LPIC2 Post&quot; /&gt;
+&lt;strong&gt;Figure 146&lt;/strong&gt; Mount the md0 to RAID folder.&lt;/p&gt;
+
+&lt;p&gt;And this is it, we can use it and write data to it normally like as we use one device, we can now to run mdadm to check details and bring it to another file configuration for every boot time our system contain the RAID by default (exactly what we done by using fstab).&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/lpic2/mdadmdetail.png&quot; alt=&quot;LPIC2 Post&quot; /&gt;
+&lt;strong&gt;Figure 147&lt;/strong&gt; The details of all our RAID on the system.&lt;/p&gt;
+
+&lt;p&gt;This information need to be save on &lt;strong&gt;/etc/mdadm.conf&lt;/strong&gt; file and this will make the system to load the RAID for us by default.&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;mdadm --detail --scan &amp;gt; /etc/mdadm.conf
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Now I want to talk about the hard disk, we saw so far the hard disk, memory, cpu and such on chapter 0 but now we need to have more knowledge about that so let’s dive in. On the LPIC2 it’s say that we need to know about the DMA, this is short for Direct Memory Access and it’s can be use to help to improve performance over the PC, in the computer we have hard disk, memory, and processor, in the not so far past when we want to load data from the hard disk to the memory the processor start to run and load the data from the disk to the memory, in that case every action that we done on our computer would take a long time because the processor was busy, let’s take for example case that we want burn data to our optical disk, in that case the processor need to take data from the hard disk, load it to memory and use it to burn it down, this would take a 20 minutes to finish to burn just one file in size of 600M, which is very frustrating, consider that in our days everything works fast, so to solve it there is a very simple solution, we need to find a way to leave the processor out of the picture, so the DMA came alone and it allow direct access from the disk to the memory without needed to use the processor, so if your PC are slow we may want to check if the DMA functionality are enable on your PC.&lt;/p&gt;
+
+&lt;p&gt;for doing just that we need to use &lt;strong&gt;hdparm&lt;/strong&gt;, this tool can give us information about the IDE drive, which one of them is if the DMA are active or not and it also can give us information of performance to check the buffer reading or disk reading in seconds.&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;sudo hdparm -t /dev/sda6
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;The option &lt;strong&gt;-t&lt;/strong&gt; is used for perform device read timings and with that data we can know how much speed it takes to read data from the disk and how much data in short amount of time, this command print out the following line:&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;
+/dev/sda6:
+ Timing buffered disk reads: 424 MB in  3.00 seconds = 141.20 MB/sec
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;You can see that 424 MB was read from the disk in timing of 3 second with is very fast, we also can use the &lt;strong&gt;-t&lt;/strong&gt; option which perform cache read timings which is the memory, so this should be faster then the disk reading by using the following command:&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;sudo hdparm -T /dev/sda6
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;In my case the output was as follow:&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;/dev/sda6:
+ Timing cached reads:   7568 MB in  2.00 seconds = 3790.49 MB/sec
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;You can see clearly that he read more data from my cached in very short time then we done on the disk. let’s say that you run the buffer disk check and it print out the following line:&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;Timing buffered disk reads:    8 MB in  3.16 seconds =   2.53 MB/sec
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;This is mean that we have some problem here, so what can we do is to run the following command:&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;sudo hdparm -i /dev/sda6
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;This command will print out some information about the disk, module, buffertype and also DMA, in my case this is what it print out for me:&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;/dev/sda6:
+
+ Model=SAMSUNG MZ7TE256HMHP-00000, FwRev=EXT0100Q, SerialNo=S1FENSAG301277
+ Config={ Fixed }
+ RawCHS=16383/16/63, TrkSize=0, SectSize=0, ECCbytes=0
+ BuffType=unknown, BuffSize=unknown, MaxMultSect=16, MultSect=16
+ CurCHS=16383/16/63, CurSects=16514064, LBA=yes, LBAsects=500118192
+ IORDY=on/off, tPIO={min:120,w/IORDY:120}, tDMA={min:120,rec:120}
+ PIO modes:  pio0 pio1 pio2 pio3 pio4
+ DMA modes:  mdma0 mdma1 mdma2
+ UDMA modes: udma0 udma1 udma2 udma3 udma4 udma5 *udma6
+ AdvancedPM=no WriteCache=enabled
+ Drive conforms to: unknown:  ATA/ATAPI-2,3,4,5,6,7
+
+ * signifies the current active mode
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;You can see the under UDMA modes there is an asterisk next to the udma6, UDMA is an Ultra DMA which is fster then the normal DMA, you can find more information about the modes in &lt;a href=&quot;https://en.wikipedia.org/wiki/UDMA&quot;&gt;that link&lt;/a&gt; and how faster every mode from the previous one.&lt;/p&gt;
+
+&lt;p&gt;So in my case the UDMA is active and this is why every thing work better and fast, but if in your case the DMA is note in active mode then you need to run the following command:&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;sudo hdparm -d 1 /dev/sda6
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;In my case if I trying to run this command it print me the following error:&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;/dev/sda6:
+ HDIO_GET_DMA failed: Inappropriate ioctl for device
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;This is because I am using virtual machine, so this is why it not working for me, in my case I need to run other command and we will get to it shortly. So if you have IDE you need to use those command, if you want to make it to be enable automatically on boot time you need to setup in on the &lt;code class=&quot;highlighter-rouge&quot;&gt;/etc/hdparm.conf&lt;/code&gt; file with the following configuration:&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;/dev/hdc {
+dma = on
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;In &lt;strong&gt;hdparm&lt;/strong&gt; you also have an option for specific device, like &lt;strong&gt;-H&lt;/strong&gt; which will be use for Hitachi only to read temperature from drive, and also &lt;strong&gt;-J&lt;/strong&gt; for Western DIgital drive, please remember that if you using hdparm on virtual machine it not gonna work because it is virtual, this tool is for hard drive.&lt;/p&gt;
+
+&lt;p&gt;The &lt;strong&gt;sdparm&lt;/strong&gt; utility is the same as hdparm but it used for accesses SCSI mode page. We may want to change some parm of the device, like &lt;em&gt;/proc/interrupts&lt;/em&gt; which will give us information about the device interrupt value that be use to interact with the kernel.&lt;/p&gt;
+
+&lt;p&gt;I want to clarify more about the IDE and ATA, PATA, SATA, this all are the same, they equally the same principles of ATA, what I understand so far that every one of them is like advance version of ATA. Also every one of them have connector that they oprate, like in RJ-45 that operate by ethernet, I don’t know it the same principle, but we have SATA for example and we also have SATA connector, the SATA operate the connector.&lt;/p&gt;
+
+&lt;p&gt;SCSI is other world of connectors and other then the PATA or SATA operator, it work better with SSD, as much as I understand (you can leave here a comment if you think I am wrong) we have two type of disk, the first one is HDD which stand for Hard Disk Drive, it is an magnetic drive with metal arm that read and write data from the disk and to the disk, it most likely that you found on that kind of disk PATA port.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://images-na.ssl-images-amazon.com/images/I/61WLoLDRdLL._AC_SL1000_.jpg&quot; alt=&quot;LPIC2 Post&quot; /&gt;
+&lt;strong&gt;Figure 148&lt;/strong&gt; HDD .&lt;/p&gt;
+
+&lt;p&gt;There is a difference between PATA and SATA ports.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://i.ytimg.com/vi/lWkQW09xk3c/hqdefault.jpg&quot; alt=&quot;LPIC2 Post&quot; /&gt;
+&lt;strong&gt;Figure 149&lt;/strong&gt; PATA and SATA.&lt;/p&gt;
+
+&lt;p&gt;And you may find hdd with SATA port.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://kainucart.com/wp-content/uploads/2019/06/hdd-2-600x471.jpg&quot; alt=&quot;LPIC2 Post&quot; /&gt;
+&lt;strong&gt;Figure 150&lt;/strong&gt; HDD and it’s SATA ports.&lt;/p&gt;
+
+&lt;p&gt;Please note that SATA have it’s own cable and serial port that is different from the PATA.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://www.ferniefix.com/sites/default/files/answerguy-aug16_0.jpg&quot; alt=&quot;LPIC2 Post&quot; /&gt;
+&lt;strong&gt;Figure 151&lt;/strong&gt; SATA cables.&lt;/p&gt;
+
+&lt;p&gt;The SSD is different from HDD, it stand for Solid State Disk and it support very high performance, it more likely to find SSD with SAPA port, but I also found that there is a SSD that came with PATA connector.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://cdn.shopify.com/s/files/1/0703/8597/products/24f0e6c9-3b9c-5987-998c-e2164a4f4bbe.png?v=1496360927&quot; alt=&quot;LPIC2 Post&quot; /&gt;
+&lt;strong&gt;Figure 152&lt;/strong&gt; SDD with SATA port.&lt;/p&gt;
+
+&lt;p&gt;It’s more likely that you found SSD card with PCI connectors like as in the following image:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://www.topmarket.co.il/images/detailed/58/66640302_8196365174.jpg&quot; alt=&quot;LPIC2 Post&quot; /&gt;
+&lt;strong&gt;Figure 153&lt;/strong&gt; SDD with PCI Express.&lt;/p&gt;
+
+&lt;p&gt;This PCI express slot can be found on the mother board.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://qph.fs.quoracdn.net/main-qimg-b94c097ff4e38ec5fa9a2e9925849443.webp&quot; alt=&quot;LPIC2 Post&quot; /&gt;
+&lt;strong&gt;Figure 154&lt;/strong&gt; PCI Express bus on the mother board.&lt;/p&gt;
+
+&lt;p&gt;There is also NVM Express, is a specification for accessing SSD attached through the PCI Express bus, the driver for NVM driver are include in kernel version 3.3 and higher, NVMe devices can be found under */dev/nvme**.&lt;/p&gt;
+
+&lt;p&gt;So far we talk about the disk we can have on our computer, let’s now talk about the way we can make some changes about the filesystem on the disk. If you remember we get to know the &lt;strong&gt;tune2fs&lt;/strong&gt; tool which can be use to see the disk or more likely the partition on the disk by using the &lt;strong&gt;-l&lt;/strong&gt; option, we can also enable journaling on the partition with tune2fs by using the &lt;strong&gt;-j&lt;/strong&gt; option.&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;tune2fs -j /dev/sda6
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;We can also run option that related to the hard disk like &lt;strong&gt;-s&lt;/strong&gt; for sparse-super-flag, this option allow us to enable or disable the superblock, it is the same super block we saw by typing the following command:&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;sudo dumpe2fs /dev/sda6 | grep super
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;This will print me out thefollowing:&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;dumpe2fs 1.42.13 (17-May-2015)
+Filesystem features:      has_journal ext_attr resize_inode dir_index filetype needs_recovery extent flex_bg sparse_super large_file huge_file uninit_bg dir_nlink extra_isize
+  Primary superblock at 0, Group descriptors at 1-7
+  Backup superblock at 32768, Group descriptors at 32769-32775
+  Backup superblock at 98304, Group descriptors at 98305-98311
+  Backup superblock at 163840, Group descriptors at 163841-163847
+  Backup superblock at 229376, Group descriptors at 229377-229383
+  Backup superblock at 294912, Group descriptors at 294913-294919
+  Backup superblock at 819200, Group descriptors at 819201-819207
+  Backup superblock at 884736, Group descriptors at 884737-884743
+  Backup superblock at 1605632, Group descriptors at 1605633-1605639
+  Backup superblock at 2654208, Group descriptors at 2654209-2654215
+  Backup superblock at 4096000, Group descriptors at 4096001-4096007
+  Backup superblock at 7962624, Group descriptors at 7962625-7962631
+  Backup superblock at 11239424, Group descriptors at 11239425-11239431
+  Backup superblock at 20480000, Group descriptors at 20480001-20480007
+  Backup superblock at 23887872, Group descriptors at 23887873-23887879
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;As you can see this is a backup superblock, but let’s say that we didn’t need so many backup super block, we can change it by using the &lt;strong&gt;-s&lt;/strong&gt; of tune2fs tool for enabling it or disabling by using 0 or 1, which 1 tell him to enable and 0 is disable.&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;tune2fs -s 1 /dev/sda6
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;This is one of the options that tune2fs can do related to the hard drive, we also can use &lt;strong&gt;sysctl&lt;/strong&gt;, this tool we saw on chapter 0 if you remember and it can help us to display all the current setting on the kernel.&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;sysctl -a
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;This command will show us the all setting we have on the kernel, they store in the &lt;em&gt;/proc&lt;/em&gt; folder which we can use &lt;strong&gt;cat&lt;/strong&gt; for look on them like in the &lt;em&gt;/proc/interrupts&lt;/em&gt;, in this file we view the interrupts on the CPU&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/lpic2/interrupts.png&quot; alt=&quot;LPIC2 Post&quot; /&gt;
+&lt;strong&gt;Figure 155&lt;/strong&gt; The details of interrupts on our CPU.&lt;/p&gt;
+
+&lt;p&gt;For change setting we use &lt;strong&gt;sysctl&lt;/strong&gt;, we can enable or disable one drive or enother that related to the kernel and it is important to know all of that for the LPIC2 exam, just remember that this is the way that we can maniplate thing on the kernel that related to the hardware of our computer.&lt;/p&gt;
+
+&lt;p&gt;There is one thing you also need to know, it is the &lt;strong&gt;fstrim&lt;/strong&gt; which is use to discard unused blocks on a mounted filesystem, I saw many videos about that on youtube and all of them say that this is can be allow better performance on your system.&lt;/p&gt;
+
+&lt;p&gt;You can write the word discard (or “trim”) in the fstab file to allow it automatically mount and perform fstrim, but please note that in the man page is say that running  &lt;strong&gt;fstrim&lt;/strong&gt;  frequently,  or even using mount -o discard, might negatively affect the lifetime of poor-quality SSD devices.&lt;/p&gt;</content><author><name>Guy Zwerdling</name></author><category term="Linux" /><summary type="html">Today morning I received a message from LPI that my certificate will expire in 9 months and so it is time to start studying for the second Linux certification, this will advance me to the third Linux information security certification that will include what I am looking for, this certification is split in two</summary></entry><entry><title type="html">OSCP Certification Journey</title><link href="http://localhost:4000/2019/09/20/oscp_certificate.html" rel="alternate" type="text/html" title="OSCP Certification Journey" /><published>2019-09-20T00:00:00+03:00</published><updated>2019-09-20T00:00:00+03:00</updated><id>http://localhost:4000/2019/09/20/oscp_certificate</id><content type="html" xml:base="http://localhost:4000/2019/09/20/oscp_certificate.html">&lt;p&gt;I set myself a lot of goals this year to advance to the next level, among all the goals being the OSCP certification from Offensive Security. It’s been a certification I’ve been talking about for years, since 2012, it’s really time to sit down and do that certification. It all started when I was writing in a forum on computer communications, where I presented the dilemma, whether to study information security of companies that are involved in the field or something else when my goal is to be an expert in the cyber world.&lt;/p&gt;
 
 &lt;p&gt;Eventually, someone responded to me, depending on what I want to learn, whether I want to be on the attacker or on the defensive side, he introduced a number of certifications and wrote about each certification separately. Among all the certifications he presented were Cisco certificates, Check Point certificates, and all sorts of large companies that manufacture and market security sites that protect the entire corporate network.&lt;/p&gt;
 

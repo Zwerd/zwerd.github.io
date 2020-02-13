@@ -1438,3 +1438,433 @@ sudo cryptsetup luksOpen /dev/sdb1 sdb1
 **Figure 139** cryptsetup open my drive.
 
 Now we just need to mount the drive and we can use it, every time we connect the drive even on the GUI like Ubuntu he will ask for password, it he dosn't we can alwase use this open command for opening that drive.
+
+## Chapter 4
+## Topic 204: Advanced Storage Device Administration.
+
+This objective includes using and configuring RAID 0, 1 and 5, so let's start and talk about RAID. This RAID technology in the present help to make live backup every time we write data to the disk, this is mean that if one of the disks that the RAID setup on die, we have a backup on the others disk and the data will never being corrupted, this is a very cool staff, but you have to be aware of it that not all of the RAID perform such data saving.
+
+RAID 0 is the first one and not contain any sort of backup, what we do with that RAID is to use RAID on top of two or more disk and every data that go down and save in with RAID0 it will save random data on random disks, so we have no much control over RAID 0 to save data when some of the disk found unreadable.
+
+RAID 1 however have backup for every data you save on the disk, let's say that we have two disk and on every disk we setup only one partition, after that we run RAID 1 a top on that and start to save data on the RAID 1, in that case every data are duplicated and save twice, one on the first disk and one on the second, in that way if disk one was corrupted we have full backup on disk two.
+
+RAID 5 for me is more complicated to understand but I will try the best to explain it down, RAID 5 can only be used when we have 3 or more disk, on top of it we activate RAID 5 and the data can be save over that disks with plus data that called **parity**, this parity is the sum in XOR which mean the following:
+```
+0 xor 0 = 0
+0 xor 1 = 1
+1 xor 1 = 0
+1 xor 0 = 1
+```
+
+So let's say that we have three hard drive and on top of it we activate RAID 5, what actually gonna append is that the data is save on the disk as a packets, every packets can contain the same amount of bits, so let's say that every packet contain 4 bit and we have data that we want to save that are is 8 bits, so the first packet (with 4 bits) are save on disk one, the second packet save on disk two, on the disk three the RAID calculate the XOR sum of each of the data we daved, so in that case if one of the disk goes down, we still have half of the data and we can use the parity to calculate the lost data.
+
+You can see visual example under that [link](https://www.youtube.com/watch?v=y71Xf0C3Xf8), after you have the knowledge of how RAID 0, 1 and 5 works we can start to setup it on our virtual machine.
+
+Let's create RAID by using our disk, in my case I have two disks that I can use `/dev/sdd` and `/dev/sde` each is in side of 4M, first of all we check the following file to know if we have any RAID on the system:
+```
+cat /proc/mdstat
+```
+
+
+![LPIC2 Post](/assets/images/lpic2/mdstat.png)
+**Figure 140** RAID status in mdstat file.
+
+If we have some RAID it will be list in that file, now we need to run fdisk in order to prepare our disks for RAID use, so we run the following command:
+```
+sudo fdisk /dev/sdd
+```
+
+At first we will going to create partition by using the **n** option and we proceed all of the queries it jump on the screen, after we finish we need to change the partition from Linux to support RAID.
+
+![LPIC2 Post](/assets/images/lpic2/fdisk.png)
+**Figure 141** Create new primary partition.
+
+In my case you can see that I have some error, this is because my old partition on that disk was with ext2 filesystem so this is why you see this signature. Now we need to change this to support RAID, we need to know the code number for that so we can use **l** option.
+
+![LPIC2 Post](/assets/images/lpic2/fdisklist.png)
+**Figure 142** list the option we have with fdisk.
+
+You can see that the type for RAID is fd, so we need to insert **t** to change the type of the partition and after that type **fd** to choose the RAID and now we need to do is to save that changes, we need also do the same for /dev/sde.
+
+![LPIC2 Post](/assets/images/lpic2/fdisksave.png)
+**Figure 143** Save the configuration we done.
+
+After we finish to setup both of the disks, we will find these new partition by using ls over `dev` and we will find that we have `sdd1` and `sde1`.
+
+![LPIC2 Post](/assets/images/lpic2/lsfordev.png)
+**Figure 144** My new partitions.
+
+ We need also to run **mdadm** tool for setup the RAID drive, in this command we also need to specify what RIAD level is gonna be, 0, 1 or 5 so you can run the following:
+```
+mdadm --create --verbose /dev/md0 --level=1 --raid-devices=2 /dev/sdd1 /dev/sde1
+```
+
+In this command we create new RAID so this is why we use **--create** option, we also want to see more output so we using **--verbose** option, after that we choose the device name, please note that this command go and create the md0 for us, we also choose the level 1 which is RAID 1, but please remember that if you choose RAID level 3 you need to choose at least three devices, the next option is **--raid-devices=2** which let the mdadm to use two devices in that RAID.
+
+![LPIC2 Post](/assets/images/lpic2/mdadm.png)
+**Figure 145** Using mdadm command with super-user.
+
+After that the `md0` will created and now we need just to mount that normally and start to use it, so first of all we use **mkfs.ext4** for setup the filesystem type and after that **mount** as ext4 to some new folder, in my case this is the RAID folder under */mnt* directory.
+
+![LPIC2 Post](/assets/images/lpic2/mountraid.png)
+**Figure 146** Mount the md0 to RAID folder.
+
+And this is it, we can use it and write data to it normally like as we use one device, we can now to run mdadm to check details and bring it to another file configuration for every boot time our system contain the RAID by default (exactly what we done by using fstab).
+
+![LPIC2 Post](/assets/images/lpic2/mdadmdetail.png)
+**Figure 147** The details of all our RAID on the system.
+
+This information need to be save on **/etc/mdadm.conf** file and this will make the system to load the RAID for us by default.
+```
+mdadm --detail --scan > /etc/mdadm.conf
+```
+
+Now I want to talk about the hard disk, we saw so far the hard disk, memory, cpu and such on chapter 0 but now we need to have more knowledge about that so let's dive in. On the LPIC2 it's say that we need to know about the DMA, this is short for Direct Memory Access and it's can be use to help to improve performance over the PC, in the computer we have hard disk, memory, and processor, in the not so far past when we want to load data from the hard disk to the memory the processor start to run and load the data from the disk to the memory, in that case every action that we done on our computer would take a long time because the processor was busy, let's take for example case that we want burn data to our optical disk, in that case the processor need to take data from the hard disk, load it to memory and use it to burn it down, this would take a 20 minutes to finish to burn just one file in size of 600M, which is very frustrating, consider that in our days everything works fast, so to solve it there is a very simple solution, we need to find a way to leave the processor out of the picture, so the DMA came alone and it allow direct access from the disk to the memory without needed to use the processor, so if your PC are slow we may want to check if the DMA functionality are enable on your PC.
+
+for doing just that we need to use **hdparm**, this tool can give us information about the IDE drive, which one of them is if the DMA are active or not and it also can give us information of performance to check the buffer reading or disk reading in seconds.
+
+```
+sudo hdparm -t /dev/sda6
+```
+The option **-t** is used for perform device read timings and with that data we can know how much speed it takes to read data from the disk and how much data in short amount of time, this command print out the following line:
+```
+
+/dev/sda6:
+ Timing buffered disk reads: 424 MB in  3.00 seconds = 141.20 MB/sec
+```
+You can see that 424 MB was read from the disk in timing of 3 second with is very fast, we also can use the **-t** option which perform cache read timings which is the memory, so this should be faster then the disk reading by using the following command:
+```
+sudo hdparm -T /dev/sda6
+```
+
+In my case the output was as follow:
+```
+/dev/sda6:
+ Timing cached reads:   7568 MB in  2.00 seconds = 3790.49 MB/sec
+```
+
+You can see clearly that he read more data from my cached in very short time then we done on the disk. let's say that you run the buffer disk check and it print out the following line:
+```
+Timing buffered disk reads:    8 MB in  3.16 seconds =   2.53 MB/sec
+```
+This is mean that we have some problem here, so what can we do is to run the following command:
+```
+sudo hdparm -i /dev/sda6
+```
+This command will print out some information about the disk, module, buffertype and also DMA, in my case this is what it print out for me:
+```
+/dev/sda6:
+
+ Model=SAMSUNG MZ7TE256HMHP-00000, FwRev=EXT0100Q, SerialNo=S1FENSAG301277
+ Config={ Fixed }
+ RawCHS=16383/16/63, TrkSize=0, SectSize=0, ECCbytes=0
+ BuffType=unknown, BuffSize=unknown, MaxMultSect=16, MultSect=16
+ CurCHS=16383/16/63, CurSects=16514064, LBA=yes, LBAsects=500118192
+ IORDY=on/off, tPIO={min:120,w/IORDY:120}, tDMA={min:120,rec:120}
+ PIO modes:  pio0 pio1 pio2 pio3 pio4
+ DMA modes:  mdma0 mdma1 mdma2
+ UDMA modes: udma0 udma1 udma2 udma3 udma4 udma5 *udma6
+ AdvancedPM=no WriteCache=enabled
+ Drive conforms to: unknown:  ATA/ATAPI-2,3,4,5,6,7
+
+ * signifies the current active mode
+
+```
+
+You can see the under UDMA modes there is an asterisk next to the udma6, UDMA is an Ultra DMA which is fster then the normal DMA, you can find more information about the modes in [that link](https://en.wikipedia.org/wiki/UDMA) and how faster every mode from the previous one.
+
+So in my case the UDMA is active and this is why every thing work better and fast, but if in your case the DMA is note in active mode then you need to run the following command:
+```
+sudo hdparm -d 1 /dev/sda6
+```
+
+In my case if I trying to run this command it print me the following error:
+```
+/dev/sda6:
+ HDIO_GET_DMA failed: Inappropriate ioctl for device
+```
+
+This is because I am using virtual machine, so this is why it not working for me, in my case I need to run other command and we will get to it shortly. So if you have IDE you need to use those command, if you want to make it to be enable automatically on boot time you need to setup in on the `/etc/hdparm.conf` file with the following configuration:
+```
+/dev/hdc {
+dma = on
+}
+```
+
+In **hdparm** you also have an option for specific device, like **-H** which will be use for Hitachi only to read temperature from drive, and also **-J** for Western DIgital drive, please remember that if you using hdparm on virtual machine it not gonna work because it is virtual, this tool is for hard drive.
+
+The **sdparm** utility is the same as hdparm but it used for accesses SCSI mode page. We may want to change some parm of the device, like */proc/interrupts* which will give us information about the device interrupt value that be use to interact with the kernel.
+
+I want to clarify more about the IDE and ATA, PATA, SATA, this all are the same, they equally the same principles of ATA, what I understand so far that every one of them is like advance version of ATA. Also every one of them have connector that they oprate, like in RJ-45 that operate by ethernet, I don't know it the same principle, but we have SATA for example and we also have SATA connector, the SATA operate the connector.
+
+SCSI is other world of connectors and other then the PATA or SATA operator, it work better with SSD, as much as I understand (you can leave here a comment if you think I am wrong) we have two type of disk, the first one is HDD which stand for Hard Disk Drive, it is an magnetic drive with metal arm that read and write data from the disk and to the disk, it most likely that you found on that kind of disk PATA port.
+
+![LPIC2 Post](https://images-na.ssl-images-amazon.com/images/I/61WLoLDRdLL._AC_SL1000_.jpg)
+**Figure 148** HDD .
+
+There is a difference between PATA and SATA ports.
+
+![LPIC2 Post](https://i.ytimg.com/vi/lWkQW09xk3c/hqdefault.jpg)
+**Figure 149** PATA and SATA.
+
+And you may find hdd with SATA port.
+
+![LPIC2 Post](https://kainucart.com/wp-content/uploads/2019/06/hdd-2-600x471.jpg)
+**Figure 150** HDD and it's SATA ports.
+
+Please note that SATA have it's own cable and serial port that is different from the PATA.
+
+![LPIC2 Post](https://www.ferniefix.com/sites/default/files/answerguy-aug16_0.jpg)
+**Figure 151** SATA cables.
+
+The SSD is different from HDD, it stand for Solid State Disk and it support very high performance, it more likely to find SSD with SAPA port, but I also found that there is a SSD that came with PATA connector.
+
+![LPIC2 Post](https://cdn.shopify.com/s/files/1/0703/8597/products/24f0e6c9-3b9c-5987-998c-e2164a4f4bbe.png?v=1496360927)
+**Figure 152** SDD with SATA port.
+
+It's more likely that you found SSD card with PCI connectors like as in the following image:
+
+![LPIC2 Post](https://www.topmarket.co.il/images/detailed/58/66640302_8196365174.jpg)
+**Figure 153** SDD with PCI Express.
+
+This PCI express slot can be found on the mother board.
+
+![LPIC2 Post](https://qph.fs.quoracdn.net/main-qimg-b94c097ff4e38ec5fa9a2e9925849443.webp)
+**Figure 154** PCI Express bus on the mother board.
+
+There is also NVM Express, is a specification for accessing SSD attached through the PCI Express bus, the driver for NVM driver are include in kernel version 3.3 and higher, NVMe devices can be found under */dev/nvme**.
+
+So far we talk about the disk we can have on our computer, let's now talk about the way we can make some changes about the filesystem on the disk. If you remember we get to know the **tune2fs** tool which can be use to see the disk or more likely the partition on the disk by using the **-l** option, we can also enable journaling on the partition with tune2fs by using the **-j** option.
+
+```
+tune2fs -j /dev/sda6
+```
+
+We can also run option that related to the hard disk like **-s** for sparse-super-flag, this option allow us to enable or disable the superblock, it is the same super block we saw by typing the following command:
+```
+sudo dumpe2fs /dev/sda6 | grep super
+```
+
+This will print me out thefollowing:
+```
+dumpe2fs 1.42.13 (17-May-2015)
+Filesystem features:      has_journal ext_attr resize_inode dir_index filetype needs_recovery extent flex_bg sparse_super large_file huge_file uninit_bg dir_nlink extra_isize
+  Primary superblock at 0, Group descriptors at 1-7
+  Backup superblock at 32768, Group descriptors at 32769-32775
+  Backup superblock at 98304, Group descriptors at 98305-98311
+  Backup superblock at 163840, Group descriptors at 163841-163847
+  Backup superblock at 229376, Group descriptors at 229377-229383
+  Backup superblock at 294912, Group descriptors at 294913-294919
+  Backup superblock at 819200, Group descriptors at 819201-819207
+  Backup superblock at 884736, Group descriptors at 884737-884743
+  Backup superblock at 1605632, Group descriptors at 1605633-1605639
+  Backup superblock at 2654208, Group descriptors at 2654209-2654215
+  Backup superblock at 4096000, Group descriptors at 4096001-4096007
+  Backup superblock at 7962624, Group descriptors at 7962625-7962631
+  Backup superblock at 11239424, Group descriptors at 11239425-11239431
+  Backup superblock at 20480000, Group descriptors at 20480001-20480007
+  Backup superblock at 23887872, Group descriptors at 23887873-23887879
+```
+As you can see this is a backup superblock, but let's say that we didn't need so many backup super block, we can change it by using the **-s** of tune2fs tool for enabling it or disabling by using 0 or 1, which 1 tell him to enable and 0 is disable.
+```
+tune2fs -s 1 /dev/sda6
+```
+
+This is one of the options that tune2fs can do related to the hard drive, we also can use **sysctl**, this tool we saw on chapter 0 if you remember and it can help us to display all the current setting on the kernel.
+```
+sysctl -a
+```
+
+This command will show us the all setting we have on the kernel, they store in the */proc* folder which we can use **cat** for look on them like in the */proc/interrupts*, in this file we view the interrupts on the CPU
+
+![LPIC2 Post](/assets/images/lpic2/interrupts.png)
+**Figure 155** The details of interrupts on our CPU.
+
+For change setting we use **sysctl**, we can enable or disable one drive or enother that related to the kernel and it is important to know all of that for the LPIC2 exam, just remember that this is the way that we can maniplate thing on the kernel that related to the hardware of our computer.
+
+There is one thing you also need to know, it is the **fstrim** which is use to discard unused blocks on a mounted filesystem, I saw many videos about that on youtube and all of them say that this is can be allow better performance on your system.
+
+You can write the word discard (or "trim") in the fstab file to allow it automatically mount and perform fstrim, but please note that in the man page is say that running  **fstrim**  frequently,  or even using mount -o discard, might negatively affect the lifetime of poor-quality SSD devices.
+
+So far we talk about hard disk and optical disk with PATA or SATA technologies, we need to have also knowledge about SCSI and iSCSI, when we talk about SCSI it can be sort of hard drive or optical drive or even floppy drive, but it also can referred to bus connector, but it also can be referred as the software technology that know how to connect with the hard disk, if you want to know more about that you can view the [Ancient Electronics](https://www.youtube.com/watch?v=M0i4MxeoatQ&t=1691s) video overview which I found the most explainable for us to be ready for the EXAM.
+
+In the LPIC2 objective we need to have more knowledge about **iSCSI** which is the way to mount SCSI device from the network, in **iSCSI** there is a two thing we need to know, the server side configuration and the client side configuration, on the server we need to setup the device that going to be use with iSCSI on remote machine which are the client, we also need to enable on the server his IP address and password if we want.
+
+On the server side with setup the **target** which going to be some local disk on the server and on the client we use it as a **initiator** which going to mount the **target** from the remote server.
+
+I am going to use centOS 6 for server side which is my **target** and I will use ubuntu 18 as client which is the **initiator**.
+
+In my server I need to install the following utile:
+```
+sudo yum -y install scsi-targets-utils
+```
+
+Ufter it finish we need to setup the target so in my case I need to use the following configuration file:
+```
+vi /etc/tgt/targets.conf
+```
+
+On the bottom we need to write the following:
+```
+<target 172.16.0.209:target01>
+backing-store /dev/sdb1
+incominguser admin admin
+</target>
+```
+
+With this setting I make single entry which mean it going to be one drive storage that the client (initiator) can be use for mounting it, my backing storage is sdb1 and the username is admin password admin for initiate.
+
+
+![LPIC2 Post](/assets/images/lpic2/tgt.png)
+**Figure 156** The target file configuration.
+
+Now we need to restart the **tgt** service
+
+![LPIC2 Post](/assets/images/lpic2/tgtdservice.png)
+**Figure 157** Restart tgtd service.
+
+Now we can use the **tgtadm** command for view our configuration by using the following option:
+```
+tgtadm --mode target --op show
+```
+
+In this command we specify the mode which in our case is target becouse we setup the target file, and the operation is **show** for display it.
+
+![LPIC2 Post](/assets/images/lpic2/tgtadm.png)
+**Figure 158** tgtadm command.
+
+You can see that we have LUN0 for the conntroler and LUN1 for the disk and it contain the backing store path which is what we mount on the client, the **initiator**.
+
+Now on the client or the **initiator** we can use the user admin with password admin to mount that device, but it will never work well because the centOS using Firewall by default, so we need to allow the connection for that server using port 3260 which is the port for iSCSI protocol that base on TCP connection.
+
+```
+firewall-cmd --zone=public --add-port=3260/tcp --permanent
+```
+
+Using this command the connection to that server will be able to establish, so now we need to run the following command for apply our settings:
+```
+firewall-cmd --reload
+```
+
+In my case I am using centOS6 so I need to run iptable because I haven't firewalld on that system.
+```
+iptables -I INPUT 1 -p tcp --dport 3260 -j ACCEPT
+```
+
+Now we need to work on our **initiator** which is our client for it to be able to mount that SCSI device, in my case my client are Ubuntu based so I need to install the iSCSI software to be able to setup the initiator.
+```
+sudo apt install open-iscsi
+```
+
+After that we need to edit the following file */etc/iscsi/iscsid.cont*, we not need to change much of that file, what we want to change is the node session for username and password because we set it on our server.
+
+
+![LPIC2 Post](/assets/images/lpic2/iscsidconf.png)
+**Figure 159** Setup for the initiator.
+
+Now we need to restart the iscsi demon for making sure our setting applied.
+
+```
+service iscsid stop
+service iscsid start
+```
+
+And now we can use the **iscsiadm** command for discovery the target.
+```
+iscsiadm --mode discovery -t sendtargets --portal 172.16.0.209
+```
+
+In this command we trying to discover our targets by specifying the IP address for our server, this likely to find the LUN1 we saw earlier and only after he will try to use the username and password we set on the iscsid.conf file, it will be able to see that LUN.
+
+![LPIC2 Post](/assets/images/lpic2/iscsiadmin.png)
+**Figure 160** Discovery of LUN on the target by using iscsiadm.
+
+You can see that it find the target01 on the server, now if I run ls for check the device I have I will see the normal devices and the new device will not be one of them.
+
+![LPIC2 Post](/assets/images/lpic2/ls-on-dev.png)
+**Figure 161** Devices on dev.
+
+Now we need to do one more thing that will allow us to mount the remote SCSI drive, we going to use the **target** we found by using the following command:
+
+```
+iscsiadm --mode node --targetname 172.16.0.209:target01 --portal 172.16.0.209 --login
+```
+
+With this command will bring us the LUM to live on our machine as a SCSI device, and only after that we will be able to format the systemfile and mount it notmally on our system.
+
+![LPIC2 Post](/assets/images/lpic2/iscsiadmtarget.png)
+**Figure 162** Bring the target device on our client machine.
+
+After that if we will run **ls** agian we will be able to see our new device.
+
+![LPIC2 Post](/assets/images/lpic2/ls-new-device.png)
+**Figure 163** You can see the sdh drive.
+
+We can find imformation about the drive in the following directory:
+```
+cd /dev/disk/by-id  
+```
+
+You can find this folder aliases file that contian on thire names the drive on the system, for every device you can find the WWID (World Wide Identify) number or World Wide Number or UUID, on the scsi we see the WWN which is the drive uniq number.
+
+Now we going to format it's filesystem by using `mkfs.ext4` and mount that after we finish by running `mount` and we be able to use that disk like it was local drive on our system, except if we have some network issue we may not be able to connect that drive.
+
+We also need to know about **LVM** for the exam, in the LVM we need to know first three things, **physical volumes**, **volume groups** and **logical volumes**.
+
+The **physical volumes** is actually the hard drives we have on the machine, lets say we have three hard disk storage that they all specify under /dev/sd* let's say sda, sdb, sdc, the physical volume is the partitions on our machine, so we need to create for every device partition by running **fdisk** and use it for physical volume.
+
+The **volume groups** are the group we create to make one group that contain many **physical volume**, so in our case the sda1, sdb1 and sdc1 each is **physical volume**, we can create one **volume groups** that will contain these **physical volume**.
+
+The **logical volumes** is sort of logical partition, which mean that we can create from the **volume groups** many **logical volumes** and set up for them specific size on each volume.
+
+Let's say that we use sda1, sdb1 and sdc1 for each to be **physical volume** and we group all together for  **volume groups** and from that group we setup many partitions as **logical volumes**, this implementation have advance abilities like to have the ability to resize the **logical volumes** and add more memory space for that, or to shrink it down, we can also have multiple partition for separate the data between them.
+
+This is not like RIAD, becouse lvm have not backup data, we can use RAIN under LVM, and on top of it to run LVM. The LVM also have the way ro run snapshot.
+
+For installing LVM we need to run the following on Ubuntu system:
+```
+sudo apt-get install lvm2
+```
+
+First of all I going to use **fdisk** to create the partition, I am not going to use **mkfs** after I done, instead I am using fdisk type option to choose LVM.
+
+After that we can start to build our LVM over our disks, at first we need to create **physical volume**, we have command like **pvdisplay** that will show us the volume we have, since we have none, we going to create some:
+```
+sudo pvcreate /dev/sdc1 /dev/sdd1
+```
+
+In this command we specified the partition that will be physical volume each, only after that we can use **physical volume** to display our volumes.
+
+![LPIC2 Post](/assets/images/lpic2/pvdisplay.png)
+**Figure 164** pvdisplay command.
+
+You can see the PV name with on every physical volume is the device name, we can now use that volume on the volume group, you can see that every volume have size of 10G which is good for me.
+
+Now let's use the vgcreate command for create our volume group, we can run the following:
+```
+sudo vgcreate vg1 /dev/sdc1 /dev/sdd1
+```
+
+The name of our volume group going to be **vg1** and I am using the actual path to the devices I what it to be in this group, after that I can run the **vgdisplay** command.
+
+![LPIC2 Post](/assets/images/lpic2/vgdisplay.png)
+**Figure 165** vgdisplay command.
+
+As you can see the name of my VG is vg1 and the format for this is lvm2, also we can see the VG size which is 19.99GB, just remember that we use two disk each is 10GB, now we can proceed to the logical volume creation.
+```
+sudo lvcreate --name lv1 --size 1G vg1
+```
+
+The name in my case is lv1, the size I am going to use is just ! giga, and the name of the volume group to use for that space location is vg1, you can see the ditails on **lvdisplay** command.
+
+![LPIC2 Post](/assets/images/lpic2/lvdisplay.png)
+**Figure 166** lvdisplay command.
+
+You can see the logical name and the volume group it is belongs to him, you can also see the path name which we going to use, now we can run **mkfs** and **mkdir** to create the folder which we using as mount point and also mount it, you can see the mounting name which is mapping that LVM.
+
+![LPIC2 Post](/assets/images/lpic2/mountlvm.png)
+**Figure 167** Mount the lv1 to folder1.
+
+So as you can see every command we saw was start in one of the following options: **pv**,**vg**,**lv**.
+
+We have more command that related to LVM in this type of naming, we also have the lvm.conf file that contain the configuration for LVM.

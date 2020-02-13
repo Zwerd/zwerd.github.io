@@ -1725,6 +1725,232 @@ sudo service nfs-kernel-server restart
 
 <p>Now we just need to mount the drive and we can use it, every time we connect the drive even on the GUI like Ubuntu he will ask for password, it he dosn’t we can alwase use this open command for opening that drive.</p>
 
+<h2 id="chapter-4">Chapter 4</h2>
+<h2 id="topic-204-advanced-storage-device-administration">Topic 204: Advanced Storage Device Administration.</h2>
+
+<p>This objective includes using and configuring RAID 0, 1 and 5, so let’s start and talk about RAID. This RAID technology in the present help to make live backup every time we write data to the disk, this is mean that if one of the disks that the RAID setup on die, we have a backup on the others disk and the data will never being corrupted, this is a very cool staff, but you have to be aware of it that not all of the RAID perform such data saving.</p>
+
+<p>RAID 0 is the first one and not contain any sort of backup, what we do with that RAID is to use RAID on top of two or more disk and every data that go down and save in with RAID0 it will save random data on random disks, so we have no much control over RAID 0 to save data when some of the disk found unreadable.</p>
+
+<p>RAID 1 however have backup for every data you save on the disk, let’s say that we have two disk and on every disk we setup only one partition, after that we run RAID 1 a top on that and start to save data on the RAID 1, in that case every data are duplicated and save twice, one on the first disk and one on the second, in that way if disk one was corrupted we have full backup on disk two.</p>
+
+<p>RAID 5 for me is more complicated to understand but I will try the best to explain it down, RAID 5 can only be used when we have 3 or more disk, on top of it we activate RAID 5 and the data can be save over that disks with plus data that called <strong>parity</strong>, this parity is the sum in XOR which mean the following:</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>0 xor 0 = 0
+0 xor 1 = 1
+1 xor 1 = 0
+1 xor 0 = 1
+</code></pre></div></div>
+
+<p>So let’s say that we have three hard drive and on top of it we activate RAID 5, what actually gonna append is that the data is save on the disk as a packets, every packets can contain the same amount of bits, so let’s say that every packet contain 4 bit and we have data that we want to save that are is 8 bits, so the first packet (with 4 bits) are save on disk one, the second packet save on disk two, on the disk three the RAID calculate the XOR sum of each of the data we daved, so in that case if one of the disk goes down, we still have half of the data and we can use the parity to calculate the lost data.</p>
+
+<p>You can see visual example under that <a href="https://www.youtube.com/watch?v=y71Xf0C3Xf8">link</a>, after you have the knowledge of how RAID 0, 1 and 5 works we can start to setup it on our virtual machine.</p>
+
+<p>Let’s create RAID by using our disk, in my case I have two disks that I can use <code class="highlighter-rouge">/dev/sdd</code> and <code class="highlighter-rouge">/dev/sde</code> each is in side of 4M, first of all we check the following file to know if we have any RAID on the system:</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>cat /proc/mdstat
+</code></pre></div></div>
+
+<p><img src="/assets/images/lpic2/mdstat.png" alt="LPIC2 Post" />
+<strong>Figure 140</strong> RAID status in mdstat file.</p>
+
+<p>If we have some RAID it will be list in that file, now we need to run fdisk in order to prepare our disks for RAID use, so we run the following command:</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sudo fdisk /dev/sdd
+</code></pre></div></div>
+
+<p>At first we will going to create partition by using the <strong>n</strong> option and we proceed all of the queries it jump on the screen, after we finish we need to change the partition from Linux to support RAID.</p>
+
+<p><img src="/assets/images/lpic2/fdisk.png" alt="LPIC2 Post" />
+<strong>Figure 141</strong> Create new primary partition.</p>
+
+<p>In my case you can see that I have some error, this is because my old partition on that disk was with ext2 filesystem so this is why you see this signature. Now we need to change this to support RAID, we need to know the code number for that so we can use <strong>l</strong> option.</p>
+
+<p><img src="/assets/images/lpic2/fdisklist.png" alt="LPIC2 Post" />
+<strong>Figure 142</strong> list the option we have with fdisk.</p>
+
+<p>You can see that the type for RAID is fd, so we need to insert <strong>t</strong> to change the type of the partition and after that type <strong>fd</strong> to choose the RAID and now we need to do is to save that changes, we need also do the same for /dev/sde.</p>
+
+<p><img src="/assets/images/lpic2/fdisksave.png" alt="LPIC2 Post" />
+<strong>Figure 143</strong> Save the configuration we done.</p>
+
+<p>After we finish to setup both of the disks, we will find these new partition by using ls over <code class="highlighter-rouge">dev</code> and we will find that we have <code class="highlighter-rouge">sdd1</code> and <code class="highlighter-rouge">sde1</code>.</p>
+
+<p><img src="/assets/images/lpic2/lsfordev.png" alt="LPIC2 Post" />
+<strong>Figure 144</strong> My new partitions.</p>
+
+<p>We need also to run <strong>mdadm</strong> tool for setup the RAID drive, in this command we also need to specify what RIAD level is gonna be, 0, 1 or 5 so you can run the following:</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>mdadm --create --verbose /dev/md0 --level=1 --raid-devices=2 /dev/sdd1 /dev/sde1
+</code></pre></div></div>
+
+<p>In this command we create new RAID so this is why we use <strong>–create</strong> option, we also want to see more output so we using <strong>–verbose</strong> option, after that we choose the device name, please note that this command go and create the md0 for us, we also choose the level 1 which is RAID 1, but please remember that if you choose RAID level 3 you need to choose at least three devices, the next option is <strong>–raid-devices=2</strong> which let the mdadm to use two devices in that RAID.</p>
+
+<p><img src="/assets/images/lpic2/mdadm.png" alt="LPIC2 Post" />
+<strong>Figure 145</strong> Using mdadm command with super-user.</p>
+
+<p>After that the <code class="highlighter-rouge">md0</code> will created and now we need just to mount that normally and start to use it, so first of all we use <strong>mkfs.ext4</strong> for setup the filesystem type and after that <strong>mount</strong> as ext4 to some new folder, in my case this is the RAID folder under <em>/mnt</em> directory.</p>
+
+<p><img src="/assets/images/lpic2/mountraid.png" alt="LPIC2 Post" />
+<strong>Figure 146</strong> Mount the md0 to RAID folder.</p>
+
+<p>And this is it, we can use it and write data to it normally like as we use one device, we can now to run mdadm to check details and bring it to another file configuration for every boot time our system contain the RAID by default (exactly what we done by using fstab).</p>
+
+<p><img src="/assets/images/lpic2/mdadmdetail.png" alt="LPIC2 Post" />
+<strong>Figure 147</strong> The details of all our RAID on the system.</p>
+
+<p>This information need to be save on <strong>/etc/mdadm.conf</strong> file and this will make the system to load the RAID for us by default.</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>mdadm --detail --scan &gt; /etc/mdadm.conf
+</code></pre></div></div>
+
+<p>Now I want to talk about the hard disk, we saw so far the hard disk, memory, cpu and such on chapter 0 but now we need to have more knowledge about that so let’s dive in. On the LPIC2 it’s say that we need to know about the DMA, this is short for Direct Memory Access and it’s can be use to help to improve performance over the PC, in the computer we have hard disk, memory, and processor, in the not so far past when we want to load data from the hard disk to the memory the processor start to run and load the data from the disk to the memory, in that case every action that we done on our computer would take a long time because the processor was busy, let’s take for example case that we want burn data to our optical disk, in that case the processor need to take data from the hard disk, load it to memory and use it to burn it down, this would take a 20 minutes to finish to burn just one file in size of 600M, which is very frustrating, consider that in our days everything works fast, so to solve it there is a very simple solution, we need to find a way to leave the processor out of the picture, so the DMA came alone and it allow direct access from the disk to the memory without needed to use the processor, so if your PC are slow we may want to check if the DMA functionality are enable on your PC.</p>
+
+<p>for doing just that we need to use <strong>hdparm</strong>, this tool can give us information about the IDE drive, which one of them is if the DMA are active or not and it also can give us information of performance to check the buffer reading or disk reading in seconds.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sudo hdparm -t /dev/sda6
+</code></pre></div></div>
+<p>The option <strong>-t</strong> is used for perform device read timings and with that data we can know how much speed it takes to read data from the disk and how much data in short amount of time, this command print out the following line:</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+/dev/sda6:
+ Timing buffered disk reads: 424 MB in  3.00 seconds = 141.20 MB/sec
+</code></pre></div></div>
+<p>You can see that 424 MB was read from the disk in timing of 3 second with is very fast, we also can use the <strong>-t</strong> option which perform cache read timings which is the memory, so this should be faster then the disk reading by using the following command:</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sudo hdparm -T /dev/sda6
+</code></pre></div></div>
+
+<p>In my case the output was as follow:</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/dev/sda6:
+ Timing cached reads:   7568 MB in  2.00 seconds = 3790.49 MB/sec
+</code></pre></div></div>
+
+<p>You can see clearly that he read more data from my cached in very short time then we done on the disk. let’s say that you run the buffer disk check and it print out the following line:</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Timing buffered disk reads:    8 MB in  3.16 seconds =   2.53 MB/sec
+</code></pre></div></div>
+<p>This is mean that we have some problem here, so what can we do is to run the following command:</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sudo hdparm -i /dev/sda6
+</code></pre></div></div>
+<p>This command will print out some information about the disk, module, buffertype and also DMA, in my case this is what it print out for me:</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/dev/sda6:
+
+ Model=SAMSUNG MZ7TE256HMHP-00000, FwRev=EXT0100Q, SerialNo=S1FENSAG301277
+ Config={ Fixed }
+ RawCHS=16383/16/63, TrkSize=0, SectSize=0, ECCbytes=0
+ BuffType=unknown, BuffSize=unknown, MaxMultSect=16, MultSect=16
+ CurCHS=16383/16/63, CurSects=16514064, LBA=yes, LBAsects=500118192
+ IORDY=on/off, tPIO={min:120,w/IORDY:120}, tDMA={min:120,rec:120}
+ PIO modes:  pio0 pio1 pio2 pio3 pio4
+ DMA modes:  mdma0 mdma1 mdma2
+ UDMA modes: udma0 udma1 udma2 udma3 udma4 udma5 *udma6
+ AdvancedPM=no WriteCache=enabled
+ Drive conforms to: unknown:  ATA/ATAPI-2,3,4,5,6,7
+
+ * signifies the current active mode
+
+</code></pre></div></div>
+
+<p>You can see the under UDMA modes there is an asterisk next to the udma6, UDMA is an Ultra DMA which is fster then the normal DMA, you can find more information about the modes in <a href="https://en.wikipedia.org/wiki/UDMA">that link</a> and how faster every mode from the previous one.</p>
+
+<p>So in my case the UDMA is active and this is why every thing work better and fast, but if in your case the DMA is note in active mode then you need to run the following command:</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sudo hdparm -d 1 /dev/sda6
+</code></pre></div></div>
+
+<p>In my case if I trying to run this command it print me the following error:</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/dev/sda6:
+ HDIO_GET_DMA failed: Inappropriate ioctl for device
+</code></pre></div></div>
+
+<p>This is because I am using virtual machine, so this is why it not working for me, in my case I need to run other command and we will get to it shortly. So if you have IDE you need to use those command, if you want to make it to be enable automatically on boot time you need to setup in on the <code class="highlighter-rouge">/etc/hdparm.conf</code> file with the following configuration:</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/dev/hdc {
+dma = on
+}
+</code></pre></div></div>
+
+<p>In <strong>hdparm</strong> you also have an option for specific device, like <strong>-H</strong> which will be use for Hitachi only to read temperature from drive, and also <strong>-J</strong> for Western DIgital drive, please remember that if you using hdparm on virtual machine it not gonna work because it is virtual, this tool is for hard drive.</p>
+
+<p>The <strong>sdparm</strong> utility is the same as hdparm but it used for accesses SCSI mode page. We may want to change some parm of the device, like <em>/proc/interrupts</em> which will give us information about the device interrupt value that be use to interact with the kernel.</p>
+
+<p>I want to clarify more about the IDE and ATA, PATA, SATA, this all are the same, they equally the same principles of ATA, what I understand so far that every one of them is like advance version of ATA. Also every one of them have connector that they oprate, like in RJ-45 that operate by ethernet, I don’t know it the same principle, but we have SATA for example and we also have SATA connector, the SATA operate the connector.</p>
+
+<p>SCSI is other world of connectors and other then the PATA or SATA operator, it work better with SSD, as much as I understand (you can leave here a comment if you think I am wrong) we have two type of disk, the first one is HDD which stand for Hard Disk Drive, it is an magnetic drive with metal arm that read and write data from the disk and to the disk, it most likely that you found on that kind of disk PATA port.</p>
+
+<p><img src="https://images-na.ssl-images-amazon.com/images/I/61WLoLDRdLL._AC_SL1000_.jpg" alt="LPIC2 Post" />
+<strong>Figure 148</strong> HDD .</p>
+
+<p>There is a difference between PATA and SATA ports.</p>
+
+<p><img src="https://i.ytimg.com/vi/lWkQW09xk3c/hqdefault.jpg" alt="LPIC2 Post" />
+<strong>Figure 149</strong> PATA and SATA.</p>
+
+<p>And you may find hdd with SATA port.</p>
+
+<p><img src="https://kainucart.com/wp-content/uploads/2019/06/hdd-2-600x471.jpg" alt="LPIC2 Post" />
+<strong>Figure 150</strong> HDD and it’s SATA ports.</p>
+
+<p>Please note that SATA have it’s own cable and serial port that is different from the PATA.</p>
+
+<p><img src="https://www.ferniefix.com/sites/default/files/answerguy-aug16_0.jpg" alt="LPIC2 Post" />
+<strong>Figure 151</strong> SATA cables.</p>
+
+<p>The SSD is different from HDD, it stand for Solid State Disk and it support very high performance, it more likely to find SSD with SAPA port, but I also found that there is a SSD that came with PATA connector.</p>
+
+<p><img src="https://cdn.shopify.com/s/files/1/0703/8597/products/24f0e6c9-3b9c-5987-998c-e2164a4f4bbe.png?v=1496360927" alt="LPIC2 Post" />
+<strong>Figure 152</strong> SDD with SATA port.</p>
+
+<p>It’s more likely that you found SSD card with PCI connectors like as in the following image:</p>
+
+<p><img src="https://www.topmarket.co.il/images/detailed/58/66640302_8196365174.jpg" alt="LPIC2 Post" />
+<strong>Figure 153</strong> SDD with PCI Express.</p>
+
+<p>This PCI express slot can be found on the mother board.</p>
+
+<p><img src="https://qph.fs.quoracdn.net/main-qimg-b94c097ff4e38ec5fa9a2e9925849443.webp" alt="LPIC2 Post" />
+<strong>Figure 154</strong> PCI Express bus on the mother board.</p>
+
+<p>There is also NVM Express, is a specification for accessing SSD attached through the PCI Express bus, the driver for NVM driver are include in kernel version 3.3 and higher, NVMe devices can be found under */dev/nvme**.</p>
+
+<p>So far we talk about the disk we can have on our computer, let’s now talk about the way we can make some changes about the filesystem on the disk. If you remember we get to know the <strong>tune2fs</strong> tool which can be use to see the disk or more likely the partition on the disk by using the <strong>-l</strong> option, we can also enable journaling on the partition with tune2fs by using the <strong>-j</strong> option.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>tune2fs -j /dev/sda6
+</code></pre></div></div>
+
+<p>We can also run option that related to the hard disk like <strong>-s</strong> for sparse-super-flag, this option allow us to enable or disable the superblock, it is the same super block we saw by typing the following command:</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sudo dumpe2fs /dev/sda6 | grep super
+</code></pre></div></div>
+
+<p>This will print me out thefollowing:</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>dumpe2fs 1.42.13 (17-May-2015)
+Filesystem features:      has_journal ext_attr resize_inode dir_index filetype needs_recovery extent flex_bg sparse_super large_file huge_file uninit_bg dir_nlink extra_isize
+  Primary superblock at 0, Group descriptors at 1-7
+  Backup superblock at 32768, Group descriptors at 32769-32775
+  Backup superblock at 98304, Group descriptors at 98305-98311
+  Backup superblock at 163840, Group descriptors at 163841-163847
+  Backup superblock at 229376, Group descriptors at 229377-229383
+  Backup superblock at 294912, Group descriptors at 294913-294919
+  Backup superblock at 819200, Group descriptors at 819201-819207
+  Backup superblock at 884736, Group descriptors at 884737-884743
+  Backup superblock at 1605632, Group descriptors at 1605633-1605639
+  Backup superblock at 2654208, Group descriptors at 2654209-2654215
+  Backup superblock at 4096000, Group descriptors at 4096001-4096007
+  Backup superblock at 7962624, Group descriptors at 7962625-7962631
+  Backup superblock at 11239424, Group descriptors at 11239425-11239431
+  Backup superblock at 20480000, Group descriptors at 20480001-20480007
+  Backup superblock at 23887872, Group descriptors at 23887873-23887879
+</code></pre></div></div>
+<p>As you can see this is a backup superblock, but let’s say that we didn’t need so many backup super block, we can change it by using the <strong>-s</strong> of tune2fs tool for enabling it or disabling by using 0 or 1, which 1 tell him to enable and 0 is disable.</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>tune2fs -s 1 /dev/sda6
+</code></pre></div></div>
+
+<p>This is one of the options that tune2fs can do related to the hard drive, we also can use <strong>sysctl</strong>, this tool we saw on chapter 0 if you remember and it can help us to display all the current setting on the kernel.</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sysctl -a
+</code></pre></div></div>
+
+<p>This command will show us the all setting we have on the kernel, they store in the <em>/proc</em> folder which we can use <strong>cat</strong> for look on them like in the <em>/proc/interrupts</em>, in this file we view the interrupts on the CPU</p>
+
+<p><img src="/assets/images/lpic2/interrupts.png" alt="LPIC2 Post" />
+<strong>Figure 155</strong> The details of interrupts on our CPU.</p>
+
+<p>For change setting we use <strong>sysctl</strong>, we can enable or disable one drive or enother that related to the kernel and it is important to know all of that for the LPIC2 exam, just remember that this is the way that we can maniplate thing on the kernel that related to the hardware of our computer.</p>
+
+<p>There is one thing you also need to know, it is the <strong>fstrim</strong> which is use to discard unused blocks on a mounted filesystem, I saw many videos about that on youtube and all of them say that this is can be allow better performance on your system.</p>
+
+<p>You can write the word discard (or “trim”) in the fstab file to allow it automatically mount and perform fstrim, but please note that in the man page is say that running  <strong>fstrim</strong>  frequently,  or even using mount -o discard, might negatively affect the lifetime of poor-quality SSD devices.</p>
+
     
 
 

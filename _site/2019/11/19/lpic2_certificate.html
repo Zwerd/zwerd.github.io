@@ -391,6 +391,7 @@
   <li><a href="#chapter-1">Chapter 1</a></li>
   <li><a href="#chapter-2">Chapter 2</a></li>
   <li><a href="#chapter-3">Chapter 3</a></li>
+  <li><a href="#chapter-4">Chapter 4</a></li>
 </ul>
 
 <h1 id="objective-201-450">Objective 201-450</h1>
@@ -1950,6 +1951,614 @@ Filesystem features:      has_journal ext_attr resize_inode dir_index filetype n
 <p>There is one thing you also need to know, it is the <strong>fstrim</strong> which is use to discard unused blocks on a mounted filesystem, I saw many videos about that on youtube and all of them say that this is can be allow better performance on your system.</p>
 
 <p>You can write the word discard (or “trim”) in the fstab file to allow it automatically mount and perform fstrim, but please note that in the man page is say that running  <strong>fstrim</strong>  frequently,  or even using mount -o discard, might negatively affect the lifetime of poor-quality SSD devices.</p>
+
+<p>So far we talk about hard disk and optical disk with PATA or SATA technologies, we need to have also knowledge about SCSI and iSCSI, when we talk about SCSI it can be sort of hard drive or optical drive or even floppy drive, but it also can referred to bus connector, but it also can be referred as the software technology that know how to connect with the hard disk, if you want to know more about that you can view the <a href="https://www.youtube.com/watch?v=M0i4MxeoatQ&amp;t=1691s">Ancient Electronics</a> video overview which I found the most explainable for us to be ready for the EXAM.</p>
+
+<p>In the LPIC2 objective we need to have more knowledge about <strong>iSCSI</strong> which is the way to mount SCSI device from the network, in <strong>iSCSI</strong> there is a two thing we need to know, the server side configuration and the client side configuration, on the server we need to setup the device that going to be use with iSCSI on remote machine which are the client, we also need to enable on the server his IP address and password if we want.</p>
+
+<p>On the server side with setup the <strong>target</strong> which going to be some local disk on the server and on the client we use it as a <strong>initiator</strong> which going to mount the <strong>target</strong> from the remote server.</p>
+
+<p>I am going to use centOS 6 for server side which is my <strong>target</strong> and I will use ubuntu 18 as client which is the <strong>initiator</strong>.</p>
+
+<p>In my server I need to install the following utile:</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sudo yum -y install scsi-targets-utils
+</code></pre></div></div>
+
+<p>Ufter it finish we need to setup the target so in my case I need to use the following configuration file:</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>vi /etc/tgt/targets.conf
+</code></pre></div></div>
+
+<p>On the bottom we need to write the following:</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&lt;target 172.16.0.209:target01&gt;
+backing-store /dev/sdb1
+incominguser admin admin
+&lt;/target&gt;
+</code></pre></div></div>
+
+<p>With this setting I make single entry which mean it going to be one drive storage that the client (initiator) can be use for mounting it, my backing storage is sdb1 and the username is admin password admin for initiate.</p>
+
+<p><img src="/assets/images/lpic2/tgt.png" alt="LPIC2 Post" />
+<strong>Figure 156</strong> The target file configuration.</p>
+
+<p>Now we need to restart the <strong>tgt</strong> service</p>
+
+<p><img src="/assets/images/lpic2/tgtdservice.png" alt="LPIC2 Post" />
+<strong>Figure 157</strong> Restart tgtd service.</p>
+
+<p>Now we can use the <strong>tgtadm</strong> command for view our configuration by using the following option:</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>tgtadm --mode target --op show
+</code></pre></div></div>
+
+<p>In this command we specify the mode which in our case is target becouse we setup the target file, and the operation is <strong>show</strong> for display it.</p>
+
+<p><img src="/assets/images/lpic2/tgtadm.png" alt="LPIC2 Post" />
+<strong>Figure 158</strong> tgtadm command.</p>
+
+<p>You can see that we have LUN0 for the conntroler and LUN1 for the disk and it contain the backing store path which is what we mount on the client, the <strong>initiator</strong>.</p>
+
+<p>Now on the client or the <strong>initiator</strong> we can use the user admin with password admin to mount that device, but it will never work well because the centOS using Firewall by default, so we need to allow the connection for that server using port 3260 which is the port for iSCSI protocol that base on TCP connection.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>firewall-cmd --zone=public --add-port=3260/tcp --permanent
+</code></pre></div></div>
+
+<p>Using this command the connection to that server will be able to establish, so now we need to run the following command for apply our settings:</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>firewall-cmd --reload
+</code></pre></div></div>
+
+<p>In my case I am using centOS6 so I need to run iptable because I haven’t firewalld on that system.</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>iptables -I INPUT 1 -p tcp --dport 3260 -j ACCEPT
+</code></pre></div></div>
+
+<p>Now we need to work on our <strong>initiator</strong> which is our client for it to be able to mount that SCSI device, in my case my client are Ubuntu based so I need to install the iSCSI software to be able to setup the initiator.</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sudo apt install open-iscsi
+</code></pre></div></div>
+
+<p>After that we need to edit the following file <em>/etc/iscsi/iscsid.cont</em>, we not need to change much of that file, what we want to change is the node session for username and password because we set it on our server.</p>
+
+<p><img src="/assets/images/lpic2/iscsidconf.png" alt="LPIC2 Post" />
+<strong>Figure 159</strong> Setup for the initiator.</p>
+
+<p>Now we need to restart the iscsi demon for making sure our setting applied.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>service iscsid stop
+service iscsid start
+</code></pre></div></div>
+
+<p>And now we can use the <strong>iscsiadm</strong> command for discovery the target.</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>iscsiadm --mode discovery -t sendtargets --portal 172.16.0.209
+</code></pre></div></div>
+
+<p>In this command we trying to discover our targets by specifying the IP address for our server, this likely to find the LUN1 we saw earlier and only after he will try to use the username and password we set on the iscsid.conf file, it will be able to see that LUN.</p>
+
+<p><img src="/assets/images/lpic2/iscsiadmin.png" alt="LPIC2 Post" />
+<strong>Figure 160</strong> Discovery of LUN on the target by using iscsiadm.</p>
+
+<p>You can see that it find the target01 on the server, now if I run ls for check the device I have I will see the normal devices and the new device will not be one of them.</p>
+
+<p><img src="/assets/images/lpic2/ls-on-dev.png" alt="LPIC2 Post" />
+<strong>Figure 161</strong> Devices on dev.</p>
+
+<p>Now we need to do one more thing that will allow us to mount the remote SCSI drive, we going to use the <strong>target</strong> we found by using the following command:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>iscsiadm --mode node --targetname 172.16.0.209:target01 --portal 172.16.0.209 --login
+</code></pre></div></div>
+
+<p>With this command will bring us the LUM to live on our machine as a SCSI device, and only after that we will be able to format the systemfile and mount it notmally on our system.</p>
+
+<p><img src="/assets/images/lpic2/iscsiadmtarget.png" alt="LPIC2 Post" />
+<strong>Figure 162</strong> Bring the target device on our client machine.</p>
+
+<p>After that if we will run <strong>ls</strong> agian we will be able to see our new device.</p>
+
+<p><img src="/assets/images/lpic2/ls-new-device.png" alt="LPIC2 Post" />
+<strong>Figure 163</strong> You can see the sdh drive.</p>
+
+<p>We can find imformation about the drive in the following directory:</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>cd /dev/disk/by-id  
+</code></pre></div></div>
+
+<p>You can find this folder aliases file that contian on thire names the drive on the system, for every device you can find the WWID (World Wide Identify) number or World Wide Number or UUID, on the scsi we see the WWN which is the drive uniq number.</p>
+
+<p>Now we going to format it’s filesystem by using <code class="highlighter-rouge">mkfs.ext4</code> and mount that after we finish by running <code class="highlighter-rouge">mount</code> and we be able to use that disk like it was local drive on our system, except if we have some network issue we may not be able to connect that drive.</p>
+
+<p>We also need to know about <strong>LVM</strong> for the exam, in the LVM we need to know first three things, <strong>physical volumes</strong>, <strong>volume groups</strong> and <strong>logical volumes</strong>.</p>
+
+<p>The <strong>physical volumes</strong> is actually the hard drives we have on the machine, lets say we have three hard disk storage that they all specify under /dev/sd* let’s say sda, sdb, sdc, the physical volume is the partitions on our machine, so we need to create for every device partition by running <strong>fdisk</strong> and use it for physical volume.</p>
+
+<p>The <strong>volume groups</strong> are the group we create to make one group that contain many <strong>physical volume</strong>, so in our case the sda1, sdb1 and sdc1 each is <strong>physical volume</strong>, we can create one <strong>volume groups</strong> that will contain these <strong>physical volume</strong>.</p>
+
+<p>The <strong>logical volumes</strong> is sort of logical partition, which mean that we can create from the <strong>volume groups</strong> many <strong>logical volumes</strong> and set up for them specific size on each volume.</p>
+
+<p>Let’s say that we use sda1, sdb1 and sdc1 for each to be <strong>physical volume</strong> and we group all together for  <strong>volume groups</strong> and from that group we setup many partitions as <strong>logical volumes</strong>, this implementation have advance abilities like to have the ability to resize the <strong>logical volumes</strong> and add more memory space for that, or to shrink it down, we can also have multiple partition for separate the data between them.</p>
+
+<p>This is not like RIAD, becouse lvm have not backup data, we can use RAIN under LVM, and on top of it to run LVM. The LVM also have the way ro run snapshot.</p>
+
+<p>For installing LVM we need to run the following on Ubuntu system:</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sudo apt-get install lvm2
+</code></pre></div></div>
+
+<p>First of all I going to use <strong>fdisk</strong> to create the partition, I am not going to use <strong>mkfs</strong> after I done, instead I am using fdisk type option to choose LVM.</p>
+
+<p>After that we can start to build our LVM over our disks, at first we need to create <strong>physical volume</strong>, we have command like <strong>pvdisplay</strong> that will show us the volume we have, since we have none, we going to create some:</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sudo pvcreate /dev/sdc1 /dev/sdd1
+</code></pre></div></div>
+
+<p>In this command we specified the partition that will be physical volume each, only after that we can use <strong>physical volume</strong> to display our volumes.</p>
+
+<p><img src="/assets/images/lpic2/pvdisplay.png" alt="LPIC2 Post" />
+<strong>Figure 164</strong> pvdisplay command.</p>
+
+<p>You can see the PV name with on every physical volume is the device name, we can now use that volume on the volume group, you can see that every volume have size of 10G which is good for me.</p>
+
+<p>Now let’s use the vgcreate command for create our volume group, we can run the following:</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sudo vgcreate vg1 /dev/sdc1 /dev/sdd1
+</code></pre></div></div>
+
+<p>The name of our volume group going to be <strong>vg1</strong> and I am using the actual path to the devices I what it to be in this group, after that I can run the <strong>vgdisplay</strong> command.</p>
+
+<p><img src="/assets/images/lpic2/vgdisplay.png" alt="LPIC2 Post" />
+<strong>Figure 165</strong> vgdisplay command.</p>
+
+<p>As you can see the name of my VG is vg1 and the format for this is lvm2, also we can see the VG size which is 19.99GB, just remember that we use two disk each is 10GB, now we can proceed to the logical volume creation.</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sudo lvcreate --name lv1 --size 1G vg1
+</code></pre></div></div>
+
+<p>The name in my case is lv1, the size I am going to use is just ! giga, and the name of the volume group to use for that space location is vg1, you can see the ditails on <strong>lvdisplay</strong> command.</p>
+
+<p><img src="/assets/images/lpic2/lvdisplay.png" alt="LPIC2 Post" />
+<strong>Figure 166</strong> lvdisplay command.</p>
+
+<p>You can see the logical name and the volume group it is belongs to him, you can also see the path name which we going to use, now we can run <strong>mkfs</strong> and <strong>mkdir</strong> to create the folder which we using as mount point and also mount it, you can see the mounting name which is mapping that LVM.</p>
+
+<p><img src="/assets/images/lpic2/mountlvm.png" alt="LPIC2 Post" />
+<strong>Figure 167</strong> Mount the lv1 to folder1.</p>
+
+<p>So as you can see every command we saw was start in one of the following options: <strong>pv</strong>,<strong>vg</strong>,<strong>lv</strong>.</p>
+
+<p>We have more command that related to LVM in this type of naming, we also have the lvm.conf file that contain the configuration for LVM.</p>
+
+<h2 id="chapter-5">Chapter 5</h2>
+<h2 id="topic-205-network-configuration">Topic 205: Network Configuration.</h2>
+
+<p>I have to admit that networking in Linux world  is a pretty easy topic for me because I had a time when I was dealing with a lot of networking issues and dealing with a network architecture problem so in this section we going to see how we setup network communication on our Linux.</p>
+
+<p>In the previous chapter we saw how to setup iSCSI, but as you know we need network card and set it correctly for having communication with the server (target), if we have some issue with that connectivity then the iSCSI never work until we solve that issue.</p>
+
+<p>The first thing we can do when it come to networking, is to view our local eternet card and find what is our IP address, to do so we need to run <strong>ifconfig</strong>, with that command we can use to look our network card and even virtual like loopback.</p>
+
+<p><img src="/assets/images/lpic2/ifconfig1.png" alt="LPIC2 Post" />
+<strong>Figure 167</strong> ifconfig command.</p>
+
+<p>You can see that I have only <strong>lo</strong> that is my local loopback, but I know that I have also network card, so to view it also I can run the <strong>-a</strong> option, it will give me every network card that I have in that machine.</p>
+
+<p><img src="/assets/images/lpic2/ifconfigall.png" alt="LPIC2 Post" />
+<strong>Figure 168</strong> ifconfig all devices.</p>
+
+<p>You can see now that Ia have network device named enp0s3, in that device I haven’t associated IP address, so in that case I have note network connectivity for sure through that interface. Please be aware that if you can’t see some network card on the <strong>ifconfig</strong> command and the only way to view it is by <strong>-a</strong> option, this is mean that this interface is in down state, for bring it up we can use <strong>up</strong> by specifying the network interface.</p>
+
+<p><img src="/assets/images/lpic2/ifconfigup.png" alt="LPIC2 Post" />
+<strong>Figure 169</strong> ifconfig bring the interface up devices.</p>
+
+<p>You can see that I bring the interface up and after that it showed up on the ifconfig command, in case there is no IP associated with it even after we bring this interface up, we can not use ping or 8.8.8.8 as example, so what we can do is to setup the IP address manually or checking on our network why the DHCP dosn’t give us IP address.</p>
+
+<p>You also can run the following command to check if you have IP address.</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ip addr
+</code></pre></div></div>
+
+<p>As you can see on the following figure this command will give us information like what is the state of that interface and what is the IP address.</p>
+
+<p><img src="/assets/images/lpic2/ipaddr.png" alt="LPIC2 Post" />
+<strong>Figure 170</strong> Checking the status on my interfaces.</p>
+
+<p>If you need to setup IP address to that interface you can use <strong>ifconfig</strong> to achieve that.</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sudo ifconfig eth0 192.168.0.1 netmask 255.255.255.0
+</code></pre></div></div>
+
+<p>Now after that interface is on up state and have an IP address we can trying to ping to google or other DNS server (that open to ping on the Internet), if it success we know for sure that our network work fine, if it doesn’t we may have another issue, so in that case we need to check what is our default getaway to the world wide network.</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>route
+</code></pre></div></div>
+
+<p>By using this command we will view the routes we have on our local machine, in my case I have not default getaway so we can use the following arp command</p>
+
+<p><img src="/assets/images/lpic2/arp.png" alt="LPIC2 Post" />
+<strong>Figure 171</strong> Arp command.</p>
+
+<p>I guess that the default getaway is 172.16.3.254, so this is what I am going to setup on my route table.</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sudo route add default gw 172.16.3.254 enp0s3
+</code></pre></div></div>
+
+<p>By running the <strong>route</strong> again we will can see that our new getaway in the table so now it the time to check connectivity to the network.</p>
+
+<p><img src="/assets/images/lpic2/routeadd.png" alt="LPIC2 Post" />
+<strong>Figure 172</strong> Adding new route for default getaway.</p>
+
+<p>I case we need to so the same on wireless card we can use <strong>ifconfig</strong> to bring the interface up and <strong>iwconfig</strong> to print the status of that interface.</p>
+
+<p><img src="/assets/images/lpic2/iwconfig.png" alt="LPIC2 Post" />
+<strong>Figure 173</strong> Setting of wireless interface.</p>
+
+<p>As you may know our PC search for SSID to connect the network, we can print all the SSID we have on the room by running <strong>iwlist</strong> command.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>iwlist wlp2s0 scan
+</code></pre></div></div>
+
+<p><img src="/assets/images/lpic2/ESSID.png" alt="LPIC2 Post" />
+<strong>Figure 174</strong> ESSID in my local area.</p>
+
+<p>We can use the following to connect that network by using the ESSID we have now:</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sudo iwconfig wlan0 essid IT-WIFI
+</code></pre></div></div>
+
+<p>If we haven’t IP address we can use DHCP for make query to DHCP server.</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>dhclient wlan0
+</code></pre></div></div>
+
+<p>We talk before about <strong>netstat</strong> and the following command is what I am love to use every time:</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>netstat -aenpl
+</code></pre></div></div>
+
+<p>This command give us information about the process number and the port related to it, in networking view we use most the following:</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>netstat -tuna
+</code></pre></div></div>
+
+<p>This will show us the local address and remote address, in case we have some network issue to some target we can check with netstat the state of that connection, if it say that this session is base on <strong>tcp</strong> and the connection is <strong>ESTABLISHED</strong> it is mean that all good!</p>
+
+<p>The command <strong>ss</strong> is the same as <strong>netstat</strong> you can call it the new netstat, if you want to view the current listening socket you can use the <strong>-l</strong> option and the same in the netstat the option <strong>-t</strong> for tcp and <strong>-u</strong> for udp.</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ss -tuna
+</code></pre></div></div>
+
+<p>By using that command we can know what port are open in my machine and in some cases that we have ESTABLISHED connection we will see the peer address with port that in use.</p>
+
+<p>There is also the <strong>lsof</strong> command that we talk about in the <a href="#lsof">lsof</a> section, if you remember this command list open files on your system, but also can give us a clue about open session that we have, as example I have some establish connection that I can see if I run netstate or ss as follow:</p>
+
+<p><img src="/assets/images/lpic2/netstat&amp;ss.png" alt="LPIC2 Post" />
+<strong>Figure 175</strong> Network connection using netstat and ss.</p>
+
+<p>In order to find what process I need to check that related to this kind of connection I need to know the PID that related to this session, but if I run the <strong>netstat -aenp</strong></p>
+
+<p><img src="/assets/images/lpic2/netstatports.png" alt="LPIC2 Post" />
+<strong>Figure 176</strong> Trying to check the PID of the ESTABLISHED session.</p>
+
+<p>You can see that I have not PID for that establish session, what I can do is using <strong>lsof</strong> by grep the <strong>Inode</strong> number that I have from that establish session which is 64171.</p>
+
+<p><img src="/assets/images/lpic2/anydesk.png" alt="LPIC2 Post" />
+<strong>Figure 177</strong> Anydest.</p>
+
+<p>You can see that the command for that session is anydesk so we know now that anydesk is using this session.</p>
+
+<p>We can also run <strong>tcpdump</strong> to get more live information about this session, currently I am not using anydesk app so I don’t think we going to see many network packets that related to this session, but remember that this session is TCP based and also on ESTABLISHED state so surly we will see some packets.</p>
+
+<p><img src="/assets/images/lpic2/tcpdump.png" alt="LPIC2 Post" />
+<strong>Figure 178</strong> tcpdump.</p>
+
+<p>You can see that I am using <strong>-XX</strong> option for HEX output and <strong>-vvv</strong> option for even more verbose output. So we have a little packets in that seession but you can see that it is a live and working.</p>
+
+<p>For that section we need also to learn about <strong>nc</strong> which is <strong>netcat</strong> command that we can use to run remote executable commands or transfer files, and also get to know the <strong>nmap</strong> tools, you can read more about this two in my <a href="http://zwerd.com/2019/09/20/oscp_certificate.html#chapter-3">OSCP</a> post but I also write little about them here.</p>
+
+<p>The command for <strong>Netcat</strong> is nc and according to man page that tool is used for checking TCP/UDP port that are open or listen to them. This is mean that I am able to use it to connect to some email server with pop3 like I used in telnet before.</p>
+
+<p><img src="/assets/images/lpic2/pop3.png" alt="OSCP Post" />
+<strong>Figure 179</strong> POP3 used with telnet.</p>
+
+<p>In my case the user and password are incorrect to this is why I have an error, but what I want to say is that with <strong>nc</strong>, if we want to open connection to some mail as we done with telnet, we can do the same.</p>
+
+<p><img src="/assets/images/lpic2/pop3withnc.png" alt="OSCP Post" />
+<strong>Figure 180</strong> POP3 used with netcat.</p>
+
+<p>The <strong>-n</strong> option means do not resolve the dns, and <strong>-v</strong> are verbose, if we want to listen to some port with nc, we just need to specify the <strong>-l</strong> option that stand for listen and <strong>-p</strong> for specific port, we can also used verbose to get more information about the session, the coolest thing is that we can used netcat for chatting over the network, on one machine we need accomplish that command:</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>nc -lvp 555
+</code></pre></div></div>
+
+<p>One the other station, we will need to use nc to connect to the first one PC, and that everything that we will type will showup on the other machine.</p>
+
+<p><img src="/assets/images/lpic2/nc.png" alt="OSCP Post" />
+<strong>Figure 181</strong> Netcat with two station chat.</p>
+
+<p>We also can use netcat to create connection between two PC’s and transfer file using that connection, for doing so we need to use redirection.</p>
+
+<p>On the server side which is the listener, we use output redirect to redirect the incoming file to our local file location.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>nc -vlp 555 &gt;  file.txt
+</code></pre></div></div>
+
+<p>On the client side we open connection with netcat and use input redirection to redirect the file we want to transfer to our netcat command, in this action we establish communication which contain the file, after the transfer will finish we will be able to view the file on the server side.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>nc -v 172.16.0.196 555 &lt; file.txt
+</code></pre></div></div>
+
+<p><img src="/assets/images/lpic2/transferfile.png" alt="OSCP Post" />
+<strong>Figure 182</strong> Netcat transfer file.</p>
+
+<p><strong>Note:</strong> in my case I used netcat from my local linux to my local linux, but I encourage you to try it from one machine to another.</p>
+
+<p>With <strong>nmap</strong> tool we can use to check what open ports we have on remote server, For example let’s say that in my local network I want to scan some remote machine for finding open ports’ I can just run the following:</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>nmap &lt;ip address&gt;
+</code></pre></div></div>
+
+<p>And it will bring me the information about that, so let’s look on it, right now I have an wireless card and I connect to IT-WIFI which is the ssid for the local wifi.</p>
+
+<p><img src="/assets/images/lpic2/wifi.png" alt="OSCP Post" />
+<strong>Figure 182</strong> My wifi interface.</p>
+
+<p>As you can see my IP address is 172.16.0.241, I can now run some arp to find some target that we can use for doing our scan.</p>
+
+<p><img src="/assets/images/lpic2/arp-a.png" alt="OSCP Post" />
+<strong>Figure 183</strong> IP addresses in my network.</p>
+
+<p>So now I can choose my target, please remember that this all are a live machine in my local network and to do scanning like what I am going to do in the public is in many cases illegal, in my case I am choose 172.16.1. address that look like nice address, so now I am running <strong>nmap</strong>, first we check if it a live by running ping to it.</p>
+
+<p><img src="/assets/images/lpic2/nmap.png" alt="OSCP Post" />
+<strong>Figure 184</strong> Open ports on the target.</p>
+
+<p>You can see that on the target we have iSCSI service that run or at least port 3260/tcp which is use for iSCSI and more several ports open, so in case we trying for example to connect some website and the connection can’t establish we can check if we have open ports on that server, we may find other ports like 8080 open instead of 80.</p>
+
+<p>Now I want to talk about troubleshooting,if we what to connect and use some service over the internet or even in our organization, we may have from time to time network issue that related to our local network area AKA LAN or issue in the wide area which is at our ISP side AKA WAN, in such cases we need to know how to troubleshoot and separate the issue and find in what area or level our problem begin.</p>
+
+<p>Let’s say I have some PC that we need from that PC to connect the zwerd.com domain from our browser, but we have some issue to connect, and on the browser we get some error about connectivity issue.</p>
+
+<p><img src="/assets/images/lpic2/browser.png" alt="OSCP Post" />
+<strong>Figure 185</strong> Can’t connect to this sites.</p>
+
+<p>The first thing I automatically done is to ping that server and check if I have replay, in my case as you can see in the figure below it doesn’t work so we need to check our network.</p>
+
+<p><img src="/assets/images/lpic2/pingout.png" alt="OSCP Post" />
+<strong>Figure 186</strong> Trying to ping out.</p>
+
+<p>In such case I will check first what is the status of my local network interface, you can see that if I run <strong>ifconfig</strong> I can see only the lo0, which is not the interface I expect see.</p>
+
+<p><img src="/assets/images/lpic2/ifconfig-lo0.png" alt="OSCP Post" />
+<strong>Figure 187</strong> ifconfig lo0.</p>
+
+<p>So what I need to do is to use option <strong>-a</strong> to see all of my interfaces, if it dosn’t show us another interface this is mean that maybe the drive dosn’t connect currectly or we have not driver for that adapter.</p>
+
+<p><img src="/assets/images/lpic2/ifconfig-all.png" alt="OSCP Post" />
+<strong>Figure 188</strong> ifconfig all interfaces.</p>
+
+<p>You can see now the interface, so this is mean that this interface is on down state, you can also check it by using <strong>ip addr</strong> command.</p>
+
+<p><img src="/assets/images/lpic2/ipaddrdown.png" alt="OSCP Post" />
+<strong>Figure 189</strong> ip addr.</p>
+
+<p>You can see that the state for that interface is down, so for bring it up we need to run the following:</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sudo ifconfig enp0s3 up
+</code></pre></div></div>
+
+<p><img src="/assets/images/lpic2/ipaddrup.png" alt="OSCP Post" />
+<strong>Figure 190</strong> ip addr interface up.</p>
+
+<p>So now we can trying to ping to 8.8.8.8, but it also don’t work, so in that case we need to check the interface again and see if we have something missing.</p>
+
+<p><img src="/assets/images/lpic2/interface.png" alt="OSCP Post" />
+<strong>Figure 191</strong> checking that interface.</p>
+
+<p>You can see that I haven’t IP address on that interface, you can also see that I have not recieve any data on my RX although my TX send data, this is mmay mean that I have physical issue with my network, so I need to check it out.</p>
+
+<p><img src="/assets/images/lpic2/interfacenotx.png" alt="OSCP Post" />
+<strong>Figure 192</strong> checking that interface.</p>
+
+<p>So I found that I have some issue with my network card, and now it connect currently to my local switch, but still I have no IP address, so I need to check if I have some DHCP working in my network, if I haven’t I will need to setup the IP address manually.</p>
+
+<p><img src="/assets/images/lpic2/havenoip.png" alt="OSCP Post" />
+<strong>Figure 193</strong> checking that interface.</p>
+
+<p>So we can run the <strong>dhclient</strong> command to check if I get any IP address.</p>
+
+<p><img src="/assets/images/lpic2/dhclient.png" alt="OSCP Post" />
+<strong>Figure 194</strong> checking that interface.</p>
+
+<p>You can see that it work and now I have IP address, so now let’s trying to ping out. You can see that the ping is working fine.</p>
+
+<p><img src="/assets/images/lpic2/pingtozwerd.png" alt="OSCP Post" />
+<strong>Figure 195</strong> ping to zwerd.</p>
+
+<p>So we can trying to using our browser to connect that site.</p>
+
+<p><img src="/assets/images/lpic2/zwerd.com.png" alt="OSCP Post" />
+<strong>Figure 196</strong> Web site working.</p>
+
+<p>There is more thing we need to know that can help us in troubleshoot, one of them is <strong>traceroute</strong> this is really cool thing, this tool run pings over the network with TTL value of 1, this TTL is used to report the sender that the TTL value are 0, it meant to use for prevent eternal loop within the network, so we send out packet with TTL low number, when the packet forwarded the machine that done the forworking change the TTL value subtract it by 1, if the value is zero that machine inform the source that the “Time to live exceeded” and this is mean that one of the two thing, of we have a loop, or we need to increase the TTL value, in <strong>traceroute</strong> the value is increase when the source get the “Time to live exceeded” message, in that way we have the knowledge that the same machine who sent us the “Time to live exceeded” message is on of the hop up the path to our destination.</p>
+
+<p>As example let’s run <strong>traceroute</strong> against zwerd.com</p>
+
+<p><img src="/assets/images/lpic2/zwerd.com.png" alt="OSCP Post" />
+<strong>Figure 197</strong> Web site working.</p>
+
+<p>You can see the path, every hop replay to us with his IP address, so in that way we can know what is the path in layer 3 to our destination, there is also <strong>traceroute6</strong> for IP version 6, and also we have <strong>tracepath</strong> for checking the mtu along the way, there is also the <strong>mtr</strong> which is a network diagnostic tool which can give you inforamtion about packets loss all over the path to destination.</p>
+
+<p>To find our what is the hostname of our local system we can use <strong>hostname</strong> which is a part of severla tools as follow:</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>hostname - show or set the system's host name
+domainname - show or set the system's NIS/YP domain name
+ypdomainname - show or set the system's NIS/YP domain name
+nisdomainname - show or set the system's NIS/YP domain name
+dnsdomainname - show the system's DNS domain name
+</code></pre></div></div>
+
+<p>Hostname is used to display the system’s DNS name, and to display or set its  hostname  or NIS domain name, normally by reading the contents of a file which contains the host name, e.g.  <strong>/etc/hostname</strong>.</p>
+
+<p>You can also use the <strong>/etc/resolv.conf</strong> file which contain a list nameservers that are used by your host or DNS resolution. if we are using DHCP this file is automatically populated with DNS recode issued by DHCP server.</p>
+
+<p>There is also the <strong>/etc/hosts</strong> file which also contain hostnames and IP address, this file contain static table lookup for hostnames, this is mean that we can use if in case we have no DNS server configure for our host, or we want to specify specific record for some host or block the local machine to successfully resolve the IP address for some host.</p>
+
+<p>We can also apply sort of access list that contain the allow connection host on the network to connect our local machine by specify their name and address in the <strong>/etc/hosts.allow</strong>, in that way we can done we would done with FW, but this time this policy apply on our local machine.</p>
+
+<p>We can also do the same to deny hosts from enable their connection to our local machine by specify them in the <strong>/etc/hosts.deny</strong></p>
+
+<p>If we suspect that we had some issue regarding to our network drive and have no IP address or some missing setting on our local machine, we can run <strong>dmesg</strong> tool to find some logs that was created during the bootup, as example in my case let’s say that I suspect that I have some issue related to my wifi card, so I can grep our all of the logs that have the wlp2s0 string which is my wifi interface.</p>
+
+<p><img src="/assets/images/lpic2/wifilogs.png" alt="OSCP Post" />
+<strong>Figure 198</strong> My wifi interface logs from dmesg.</p>
+
+<p>We can find more related logs in the <strong>/var/log/syslog</strong> file that contain more details about my wlp2s0 which is my wifi interface.</p>
+
+<p><img src="/assets/images/lpic2/wifisyslogs.png" alt="OSCP Post" />
+<strong>Figure 197</strong> My local syslog grep wifi.</p>
+
+<h2 id="chapter-6">Chapter 6</h2>
+<h2 id="topic-206-system-maintenance">Topic 206: System Maintenance.</h2>
+
+<p>Now I want to tell you a story that happened to me in the last year, if you follow my posts you can see that already 8 years ago I was talking about OSCP certification, last year I met a friend who knew me for a small group that opened for one purpose - Bug Bounty. For those who don’t know, Bug Bounty is a program that allows us to hack software from reputable companies and earn money! Yes Yes! Money on hacking into software.</p>
+
+<p>That evening as the group got into acquaintance, each one talked about himself, one of the members said that in his company someone had exploited some weakness and was able to apply bitminer to one of the servers in the organization he was working on, he surpassed it with all kinds of tools that slowly identified the server to other servers.</p>
+
+<p>I knew the bitcoin issue already, but I did not know what actually made bitminer and how it uses resources to perform other process calculations.</p>
+
+<p>Why am I talking about this? Because in this chapter we have to compile our own software, it’s similar to what we did with the kernel in the second chapter, but here is more about a binary program when the compiler is supposed to prepare it for execution, and guess what software we’re going to compile?</p>
+
+<p>exactly!</p>
+
+<p>We’re going to compile the bitminer and prepare the binary for execution, I’m sure it will be interesting.</p>
+
+<p>So first of all we download the tar file from the following link (pooler-cpuminer-2.5.0-linux-x86.tar.gz)[https://github.com/pooler/cpuminer/releases/download/v2.5.0/pooler-cpuminer-2.5.0-linux-x86.tar.gz]</p>
+
+<p>after that run the following:</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>tar -zxvf pooler-cpuminer-2.5.0-linux-x86.tar.gz
+</code></pre></div></div>
+
+<p><img src="/assets/images/lpic2/tarfile.png" alt="OSCP Post" />
+<strong>Figure 198</strong> Extract the file using tar.</p>
+
+<p>After that we will have new folder that contain many files.</p>
+
+<p><img src="/assets/images/lpic2/cpuminer.png" alt="OSCP Post" />
+<strong>Figure 199</strong> My folder.</p>
+
+<p>What we need to search now is the configure file and run it as <code class="highlighter-rouge">./configure</code>, while it run you can see what is does, if some error appears we will need to fix if before we can compile this binary.</p>
+
+<p><img src="/assets/images/lpic2/missing.png" alt="OSCP Post" />
+<strong>Figure 200</strong> Missing file.</p>
+
+<p>You can see that have missing program named libcurl, so I can run <code class="highlighter-rouge">apt-cache search libcurl</code> or search it over the net.</p>
+
+<p><img src="/assets/images/lpic2/apr-cache.png" alt="OSCP Post" />
+<strong>Figure 201</strong> Search for that program.</p>
+
+<p>You can see that I had many program to choose, as much as I know from Shawn Powers every package that contain the name dev, it’s mean that this is actually develop packege that can allow us to compile source code, so in my case I am going to install libcurl4-openssl-dev.</p>
+
+<p><img src="/assets/images/lpic2/configureyes.png" alt="OSCP Post" />
+<strong>Figure 202</strong> Finish succesfully.</p>
+
+<p>Now you can see that it end up without an error, so  we can start to make the binary file</p>
+
+<p><img src="/assets/images/lpic2/make.png" alt="OSCP Post" />
+<strong>Figure 203</strong> Search for that program.</p>
+
+<p>Now if I run that minerd file you can see that I have an output, but as you may notice I am using that as a local directory with <code class="highlighter-rouge">./minerd</code>, for making it acually binary tool that can run without the need to run it from the source folder we just need to run.</p>
+
+<p><img src="/assets/images/lpic2/minerd.png" alt="OSCP Post" />
+<strong>Figure 204</strong> minerd.</p>
+
+<p>So what we need to do is to run <code class="highlighter-rouge">sudo make install</code>, this command will put it in /usr/local/bin, so know we can run it from any directory location in our machine.</p>
+
+<p><img src="/assets/images/lpic2/makeinstall.png" alt="OSCP Post" />
+<strong>Figure 205</strong> make install.</p>
+
+<p>Please remember that by default all source code are store and can be found in the following directory</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/usr/src
+</code></pre></div></div>
+
+<p>In case we have a program that already install on our system we may what to apply a patch for that program, to do so we can run the patch command with that program patch file.</p>
+
+<p>The patch file is file that contain the differences between the old file and the new one, this will update our program by applying it.</p>
+
+<p>so if we have old program and we create a new one we can run the following:</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>diff -u oldprogram.c newprogram.c &gt; program.patch
+</code></pre></div></div>
+
+<p>For applying this patch just run.</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>patch &lt; program.patch
+</code></pre></div></div>
+
+<p>I want to talk about tar and rsync right now, with these two tools we can use to back up some important folders that back them up:</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/etc/
+/var/spool/
+/home/
+/usr/local
+</code></pre></div></div>
+<p>In some folders we can find important things like system settings or binaries or logs, it really depends on what we need, these are the folders we might back up</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/var/lib/
+/var/log/
+/opt/
+</code></pre></div></div>
+
+<p>True, we talked about a RAID that provides a type of backup, but in truth it is more at the level of being able to use information that a disk has even though one disk is damaged or destroyed, when talking about this backup goes well beyond the RAID, it is actually our way of taking the files and replicating them to another location or To a completely different server, in this way we ensure that the files remain accessible even if the computer is damaged and unable to work.</p>
+
+<p>The first thing we can do is use tar to prepare a tar file that compiles all files separately from our folders</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>tar -cvf backup.tar /Documents
+</code></pre></div></div>
+
+<p>This command will create an archive file that will contain all the files specified in my case, in the case of the Documents folder.</p>
+
+<p>There is a much better way to do a backup and it is through rsync, this tool actually creates a backup folder and also tracks changes made to files, if changes are made it will update them in the backup folder, although if we created a new file we will need to run the command again so that it backs up the extra file
+ </p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>rsync -av Documents/ backupfolder
+</code></pre></div></div>
+
+<p>We can also use the rsync to make backup over the network by using ssh as follow:</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>rsync -av Documents guy@172.16.1.9:/home/guy/
+</code></pre></div></div>
+
+<p>This will make backup on other server so if we make change of some file that in the Documents folder it will update the backup on the server.</p>
+
+<p>For backup there is another solutions th
+at can help us, one of them is <strong>Amanda</strong> previously known as Advanced Maryland Automatic Network Disk Archiver is an open source computer archiving tool that is able to back up data residing on multiple computers on a network. It uses a client–server model, where the server contacts each client to perform a backup at a scheduled time.</p>
+
+<p>You can install that step by step by watching that <a href="https://www.youtube.com/watch?v=D-gmLictqws">videro</a>, there is more solution for backup like Bacula, Bareos and BackupPC, all are the same consept.</p>
+
+<p>For the exam we need to know <strong>mt</strong> tool, as much as I understand this tool is used for tape drive which is magnetic plastic strip that use for backup.</p>
+
+<p><img src="https://www.nakivo.com/blog/wp-content/uploads/2019/07/Tape-Cartridges-Tape-Backup-Advantages.jpg" alt="OSCP Post" />
+<strong>Figure 206</strong> tape.</p>
+
+<p>The default drive for tape is <code class="highlighter-rouge">/dev/st0</code> , we can use tar to backup what we need to this tape as follow:</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>tar -czf /dev/st0 /www /home
+</code></pre></div></div>
+
+<p>In that case I backup the <code class="highlighter-rouge">www</code> directory and also the <code class="highlighter-rouge">home</code> directory to my tape which is the <code class="highlighter-rouge">st0</code> drive. We can rewind that tape by using the following command:</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>mt -f /dev/st0 rewind
+</code></pre></div></div>
+
+<p>Only after that we will able to use tar to backup our directories. For checking that tape status simply run the following:</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>mt -f /dev/st0 status
+</code></pre></div></div>
+
+<p>We can also erase the tape by adding the erase option to this command.</p>
+
+<p>We can also use <strong>dd</strong> command for backup the whole disk, just look on the following command:</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sudo dd if=/dev/sdb of=/dev/sdc bs=64k conv=noerror,sync status=progress
+</code></pre></div></div>
+
+<p>That command run over sdb drive and copy all to sdc drive, the option <code class="highlighter-rouge">bs</code> stand for 64k which is more useful then the default 512 byte, <strong>conv</strong> set on noerro which mean to ignoring all read error, the <strong>sync</strong> used for fill input blocks with zero if there ware any read errors and the <strong>status</strong> option set on progress for us to be able to see the running state of <strong>dd</strong> because such command may take a long time to run.</p>
+
+<p>In the lest part of this chapter we need to talk about notify users on system related issue, which mean that if we have some error and we want to fix it, and the only way to fix it is to do something to the system that can make angry some of our users, like shutdown or kill some app, we can notify the users by several ways.</p>
+
+<p>The first way to do so is to write message on the shell which every user that connect to this server over the command line will get notify about that message:</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>wall &lt; message.txt
+</code></pre></div></div>
+
+<p>In this command I run the <strong>wall</strong> command and apply it the text file which contain my message, this will broadcast that message to every user that connect to this server over the shell.</p>
+
+<p><img src="/assets/images/lpic2/wall.png" alt="OSCP Post" />
+<strong>Figure 207</strong> Message by wall command.</p>
+
+<p>You can see the message on the screen of that user that came from guy, and time and date also specify. If you dont have text file ready for broadcast message, you can just run the following on the command line and it work the same.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ehco "hello, this system is going down in 5 minits!" | wall
+</code></pre></div></div>
+
+<p>We also have the Message Of The Day which is <code class="highlighter-rouge">/etc/motd</code> file that can contain any message you want, after user connect to our server via ssh he will get this message immediately.</p>
+
+<p>What we need to do to make it work is to change some line in the ssh configuration file in the <code class="highlighter-rouge">/etc/ssh/sshd_config</code>.</p>
+
+<p><img src="/assets/images/lpic2/banner.png" alt="OSCP Post" />
+<strong>Figure 208</strong> Banner message.</p>
+
+<p>After that if user connect in he will get this message print on the screen. In case we want to print on the user screen message before he login, we can use <code class="highlighter-rouge">/etc/issue.net</code>, we also need to update the sshd_config file and restart the service.</p>
+
+<p><img src="/assets/images/lpic2/issue.net.png" alt="OSCP Post" />
+<strong>Figure 209</strong> The net issue file.</p>
+
+<p>And we inform our user if we want to run on <strong>shotdown</strong> or <strong>systemctl poweroff</strong>.</p>
 
     
 

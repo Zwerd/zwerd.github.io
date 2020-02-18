@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.5">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2020-02-09T15:23:32+02:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Zwerd</title><subtitle>A stunning blog of freaking PT warrior</subtitle><author><name>Guy Zwerdling</name></author><entry><title type="html">LPIC2 Certification Journey</title><link href="http://localhost:4000/2019/11/19/lpic2_certificate.html" rel="alternate" type="text/html" title="LPIC2 Certification Journey" /><published>2019-11-19T00:00:00+02:00</published><updated>2019-11-19T00:00:00+02:00</updated><id>http://localhost:4000/2019/11/19/lpic2_certificate</id><content type="html" xml:base="http://localhost:4000/2019/11/19/lpic2_certificate.html">&lt;p&gt;Today morning I received a message from LPI that my certificate will expire in 9 months and so it is time to start studying for the second Linux certification, this will advance me to the third Linux information security certification that I will search for, this certification is divided into two and the two parts are marked by two different codes: 201-450, 202-450&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.5">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2020-02-18T19:45:37+02:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Zwerd</title><subtitle>A stunning blog of freaking PT warrior</subtitle><author><name>Guy Zwerdling</name></author><entry><title type="html">LPIC2 Certification Journey</title><link href="http://localhost:4000/2019/11/19/lpic2_certificate.html" rel="alternate" type="text/html" title="LPIC2 Certification Journey" /><published>2019-11-19T00:00:00+02:00</published><updated>2019-11-19T00:00:00+02:00</updated><id>http://localhost:4000/2019/11/19/lpic2_certificate</id><content type="html" xml:base="http://localhost:4000/2019/11/19/lpic2_certificate.html">&lt;p&gt;Today morning I received a message from LPI that my certificate will expire in 9 months and so it is time to start studying for the second Linux certification, this will advance me to the third Linux information security certification that I will search for, this certification is divided into two and the two parts are marked by two different codes: 201-450, 202-450&lt;/p&gt;
 
 &lt;p&gt;In this post I am going to go over each topic as listed on the LPI website, which means I will go over each tool and present it here, in each chapter I will show how to use these tools to get the same information that the subject of the test should deal with, at the end of each chapter I will present a challenge From most of the commands we learned and challenged you and me how to get the information to succeed.&lt;/p&gt;
 
@@ -9,6 +9,7 @@
   &lt;li&gt;&lt;a href=&quot;#chapter-1&quot;&gt;Chapter 1&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;#chapter-2&quot;&gt;Chapter 2&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;#chapter-3&quot;&gt;Chapter 3&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#chapter-4&quot;&gt;Chapter 4&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;h1 id=&quot;objective-201-450&quot;&gt;Objective 201-450&lt;/h1&gt;
@@ -1567,7 +1568,615 @@ Filesystem features:      has_journal ext_attr resize_inode dir_index filetype n
 
 &lt;p&gt;There is one thing you also need to know, it is the &lt;strong&gt;fstrim&lt;/strong&gt; which is use to discard unused blocks on a mounted filesystem, I saw many videos about that on youtube and all of them say that this is can be allow better performance on your system.&lt;/p&gt;
 
-&lt;p&gt;You can write the word discard (or “trim”) in the fstab file to allow it automatically mount and perform fstrim, but please note that in the man page is say that running  &lt;strong&gt;fstrim&lt;/strong&gt;  frequently,  or even using mount -o discard, might negatively affect the lifetime of poor-quality SSD devices.&lt;/p&gt;</content><author><name>Guy Zwerdling</name></author><category term="Linux" /><summary type="html">Today morning I received a message from LPI that my certificate will expire in 9 months and so it is time to start studying for the second Linux certification, this will advance me to the third Linux information security certification that will include what I am looking for, this certification is split in two</summary></entry><entry><title type="html">OSCP Certification Journey</title><link href="http://localhost:4000/2019/09/20/oscp_certificate.html" rel="alternate" type="text/html" title="OSCP Certification Journey" /><published>2019-09-20T00:00:00+03:00</published><updated>2019-09-20T00:00:00+03:00</updated><id>http://localhost:4000/2019/09/20/oscp_certificate</id><content type="html" xml:base="http://localhost:4000/2019/09/20/oscp_certificate.html">&lt;p&gt;I set myself a lot of goals this year to advance to the next level, among all the goals being the OSCP certification from Offensive Security. It’s been a certification I’ve been talking about for years, since 2012, it’s really time to sit down and do that certification. It all started when I was writing in a forum on computer communications, where I presented the dilemma, whether to study information security of companies that are involved in the field or something else when my goal is to be an expert in the cyber world.&lt;/p&gt;
+&lt;p&gt;You can write the word discard (or “trim”) in the fstab file to allow it automatically mount and perform fstrim, but please note that in the man page is say that running  &lt;strong&gt;fstrim&lt;/strong&gt;  frequently,  or even using mount -o discard, might negatively affect the lifetime of poor-quality SSD devices.&lt;/p&gt;
+
+&lt;p&gt;So far we talk about hard disk and optical disk with PATA or SATA technologies, we need to have also knowledge about SCSI and iSCSI, when we talk about SCSI it can be sort of hard drive or optical drive or even floppy drive, but it also can referred to bus connector, but it also can be referred as the software technology that know how to connect with the hard disk, if you want to know more about that you can view the &lt;a href=&quot;https://www.youtube.com/watch?v=M0i4MxeoatQ&amp;amp;t=1691s&quot;&gt;Ancient Electronics&lt;/a&gt; video overview which I found the most explainable for us to be ready for the EXAM.&lt;/p&gt;
+
+&lt;p&gt;In the LPIC2 objective we need to have more knowledge about &lt;strong&gt;iSCSI&lt;/strong&gt; which is the way to mount SCSI device from the network, in &lt;strong&gt;iSCSI&lt;/strong&gt; there is a two thing we need to know, the server side configuration and the client side configuration, on the server we need to setup the device that going to be use with iSCSI on remote machine which are the client, we also need to enable on the server his IP address and password if we want.&lt;/p&gt;
+
+&lt;p&gt;On the server side with setup the &lt;strong&gt;target&lt;/strong&gt; which going to be some local disk on the server and on the client we use it as a &lt;strong&gt;initiator&lt;/strong&gt; which going to mount the &lt;strong&gt;target&lt;/strong&gt; from the remote server.&lt;/p&gt;
+
+&lt;p&gt;I am going to use centOS 6 for server side which is my &lt;strong&gt;target&lt;/strong&gt; and I will use ubuntu 18 as client which is the &lt;strong&gt;initiator&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;p&gt;In my server I need to install the following utile:&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;sudo yum -y install scsi-targets-utils
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Ufter it finish we need to setup the target so in my case I need to use the following configuration file:&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;vi /etc/tgt/targets.conf
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;On the bottom we need to write the following:&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&amp;lt;target 172.16.0.209:target01&amp;gt;
+backing-store /dev/sdb1
+incominguser admin admin
+&amp;lt;/target&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;With this setting I make single entry which mean it going to be one drive storage that the client (initiator) can be use for mounting it, my backing storage is sdb1 and the username is admin password admin for initiate.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/lpic2/tgt.png&quot; alt=&quot;LPIC2 Post&quot; /&gt;
+&lt;strong&gt;Figure 156&lt;/strong&gt; The target file configuration.&lt;/p&gt;
+
+&lt;p&gt;Now we need to restart the &lt;strong&gt;tgt&lt;/strong&gt; service&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/lpic2/tgtdservice.png&quot; alt=&quot;LPIC2 Post&quot; /&gt;
+&lt;strong&gt;Figure 157&lt;/strong&gt; Restart tgtd service.&lt;/p&gt;
+
+&lt;p&gt;Now we can use the &lt;strong&gt;tgtadm&lt;/strong&gt; command for view our configuration by using the following option:&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;tgtadm --mode target --op show
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;In this command we specify the mode which in our case is target becouse we setup the target file, and the operation is &lt;strong&gt;show&lt;/strong&gt; for display it.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/lpic2/tgtadm.png&quot; alt=&quot;LPIC2 Post&quot; /&gt;
+&lt;strong&gt;Figure 158&lt;/strong&gt; tgtadm command.&lt;/p&gt;
+
+&lt;p&gt;You can see that we have LUN0 for the conntroler and LUN1 for the disk and it contain the backing store path which is what we mount on the client, the &lt;strong&gt;initiator&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;p&gt;Now on the client or the &lt;strong&gt;initiator&lt;/strong&gt; we can use the user admin with password admin to mount that device, but it will never work well because the centOS using Firewall by default, so we need to allow the connection for that server using port 3260 which is the port for iSCSI protocol that base on TCP connection.&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;firewall-cmd --zone=public --add-port=3260/tcp --permanent
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Using this command the connection to that server will be able to establish, so now we need to run the following command for apply our settings:&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;firewall-cmd --reload
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;In my case I am using centOS6 so I need to run iptable because I haven’t firewalld on that system.&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;iptables -I INPUT 1 -p tcp --dport 3260 -j ACCEPT
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Now we need to work on our &lt;strong&gt;initiator&lt;/strong&gt; which is our client for it to be able to mount that SCSI device, in my case my client are Ubuntu based so I need to install the iSCSI software to be able to setup the initiator.&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;sudo apt install open-iscsi
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;After that we need to edit the following file &lt;em&gt;/etc/iscsi/iscsid.cont&lt;/em&gt;, we not need to change much of that file, what we want to change is the node session for username and password because we set it on our server.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/lpic2/iscsidconf.png&quot; alt=&quot;LPIC2 Post&quot; /&gt;
+&lt;strong&gt;Figure 159&lt;/strong&gt; Setup for the initiator.&lt;/p&gt;
+
+&lt;p&gt;Now we need to restart the iscsi demon for making sure our setting applied.&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;service iscsid stop
+service iscsid start
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;And now we can use the &lt;strong&gt;iscsiadm&lt;/strong&gt; command for discovery the target.&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;iscsiadm --mode discovery -t sendtargets --portal 172.16.0.209
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;In this command we trying to discover our targets by specifying the IP address for our server, this likely to find the LUN1 we saw earlier and only after he will try to use the username and password we set on the iscsid.conf file, it will be able to see that LUN.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/lpic2/iscsiadmin.png&quot; alt=&quot;LPIC2 Post&quot; /&gt;
+&lt;strong&gt;Figure 160&lt;/strong&gt; Discovery of LUN on the target by using iscsiadm.&lt;/p&gt;
+
+&lt;p&gt;You can see that it find the target01 on the server, now if I run ls for check the device I have I will see the normal devices and the new device will not be one of them.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/lpic2/ls-on-dev.png&quot; alt=&quot;LPIC2 Post&quot; /&gt;
+&lt;strong&gt;Figure 161&lt;/strong&gt; Devices on dev.&lt;/p&gt;
+
+&lt;p&gt;Now we need to do one more thing that will allow us to mount the remote SCSI drive, we going to use the &lt;strong&gt;target&lt;/strong&gt; we found by using the following command:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;iscsiadm --mode node --targetname 172.16.0.209:target01 --portal 172.16.0.209 --login
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;With this command will bring us the LUM to live on our machine as a SCSI device, and only after that we will be able to format the systemfile and mount it notmally on our system.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/lpic2/iscsiadmtarget.png&quot; alt=&quot;LPIC2 Post&quot; /&gt;
+&lt;strong&gt;Figure 162&lt;/strong&gt; Bring the target device on our client machine.&lt;/p&gt;
+
+&lt;p&gt;After that if we will run &lt;strong&gt;ls&lt;/strong&gt; agian we will be able to see our new device.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/lpic2/ls-new-device.png&quot; alt=&quot;LPIC2 Post&quot; /&gt;
+&lt;strong&gt;Figure 163&lt;/strong&gt; You can see the sdh drive.&lt;/p&gt;
+
+&lt;p&gt;We can find imformation about the drive in the following directory:&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;cd /dev/disk/by-id  
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;You can find this folder aliases file that contian on thire names the drive on the system, for every device you can find the WWID (World Wide Identify) number or World Wide Number or UUID, on the scsi we see the WWN which is the drive uniq number.&lt;/p&gt;
+
+&lt;p&gt;Now we going to format it’s filesystem by using &lt;code class=&quot;highlighter-rouge&quot;&gt;mkfs.ext4&lt;/code&gt; and mount that after we finish by running &lt;code class=&quot;highlighter-rouge&quot;&gt;mount&lt;/code&gt; and we be able to use that disk like it was local drive on our system, except if we have some network issue we may not be able to connect that drive.&lt;/p&gt;
+
+&lt;p&gt;We also need to know about &lt;strong&gt;LVM&lt;/strong&gt; for the exam, in the LVM we need to know first three things, &lt;strong&gt;physical volumes&lt;/strong&gt;, &lt;strong&gt;volume groups&lt;/strong&gt; and &lt;strong&gt;logical volumes&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;p&gt;The &lt;strong&gt;physical volumes&lt;/strong&gt; is actually the hard drives we have on the machine, lets say we have three hard disk storage that they all specify under /dev/sd* let’s say sda, sdb, sdc, the physical volume is the partitions on our machine, so we need to create for every device partition by running &lt;strong&gt;fdisk&lt;/strong&gt; and use it for physical volume.&lt;/p&gt;
+
+&lt;p&gt;The &lt;strong&gt;volume groups&lt;/strong&gt; are the group we create to make one group that contain many &lt;strong&gt;physical volume&lt;/strong&gt;, so in our case the sda1, sdb1 and sdc1 each is &lt;strong&gt;physical volume&lt;/strong&gt;, we can create one &lt;strong&gt;volume groups&lt;/strong&gt; that will contain these &lt;strong&gt;physical volume&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;p&gt;The &lt;strong&gt;logical volumes&lt;/strong&gt; is sort of logical partition, which mean that we can create from the &lt;strong&gt;volume groups&lt;/strong&gt; many &lt;strong&gt;logical volumes&lt;/strong&gt; and set up for them specific size on each volume.&lt;/p&gt;
+
+&lt;p&gt;Let’s say that we use sda1, sdb1 and sdc1 for each to be &lt;strong&gt;physical volume&lt;/strong&gt; and we group all together for  &lt;strong&gt;volume groups&lt;/strong&gt; and from that group we setup many partitions as &lt;strong&gt;logical volumes&lt;/strong&gt;, this implementation have advance abilities like to have the ability to resize the &lt;strong&gt;logical volumes&lt;/strong&gt; and add more memory space for that, or to shrink it down, we can also have multiple partition for separate the data between them.&lt;/p&gt;
+
+&lt;p&gt;This is not like RIAD, becouse lvm have not backup data, we can use RAIN under LVM, and on top of it to run LVM. The LVM also have the way ro run snapshot.&lt;/p&gt;
+
+&lt;p&gt;For installing LVM we need to run the following on Ubuntu system:&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;sudo apt-get install lvm2
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;First of all I going to use &lt;strong&gt;fdisk&lt;/strong&gt; to create the partition, I am not going to use &lt;strong&gt;mkfs&lt;/strong&gt; after I done, instead I am using fdisk type option to choose LVM.&lt;/p&gt;
+
+&lt;p&gt;After that we can start to build our LVM over our disks, at first we need to create &lt;strong&gt;physical volume&lt;/strong&gt;, we have command like &lt;strong&gt;pvdisplay&lt;/strong&gt; that will show us the volume we have, since we have none, we going to create some:&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;sudo pvcreate /dev/sdc1 /dev/sdd1
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;In this command we specified the partition that will be physical volume each, only after that we can use &lt;strong&gt;physical volume&lt;/strong&gt; to display our volumes.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/lpic2/pvdisplay.png&quot; alt=&quot;LPIC2 Post&quot; /&gt;
+&lt;strong&gt;Figure 164&lt;/strong&gt; pvdisplay command.&lt;/p&gt;
+
+&lt;p&gt;You can see the PV name with on every physical volume is the device name, we can now use that volume on the volume group, you can see that every volume have size of 10G which is good for me.&lt;/p&gt;
+
+&lt;p&gt;Now let’s use the vgcreate command for create our volume group, we can run the following:&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;sudo vgcreate vg1 /dev/sdc1 /dev/sdd1
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;The name of our volume group going to be &lt;strong&gt;vg1&lt;/strong&gt; and I am using the actual path to the devices I what it to be in this group, after that I can run the &lt;strong&gt;vgdisplay&lt;/strong&gt; command.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/lpic2/vgdisplay.png&quot; alt=&quot;LPIC2 Post&quot; /&gt;
+&lt;strong&gt;Figure 165&lt;/strong&gt; vgdisplay command.&lt;/p&gt;
+
+&lt;p&gt;As you can see the name of my VG is vg1 and the format for this is lvm2, also we can see the VG size which is 19.99GB, just remember that we use two disk each is 10GB, now we can proceed to the logical volume creation.&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;sudo lvcreate --name lv1 --size 1G vg1
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;The name in my case is lv1, the size I am going to use is just ! giga, and the name of the volume group to use for that space location is vg1, you can see the ditails on &lt;strong&gt;lvdisplay&lt;/strong&gt; command.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/lpic2/lvdisplay.png&quot; alt=&quot;LPIC2 Post&quot; /&gt;
+&lt;strong&gt;Figure 166&lt;/strong&gt; lvdisplay command.&lt;/p&gt;
+
+&lt;p&gt;You can see the logical name and the volume group it is belongs to him, you can also see the path name which we going to use, now we can run &lt;strong&gt;mkfs&lt;/strong&gt; and &lt;strong&gt;mkdir&lt;/strong&gt; to create the folder which we using as mount point and also mount it, you can see the mounting name which is mapping that LVM.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/lpic2/mountlvm.png&quot; alt=&quot;LPIC2 Post&quot; /&gt;
+&lt;strong&gt;Figure 167&lt;/strong&gt; Mount the lv1 to folder1.&lt;/p&gt;
+
+&lt;p&gt;So as you can see every command we saw was start in one of the following options: &lt;strong&gt;pv&lt;/strong&gt;,&lt;strong&gt;vg&lt;/strong&gt;,&lt;strong&gt;lv&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;p&gt;We have more command that related to LVM in this type of naming, we also have the lvm.conf file that contain the configuration for LVM.&lt;/p&gt;
+
+&lt;h2 id=&quot;chapter-5&quot;&gt;Chapter 5&lt;/h2&gt;
+&lt;h2 id=&quot;topic-205-network-configuration&quot;&gt;Topic 205: Network Configuration.&lt;/h2&gt;
+
+&lt;p&gt;I have to admit that networking in Linux world  is a pretty easy topic for me because I had a time when I was dealing with a lot of networking issues and dealing with a network architecture problem so in this section we going to see how we setup network communication on our Linux.&lt;/p&gt;
+
+&lt;p&gt;In the previous chapter we saw how to setup iSCSI, but as you know we need network card and set it correctly for having communication with the server (target), if we have some issue with that connectivity then the iSCSI never work until we solve that issue.&lt;/p&gt;
+
+&lt;p&gt;The first thing we can do when it come to networking, is to view our local eternet card and find what is our IP address, to do so we need to run &lt;strong&gt;ifconfig&lt;/strong&gt;, with that command we can use to look our network card and even virtual like loopback.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/lpic2/ifconfig1.png&quot; alt=&quot;LPIC2 Post&quot; /&gt;
+&lt;strong&gt;Figure 167&lt;/strong&gt; ifconfig command.&lt;/p&gt;
+
+&lt;p&gt;You can see that I have only &lt;strong&gt;lo&lt;/strong&gt; that is my local loopback, but I know that I have also network card, so to view it also I can run the &lt;strong&gt;-a&lt;/strong&gt; option, it will give me every network card that I have in that machine.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/lpic2/ifconfigall.png&quot; alt=&quot;LPIC2 Post&quot; /&gt;
+&lt;strong&gt;Figure 168&lt;/strong&gt; ifconfig all devices.&lt;/p&gt;
+
+&lt;p&gt;You can see now that Ia have network device named enp0s3, in that device I haven’t associated IP address, so in that case I have note network connectivity for sure through that interface. Please be aware that if you can’t see some network card on the &lt;strong&gt;ifconfig&lt;/strong&gt; command and the only way to view it is by &lt;strong&gt;-a&lt;/strong&gt; option, this is mean that this interface is in down state, for bring it up we can use &lt;strong&gt;up&lt;/strong&gt; by specifying the network interface.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/lpic2/ifconfigup.png&quot; alt=&quot;LPIC2 Post&quot; /&gt;
+&lt;strong&gt;Figure 169&lt;/strong&gt; ifconfig bring the interface up devices.&lt;/p&gt;
+
+&lt;p&gt;You can see that I bring the interface up and after that it showed up on the ifconfig command, in case there is no IP associated with it even after we bring this interface up, we can not use ping or 8.8.8.8 as example, so what we can do is to setup the IP address manually or checking on our network why the DHCP dosn’t give us IP address.&lt;/p&gt;
+
+&lt;p&gt;You also can run the following command to check if you have IP address.&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;ip addr
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;As you can see on the following figure this command will give us information like what is the state of that interface and what is the IP address.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/lpic2/ipaddr.png&quot; alt=&quot;LPIC2 Post&quot; /&gt;
+&lt;strong&gt;Figure 170&lt;/strong&gt; Checking the status on my interfaces.&lt;/p&gt;
+
+&lt;p&gt;If you need to setup IP address to that interface you can use &lt;strong&gt;ifconfig&lt;/strong&gt; to achieve that.&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;sudo ifconfig eth0 192.168.0.1 netmask 255.255.255.0
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Now after that interface is on up state and have an IP address we can trying to ping to google or other DNS server (that open to ping on the Internet), if it success we know for sure that our network work fine, if it doesn’t we may have another issue, so in that case we need to check what is our default getaway to the world wide network.&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;route
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;By using this command we will view the routes we have on our local machine, in my case I have not default getaway so we can use the following arp command&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/lpic2/arp.png&quot; alt=&quot;LPIC2 Post&quot; /&gt;
+&lt;strong&gt;Figure 171&lt;/strong&gt; Arp command.&lt;/p&gt;
+
+&lt;p&gt;I guess that the default getaway is 172.16.3.254, so this is what I am going to setup on my route table.&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;sudo route add default gw 172.16.3.254 enp0s3
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;By running the &lt;strong&gt;route&lt;/strong&gt; again we will can see that our new getaway in the table so now it the time to check connectivity to the network.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/lpic2/routeadd.png&quot; alt=&quot;LPIC2 Post&quot; /&gt;
+&lt;strong&gt;Figure 172&lt;/strong&gt; Adding new route for default getaway.&lt;/p&gt;
+
+&lt;p&gt;I case we need to so the same on wireless card we can use &lt;strong&gt;ifconfig&lt;/strong&gt; to bring the interface up and &lt;strong&gt;iwconfig&lt;/strong&gt; to print the status of that interface.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/lpic2/iwconfig.png&quot; alt=&quot;LPIC2 Post&quot; /&gt;
+&lt;strong&gt;Figure 173&lt;/strong&gt; Setting of wireless interface.&lt;/p&gt;
+
+&lt;p&gt;As you may know our PC search for SSID to connect the network, we can print all the SSID we have on the room by running &lt;strong&gt;iwlist&lt;/strong&gt; command.&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;iwlist wlp2s0 scan
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/lpic2/ESSID.png&quot; alt=&quot;LPIC2 Post&quot; /&gt;
+&lt;strong&gt;Figure 174&lt;/strong&gt; ESSID in my local area.&lt;/p&gt;
+
+&lt;p&gt;We can use the following to connect that network by using the ESSID we have now:&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;sudo iwconfig wlan0 essid IT-WIFI
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;If we haven’t IP address we can use DHCP for make query to DHCP server.&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;dhclient wlan0
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;We talk before about &lt;strong&gt;netstat&lt;/strong&gt; and the following command is what I am love to use every time:&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;netstat -aenpl
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;This command give us information about the process number and the port related to it, in networking view we use most the following:&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;netstat -tuna
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;This will show us the local address and remote address, in case we have some network issue to some target we can check with netstat the state of that connection, if it say that this session is base on &lt;strong&gt;tcp&lt;/strong&gt; and the connection is &lt;strong&gt;ESTABLISHED&lt;/strong&gt; it is mean that all good!&lt;/p&gt;
+
+&lt;p&gt;The command &lt;strong&gt;ss&lt;/strong&gt; is the same as &lt;strong&gt;netstat&lt;/strong&gt; you can call it the new netstat, if you want to view the current listening socket you can use the &lt;strong&gt;-l&lt;/strong&gt; option and the same in the netstat the option &lt;strong&gt;-t&lt;/strong&gt; for tcp and &lt;strong&gt;-u&lt;/strong&gt; for udp.&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;ss -tuna
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;By using that command we can know what port are open in my machine and in some cases that we have ESTABLISHED connection we will see the peer address with port that in use.&lt;/p&gt;
+
+&lt;p&gt;There is also the &lt;strong&gt;lsof&lt;/strong&gt; command that we talk about in the &lt;a href=&quot;#lsof&quot;&gt;lsof&lt;/a&gt; section, if you remember this command list open files on your system, but also can give us a clue about open session that we have, as example I have some establish connection that I can see if I run netstate or ss as follow:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/lpic2/netstat&amp;amp;ss.png&quot; alt=&quot;LPIC2 Post&quot; /&gt;
+&lt;strong&gt;Figure 175&lt;/strong&gt; Network connection using netstat and ss.&lt;/p&gt;
+
+&lt;p&gt;In order to find what process I need to check that related to this kind of connection I need to know the PID that related to this session, but if I run the &lt;strong&gt;netstat -aenp&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/lpic2/netstatports.png&quot; alt=&quot;LPIC2 Post&quot; /&gt;
+&lt;strong&gt;Figure 176&lt;/strong&gt; Trying to check the PID of the ESTABLISHED session.&lt;/p&gt;
+
+&lt;p&gt;You can see that I have not PID for that establish session, what I can do is using &lt;strong&gt;lsof&lt;/strong&gt; by grep the &lt;strong&gt;Inode&lt;/strong&gt; number that I have from that establish session which is 64171.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/lpic2/anydesk.png&quot; alt=&quot;LPIC2 Post&quot; /&gt;
+&lt;strong&gt;Figure 177&lt;/strong&gt; Anydest.&lt;/p&gt;
+
+&lt;p&gt;You can see that the command for that session is anydesk so we know now that anydesk is using this session.&lt;/p&gt;
+
+&lt;p&gt;We can also run &lt;strong&gt;tcpdump&lt;/strong&gt; to get more live information about this session, currently I am not using anydesk app so I don’t think we going to see many network packets that related to this session, but remember that this session is TCP based and also on ESTABLISHED state so surly we will see some packets.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/lpic2/tcpdump.png&quot; alt=&quot;LPIC2 Post&quot; /&gt;
+&lt;strong&gt;Figure 178&lt;/strong&gt; tcpdump.&lt;/p&gt;
+
+&lt;p&gt;You can see that I am using &lt;strong&gt;-XX&lt;/strong&gt; option for HEX output and &lt;strong&gt;-vvv&lt;/strong&gt; option for even more verbose output. So we have a little packets in that seession but you can see that it is a live and working.&lt;/p&gt;
+
+&lt;p&gt;For that section we need also to learn about &lt;strong&gt;nc&lt;/strong&gt; which is &lt;strong&gt;netcat&lt;/strong&gt; command that we can use to run remote executable commands or transfer files, and also get to know the &lt;strong&gt;nmap&lt;/strong&gt; tools, you can read more about this two in my &lt;a href=&quot;http://zwerd.com/2019/09/20/oscp_certificate.html#chapter-3&quot;&gt;OSCP&lt;/a&gt; post but I also write little about them here.&lt;/p&gt;
+
+&lt;p&gt;The command for &lt;strong&gt;Netcat&lt;/strong&gt; is nc and according to man page that tool is used for checking TCP/UDP port that are open or listen to them. This is mean that I am able to use it to connect to some email server with pop3 like I used in telnet before.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/lpic2/pop3.png&quot; alt=&quot;OSCP Post&quot; /&gt;
+&lt;strong&gt;Figure 179&lt;/strong&gt; POP3 used with telnet.&lt;/p&gt;
+
+&lt;p&gt;In my case the user and password are incorrect to this is why I have an error, but what I want to say is that with &lt;strong&gt;nc&lt;/strong&gt;, if we want to open connection to some mail as we done with telnet, we can do the same.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/lpic2/pop3withnc.png&quot; alt=&quot;OSCP Post&quot; /&gt;
+&lt;strong&gt;Figure 180&lt;/strong&gt; POP3 used with netcat.&lt;/p&gt;
+
+&lt;p&gt;The &lt;strong&gt;-n&lt;/strong&gt; option means do not resolve the dns, and &lt;strong&gt;-v&lt;/strong&gt; are verbose, if we want to listen to some port with nc, we just need to specify the &lt;strong&gt;-l&lt;/strong&gt; option that stand for listen and &lt;strong&gt;-p&lt;/strong&gt; for specific port, we can also used verbose to get more information about the session, the coolest thing is that we can used netcat for chatting over the network, on one machine we need accomplish that command:&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;nc -lvp 555
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;One the other station, we will need to use nc to connect to the first one PC, and that everything that we will type will showup on the other machine.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/lpic2/nc.png&quot; alt=&quot;OSCP Post&quot; /&gt;
+&lt;strong&gt;Figure 181&lt;/strong&gt; Netcat with two station chat.&lt;/p&gt;
+
+&lt;p&gt;We also can use netcat to create connection between two PC’s and transfer file using that connection, for doing so we need to use redirection.&lt;/p&gt;
+
+&lt;p&gt;On the server side which is the listener, we use output redirect to redirect the incoming file to our local file location.&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;nc -vlp 555 &amp;gt;  file.txt
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;On the client side we open connection with netcat and use input redirection to redirect the file we want to transfer to our netcat command, in this action we establish communication which contain the file, after the transfer will finish we will be able to view the file on the server side.&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;nc -v 172.16.0.196 555 &amp;lt; file.txt
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/lpic2/transferfile.png&quot; alt=&quot;OSCP Post&quot; /&gt;
+&lt;strong&gt;Figure 182&lt;/strong&gt; Netcat transfer file.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Note:&lt;/strong&gt; in my case I used netcat from my local linux to my local linux, but I encourage you to try it from one machine to another.&lt;/p&gt;
+
+&lt;p&gt;With &lt;strong&gt;nmap&lt;/strong&gt; tool we can use to check what open ports we have on remote server, For example let’s say that in my local network I want to scan some remote machine for finding open ports’ I can just run the following:&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;nmap &amp;lt;ip address&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;And it will bring me the information about that, so let’s look on it, right now I have an wireless card and I connect to IT-WIFI which is the ssid for the local wifi.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/lpic2/wifi.png&quot; alt=&quot;OSCP Post&quot; /&gt;
+&lt;strong&gt;Figure 182&lt;/strong&gt; My wifi interface.&lt;/p&gt;
+
+&lt;p&gt;As you can see my IP address is 172.16.0.241, I can now run some arp to find some target that we can use for doing our scan.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/lpic2/arp-a.png&quot; alt=&quot;OSCP Post&quot; /&gt;
+&lt;strong&gt;Figure 183&lt;/strong&gt; IP addresses in my network.&lt;/p&gt;
+
+&lt;p&gt;So now I can choose my target, please remember that this all are a live machine in my local network and to do scanning like what I am going to do in the public is in many cases illegal, in my case I am choose 172.16.1. address that look like nice address, so now I am running &lt;strong&gt;nmap&lt;/strong&gt;, first we check if it a live by running ping to it.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/lpic2/nmap.png&quot; alt=&quot;OSCP Post&quot; /&gt;
+&lt;strong&gt;Figure 184&lt;/strong&gt; Open ports on the target.&lt;/p&gt;
+
+&lt;p&gt;You can see that on the target we have iSCSI service that run or at least port 3260/tcp which is use for iSCSI and more several ports open, so in case we trying for example to connect some website and the connection can’t establish we can check if we have open ports on that server, we may find other ports like 8080 open instead of 80.&lt;/p&gt;
+
+&lt;p&gt;Now I want to talk about troubleshooting,if we what to connect and use some service over the internet or even in our organization, we may have from time to time network issue that related to our local network area AKA LAN or issue in the wide area which is at our ISP side AKA WAN, in such cases we need to know how to troubleshoot and separate the issue and find in what area or level our problem begin.&lt;/p&gt;
+
+&lt;p&gt;Let’s say I have some PC that we need from that PC to connect the zwerd.com domain from our browser, but we have some issue to connect, and on the browser we get some error about connectivity issue.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/lpic2/browser.png&quot; alt=&quot;OSCP Post&quot; /&gt;
+&lt;strong&gt;Figure 185&lt;/strong&gt; Can’t connect to this sites.&lt;/p&gt;
+
+&lt;p&gt;The first thing I automatically done is to ping that server and check if I have replay, in my case as you can see in the figure below it doesn’t work so we need to check our network.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/lpic2/pingout.png&quot; alt=&quot;OSCP Post&quot; /&gt;
+&lt;strong&gt;Figure 186&lt;/strong&gt; Trying to ping out.&lt;/p&gt;
+
+&lt;p&gt;In such case I will check first what is the status of my local network interface, you can see that if I run &lt;strong&gt;ifconfig&lt;/strong&gt; I can see only the lo0, which is not the interface I expect see.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/lpic2/ifconfig-lo0.png&quot; alt=&quot;OSCP Post&quot; /&gt;
+&lt;strong&gt;Figure 187&lt;/strong&gt; ifconfig lo0.&lt;/p&gt;
+
+&lt;p&gt;So what I need to do is to use option &lt;strong&gt;-a&lt;/strong&gt; to see all of my interfaces, if it dosn’t show us another interface this is mean that maybe the drive dosn’t connect currectly or we have not driver for that adapter.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/lpic2/ifconfig-all.png&quot; alt=&quot;OSCP Post&quot; /&gt;
+&lt;strong&gt;Figure 188&lt;/strong&gt; ifconfig all interfaces.&lt;/p&gt;
+
+&lt;p&gt;You can see now the interface, so this is mean that this interface is on down state, you can also check it by using &lt;strong&gt;ip addr&lt;/strong&gt; command.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/lpic2/ipaddrdown.png&quot; alt=&quot;OSCP Post&quot; /&gt;
+&lt;strong&gt;Figure 189&lt;/strong&gt; ip addr.&lt;/p&gt;
+
+&lt;p&gt;You can see that the state for that interface is down, so for bring it up we need to run the following:&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;sudo ifconfig enp0s3 up
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/lpic2/ipaddrup.png&quot; alt=&quot;OSCP Post&quot; /&gt;
+&lt;strong&gt;Figure 190&lt;/strong&gt; ip addr interface up.&lt;/p&gt;
+
+&lt;p&gt;So now we can trying to ping to 8.8.8.8, but it also don’t work, so in that case we need to check the interface again and see if we have something missing.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/lpic2/interface.png&quot; alt=&quot;OSCP Post&quot; /&gt;
+&lt;strong&gt;Figure 191&lt;/strong&gt; checking that interface.&lt;/p&gt;
+
+&lt;p&gt;You can see that I haven’t IP address on that interface, you can also see that I have not recieve any data on my RX although my TX send data, this is mmay mean that I have physical issue with my network, so I need to check it out.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/lpic2/interfacenotx.png&quot; alt=&quot;OSCP Post&quot; /&gt;
+&lt;strong&gt;Figure 192&lt;/strong&gt; checking that interface.&lt;/p&gt;
+
+&lt;p&gt;So I found that I have some issue with my network card, and now it connect currently to my local switch, but still I have no IP address, so I need to check if I have some DHCP working in my network, if I haven’t I will need to setup the IP address manually.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/lpic2/havenoip.png&quot; alt=&quot;OSCP Post&quot; /&gt;
+&lt;strong&gt;Figure 193&lt;/strong&gt; checking that interface.&lt;/p&gt;
+
+&lt;p&gt;So we can run the &lt;strong&gt;dhclient&lt;/strong&gt; command to check if I get any IP address.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/lpic2/dhclient.png&quot; alt=&quot;OSCP Post&quot; /&gt;
+&lt;strong&gt;Figure 194&lt;/strong&gt; checking that interface.&lt;/p&gt;
+
+&lt;p&gt;You can see that it work and now I have IP address, so now let’s trying to ping out. You can see that the ping is working fine.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/lpic2/pingtozwerd.png&quot; alt=&quot;OSCP Post&quot; /&gt;
+&lt;strong&gt;Figure 195&lt;/strong&gt; ping to zwerd.&lt;/p&gt;
+
+&lt;p&gt;So we can trying to using our browser to connect that site.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/lpic2/zwerd.com.png&quot; alt=&quot;OSCP Post&quot; /&gt;
+&lt;strong&gt;Figure 196&lt;/strong&gt; Web site working.&lt;/p&gt;
+
+&lt;p&gt;There is more thing we need to know that can help us in troubleshoot, one of them is &lt;strong&gt;traceroute&lt;/strong&gt; this is really cool thing, this tool run pings over the network with TTL value of 1, this TTL is used to report the sender that the TTL value are 0, it meant to use for prevent eternal loop within the network, so we send out packet with TTL low number, when the packet forwarded the machine that done the forworking change the TTL value subtract it by 1, if the value is zero that machine inform the source that the “Time to live exceeded” and this is mean that one of the two thing, of we have a loop, or we need to increase the TTL value, in &lt;strong&gt;traceroute&lt;/strong&gt; the value is increase when the source get the “Time to live exceeded” message, in that way we have the knowledge that the same machine who sent us the “Time to live exceeded” message is on of the hop up the path to our destination.&lt;/p&gt;
+
+&lt;p&gt;As example let’s run &lt;strong&gt;traceroute&lt;/strong&gt; against zwerd.com&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/lpic2/zwerd.com.png&quot; alt=&quot;OSCP Post&quot; /&gt;
+&lt;strong&gt;Figure 197&lt;/strong&gt; Web site working.&lt;/p&gt;
+
+&lt;p&gt;You can see the path, every hop replay to us with his IP address, so in that way we can know what is the path in layer 3 to our destination, there is also &lt;strong&gt;traceroute6&lt;/strong&gt; for IP version 6, and also we have &lt;strong&gt;tracepath&lt;/strong&gt; for checking the mtu along the way, there is also the &lt;strong&gt;mtr&lt;/strong&gt; which is a network diagnostic tool which can give you inforamtion about packets loss all over the path to destination.&lt;/p&gt;
+
+&lt;p&gt;To find our what is the hostname of our local system we can use &lt;strong&gt;hostname&lt;/strong&gt; which is a part of severla tools as follow:&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;hostname - show or set the system's host name
+domainname - show or set the system's NIS/YP domain name
+ypdomainname - show or set the system's NIS/YP domain name
+nisdomainname - show or set the system's NIS/YP domain name
+dnsdomainname - show the system's DNS domain name
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Hostname is used to display the system’s DNS name, and to display or set its  hostname  or NIS domain name, normally by reading the contents of a file which contains the host name, e.g.  &lt;strong&gt;/etc/hostname&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;p&gt;You can also use the &lt;strong&gt;/etc/resolv.conf&lt;/strong&gt; file which contain a list nameservers that are used by your host or DNS resolution. if we are using DHCP this file is automatically populated with DNS recode issued by DHCP server.&lt;/p&gt;
+
+&lt;p&gt;There is also the &lt;strong&gt;/etc/hosts&lt;/strong&gt; file which also contain hostnames and IP address, this file contain static table lookup for hostnames, this is mean that we can use if in case we have no DNS server configure for our host, or we want to specify specific record for some host or block the local machine to successfully resolve the IP address for some host.&lt;/p&gt;
+
+&lt;p&gt;We can also apply sort of access list that contain the allow connection host on the network to connect our local machine by specify their name and address in the &lt;strong&gt;/etc/hosts.allow&lt;/strong&gt;, in that way we can done we would done with FW, but this time this policy apply on our local machine.&lt;/p&gt;
+
+&lt;p&gt;We can also do the same to deny hosts from enable their connection to our local machine by specify them in the &lt;strong&gt;/etc/hosts.deny&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;If we suspect that we had some issue regarding to our network drive and have no IP address or some missing setting on our local machine, we can run &lt;strong&gt;dmesg&lt;/strong&gt; tool to find some logs that was created during the bootup, as example in my case let’s say that I suspect that I have some issue related to my wifi card, so I can grep our all of the logs that have the wlp2s0 string which is my wifi interface.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/lpic2/wifilogs.png&quot; alt=&quot;OSCP Post&quot; /&gt;
+&lt;strong&gt;Figure 198&lt;/strong&gt; My wifi interface logs from dmesg.&lt;/p&gt;
+
+&lt;p&gt;We can find more related logs in the &lt;strong&gt;/var/log/syslog&lt;/strong&gt; file that contain more details about my wlp2s0 which is my wifi interface.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/lpic2/wifisyslogs.png&quot; alt=&quot;OSCP Post&quot; /&gt;
+&lt;strong&gt;Figure 197&lt;/strong&gt; My local syslog grep wifi.&lt;/p&gt;
+
+&lt;h2 id=&quot;chapter-6&quot;&gt;Chapter 6&lt;/h2&gt;
+&lt;h2 id=&quot;topic-206-system-maintenance&quot;&gt;Topic 206: System Maintenance.&lt;/h2&gt;
+
+&lt;p&gt;Now I want to tell you a story that happened to me in the last year, if you follow my posts you can see that already 8 years ago I was talking about OSCP certification, last year I met a friend who knew me for a small group that opened for one purpose - Bug Bounty. For those who don’t know, Bug Bounty is a program that allows us to hack software from reputable companies and earn money! Yes Yes! Money on hacking into software.&lt;/p&gt;
+
+&lt;p&gt;That evening as the group got into acquaintance, each one talked about himself, one of the members said that in his company someone had exploited some weakness and was able to apply bitminer to one of the servers in the organization he was working on, he surpassed it with all kinds of tools that slowly identified the server to other servers.&lt;/p&gt;
+
+&lt;p&gt;I knew the bitcoin issue already, but I did not know what actually made bitminer and how it uses resources to perform other process calculations.&lt;/p&gt;
+
+&lt;p&gt;Why am I talking about this? Because in this chapter we have to compile our own software, it’s similar to what we did with the kernel in the second chapter, but here is more about a binary program when the compiler is supposed to prepare it for execution, and guess what software we’re going to compile?&lt;/p&gt;
+
+&lt;p&gt;exactly!&lt;/p&gt;
+
+&lt;p&gt;We’re going to compile the bitminer and prepare the binary for execution, I’m sure it will be interesting.&lt;/p&gt;
+
+&lt;p&gt;So first of all we download the tar file from the following link (pooler-cpuminer-2.5.0-linux-x86.tar.gz)[https://github.com/pooler/cpuminer/releases/download/v2.5.0/pooler-cpuminer-2.5.0-linux-x86.tar.gz]&lt;/p&gt;
+
+&lt;p&gt;after that run the following:&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;tar -zxvf pooler-cpuminer-2.5.0-linux-x86.tar.gz
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/lpic2/tarfile.png&quot; alt=&quot;OSCP Post&quot; /&gt;
+&lt;strong&gt;Figure 198&lt;/strong&gt; Extract the file using tar.&lt;/p&gt;
+
+&lt;p&gt;After that we will have new folder that contain many files.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/lpic2/cpuminer.png&quot; alt=&quot;OSCP Post&quot; /&gt;
+&lt;strong&gt;Figure 199&lt;/strong&gt; My folder.&lt;/p&gt;
+
+&lt;p&gt;What we need to search now is the configure file and run it as &lt;code class=&quot;highlighter-rouge&quot;&gt;./configure&lt;/code&gt;, while it run you can see what is does, if some error appears we will need to fix if before we can compile this binary.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/lpic2/missing.png&quot; alt=&quot;OSCP Post&quot; /&gt;
+&lt;strong&gt;Figure 200&lt;/strong&gt; Missing file.&lt;/p&gt;
+
+&lt;p&gt;You can see that have missing program named libcurl, so I can run &lt;code class=&quot;highlighter-rouge&quot;&gt;apt-cache search libcurl&lt;/code&gt; or search it over the net.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/lpic2/apr-cache.png&quot; alt=&quot;OSCP Post&quot; /&gt;
+&lt;strong&gt;Figure 201&lt;/strong&gt; Search for that program.&lt;/p&gt;
+
+&lt;p&gt;You can see that I had many program to choose, as much as I know from Shawn Powers every package that contain the name dev, it’s mean that this is actually develop packege that can allow us to compile source code, so in my case I am going to install libcurl4-openssl-dev.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/lpic2/configureyes.png&quot; alt=&quot;OSCP Post&quot; /&gt;
+&lt;strong&gt;Figure 202&lt;/strong&gt; Finish succesfully.&lt;/p&gt;
+
+&lt;p&gt;Now you can see that it end up without an error, so  we can start to make the binary file&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/lpic2/make.png&quot; alt=&quot;OSCP Post&quot; /&gt;
+&lt;strong&gt;Figure 203&lt;/strong&gt; Search for that program.&lt;/p&gt;
+
+&lt;p&gt;Now if I run that minerd file you can see that I have an output, but as you may notice I am using that as a local directory with &lt;code class=&quot;highlighter-rouge&quot;&gt;./minerd&lt;/code&gt;, for making it acually binary tool that can run without the need to run it from the source folder we just need to run.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/lpic2/minerd.png&quot; alt=&quot;OSCP Post&quot; /&gt;
+&lt;strong&gt;Figure 204&lt;/strong&gt; minerd.&lt;/p&gt;
+
+&lt;p&gt;So what we need to do is to run &lt;code class=&quot;highlighter-rouge&quot;&gt;sudo make install&lt;/code&gt;, this command will put it in /usr/local/bin, so know we can run it from any directory location in our machine.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/lpic2/makeinstall.png&quot; alt=&quot;OSCP Post&quot; /&gt;
+&lt;strong&gt;Figure 205&lt;/strong&gt; make install.&lt;/p&gt;
+
+&lt;p&gt;Please remember that by default all source code are store and can be found in the following directory&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;/usr/src
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;In case we have a program that already install on our system we may what to apply a patch for that program, to do so we can run the patch command with that program patch file.&lt;/p&gt;
+
+&lt;p&gt;The patch file is file that contain the differences between the old file and the new one, this will update our program by applying it.&lt;/p&gt;
+
+&lt;p&gt;so if we have old program and we create a new one we can run the following:&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;diff -u oldprogram.c newprogram.c &amp;gt; program.patch
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;For applying this patch just run.&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;patch &amp;lt; program.patch
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;I want to talk about tar and rsync right now, with these two tools we can use to back up some important folders that back them up:&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;/etc/
+/var/spool/
+/home/
+/usr/local
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;In some folders we can find important things like system settings or binaries or logs, it really depends on what we need, these are the folders we might back up&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;/var/lib/
+/var/log/
+/opt/
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;True, we talked about a RAID that provides a type of backup, but in truth it is more at the level of being able to use information that a disk has even though one disk is damaged or destroyed, when talking about this backup goes well beyond the RAID, it is actually our way of taking the files and replicating them to another location or To a completely different server, in this way we ensure that the files remain accessible even if the computer is damaged and unable to work.&lt;/p&gt;
+
+&lt;p&gt;The first thing we can do is use tar to prepare a tar file that compiles all files separately from our folders&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;tar -cvf backup.tar /Documents
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;This command will create an archive file that will contain all the files specified in my case, in the case of the Documents folder.&lt;/p&gt;
+
+&lt;p&gt;There is a much better way to do a backup and it is through rsync, this tool actually creates a backup folder and also tracks changes made to files, if changes are made it will update them in the backup folder, although if we created a new file we will need to run the command again so that it backs up the extra file
+ &lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;rsync -av Documents/ backupfolder
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;We can also use the rsync to make backup over the network by using ssh as follow:&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;rsync -av Documents guy@172.16.1.9:/home/guy/
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;This will make backup on other server so if we make change of some file that in the Documents folder it will update the backup on the server.&lt;/p&gt;
+
+&lt;p&gt;For backup there is another solutions th
+at can help us, one of them is &lt;strong&gt;Amanda&lt;/strong&gt; previously known as Advanced Maryland Automatic Network Disk Archiver is an open source computer archiving tool that is able to back up data residing on multiple computers on a network. It uses a client–server model, where the server contacts each client to perform a backup at a scheduled time.&lt;/p&gt;
+
+&lt;p&gt;You can install that step by step by watching that &lt;a href=&quot;https://www.youtube.com/watch?v=D-gmLictqws&quot;&gt;videro&lt;/a&gt;, there is more solution for backup like Bacula, Bareos and BackupPC, all are the same consept.&lt;/p&gt;
+
+&lt;p&gt;For the exam we need to know &lt;strong&gt;mt&lt;/strong&gt; tool, as much as I understand this tool is used for tape drive which is magnetic plastic strip that use for backup.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://www.nakivo.com/blog/wp-content/uploads/2019/07/Tape-Cartridges-Tape-Backup-Advantages.jpg&quot; alt=&quot;OSCP Post&quot; /&gt;
+&lt;strong&gt;Figure 206&lt;/strong&gt; tape.&lt;/p&gt;
+
+&lt;p&gt;The default drive for tape is &lt;code class=&quot;highlighter-rouge&quot;&gt;/dev/st0&lt;/code&gt; , we can use tar to backup what we need to this tape as follow:&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;tar -czf /dev/st0 /www /home
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;In that case I backup the &lt;code class=&quot;highlighter-rouge&quot;&gt;www&lt;/code&gt; directory and also the &lt;code class=&quot;highlighter-rouge&quot;&gt;home&lt;/code&gt; directory to my tape which is the &lt;code class=&quot;highlighter-rouge&quot;&gt;st0&lt;/code&gt; drive. We can rewind that tape by using the following command:&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;mt -f /dev/st0 rewind
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Only after that we will able to use tar to backup our directories. For checking that tape status simply run the following:&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;mt -f /dev/st0 status
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;We can also erase the tape by adding the erase option to this command.&lt;/p&gt;
+
+&lt;p&gt;We can also use &lt;strong&gt;dd&lt;/strong&gt; command for backup the whole disk, just look on the following command:&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;sudo dd if=/dev/sdb of=/dev/sdc bs=64k conv=noerror,sync status=progress
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;That command run over sdb drive and copy all to sdc drive, the option &lt;code class=&quot;highlighter-rouge&quot;&gt;bs&lt;/code&gt; stand for 64k which is more useful then the default 512 byte, &lt;strong&gt;conv&lt;/strong&gt; set on noerro which mean to ignoring all read error, the &lt;strong&gt;sync&lt;/strong&gt; used for fill input blocks with zero if there ware any read errors and the &lt;strong&gt;status&lt;/strong&gt; option set on progress for us to be able to see the running state of &lt;strong&gt;dd&lt;/strong&gt; because such command may take a long time to run.&lt;/p&gt;
+
+&lt;p&gt;In the lest part of this chapter we need to talk about notify users on system related issue, which mean that if we have some error and we want to fix it, and the only way to fix it is to do something to the system that can make angry some of our users, like shutdown or kill some app, we can notify the users by several ways.&lt;/p&gt;
+
+&lt;p&gt;The first way to do so is to write message on the shell which every user that connect to this server over the command line will get notify about that message:&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;wall &amp;lt; message.txt
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;In this command I run the &lt;strong&gt;wall&lt;/strong&gt; command and apply it the text file which contain my message, this will broadcast that message to every user that connect to this server over the shell.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/lpic2/wall.png&quot; alt=&quot;OSCP Post&quot; /&gt;
+&lt;strong&gt;Figure 207&lt;/strong&gt; Message by wall command.&lt;/p&gt;
+
+&lt;p&gt;You can see the message on the screen of that user that came from guy, and time and date also specify. If you dont have text file ready for broadcast message, you can just run the following on the command line and it work the same.&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;ehco &quot;hello, this system is going down in 5 minits!&quot; | wall
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;We also have the Message Of The Day which is &lt;code class=&quot;highlighter-rouge&quot;&gt;/etc/motd&lt;/code&gt; file that can contain any message you want, after user connect to our server via ssh he will get this message immediately.&lt;/p&gt;
+
+&lt;p&gt;What we need to do to make it work is to change some line in the ssh configuration file in the &lt;code class=&quot;highlighter-rouge&quot;&gt;/etc/ssh/sshd_config&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/lpic2/banner.png&quot; alt=&quot;OSCP Post&quot; /&gt;
+&lt;strong&gt;Figure 208&lt;/strong&gt; Banner message.&lt;/p&gt;
+
+&lt;p&gt;After that if user connect in he will get this message print on the screen. In case we want to print on the user screen message before he login, we can use &lt;code class=&quot;highlighter-rouge&quot;&gt;/etc/issue.net&lt;/code&gt;, we also need to update the sshd_config file and restart the service.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/lpic2/issue.net.png&quot; alt=&quot;OSCP Post&quot; /&gt;
+&lt;strong&gt;Figure 209&lt;/strong&gt; The net issue file.&lt;/p&gt;
+
+&lt;p&gt;And we inform our user if we want to run on &lt;strong&gt;shotdown&lt;/strong&gt; or &lt;strong&gt;systemctl poweroff&lt;/strong&gt;.&lt;/p&gt;</content><author><name>Guy Zwerdling</name></author><category term="Linux" /><summary type="html">Today morning I received a message from LPI that my certificate will expire in 9 months and so it is time to start studying for the second Linux certification, this will advance me to the third Linux information security certification that will include what I am looking for, this certification is split in two</summary></entry><entry><title type="html">OSCP Certification Journey</title><link href="http://localhost:4000/2019/09/20/oscp_certificate.html" rel="alternate" type="text/html" title="OSCP Certification Journey" /><published>2019-09-20T00:00:00+03:00</published><updated>2019-09-20T00:00:00+03:00</updated><id>http://localhost:4000/2019/09/20/oscp_certificate</id><content type="html" xml:base="http://localhost:4000/2019/09/20/oscp_certificate.html">&lt;p&gt;I set myself a lot of goals this year to advance to the next level, among all the goals being the OSCP certification from Offensive Security. It’s been a certification I’ve been talking about for years, since 2012, it’s really time to sit down and do that certification. It all started when I was writing in a forum on computer communications, where I presented the dilemma, whether to study information security of companies that are involved in the field or something else when my goal is to be an expert in the cyber world.&lt;/p&gt;
 
 &lt;p&gt;Eventually, someone responded to me, depending on what I want to learn, whether I want to be on the attacker or on the defensive side, he introduced a number of certifications and wrote about each certification separately. Among all the certifications he presented were Cisco certificates, Check Point certificates, and all sorts of large companies that manufacture and market security sites that protect the entire corporate network.&lt;/p&gt;
 

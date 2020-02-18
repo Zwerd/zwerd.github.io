@@ -18,6 +18,7 @@ If you want a brochure that deals with the topic extensively regardless of this 
 - [Chapter 1](#chapter-1)
 - [Chapter 2](#chapter-2)
 - [Chapter 3](#chapter-3)
+- [Chapter 4](#chapter-4)
 
 # Objective 201-450
 
@@ -1868,3 +1869,483 @@ You can see the logical name and the volume group it is belongs to him, you can 
 So as you can see every command we saw was start in one of the following options: **pv**,**vg**,**lv**.
 
 We have more command that related to LVM in this type of naming, we also have the lvm.conf file that contain the configuration for LVM.
+
+## Chapter 5
+## Topic 205: Network Configuration.
+
+I have to admit that networking in Linux world  is a pretty easy topic for me because I had a time when I was dealing with a lot of networking issues and dealing with a network architecture problem so in this section we going to see how we setup network communication on our Linux.
+
+In the previous chapter we saw how to setup iSCSI, but as you know we need network card and set it correctly for having communication with the server (target), if we have some issue with that connectivity then the iSCSI never work until we solve that issue.
+
+The first thing we can do when it come to networking, is to view our local eternet card and find what is our IP address, to do so we need to run **ifconfig**, with that command we can use to look our network card and even virtual like loopback.
+
+![LPIC2 Post](/assets/images/lpic2/ifconfig1.png)
+**Figure 167** ifconfig command.
+
+You can see that I have only **lo** that is my local loopback, but I know that I have also network card, so to view it also I can run the **-a** option, it will give me every network card that I have in that machine.
+
+![LPIC2 Post](/assets/images/lpic2/ifconfigall.png)
+**Figure 168** ifconfig all devices.
+
+You can see now that Ia have network device named enp0s3, in that device I haven't associated IP address, so in that case I have note network connectivity for sure through that interface. Please be aware that if you can't see some network card on the **ifconfig** command and the only way to view it is by **-a** option, this is mean that this interface is in down state, for bring it up we can use **up** by specifying the network interface.
+
+![LPIC2 Post](/assets/images/lpic2/ifconfigup.png)
+**Figure 169** ifconfig bring the interface up devices.
+
+You can see that I bring the interface up and after that it showed up on the ifconfig command, in case there is no IP associated with it even after we bring this interface up, we can not use ping or 8.8.8.8 as example, so what we can do is to setup the IP address manually or checking on our network why the DHCP dosn't give us IP address.
+
+You also can run the following command to check if you have IP address.
+```
+ip addr
+```
+
+As you can see on the following figure this command will give us information like what is the state of that interface and what is the IP address.
+
+![LPIC2 Post](/assets/images/lpic2/ipaddr.png)
+**Figure 170** Checking the status on my interfaces.
+
+If you need to setup IP address to that interface you can use **ifconfig** to achieve that.
+```
+sudo ifconfig eth0 192.168.0.1 netmask 255.255.255.0
+```
+
+Now after that interface is on up state and have an IP address we can trying to ping to google or other DNS server (that open to ping on the Internet), if it success we know for sure that our network work fine, if it doesn't we may have another issue, so in that case we need to check what is our default getaway to the world wide network.
+```
+route
+```
+
+By using this command we will view the routes we have on our local machine, in my case I have not default getaway so we can use the following arp command
+
+![LPIC2 Post](/assets/images/lpic2/arp.png)
+**Figure 171** Arp command.
+
+I guess that the default getaway is 172.16.3.254, so this is what I am going to setup on my route table.
+```
+sudo route add default gw 172.16.3.254 enp0s3
+```
+
+By running the **route** again we will can see that our new getaway in the table so now it the time to check connectivity to the network.
+
+![LPIC2 Post](/assets/images/lpic2/routeadd.png)
+**Figure 172** Adding new route for default getaway.
+
+I case we need to so the same on wireless card we can use **ifconfig** to bring the interface up and **iwconfig** to print the status of that interface.
+
+![LPIC2 Post](/assets/images/lpic2/iwconfig.png)
+**Figure 173** Setting of wireless interface.
+
+As you may know our PC search for SSID to connect the network, we can print all the SSID we have on the room by running **iwlist** command.
+
+```
+iwlist wlp2s0 scan
+```
+
+![LPIC2 Post](/assets/images/lpic2/ESSID.png)
+**Figure 174** ESSID in my local area.
+
+We can use the following to connect that network by using the ESSID we have now:
+```
+sudo iwconfig wlan0 essid IT-WIFI
+```
+
+If we haven't IP address we can use DHCP for make query to DHCP server.
+```
+dhclient wlan0
+```
+
+We talk before about **netstat** and the following command is what I am love to use every time:
+```
+netstat -aenpl
+```
+
+This command give us information about the process number and the port related to it, in networking view we use most the following:
+```
+netstat -tuna
+```
+
+This will show us the local address and remote address, in case we have some network issue to some target we can check with netstat the state of that connection, if it say that this session is base on **tcp** and the connection is **ESTABLISHED** it is mean that all good!
+
+The command **ss** is the same as **netstat** you can call it the new netstat, if you want to view the current listening socket you can use the **-l** option and the same in the netstat the option **-t** for tcp and **-u** for udp.
+```
+ss -tuna
+```
+
+By using that command we can know what port are open in my machine and in some cases that we have ESTABLISHED connection we will see the peer address with port that in use.
+
+There is also the **lsof** command that we talk about in the [lsof](#lsof) section, if you remember this command list open files on your system, but also can give us a clue about open session that we have, as example I have some establish connection that I can see if I run netstate or ss as follow:
+
+![LPIC2 Post](/assets/images/lpic2/netstat&ss.png)
+**Figure 175** Network connection using netstat and ss.
+
+In order to find what process I need to check that related to this kind of connection I need to know the PID that related to this session, but if I run the **netstat -aenp**
+
+![LPIC2 Post](/assets/images/lpic2/netstatports.png)
+**Figure 176** Trying to check the PID of the ESTABLISHED session.
+
+You can see that I have not PID for that establish session, what I can do is using **lsof** by grep the **Inode** number that I have from that establish session which is 64171.
+
+![LPIC2 Post](/assets/images/lpic2/anydesk.png)
+**Figure 177** Anydest.
+
+You can see that the command for that session is anydesk so we know now that anydesk is using this session.
+
+We can also run **tcpdump** to get more live information about this session, currently I am not using anydesk app so I don't think we going to see many network packets that related to this session, but remember that this session is TCP based and also on ESTABLISHED state so surly we will see some packets.
+
+
+![LPIC2 Post](/assets/images/lpic2/tcpdump.png)
+**Figure 178** tcpdump.
+
+You can see that I am using **-XX** option for HEX output and **-vvv** option for even more verbose output. So we have a little packets in that seession but you can see that it is a live and working.
+
+For that section we need also to learn about **nc** which is **netcat** command that we can use to run remote executable commands or transfer files, and also get to know the **nmap** tools, you can read more about this two in my [OSCP](http://zwerd.com/2019/09/20/oscp_certificate.html#chapter-3) post but I also write little about them here.
+
+
+The command for **Netcat** is nc and according to man page that tool is used for checking TCP/UDP port that are open or listen to them. This is mean that I am able to use it to connect to some email server with pop3 like I used in telnet before.
+
+![OSCP Post](/assets/images/lpic2/pop3.png)
+**Figure 179** POP3 used with telnet.
+
+In my case the user and password are incorrect to this is why I have an error, but what I want to say is that with **nc**, if we want to open connection to some mail as we done with telnet, we can do the same.
+
+![OSCP Post](/assets/images/lpic2/pop3withnc.png)
+**Figure 180** POP3 used with netcat.
+
+The **-n** option means do not resolve the dns, and **-v** are verbose, if we want to listen to some port with nc, we just need to specify the **-l** option that stand for listen and **-p** for specific port, we can also used verbose to get more information about the session, the coolest thing is that we can used netcat for chatting over the network, on one machine we need accomplish that command:
+```
+nc -lvp 555
+```
+
+One the other station, we will need to use nc to connect to the first one PC, and that everything that we will type will showup on the other machine.
+
+![OSCP Post](/assets/images/lpic2/nc.png)
+**Figure 181** Netcat with two station chat.
+
+We also can use netcat to create connection between two PC's and transfer file using that connection, for doing so we need to use redirection.
+
+On the server side which is the listener, we use output redirect to redirect the incoming file to our local file location.
+
+```
+nc -vlp 555 >  file.txt
+```
+
+On the client side we open connection with netcat and use input redirection to redirect the file we want to transfer to our netcat command, in this action we establish communication which contain the file, after the transfer will finish we will be able to view the file on the server side.
+
+```
+nc -v 172.16.0.196 555 < file.txt
+```
+
+![OSCP Post](/assets/images/lpic2/transferfile.png)
+**Figure 182** Netcat transfer file.
+
+**Note:** in my case I used netcat from my local linux to my local linux, but I encourage you to try it from one machine to another.
+
+With **nmap** tool we can use to check what open ports we have on remote server, For example let's say that in my local network I want to scan some remote machine for finding open ports' I can just run the following:
+```
+nmap <ip address>
+```
+
+And it will bring me the information about that, so let's look on it, right now I have an wireless card and I connect to IT-WIFI which is the ssid for the local wifi.
+
+![OSCP Post](/assets/images/lpic2/wifi.png)
+**Figure 182** My wifi interface.
+
+As you can see my IP address is 172.16.0.241, I can now run some arp to find some target that we can use for doing our scan.
+
+![OSCP Post](/assets/images/lpic2/arp-a.png)
+**Figure 183** IP addresses in my network.
+
+So now I can choose my target, please remember that this all are a live machine in my local network and to do scanning like what I am going to do in the public is in many cases illegal, in my case I am choose 172.16.1. address that look like nice address, so now I am running **nmap**, first we check if it a live by running ping to it.
+
+![OSCP Post](/assets/images/lpic2/nmap.png)
+**Figure 184** Open ports on the target.
+
+You can see that on the target we have iSCSI service that run or at least port 3260/tcp which is use for iSCSI and more several ports open, so in case we trying for example to connect some website and the connection can't establish we can check if we have open ports on that server, we may find other ports like 8080 open instead of 80.
+
+Now I want to talk about troubleshooting,if we what to connect and use some service over the internet or even in our organization, we may have from time to time network issue that related to our local network area AKA LAN or issue in the wide area which is at our ISP side AKA WAN, in such cases we need to know how to troubleshoot and separate the issue and find in what area or level our problem begin.
+
+Let's say I have some PC that we need from that PC to connect the zwerd.com domain from our browser, but we have some issue to connect, and on the browser we get some error about connectivity issue.
+
+![OSCP Post](/assets/images/lpic2/browser.png)
+**Figure 185** Can't connect to this sites.
+
+The first thing I automatically done is to ping that server and check if I have replay, in my case as you can see in the figure below it doesn't work so we need to check our network.
+
+
+![OSCP Post](/assets/images/lpic2/pingout.png)
+**Figure 186** Trying to ping out.
+
+In such case I will check first what is the status of my local network interface, you can see that if I run **ifconfig** I can see only the lo0, which is not the interface I expect see.
+
+![OSCP Post](/assets/images/lpic2/ifconfig-lo0.png)
+**Figure 187** ifconfig lo0.
+
+So what I need to do is to use option **-a** to see all of my interfaces, if it dosn't show us another interface this is mean that maybe the drive dosn't connect currectly or we have not driver for that adapter.
+
+![OSCP Post](/assets/images/lpic2/ifconfig-all.png)
+**Figure 188** ifconfig all interfaces.
+
+You can see now the interface, so this is mean that this interface is on down state, you can also check it by using **ip addr** command.
+
+
+![OSCP Post](/assets/images/lpic2/ipaddrdown.png)
+**Figure 189** ip addr.
+
+You can see that the state for that interface is down, so for bring it up we need to run the following:
+```
+sudo ifconfig enp0s3 up
+```
+
+![OSCP Post](/assets/images/lpic2/ipaddrup.png)
+**Figure 190** ip addr interface up.
+
+So now we can trying to ping to 8.8.8.8, but it also don't work, so in that case we need to check the interface again and see if we have something missing.
+
+![OSCP Post](/assets/images/lpic2/interface.png)
+**Figure 191** checking that interface.
+
+You can see that I haven't IP address on that interface, you can also see that I have not recieve any data on my RX although my TX send data, this is mmay mean that I have physical issue with my network, so I need to check it out.
+
+![OSCP Post](/assets/images/lpic2/interfacenotx.png)
+**Figure 192** checking that interface.
+
+So I found that I have some issue with my network card, and now it connect currently to my local switch, but still I have no IP address, so I need to check if I have some DHCP working in my network, if I haven't I will need to setup the IP address manually.
+
+![OSCP Post](/assets/images/lpic2/havenoip.png)
+**Figure 193** checking that interface.
+
+So we can run the **dhclient** command to check if I get any IP address.
+
+![OSCP Post](/assets/images/lpic2/dhclient.png)
+**Figure 194** checking that interface.
+
+You can see that it work and now I have IP address, so now let's trying to ping out. You can see that the ping is working fine.
+
+![OSCP Post](/assets/images/lpic2/pingtozwerd.png)
+**Figure 195** ping to zwerd.
+
+So we can trying to using our browser to connect that site.
+
+![OSCP Post](/assets/images/lpic2/zwerd.com.png)
+**Figure 196** Web site working.
+
+There is more thing we need to know that can help us in troubleshoot, one of them is **traceroute** this is really cool thing, this tool run pings over the network with TTL value of 1, this TTL is used to report the sender that the TTL value are 0, it meant to use for prevent eternal loop within the network, so we send out packet with TTL low number, when the packet forwarded the machine that done the forworking change the TTL value subtract it by 1, if the value is zero that machine inform the source that the "Time to live exceeded" and this is mean that one of the two thing, of we have a loop, or we need to increase the TTL value, in **traceroute** the value is increase when the source get the "Time to live exceeded" message, in that way we have the knowledge that the same machine who sent us the "Time to live exceeded" message is on of the hop up the path to our destination.
+
+As example let's run **traceroute** against zwerd.com
+
+![OSCP Post](/assets/images/lpic2/zwerd.com.png)
+**Figure 197** Web site working.
+
+You can see the path, every hop replay to us with his IP address, so in that way we can know what is the path in layer 3 to our destination, there is also **traceroute6** for IP version 6, and also we have **tracepath** for checking the mtu along the way, there is also the **mtr** which is a network diagnostic tool which can give you inforamtion about packets loss all over the path to destination.
+
+To find our what is the hostname of our local system we can use **hostname** which is a part of severla tools as follow:
+```
+hostname - show or set the system's host name
+domainname - show or set the system's NIS/YP domain name
+ypdomainname - show or set the system's NIS/YP domain name
+nisdomainname - show or set the system's NIS/YP domain name
+dnsdomainname - show the system's DNS domain name
+```
+
+Hostname is used to display the system's DNS name, and to display or set its  hostname  or NIS domain name, normally by reading the contents of a file which contains the host name, e.g.  **/etc/hostname**.
+
+You can also use the **/etc/resolv.conf** file which contain a list nameservers that are used by your host or DNS resolution. if we are using DHCP this file is automatically populated with DNS recode issued by DHCP server.
+
+There is also the **/etc/hosts** file which also contain hostnames and IP address, this file contain static table lookup for hostnames, this is mean that we can use if in case we have no DNS server configure for our host, or we want to specify specific record for some host or block the local machine to successfully resolve the IP address for some host.
+
+We can also apply sort of access list that contain the allow connection host on the network to connect our local machine by specify their name and address in the **/etc/hosts.allow**, in that way we can done we would done with FW, but this time this policy apply on our local machine.
+
+We can also do the same to deny hosts from enable their connection to our local machine by specify them in the **/etc/hosts.deny**
+
+If we suspect that we had some issue regarding to our network drive and have no IP address or some missing setting on our local machine, we can run **dmesg** tool to find some logs that was created during the bootup, as example in my case let's say that I suspect that I have some issue related to my wifi card, so I can grep our all of the logs that have the wlp2s0 string which is my wifi interface.
+
+![OSCP Post](/assets/images/lpic2/wifilogs.png)
+**Figure 198** My wifi interface logs from dmesg.
+
+We can find more related logs in the **/var/log/syslog** file that contain more details about my wlp2s0 which is my wifi interface.
+
+![OSCP Post](/assets/images/lpic2/wifisyslogs.png)
+**Figure 197** My local syslog grep wifi.
+
+
+## Chapter 6
+## Topic 206: System Maintenance.
+
+Now I want to tell you a story that happened to me in the last year, if you follow my posts you can see that already 8 years ago I was talking about OSCP certification, last year I met a friend who knew me for a small group that opened for one purpose - Bug Bounty. For those who don't know, Bug Bounty is a program that allows us to hack software from reputable companies and earn money! Yes Yes! Money on hacking into software.
+
+That evening as the group got into acquaintance, each one talked about himself, one of the members said that in his company someone had exploited some weakness and was able to apply bitminer to one of the servers in the organization he was working on, he surpassed it with all kinds of tools that slowly identified the server to other servers.
+
+I knew the bitcoin issue already, but I did not know what actually made bitminer and how it uses resources to perform other process calculations.
+
+Why am I talking about this? Because in this chapter we have to compile our own software, it's similar to what we did with the kernel in the second chapter, but here is more about a binary program when the compiler is supposed to prepare it for execution, and guess what software we're going to compile?
+
+exactly!
+
+We're going to compile the bitminer and prepare the binary for execution, I'm sure it will be interesting.
+
+So first of all we download the tar file from the following link (pooler-cpuminer-2.5.0-linux-x86.tar.gz)[https://github.com/pooler/cpuminer/releases/download/v2.5.0/pooler-cpuminer-2.5.0-linux-x86.tar.gz]
+
+after that run the following:
+```
+tar -zxvf pooler-cpuminer-2.5.0-linux-x86.tar.gz
+```
+
+![OSCP Post](/assets/images/lpic2/tarfile.png)
+**Figure 198** Extract the file using tar.
+
+After that we will have new folder that contain many files.
+
+
+![OSCP Post](/assets/images/lpic2/cpuminer.png)
+**Figure 199** My folder.
+
+What we need to search now is the configure file and run it as `./configure`, while it run you can see what is does, if some error appears we will need to fix if before we can compile this binary.
+
+![OSCP Post](/assets/images/lpic2/missing.png)
+**Figure 200** Missing file.
+
+You can see that have missing program named libcurl, so I can run `apt-cache search libcurl` or search it over the net.
+
+![OSCP Post](/assets/images/lpic2/apr-cache.png)
+**Figure 201** Search for that program.
+
+You can see that I had many program to choose, as much as I know from Shawn Powers every package that contain the name dev, it's mean that this is actually develop packege that can allow us to compile source code, so in my case I am going to install libcurl4-openssl-dev.
+
+![OSCP Post](/assets/images/lpic2/configureyes.png)
+**Figure 202** Finish succesfully.
+
+Now you can see that it end up without an error, so  we can start to make the binary file
+
+![OSCP Post](/assets/images/lpic2/make.png)
+**Figure 203** Search for that program.
+
+Now if I run that minerd file you can see that I have an output, but as you may notice I am using that as a local directory with `./minerd`, for making it acually binary tool that can run without the need to run it from the source folder we just need to run.
+
+![OSCP Post](/assets/images/lpic2/minerd.png)
+**Figure 204** minerd.
+
+So what we need to do is to run `sudo make install`, this command will put it in /usr/local/bin, so know we can run it from any directory location in our machine.
+
+![OSCP Post](/assets/images/lpic2/makeinstall.png)
+**Figure 205** make install.
+
+Please remember that by default all source code are store and can be found in the following directory
+```
+/usr/src
+```
+
+In case we have a program that already install on our system we may what to apply a patch for that program, to do so we can run the patch command with that program patch file.
+
+The patch file is file that contain the differences between the old file and the new one, this will update our program by applying it.
+
+so if we have old program and we create a new one we can run the following:
+```
+diff -u oldprogram.c newprogram.c > program.patch
+```
+
+For applying this patch just run.
+```
+patch < program.patch
+```
+
+I want to talk about tar and rsync right now, with these two tools we can use to back up some important folders that back them up:
+```
+/etc/
+/var/spool/
+/home/
+/usr/local
+```
+In some folders we can find important things like system settings or binaries or logs, it really depends on what we need, these are the folders we might back up
+
+```
+/var/lib/
+/var/log/
+/opt/
+```
+
+True, we talked about a RAID that provides a type of backup, but in truth it is more at the level of being able to use information that a disk has even though one disk is damaged or destroyed, when talking about this backup goes well beyond the RAID, it is actually our way of taking the files and replicating them to another location or To a completely different server, in this way we ensure that the files remain accessible even if the computer is damaged and unable to work.
+
+The first thing we can do is use tar to prepare a tar file that compiles all files separately from our folders
+```
+tar -cvf backup.tar /Documents
+```
+
+This command will create an archive file that will contain all the files specified in my case, in the case of the Documents folder.
+
+There is a much better way to do a backup and it is through rsync, this tool actually creates a backup folder and also tracks changes made to files, if changes are made it will update them in the backup folder, although if we created a new file we will need to run the command again so that it backs up the extra file
+ 
+```
+rsync -av Documents/ backupfolder
+```
+
+We can also use the rsync to make backup over the network by using ssh as follow:
+```
+rsync -av Documents guy@172.16.1.9:/home/guy/
+```
+
+This will make backup on other server so if we make change of some file that in the Documents folder it will update the backup on the server.
+
+For backup there is another solutions th
+at can help us, one of them is **Amanda** previously known as Advanced Maryland Automatic Network Disk Archiver is an open source computer archiving tool that is able to back up data residing on multiple computers on a network. It uses a client–server model, where the server contacts each client to perform a backup at a scheduled time.
+
+You can install that step by step by watching that [videro](https://www.youtube.com/watch?v=D-gmLictqws), there is more solution for backup like Bacula, Bareos and BackupPC, all are the same consept.
+
+For the exam we need to know **mt** tool, as much as I understand this tool is used for tape drive which is magnetic plastic strip that use for backup.
+
+![OSCP Post](https://www.nakivo.com/blog/wp-content/uploads/2019/07/Tape-Cartridges-Tape-Backup-Advantages.jpg)
+**Figure 206** tape.
+
+The default drive for tape is `/dev/st0` , we can use tar to backup what we need to this tape as follow:
+```
+tar -czf /dev/st0 /www /home
+```
+
+In that case I backup the `www` directory and also the `home` directory to my tape which is the `st0` drive. We can rewind that tape by using the following command:
+```
+mt -f /dev/st0 rewind
+```
+
+Only after that we will able to use tar to backup our directories. For checking that tape status simply run the following:
+```
+mt -f /dev/st0 status
+```
+
+We can also erase the tape by adding the erase option to this command.
+
+We can also use **dd** command for backup the whole disk, just look on the following command:
+```
+sudo dd if=/dev/sdb of=/dev/sdc bs=64k conv=noerror,sync status=progress
+```
+
+That command run over sdb drive and copy all to sdc drive, the option `bs` stand for 64k which is more useful then the default 512 byte, **conv** set on noerro which mean to ignoring all read error, the **sync** used for fill input blocks with zero if there ware any read errors and the **status** option set on progress for us to be able to see the running state of **dd** because such command may take a long time to run.
+
+In the lest part of this chapter we need to talk about notify users on system related issue, which mean that if we have some error and we want to fix it, and the only way to fix it is to do something to the system that can make angry some of our users, like shutdown or kill some app, we can notify the users by several ways.
+
+The first way to do so is to write message on the shell which every user that connect to this server over the command line will get notify about that message:
+```
+wall < message.txt
+```  
+
+In this command I run the **wall** command and apply it the text file which contain my message, this will broadcast that message to every user that connect to this server over the shell.
+
+![OSCP Post](/assets/images/lpic2/wall.png)
+**Figure 207** Message by wall command.
+
+You can see the message on the screen of that user that came from guy, and time and date also specify. If you dont have text file ready for broadcast message, you can just run the following on the command line and it work the same.
+
+```
+ehco "hello, this system is going down in 5 minits!" | wall
+```
+
+We also have the Message Of The Day which is `/etc/motd` file that can contain any message you want, after user connect to our server via ssh he will get this message immediately.
+
+What we need to do to make it work is to change some line in the ssh configuration file in the `/etc/ssh/sshd_config`.
+
+![OSCP Post](/assets/images/lpic2/banner.png)
+**Figure 208** Banner message.
+
+After that if user connect in he will get this message print on the screen. In case we want to print on the user screen message before he login, we can use `/etc/issue.net`, we also need to update the sshd_config file and restart the service.
+
+![OSCP Post](/assets/images/lpic2/issue.net.png)
+**Figure 209** The net issue file.
+
+And we inform our user if we want to run on **shotdown** or **systemctl poweroff**.

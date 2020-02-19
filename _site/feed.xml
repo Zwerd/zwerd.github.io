@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.5">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2020-02-18T19:46:55+02:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Zwerd</title><subtitle>A stunning blog of freaking PT warrior</subtitle><author><name>Guy Zwerdling</name></author><entry><title type="html">LPIC2 Certification Journey</title><link href="http://localhost:4000/2019/11/19/lpic2_certificate.html" rel="alternate" type="text/html" title="LPIC2 Certification Journey" /><published>2019-11-19T00:00:00+02:00</published><updated>2019-11-19T00:00:00+02:00</updated><id>http://localhost:4000/2019/11/19/lpic2_certificate</id><content type="html" xml:base="http://localhost:4000/2019/11/19/lpic2_certificate.html">&lt;p&gt;Today morning I received a message from LPI that my certificate will expire in 9 months and so it is time to start studying for the second Linux certification, this will advance me to the third Linux information security certification that I will search for, this certification is divided into two and the two parts are marked by two different codes: 201-450, 202-450&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.5">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2020-02-19T14:56:20+02:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Zwerd</title><subtitle>A stunning blog of freaking PT warrior</subtitle><author><name>Guy Zwerdling</name></author><entry><title type="html">LPIC2 Certification Journey</title><link href="http://localhost:4000/2019/11/19/lpic2_certificate.html" rel="alternate" type="text/html" title="LPIC2 Certification Journey" /><published>2019-11-19T00:00:00+02:00</published><updated>2019-11-19T00:00:00+02:00</updated><id>http://localhost:4000/2019/11/19/lpic2_certificate</id><content type="html" xml:base="http://localhost:4000/2019/11/19/lpic2_certificate.html">&lt;p&gt;Today morning I received a message from LPI that my certificate will expire in 9 months and so it is time to start studying for the second Linux certification, this will advance me to the third Linux information security certification that I will search for, this certification is divided into two and the two parts are marked by two different codes: 201-450, 202-450&lt;/p&gt;
 
 &lt;p&gt;In this post I am going to go over each topic as listed on the LPI website, which means I will go over each tool and present it here, in each chapter I will show how to use these tools to get the same information that the subject of the test should deal with, at the end of each chapter I will present a challenge From most of the commands we learned and challenged you and me how to get the information to succeed.&lt;/p&gt;
 
@@ -122,7 +122,7 @@
 
 &lt;h3 id=&quot;vmstat&quot;&gt;vmstat&lt;/h3&gt;
 
-&lt;p&gt;In that command we can view the memory that being used and CPU values, i/o and system utilizes, if you type this command you will get that information but that it, not like top that refresh itself every 3 second by default, but you can run it with refresh like, by using &lt;strong&gt;delay&lt;/strong&gt; and &lt;strong&gt;count&lt;/strong&gt; option. In the delay you specify how long to wait between every time it display you the information, the count is how many time it will repeat it self, in that case you can see the changes along the way.&lt;/p&gt;
+&lt;p&gt;In that command we can view the memory that being used and CPU values, i/o and system utilizes, if you type this command you will get that information but that’s it, not like top that refresh itself every 3 second by default, but you can run it with refresh like, by using &lt;strong&gt;delay&lt;/strong&gt; and &lt;strong&gt;count&lt;/strong&gt; option. In the delay you specify how long to wait between every time it display you the information, the count is how many time it will repeat it self, in that case you can see the changes along the way.&lt;/p&gt;
 
 &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;vmstat 3 5
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
@@ -146,6 +146,46 @@
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;p&gt;I have being seeing people that use that command in their program to track the operation of the memory and CPU, in the case of issue with the resources we have, you can find more useful commands than that.&lt;/p&gt;
+
+&lt;p&gt;In the man page I found the following information that related to the field in that output:&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Procs&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;r: The number of processes waiting for run time.&lt;br /&gt;
+b: The number of processes in uninterruptible sleep.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Memory&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;swpd: the amount of virtual memory used.&lt;br /&gt;
+free: the amount of idle memory.&lt;br /&gt;
+buff: the amount of memory used as buffers.&lt;br /&gt;
+cache: the amount of memory used as cache.&lt;br /&gt;
+inact: the amount of inactive memory. (-a option)&lt;br /&gt;
+active: the amount of active memory. (-a option)&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Swap&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;si: Amount of memory swapped in from disk (/s).&lt;br /&gt;
+so: Amount of memory swapped to disk (/s).&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;IO&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;bi: Blocks received from a block device (blocks/s).&lt;br /&gt;
+bo: Blocks sent to a block device (blocks/s).&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;System&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;in: The number of interrupts per second, including the clock.&lt;br /&gt;
+cs: The number of context switches per second.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;CPU&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;These are percentages of total CPU time.&lt;br /&gt;
+us: Time spent running non-kernel code. (user time, including nice time)&lt;br /&gt;
+sy: Time spent running kernel code. (system time)&lt;br /&gt;
+id: Time spent idle. Prior to Linux 2.5.41, this includes IO-wait time.&lt;br /&gt;
+wa: Time spent waiting for IO. Prior to Linux 2.5.41, included in idle.&lt;br /&gt;
+st: Time stolen from a virtual machine. Prior to Linux 2.6.11, unknown.&lt;br /&gt;&lt;/p&gt;
 
 &lt;h3 id=&quot;free&quot;&gt;free&lt;/h3&gt;
 
@@ -255,10 +295,12 @@
 &lt;span class=&quot;nv&quot;&gt;ENABLED&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;true&quot;&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
-&lt;p&gt;You can run the command &lt;code class=&quot;highlighter-rouge&quot;&gt;sar -r 1 5&lt;/code&gt;, the &lt;strong&gt;-r&lt;/strong&gt; option stand for Report memory utilization statistics, on the output you can find the KBCOMMIT and %COMMIT which are the overall memory used including RAM and Swap.&lt;/p&gt;
+&lt;p&gt;You can run the command &lt;code class=&quot;highlighter-rouge&quot;&gt;sar -r 1 5&lt;/code&gt;, the &lt;strong&gt;-r&lt;/strong&gt; option stand for report memory utilization statistics, on the output you can find the KBCOMMIT and %COMMIT which are the overall memory used including RAM.&lt;/p&gt;
 
 &lt;p&gt;&lt;img src=&quot;/assets/images/lpic2/sar.png&quot; alt=&quot;OSCP Post&quot; /&gt;
 &lt;strong&gt;Figure 24&lt;/strong&gt; sar memory used.&lt;/p&gt;
+
+&lt;p&gt;You can also run &lt;code class=&quot;highlighter-rouge&quot;&gt;sar -S&lt;/code&gt; which will give us information about the SWAP free and used memory.&lt;/p&gt;
 
 &lt;h3 id=&quot;iotop&quot;&gt;iotop&lt;/h3&gt;
 
@@ -480,16 +522,16 @@
 
 &lt;p&gt;When we talk about linux kernel we want to be able to find out what is our linux kernel version and how to read that version, which mean how we know if that version is stable or be familiar with more details that this version number contain.&lt;/p&gt;
 
-&lt;p&gt;First of all let’s check our version number, we can done that by using the &lt;code class=&quot;highlighter-rouge&quot;&gt;uname -a&lt;/code&gt; command, this command will print out the version number and the name of our machine also time and date and even what is out computer architecture, which is 64bit in my case.&lt;/p&gt;
+&lt;p&gt;First of all let’s check our version number, we can done that by using the &lt;code class=&quot;highlighter-rouge&quot;&gt;uname -a&lt;/code&gt; command, this command will print out the version number and the name of our machine also time and date and even what is our computer architecture, which is 64bit in my case.&lt;/p&gt;
 
 &lt;p&gt;&lt;img src=&quot;/assets/images/lpic2/uname-a.png&quot; alt=&quot;LPIC2 Post&quot; /&gt;
 &lt;strong&gt;Figure 47&lt;/strong&gt; My linux kernel core.&lt;/p&gt;
 
-&lt;p&gt;The first number is the version number, in my case it is kernel version 4, the next number is the major revision which is my case is 15 and the third number is the minor revision number, the fourth number is the patch level. In the past, in the version of the kernel was a general rule in the number version, in the second number every odd number was as developed version, and the even number was as stable version, as example the 1.5.2 kernel was under development and version 1.6.2 was known as stable kernel version, when the kernel version 2.6.x came along it stay for long time without numerate the number except the last one number, because version 2.6.was awesome and fourth number for the patch number, one more thing that you need to know is that after they release the version 2.6, they get ride of the odd/even number and every new release is stable and not under development, every stable version will develop and update on a new version.&lt;/p&gt;
+&lt;p&gt;The first number is the version number, in my case it is kernel version 4, the next number is the major revision which in my case is 15 and the third number is the minor revision number, the fourth number is the patch level. In the past, in the version of the kernel was a general rule in the number version, in the second number every odd number was as developed version, and the even number was as stable version, as example the 1.5.2 kernel was under development and version 1.6.2 was known as stable kernel version, when the kernel version 2.6.x came along it stay for long time without numerate the number except the last one number, because version 2.6.was awesome and fourth number for the patch number, one more thing that you need to know is that after they release the version 2.6, they get ride of the odd/even number and every new release is stable and not under development, every stable version will develop and update on a new version.&lt;/p&gt;
 
-&lt;p&gt;When the version of that kernel raise up and was 2.6.39.4 than Linus Torvalds decided update the enumerating to be more like the old one, which is the first number will be major release, the second will be minor release and the third will be the minor revision which is stable or patch to update abilities on the kernel. You may somtime see like a fourth number which play as a path, in my case of &lt;strong&gt;72-generic&lt;/strong&gt; this is the Ubuntu specific patch they done.&lt;/p&gt;
+&lt;p&gt;When the version of that kernel raise up and was 2.6.39.4 than Linus Torvalds decided update the enumerating to be more like the old one, which is the first number will be major release, the second will be minor release and the third will be the minor revision which is stable or patch to update abilities on the kernel. You may somtime see like a fourth number which play as a patch, in my case of &lt;strong&gt;72-generic&lt;/strong&gt; this is the Ubuntu specific patch they done.&lt;/p&gt;
 
-&lt;p&gt;You can find the versions of kernels that you have in you linux machine under the /lib/modules folder and in each one we can found every modules that are run on our system.&lt;/p&gt;
+&lt;p&gt;You can find the versions of kernels that you have in your Linux machine under the /lib/modules folder and in each one we can found every modules that are run on our system.&lt;/p&gt;
 
 &lt;p&gt;&lt;img src=&quot;/assets/images/lpic2/kernels.png&quot; alt=&quot;LPIC2 Post&quot; /&gt;
 &lt;strong&gt;Figure 48&lt;/strong&gt; My kernels.&lt;/p&gt;

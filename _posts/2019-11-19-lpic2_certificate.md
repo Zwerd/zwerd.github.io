@@ -137,7 +137,7 @@ Again, this case mean that we have process that use the hard drive and there is 
 
 ### vmstat
 
-In that command we can view the memory that being used and CPU values, i/o and system utilizes, if you type this command you will get that information but that it, not like top that refresh itself every 3 second by default, but you can run it with refresh like, by using **delay** and **count** option. In the delay you specify how long to wait between every time it display you the information, the count is how many time it will repeat it self, in that case you can see the changes along the way.
+In that command we can view the memory that being used and CPU values, i/o and system utilizes, if you type this command you will get that information but that's it, not like top that refresh itself every 3 second by default, but you can run it with refresh like, by using **delay** and **count** option. In the delay you specify how long to wait between every time it display you the information, the count is how many time it will repeat it self, in that case you can see the changes along the way.
 
 ```
 vmstat 3 5
@@ -164,6 +164,48 @@ vmstat -w 3 5
 ```
 
 I have being seeing people that use that command in their program to track the operation of the memory and CPU, in the case of issue with the resources we have, you can find more useful commands than that.
+
+In the man page I found the following information that related to the field in that output:
+
+**Procs**
+
+r: The number of processes waiting for run time.<br>
+b: The number of processes in uninterruptible sleep.
+
+**Memory**
+
+swpd: the amount of virtual memory used.<br>
+free: the amount of idle memory.<br>
+buff: the amount of memory used as buffers.<br>
+cache: the amount of memory used as cache.<br>
+inact: the amount of inactive memory. (-a option)<br>
+active: the amount of active memory. (-a option)
+
+**Swap**
+
+si: Amount of memory swapped in from disk (/s).<br>
+so: Amount of memory swapped to disk (/s).
+
+**IO**
+
+bi: Blocks received from a block device (blocks/s).<br>
+bo: Blocks sent to a block device (blocks/s).
+
+**System**
+
+in: The number of interrupts per second, including the clock.<br>
+cs: The number of context switches per second.
+
+**CPU**
+
+These are percentages of total CPU time.<br>
+us: Time spent running non-kernel code. (user time, including nice time)<br>
+sy: Time spent running kernel code. (system time)<br>
+id: Time spent idle. Prior to Linux 2.5.41, this includes IO-wait time.<br>
+wa: Time spent waiting for IO. Prior to Linux 2.5.41, included in idle.<br>
+st: Time stolen from a virtual machine. Prior to Linux 2.6.11, unknown.<br>
+
+
 
 ### free
 
@@ -287,11 +329,13 @@ In my case I use sar to display state every second for 5 times, as I already wri
 ENABLED="true"
 ```
 
-You can run the command `sar -r 1 5`, the **-r** option stand for Report memory utilization statistics, on the output you can find the KBCOMMIT and %COMMIT which are the overall memory used including RAM and Swap.
+You can run the command `sar -r 1 5`, the **-r** option stand for report memory utilization statistics, on the output you can find the KBCOMMIT and %COMMIT which are the overall memory used including RAM.
 
 
 ![OSCP Post](/assets/images/lpic2/sar.png)
 **Figure 24** sar memory used.
+
+You can also run `sar -S` which will give us information about the SWAP free and used memory.
 
 ### iotop
 
@@ -524,16 +568,16 @@ Now you can see by filter the PID we found earlier and found the program that ru
 
 When we talk about linux kernel we want to be able to find out what is our linux kernel version and how to read that version, which mean how we know if that version is stable or be familiar with more details that this version number contain.
 
-First of all let's check our version number, we can done that by using the `uname -a` command, this command will print out the version number and the name of our machine also time and date and even what is out computer architecture, which is 64bit in my case.
+First of all let's check our version number, we can done that by using the `uname -a` command, this command will print out the version number and the name of our machine also time and date and even what is our computer architecture, which is 64bit in my case.
 
 ![LPIC2 Post](/assets/images/lpic2/uname-a.png)
 **Figure 47** My linux kernel core.
 
-The first number is the version number, in my case it is kernel version 4, the next number is the major revision which is my case is 15 and the third number is the minor revision number, the fourth number is the patch level. In the past, in the version of the kernel was a general rule in the number version, in the second number every odd number was as developed version, and the even number was as stable version, as example the 1.5.2 kernel was under development and version 1.6.2 was known as stable kernel version, when the kernel version 2.6.x came along it stay for long time without numerate the number except the last one number, because version 2.6.was awesome and fourth number for the patch number, one more thing that you need to know is that after they release the version 2.6, they get ride of the odd/even number and every new release is stable and not under development, every stable version will develop and update on a new version.
+The first number is the version number, in my case it is kernel version 4, the next number is the major revision which in my case is 15 and the third number is the minor revision number, the fourth number is the patch level. In the past, in the version of the kernel was a general rule in the number version, in the second number every odd number was as developed version, and the even number was as stable version, as example the 1.5.2 kernel was under development and version 1.6.2 was known as stable kernel version, when the kernel version 2.6.x came along it stay for long time without numerate the number except the last one number, because version 2.6.was awesome and fourth number for the patch number, one more thing that you need to know is that after they release the version 2.6, they get ride of the odd/even number and every new release is stable and not under development, every stable version will develop and update on a new version.
 
-When the version of that kernel raise up and was 2.6.39.4 than Linus Torvalds decided update the enumerating to be more like the old one, which is the first number will be major release, the second will be minor release and the third will be the minor revision which is stable or patch to update abilities on the kernel. You may somtime see like a fourth number which play as a path, in my case of **72-generic** this is the Ubuntu specific patch they done.
+When the version of that kernel raise up and was 2.6.39.4 than Linus Torvalds decided update the enumerating to be more like the old one, which is the first number will be major release, the second will be minor release and the third will be the minor revision which is stable or patch to update abilities on the kernel. You may somtime see like a fourth number which play as a patch, in my case of **72-generic** this is the Ubuntu specific patch they done.
 
-You can find the versions of kernels that you have in you linux machine under the /lib/modules folder and in each one we can found every modules that are run on our system.
+You can find the versions of kernels that you have in your Linux machine under the /lib/modules folder and in each one we can found every modules that are run on our system.
 
 ![LPIC2 Post](/assets/images/lpic2/kernels.png)
 **Figure 48** My kernels.

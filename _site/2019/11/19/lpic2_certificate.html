@@ -13,7 +13,7 @@
 
   <title>
     
-      LPIC2 Certification Journey &middot; Zwerd
+      My Journey for LPIC2 Certification - Exam 201-450 &middot; Zwerd
     
   </title>
 
@@ -359,7 +359,7 @@
 
     <main class="container">
       <header>
-  <h1 class="post-title">LPIC2 Certification Journey</h1>
+  <h1 class="post-title">My Journey for LPIC2 Certification - Exam 201-450</h1>
 </header>
 <div class="content">
   <div class="post-meta">
@@ -436,7 +436,7 @@
 <p><img src="/assets/images/lpic2/ramstress.png" alt="OSCP Post" />
 <strong>Figure 4</strong> Stress the RAM.</p>
 
-<p>You can see all of my <code class="highlighter-rouge">C^</code> keys because I freak out, my computer was freezing and I can’t do anything but the <code class="highlighter-rouge">ctrl+C</code> command, so now ufter it done I run 6 chunk that will not going to crash my system but at least I will be able to view the RAM used.</p>
+<p>You can see all of my <code class="highlighter-rouge">C^</code> keys because I freak out, my computer was freezing and I can’t do anything but the <code class="highlighter-rouge">ctrl+C</code> command, so now after it done I run 6 chunk that will not going to crash my system but at least I will be able to view the RAM used.</p>
 
 <p><img src="/assets/images/lpic2/ramstress2.png" alt="OSCP Post" />
 <strong>Figure 5</strong> Stress the RAM again.</p>
@@ -1019,7 +1019,7 @@ st: Time stolen from a virtual machine. Prior to Linux 2.6.11, unknown.<br /></p
 <p><img src="/assets/images/lpic2/tar.png" alt="LPIC2 Post" />
  <strong>Figure 62</strong> tar the kernel file.</p>
 
-<p>Than I run the following command in order to make the symbolic line to kernel folder.</p>
+<p>Than I run the following command in order to make the symbolic link to kernel folder.</p>
 <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code> ln -s /linux-5.4.3 linux
 </code></pre></div></div>
 
@@ -1093,7 +1093,7 @@ st: Time stolen from a virtual machine. Prior to Linux 2.6.11, unknown.<br /></p
 
 <p>At the end of modules installation you will see that it run <strong>depmod</strong> which is build the list of every module and it’s dependencies, now all we need to run is <code class="highlighter-rouge">make install</code>, this command will install the kernel on our system and it use <code class="highlighter-rouge">dracut</code> which going to make some changes in our boot folder and in the GRUB to make some new option to load the new installing kernel so we can choose it one the GRUB menu, it also create the <strong>initrd</strong> which is minimal file that use in the RAM to load up the kernel.</p>
 
-<p>Just think about that, you boot up your system and your GRUB need to load up your kernel, your kernel contain many modules for manage the devices parts, he need to load them up from the hard disk, but there is a problem, he can’t use the hard disk because he need module to do so and all of the module are in the hard drive, so for this issue there is the initrd, this file contain minimal modules that needed to load the hard disk for example, after that he load the kernel which will be able to load more kernel from the hard disk.</p>
+<p>Just think about that, you boot up your system and your GRUB need to load up your kernel, your kernel contain many modules for manage the devices parts, he need to load them up from the hard disk, but there is a problem, he can’t use the hard disk because he need module to do so and all of the module are in the hard drive, so for this issue there is the initrd, this file contain minimal modules that needed to load the hard disk for example, after that GRUB load the kernel it will be able to load more kernel modules from the hard disk.</p>
 
 <p>You can find the initrd under boot folder, usually every kernel have it’s own initrd, in my case my ubuntu contain 2 image of the kernel, one is 4.15.0-70 and the other is 4.15.0-72, the same numbering code have on my initrd files.</p>
 
@@ -1452,8 +1452,8 @@ but it load the system and doesn’t restart again like it should do, so I check
 
 <p>So far for now it’s problem because the changes we made make the system to be in reboot loop, we can solve it simply by made some changes in the GRUB menu, we just need to change the value <code class="highlighter-rouge">quiet sptash</code> on the kernel line to <code class="highlighter-rouge">single</code> which going to bring us single mode and we will be able to see it on the runlevel after we start up.</p>
 
-<p><img src="/assets/images/lpic2/signlemode.png" alt="LPIC2 Post" />
-<strong>Figure 111</strong> Changing for signle mode in the GRUB.</p>
+<p><img src="/assets/images/lpic2/singlemode.png" alt="LPIC2 Post" />
+<strong>Figure 111</strong> Changing for single mode in the GRUB.</p>
 
 <p>Now all I done is press enter and <strong>b</strong> for boot and the system give me the following menu.</p>
 

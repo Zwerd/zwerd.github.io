@@ -1,6 +1,6 @@
 ---
 layout: post
-title: LPIC2 Certification Journey
+title: My Journey for LPIC2 Certification - Exam 201-450
 excerpt: "Today morning I received a message from LPI that my certificate will expire in 9 months and so it is time to start studying for the second Linux certification, this will advance me to the third Linux information security certification that will include what I am looking for, this certification is split in two"
 tags:
 - Linux
@@ -65,7 +65,7 @@ You can also run stress to utilizes the RAM, in that case you specify how much c
 ![OSCP Post](/assets/images/lpic2/ramstress.png)
 **Figure 4** Stress the RAM.
 
-You can see all of my `C^` keys because I freak out, my computer was freezing and I can't do anything but the `ctrl+C` command, so now ufter it done I run 6 chunk that will not going to crash my system but at least I will be able to view the RAM used.
+You can see all of my `C^` keys because I freak out, my computer was freezing and I can't do anything but the `ctrl+C` command, so now after it done I run 6 chunk that will not going to crash my system but at least I will be able to view the RAM used.
 
 
 ![OSCP Post](/assets/images/lpic2/ramstress2.png)
@@ -686,7 +686,7 @@ tar -Jxvf <path to the compress file>
 ![LPIC2 Post](/assets/images/lpic2/tar.png)
  **Figure 62** tar the kernel file.
 
- Than I run the following command in order to make the symbolic line to kernel folder.
+ Than I run the following command in order to make the symbolic link to kernel folder.
 ```
  ln -s /linux-5.4.3 linux
 ```
@@ -763,7 +763,7 @@ Now we need to install the modules with the command `make modules_install` it wi
 
 At the end of modules installation you will see that it run **depmod** which is build the list of every module and it's dependencies, now all we need to run is `make install`, this command will install the kernel on our system and it use `dracut` which going to make some changes in our boot folder and in the GRUB to make some new option to load the new installing kernel so we can choose it one the GRUB menu, it also create the **initrd** which is minimal file that use in the RAM to load up the kernel.
 
-Just think about that, you boot up your system and your GRUB need to load up your kernel, your kernel contain many modules for manage the devices parts, he need to load them up from the hard disk, but there is a problem, he can't use the hard disk because he need module to do so and all of the module are in the hard drive, so for this issue there is the initrd, this file contain minimal modules that needed to load the hard disk for example, after that he load the kernel which will be able to load more kernel from the hard disk.
+Just think about that, you boot up your system and your GRUB need to load up your kernel, your kernel contain many modules for manage the devices parts, he need to load them up from the hard disk, but there is a problem, he can't use the hard disk because he need module to do so and all of the module are in the hard drive, so for this issue there is the initrd, this file contain minimal modules that needed to load the hard disk for example, after that GRUB load the kernel it will be able to load more kernel modules from the hard disk.
 
 You can find the initrd under boot folder, usually every kernel have it's own initrd, in my case my ubuntu contain 2 image of the kernel, one is 4.15.0-70 and the other is 4.15.0-72, the same numbering code have on my initrd files.
 
@@ -1136,8 +1136,8 @@ In the GIF image you can see that I change the `rc-default` file for `telinit 6`
 
 So far for now it's problem because the changes we made make the system to be in reboot loop, we can solve it simply by made some changes in the GRUB menu, we just need to change the value `quiet sptash` on the kernel line to `single` which going to bring us single mode and we will be able to see it on the runlevel after we start up.
 
-![LPIC2 Post](/assets/images/lpic2/signlemode.png)
-**Figure 111** Changing for signle mode in the GRUB.
+![LPIC2 Post](/assets/images/lpic2/singlemode.png)
+**Figure 111** Changing for single mode in the GRUB.
 
 Now all I done is press enter and **b** for boot and the system give me the following menu.
 

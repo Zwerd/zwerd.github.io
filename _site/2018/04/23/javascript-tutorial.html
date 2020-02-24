@@ -555,45 +555,19 @@
 
 
 
-<script>function check(){var answer = document.getElementById("answer");
+<script>
+function check(){
+var answer = document.getElementById("answer");
 var correct = 0
-var q1= document.quiz.q1.value;
-if(q1== '1'){correct++};
-var q2= document.quiz.q2.value;
-if(q2== '1'){correct++};
-var q3= document.quiz.q3.value;
-if(q3== '1'){correct++};
-var q4= document.quiz.q4.value;
-if(q4== '1'){correct++};
-var q5= document.quiz.q5.value;
-if(q5== '1'){correct++};
-var q6= document.quiz.q6.value;
-if(q6== '1'){correct++};
-var q7= document.quiz.q7.value;
-if(q7== '1'){correct++};
-var q8= document.quiz.q8.value;
-if(q8== '1'){correct++};
-var q9= document.quiz.q9.value;
-if(q9== '1'){correct++};
-var q10= document.quiz.q10.value;
-if(q10== '1'){correct++};
-var q11= document.quiz.q11.value;
-if(q11== '1'){correct++};
-var q12= document.quiz.q12.value;
-if(q12== '1'){correct++};
-var q13= document.quiz.q13.value;
-if(q13== '1'){correct++};
-var q14= document.quiz.q14.value;
-if(q14== '1'){correct++};
-var q15= document.quiz.q15.value;
-if(q15== '1'){correct++};
-var q16= document.quiz.q16.value;
-if(q16== '1'){correct++};
-var q17= document.quiz.q17.value;
-if(q17== '1'){correct++};
-var q18= document.quiz.q18.value;
-if(q18== '1'){correct++};
-answer.innerHTML='Your scor is: '+correct*100/18;
+var q = 0
+for(q = 1; q <= 18; q++){
+  qn = eval("document.quiz.q" + q + ".value")
+  value = Number(qn)
+  correct = correct + value
+}
+score = correct*100/18
+console.log(correct, value, qn)
+answer.innerHTML='Your scor is: ' + score.toFixed(2);
 }
 </script>
 
@@ -669,7 +643,7 @@ answer.innerHTML='Your scor is: '+correct*100/18;
       <li>
         <h3>
           <a href="/2019/11/19/lpic2_certificate.html">
-            LPIC2 Certification Journey
+            My Journey for LPIC2 Certification - Exam 201-450
             <small>19 Nov 2019</small>
           </a>
         </h3>

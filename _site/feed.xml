@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.5">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2020-02-19T14:56:20+02:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Zwerd</title><subtitle>A stunning blog of freaking PT warrior</subtitle><author><name>Guy Zwerdling</name></author><entry><title type="html">LPIC2 Certification Journey</title><link href="http://localhost:4000/2019/11/19/lpic2_certificate.html" rel="alternate" type="text/html" title="LPIC2 Certification Journey" /><published>2019-11-19T00:00:00+02:00</published><updated>2019-11-19T00:00:00+02:00</updated><id>http://localhost:4000/2019/11/19/lpic2_certificate</id><content type="html" xml:base="http://localhost:4000/2019/11/19/lpic2_certificate.html">&lt;p&gt;Today morning I received a message from LPI that my certificate will expire in 9 months and so it is time to start studying for the second Linux certification, this will advance me to the third Linux information security certification that I will search for, this certification is divided into two and the two parts are marked by two different codes: 201-450, 202-450&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.5">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2020-02-24T10:26:01+02:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Zwerd</title><subtitle>A stunning blog of freaking PT warrior</subtitle><author><name>Guy Zwerdling</name></author><entry><title type="html">My Journey for LPIC2 Certification - Exam 201-450</title><link href="http://localhost:4000/2019/11/19/lpic2_certificate.html" rel="alternate" type="text/html" title="My Journey for LPIC2 Certification - Exam 201-450" /><published>2019-11-19T00:00:00+02:00</published><updated>2019-11-19T00:00:00+02:00</updated><id>http://localhost:4000/2019/11/19/lpic2_certificate</id><content type="html" xml:base="http://localhost:4000/2019/11/19/lpic2_certificate.html">&lt;p&gt;Today morning I received a message from LPI that my certificate will expire in 9 months and so it is time to start studying for the second Linux certification, this will advance me to the third Linux information security certification that I will search for, this certification is divided into two and the two parts are marked by two different codes: 201-450, 202-450&lt;/p&gt;
 
 &lt;p&gt;In this post I am going to go over each topic as listed on the LPI website, which means I will go over each tool and present it here, in each chapter I will show how to use these tools to get the same information that the subject of the test should deal with, at the end of each chapter I will present a challenge From most of the commands we learned and challenged you and me how to get the information to succeed.&lt;/p&gt;
 
@@ -54,7 +54,7 @@
 &lt;p&gt;&lt;img src=&quot;/assets/images/lpic2/ramstress.png&quot; alt=&quot;OSCP Post&quot; /&gt;
 &lt;strong&gt;Figure 4&lt;/strong&gt; Stress the RAM.&lt;/p&gt;
 
-&lt;p&gt;You can see all of my &lt;code class=&quot;highlighter-rouge&quot;&gt;C^&lt;/code&gt; keys because I freak out, my computer was freezing and I can’t do anything but the &lt;code class=&quot;highlighter-rouge&quot;&gt;ctrl+C&lt;/code&gt; command, so now ufter it done I run 6 chunk that will not going to crash my system but at least I will be able to view the RAM used.&lt;/p&gt;
+&lt;p&gt;You can see all of my &lt;code class=&quot;highlighter-rouge&quot;&gt;C^&lt;/code&gt; keys because I freak out, my computer was freezing and I can’t do anything but the &lt;code class=&quot;highlighter-rouge&quot;&gt;ctrl+C&lt;/code&gt; command, so now after it done I run 6 chunk that will not going to crash my system but at least I will be able to view the RAM used.&lt;/p&gt;
 
 &lt;p&gt;&lt;img src=&quot;/assets/images/lpic2/ramstress2.png&quot; alt=&quot;OSCP Post&quot; /&gt;
 &lt;strong&gt;Figure 5&lt;/strong&gt; Stress the RAM again.&lt;/p&gt;
@@ -637,7 +637,7 @@ st: Time stolen from a virtual machine. Prior to Linux 2.6.11, unknown.&lt;br /&
 &lt;p&gt;&lt;img src=&quot;/assets/images/lpic2/tar.png&quot; alt=&quot;LPIC2 Post&quot; /&gt;
  &lt;strong&gt;Figure 62&lt;/strong&gt; tar the kernel file.&lt;/p&gt;
 
-&lt;p&gt;Than I run the following command in order to make the symbolic line to kernel folder.&lt;/p&gt;
+&lt;p&gt;Than I run the following command in order to make the symbolic link to kernel folder.&lt;/p&gt;
 &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt; ln -s /linux-5.4.3 linux
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
@@ -711,7 +711,7 @@ st: Time stolen from a virtual machine. Prior to Linux 2.6.11, unknown.&lt;br /&
 
 &lt;p&gt;At the end of modules installation you will see that it run &lt;strong&gt;depmod&lt;/strong&gt; which is build the list of every module and it’s dependencies, now all we need to run is &lt;code class=&quot;highlighter-rouge&quot;&gt;make install&lt;/code&gt;, this command will install the kernel on our system and it use &lt;code class=&quot;highlighter-rouge&quot;&gt;dracut&lt;/code&gt; which going to make some changes in our boot folder and in the GRUB to make some new option to load the new installing kernel so we can choose it one the GRUB menu, it also create the &lt;strong&gt;initrd&lt;/strong&gt; which is minimal file that use in the RAM to load up the kernel.&lt;/p&gt;
 
-&lt;p&gt;Just think about that, you boot up your system and your GRUB need to load up your kernel, your kernel contain many modules for manage the devices parts, he need to load them up from the hard disk, but there is a problem, he can’t use the hard disk because he need module to do so and all of the module are in the hard drive, so for this issue there is the initrd, this file contain minimal modules that needed to load the hard disk for example, after that he load the kernel which will be able to load more kernel from the hard disk.&lt;/p&gt;
+&lt;p&gt;Just think about that, you boot up your system and your GRUB need to load up your kernel, your kernel contain many modules for manage the devices parts, he need to load them up from the hard disk, but there is a problem, he can’t use the hard disk because he need module to do so and all of the module are in the hard drive, so for this issue there is the initrd, this file contain minimal modules that needed to load the hard disk for example, after that GRUB load the kernel it will be able to load more kernel modules from the hard disk.&lt;/p&gt;
 
 &lt;p&gt;You can find the initrd under boot folder, usually every kernel have it’s own initrd, in my case my ubuntu contain 2 image of the kernel, one is 4.15.0-70 and the other is 4.15.0-72, the same numbering code have on my initrd files.&lt;/p&gt;
 
@@ -1070,8 +1070,8 @@ but it load the system and doesn’t restart again like it should do, so I check
 
 &lt;p&gt;So far for now it’s problem because the changes we made make the system to be in reboot loop, we can solve it simply by made some changes in the GRUB menu, we just need to change the value &lt;code class=&quot;highlighter-rouge&quot;&gt;quiet sptash&lt;/code&gt; on the kernel line to &lt;code class=&quot;highlighter-rouge&quot;&gt;single&lt;/code&gt; which going to bring us single mode and we will be able to see it on the runlevel after we start up.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;/assets/images/lpic2/signlemode.png&quot; alt=&quot;LPIC2 Post&quot; /&gt;
-&lt;strong&gt;Figure 111&lt;/strong&gt; Changing for signle mode in the GRUB.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/images/lpic2/singlemode.png&quot; alt=&quot;LPIC2 Post&quot; /&gt;
+&lt;strong&gt;Figure 111&lt;/strong&gt; Changing for single mode in the GRUB.&lt;/p&gt;
 
 &lt;p&gt;Now all I done is press enter and &lt;strong&gt;b&lt;/strong&gt; for boot and the system give me the following menu.&lt;/p&gt;
 
@@ -4200,45 +4200,19 @@ Best regards!&lt;/p&gt;
 
 
 
-&lt;script&gt;function check(){var answer = document.getElementById(&quot;answer&quot;);
+&lt;script&gt;
+function check(){
+var answer = document.getElementById(&quot;answer&quot;);
 var correct = 0
-var q1= document.quiz.q1.value;
-if(q1== '1'){correct++};
-var q2= document.quiz.q2.value;
-if(q2== '1'){correct++};
-var q3= document.quiz.q3.value;
-if(q3== '1'){correct++};
-var q4= document.quiz.q4.value;
-if(q4== '1'){correct++};
-var q5= document.quiz.q5.value;
-if(q5== '1'){correct++};
-var q6= document.quiz.q6.value;
-if(q6== '1'){correct++};
-var q7= document.quiz.q7.value;
-if(q7== '1'){correct++};
-var q8= document.quiz.q8.value;
-if(q8== '1'){correct++};
-var q9= document.quiz.q9.value;
-if(q9== '1'){correct++};
-var q10= document.quiz.q10.value;
-if(q10== '1'){correct++};
-var q11= document.quiz.q11.value;
-if(q11== '1'){correct++};
-var q12= document.quiz.q12.value;
-if(q12== '1'){correct++};
-var q13= document.quiz.q13.value;
-if(q13== '1'){correct++};
-var q14= document.quiz.q14.value;
-if(q14== '1'){correct++};
-var q15= document.quiz.q15.value;
-if(q15== '1'){correct++};
-var q16= document.quiz.q16.value;
-if(q16== '1'){correct++};
-var q17= document.quiz.q17.value;
-if(q17== '1'){correct++};
-var q18= document.quiz.q18.value;
-if(q18== '1'){correct++};
-answer.innerHTML='Your scor is: '+correct*100/18;
+var q = 0
+for(q = 1; q &lt;= 18; q++){
+  qn = eval(&quot;document.quiz.q&quot; + q + &quot;.value&quot;)
+  value = Number(qn)
+  correct = correct + value
+}
+score = correct*100/18
+console.log(correct, value, qn)
+answer.innerHTML='Your scor is: ' + score.toFixed(2);
 }
 &lt;/script&gt;
 

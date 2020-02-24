@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.5">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2020-02-24T10:26:01+02:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Zwerd</title><subtitle>A stunning blog of freaking PT warrior</subtitle><author><name>Guy Zwerdling</name></author><entry><title type="html">My Journey for LPIC2 Certification - Exam 201-450</title><link href="http://localhost:4000/2019/11/19/lpic2_certificate.html" rel="alternate" type="text/html" title="My Journey for LPIC2 Certification - Exam 201-450" /><published>2019-11-19T00:00:00+02:00</published><updated>2019-11-19T00:00:00+02:00</updated><id>http://localhost:4000/2019/11/19/lpic2_certificate</id><content type="html" xml:base="http://localhost:4000/2019/11/19/lpic2_certificate.html">&lt;p&gt;Today morning I received a message from LPI that my certificate will expire in 9 months and so it is time to start studying for the second Linux certification, this will advance me to the third Linux information security certification that I will search for, this certification is divided into two and the two parts are marked by two different codes: 201-450, 202-450&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.5">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2020-02-24T17:50:02+02:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Zwerd</title><subtitle>A stunning blog of freaking PT warrior</subtitle><author><name>Guy Zwerdling</name></author><entry><title type="html">My Journey for LPIC2 Certification - Exam 201-450</title><link href="http://localhost:4000/2019/11/19/lpic2_certificate.html" rel="alternate" type="text/html" title="My Journey for LPIC2 Certification - Exam 201-450" /><published>2019-11-19T00:00:00+02:00</published><updated>2019-11-19T00:00:00+02:00</updated><id>http://localhost:4000/2019/11/19/lpic2_certificate</id><content type="html" xml:base="http://localhost:4000/2019/11/19/lpic2_certificate.html">&lt;p&gt;Today morning I received a message from LPI that my certificate will expire in 9 months and so it is time to start studying for the second Linux certification, this will advance me to the third Linux information security certification that I will search for, this certification is divided into two and the two parts are marked by two different codes: 201-450, 202-450&lt;/p&gt;
 
 &lt;p&gt;In this post I am going to go over each topic as listed on the LPI website, which means I will go over each tool and present it here, in each chapter I will show how to use these tools to get the same information that the subject of the test should deal with, at the end of each chapter I will present a challenge From most of the commands we learned and challenged you and me how to get the information to succeed.&lt;/p&gt;
 
@@ -1135,6 +1135,8 @@ but it load the system and doesn’t restart again like it should do, so I check
 &lt;p&gt;The fifth value mostly be zero, but I don’t really know why in my case it’s one, this stand for dump which mean to dump all the file on mounting process, but as much as I know this no used any more, the sixth entry
 is the mount max count, this is mean that if we unmount and mount again the disk up to the max value, on the next boot it will be check with the fsck for errors.&lt;/p&gt;
 
+&lt;p&gt;&lt;strong&gt;Please remember&lt;/strong&gt;: if the sixty entry is 0 then it mean that this filesystem does not require fsck when being mounted to the system.&lt;/p&gt;
+
 &lt;p&gt;And this is all you need to know about the fstab file, we will look on that file more as we proceed, but I want you to know that there is more filesystem that I specified here:&lt;/p&gt;
 &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;ext2
 ext3
@@ -1177,6 +1179,20 @@ see that device but didn’t mount it, we can use the &lt;strong&gt;mount&lt;/st
 
 &lt;p&gt;If you remember we talk about the swap in that post earlier, and as you already know the swap is actually the memory that use directly from the disk, only when the RAM are full then the swap take an action, if we want to create swap by using the &lt;strong&gt;mkswap&lt;/strong&gt; command, we have also the way to start that swap or disable it. The &lt;strong&gt;swapon&lt;/strong&gt; command used for enable and start swap while &lt;strong&gt;swapoff&lt;/strong&gt; used for disabling it, you also can check the &lt;strong&gt;fstab&lt;/strong&gt; as we saw earlier to see the swap partition.&lt;/p&gt;
 
+&lt;p&gt;So let’s for example create swap space, what we can do is to make new partition on our disk by &lt;strong&gt;fdisk&lt;/strong&gt; tool and and find the UUID of that partition by using &lt;strong&gt;blkid&lt;/strong&gt; command and specified that UUID on the &lt;code class=&quot;highlighter-rouge&quot;&gt;fstab&lt;/code&gt; file with the type of swap.&lt;/p&gt;
+
+&lt;p&gt;We also can create swap file which work in the same way as partition, all we need to do is to create file by using &lt;strong&gt;dd&lt;/strong&gt; command and named it swap.&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;sudo make -v /var/cache/swap
+cd /var/cache/swap
+sudo dd if=/dev/zero of=swapfile bs=1k count=4M
+sudo chmod 600 swapfile
+sudo mkswap swapfile
+sudo swapon swapfile
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;In that example we create folder named &lt;code class=&quot;highlighter-rouge&quot;&gt;swap&lt;/code&gt; and in that folder we create zero file named &lt;code class=&quot;highlighter-rouge&quot;&gt;swapfile&lt;/code&gt; with block size of 1K for 4M which mean that size of 4G, after that we convert that file for swap space by using &lt;strong&gt;mkswap&lt;/strong&gt;, that last command is &lt;code class=&quot;highlighter-rouge&quot;&gt;swapon&lt;/code&gt; for enable this swapfile to paging and swapping, we can verified that swap by running the &lt;code class=&quot;highlighter-rouge&quot;&gt;swapon -s&lt;/code&gt;&lt;/p&gt;
+
 &lt;p&gt;Let’s say that you tried to to mount some disk and you get some error that say that you can’t mount that device because the system found that is damage or you just want to check that disk, in that case you can use &lt;strong&gt;fsck&lt;/strong&gt; for error checking and repairing, in the fstab file section we talk about that in this file we have information of what is the MAX count of mounting the disk before it get checked in boot time, that &lt;strong&gt;fsck&lt;/strong&gt; have the information in that fstab file what is the filesystem type for each device. If we want to to run that command alone we can use &lt;strong&gt;fsck&lt;/strong&gt; as example:&lt;/p&gt;
 &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;fsck /dev/sdb1
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
@@ -1203,6 +1219,20 @@ see that device but didn’t mount it, we can use the &lt;strong&gt;mount&lt;/st
 &lt;p&gt;After we connect the device to our Linux and we run &lt;strong&gt;fdisk&lt;/strong&gt; successfully and created partition and we format the filesystem with &lt;strong&gt;mkfs&lt;/strong&gt; and we mount the disk for file system point, we can find information about the disk more quickly by using &lt;strong&gt;tune2fs&lt;/strong&gt;.&lt;/p&gt;
 
 &lt;p&gt;This &lt;strong&gt;tune2fs&lt;/strong&gt; will bring us information such as the UUID, the mount point, filesystem features, mount time and even the MAX mount count we saw at the &lt;strong&gt;fstab&lt;/strong&gt; file, you also be able to see how much time this disk was mounted, so if we set the MAX mount to be 5 mounts before the disk checking will done and we mount the disk 6 time, on the next boot up it will run fsck on that disk and the mount counter on &lt;strong&gt;tune2fs&lt;/strong&gt; will be 0.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/lpic2/tune2fs.png&quot; alt=&quot;LPIC2 Post&quot; /&gt;
+&lt;strong&gt;Figure 122-2&lt;/strong&gt; The tune2fs command.&lt;/p&gt;
+
+&lt;p&gt;You can see that we have lots of information, UUID, filesystem type, label that in my case is none because I didn’t setup any label name for that partition.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Please remember&lt;/strong&gt;: we have many option we can use to edit value on the disk by using tune2fs, like the label name which can be edit by run the &lt;code class=&quot;highlighter-rouge&quot;&gt;tune2fs -L root /dev/sda&lt;/code&gt; to setup on the disk.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Please remember&lt;/strong&gt;: that the only differences between ext2 to ext3 or ext4 filesystems type is by the feathers we enable on the disk, for example if we have ext2 filesystem what we need to do is to add the uninit_bg, dir_index and has_journal feathers for change the ext2 to be ext4, we can achieve that by running &lt;code class=&quot;highlighter-rouge&quot;&gt;tune2fs -O extents,uninit_bg,dir_index,has_journal /dev/sda1&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/lpic2/ext2fs.png&quot; alt=&quot;LPIC2 Post&quot; /&gt;
+&lt;strong&gt;Figure 122-3&lt;/strong&gt; The ext2 filesystem.&lt;/p&gt;
+
+&lt;p&gt;mount count, maximum mount count which is my case -1 because I didn’t set it on the fstab, if you remember in my case the pass (which is the max count mount) is set on 0 which mean it will never pass the fsck checking.&lt;/p&gt;
 
 &lt;p&gt;We also can use &lt;strong&gt;debugfs&lt;/strong&gt; to get more information  about the device, if we run that tool we will be in debug like system, inside of it if we type &lt;strong&gt;ls&lt;/strong&gt; it will bring us more details then the normal &lt;strong&gt;ls&lt;/strong&gt; done, we also can type &lt;strong&gt;lsdel&lt;/strong&gt; which bring us all file in that device that was delited, normally you wouldn’t to see anything becouse &lt;strong&gt;rm&lt;/strong&gt; do greate job of deleting file.&lt;/p&gt;
 
@@ -1295,19 +1325,18 @@ btrfs subvalume list /mnt/btrfs
 
 &lt;p&gt;Did you know that we have the option to mount disk manly from the network automatically by connect to that directory?&lt;/p&gt;
 
-&lt;p&gt;By using &lt;strong&gt;autofs&lt;/strong&gt; we can do just that, we run configuration of autofs and only when we trying to connect the nfs server directory, only than this directory will mount on our system and we will be able to see every file on that directory, what we need to achieve that is first of all install autofs and setup the configuration file, on the server side we need to make a shared folder for nfs technologies.&lt;/p&gt;
+&lt;p&gt;By using &lt;strong&gt;autofs&lt;/strong&gt; we can do just that, we setup configuration of autofs and only when we trying to connect the nfs server directory, only than this directory will mount on our system and we will be able to see every file on that directory, what we need to achieve that is first of all install autofs and setup the configuration file, on the server side we need to make a shared folder for nfs technologies.&lt;/p&gt;
 
-&lt;p&gt;So, let’s start on the server side, I am running Ubuntu 18 on vbox, we need to install the following:&lt;/p&gt;
+&lt;p&gt;So, let’s start on the server side, I am running Ubuntu 18 on vbox. I need to install the following:&lt;/p&gt;
 &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;sudo apt install nfs-kernel-server
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
-&lt;p&gt;This command will install the nfs as server side and we can use that to allow users connect for nfs folders, now we need to create folder which will be use as nfs folder and set to it permission and user/group.&lt;/p&gt;
+&lt;p&gt;This command will install the nfs on my server, I will show you how to set the folder supporting the nfs as we will proceed, right now I need to allow users connections for nfs folders, for doing so I gonna setup my nfs folder and change the mode and setup permission .&lt;/p&gt;
 &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;mkdir /home/guy/files
 chown nobody:nogroup /home/guy/files
 chmod 777 /home/guy/files
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;Now we need to create export configuration for this folder, in this export we will specify the path to the nfs folder and the source IP client that will be able to connect to this folder.&lt;/p&gt;
+&lt;p&gt;So in my case the name of the folder that I am going to use it as my NFS share folder is files. Now we need to create export configuration for this folder, in this export we will specify the path to the NFS folders and the source IP client that will be able to connect to this folder.&lt;/p&gt;
 &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;sudo vi /etc/exports
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
@@ -1332,12 +1361,12 @@ sudo service nfs-kernel-server restart
 &lt;p&gt;&lt;img src=&quot;/assets/images/lpic2/autofs.png&quot; alt=&quot;LPIC2 Post&quot; /&gt;
 &lt;strong&gt;Figure 126&lt;/strong&gt; The configuration file for autofs.&lt;/p&gt;
 
-&lt;p&gt;We interested in the &lt;strong&gt;auto.nfs&lt;/strong&gt; file and &lt;strong&gt;auto.master&lt;/strong&gt; file, the master file is the main configuration for our auto mount folders, so we need to setup new one for nfs folder, in my case I setup the following:&lt;/p&gt;
+&lt;p&gt;We interested in the &lt;strong&gt;auto.nfs&lt;/strong&gt; file and &lt;strong&gt;auto.master&lt;/strong&gt; file, the master file is the main configuration for our auto mount folders, so we need to setup on that file new line for our nfs folder, in my case I setup the following by using &lt;strong&gt;vim&lt;/strong&gt; editor &lt;code class=&quot;highlighter-rouge&quot;&gt;sudo vim /etc/auto.master&lt;/code&gt;:&lt;/p&gt;
 &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;/home/zwerd/nfs /etc/auto.nfs
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-&lt;p&gt;The path to /home/zwerd/nfs is the folder that will contain the mount folder which will gonna be &lt;strong&gt;files&lt;/strong&gt; folder as we saw on my server and the configuration for mounting can be found on the /etc/auto.nfs file.&lt;/p&gt;
 
-&lt;p&gt;If we go to the auto.nfs file we will find one line that setup the mount point as follow:&lt;/p&gt;
+&lt;p&gt;The path to &lt;code class=&quot;highlighter-rouge&quot;&gt;/home/zwerd/nfs&lt;/code&gt; is the mount point folder which it the &lt;strong&gt;files&lt;/strong&gt; folder on my server. The configuration for mounting can be found on the &lt;code class=&quot;highlighter-rouge&quot;&gt;/etc/auto.nfs&lt;/code&gt; file.
+If we go to the auto.nfs file we will find one line that setup the mount point as follow:&lt;/p&gt;
 &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;files 172.16.0.192:/home/guy/files
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
@@ -1348,6 +1377,8 @@ sudo service nfs-kernel-server restart
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 &lt;p&gt;&lt;img src=&quot;/assets/images/lpic2/automount.gif&quot; alt=&quot;LPIC2 Post&quot; /&gt;
 &lt;strong&gt;Figure 127&lt;/strong&gt; Auto mount on my client.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Please remember&lt;/strong&gt;: I specify the &lt;code class=&quot;highlighter-rouge&quot;&gt;/etc/auto.nfs&lt;/code&gt; for my example, but you can setup that file with other name, as example &lt;code class=&quot;highlighter-rouge&quot;&gt;/etc/auto.home&lt;/code&gt; for being the pointer file for &lt;code class=&quot;highlighter-rouge&quot;&gt;/user/home&lt;/code&gt;, I mean that you can give the auto file what ever name you like and on that file you must specify the mount point on the server.&lt;/p&gt;
 
 &lt;p&gt;For the EXAM we need to know more thing like ISO files and encription. The original &lt;strong&gt;ISO 9660&lt;/strong&gt; is being around for a long time, in that format there was an issue that at first it didn’t support for long filename, so for support this the &lt;strong&gt;Joliet&lt;/strong&gt; extension came alone which have a support for longer filenames, but Joliet doesn’t support in permission which mean that if we make some CD with this extension we can’t store the permissions on the disk, so for solve it the &lt;strong&gt;Rock Ridge&lt;/strong&gt; can be use and allow us to use permissions on the CD, the last extension of ISO 9660 is &lt;strong&gt;El Torito&lt;/strong&gt; which allow us to make a bootable disk.&lt;/p&gt;
 
@@ -1761,7 +1792,11 @@ service iscsid start
 &lt;p&gt;&lt;img src=&quot;/assets/images/lpic2/vgdisplay.png&quot; alt=&quot;LPIC2 Post&quot; /&gt;
 &lt;strong&gt;Figure 165&lt;/strong&gt; vgdisplay command.&lt;/p&gt;
 
-&lt;p&gt;As you can see the name of my VG is vg1 and the format for this is lvm2, also we can see the VG size which is 19.99GB, just remember that we use two disk each is 10GB, now we can proceed to the logical volume creation.&lt;/p&gt;
+&lt;p&gt;As you can see the name of my VG is vg1 and the format for this is lvm2, also we can see the VG size which is 19.99GB, just remember that we use two disk each is 10GB.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Please note&lt;/strong&gt;: you can remove physical volume from volume group by using the &lt;code class=&quot;highlighter-rouge&quot;&gt;vgreduce&lt;/code&gt; command.&lt;/p&gt;
+
+&lt;p&gt;now we can proceed to the logical volume creation.&lt;/p&gt;
 &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;sudo lvcreate --name lv1 --size 1G vg1
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 

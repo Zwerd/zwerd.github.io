@@ -1517,6 +1517,8 @@ but it load the system and doesn’t restart again like it should do, so I check
 <p>The fifth value mostly be zero, but I don’t really know why in my case it’s one, this stand for dump which mean to dump all the file on mounting process, but as much as I know this no used any more, the sixth entry
 is the mount max count, this is mean that if we unmount and mount again the disk up to the max value, on the next boot it will be check with the fsck for errors.</p>
 
+<p><strong>Please remember</strong>: if the sixty entry is 0 then it mean that this filesystem does not require fsck when being mounted to the system.</p>
+
 <p>And this is all you need to know about the fstab file, we will look on that file more as we proceed, but I want you to know that there is more filesystem that I specified here:</p>
 <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ext2
 ext3
@@ -1559,6 +1561,20 @@ see that device but didn’t mount it, we can use the <strong>mount</strong> com
 
 <p>If you remember we talk about the swap in that post earlier, and as you already know the swap is actually the memory that use directly from the disk, only when the RAM are full then the swap take an action, if we want to create swap by using the <strong>mkswap</strong> command, we have also the way to start that swap or disable it. The <strong>swapon</strong> command used for enable and start swap while <strong>swapoff</strong> used for disabling it, you also can check the <strong>fstab</strong> as we saw earlier to see the swap partition.</p>
 
+<p>So let’s for example create swap space, what we can do is to make new partition on our disk by <strong>fdisk</strong> tool and and find the UUID of that partition by using <strong>blkid</strong> command and specified that UUID on the <code class="highlighter-rouge">fstab</code> file with the type of swap.</p>
+
+<p>We also can create swap file which work in the same way as partition, all we need to do is to create file by using <strong>dd</strong> command and named it swap.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sudo make -v /var/cache/swap
+cd /var/cache/swap
+sudo dd if=/dev/zero of=swapfile bs=1k count=4M
+sudo chmod 600 swapfile
+sudo mkswap swapfile
+sudo swapon swapfile
+</code></pre></div></div>
+
+<p>In that example we create folder named <code class="highlighter-rouge">swap</code> and in that folder we create zero file named <code class="highlighter-rouge">swapfile</code> with block size of 1K for 4M which mean that size of 4G, after that we convert that file for swap space by using <strong>mkswap</strong>, that last command is <code class="highlighter-rouge">swapon</code> for enable this swapfile to paging and swapping, we can verified that swap by running the <code class="highlighter-rouge">swapon -s</code></p>
+
 <p>Let’s say that you tried to to mount some disk and you get some error that say that you can’t mount that device because the system found that is damage or you just want to check that disk, in that case you can use <strong>fsck</strong> for error checking and repairing, in the fstab file section we talk about that in this file we have information of what is the MAX count of mounting the disk before it get checked in boot time, that <strong>fsck</strong> have the information in that fstab file what is the filesystem type for each device. If we want to to run that command alone we can use <strong>fsck</strong> as example:</p>
 <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>fsck /dev/sdb1
 </code></pre></div></div>
@@ -1585,6 +1601,20 @@ see that device but didn’t mount it, we can use the <strong>mount</strong> com
 <p>After we connect the device to our Linux and we run <strong>fdisk</strong> successfully and created partition and we format the filesystem with <strong>mkfs</strong> and we mount the disk for file system point, we can find information about the disk more quickly by using <strong>tune2fs</strong>.</p>
 
 <p>This <strong>tune2fs</strong> will bring us information such as the UUID, the mount point, filesystem features, mount time and even the MAX mount count we saw at the <strong>fstab</strong> file, you also be able to see how much time this disk was mounted, so if we set the MAX mount to be 5 mounts before the disk checking will done and we mount the disk 6 time, on the next boot up it will run fsck on that disk and the mount counter on <strong>tune2fs</strong> will be 0.</p>
+
+<p><img src="/assets/images/lpic2/tune2fs.png" alt="LPIC2 Post" />
+<strong>Figure 122-2</strong> The tune2fs command.</p>
+
+<p>You can see that we have lots of information, UUID, filesystem type, label that in my case is none because I didn’t setup any label name for that partition.</p>
+
+<p><strong>Please remember</strong>: we have many option we can use to edit value on the disk by using tune2fs, like the label name which can be edit by run the <code class="highlighter-rouge">tune2fs -L root /dev/sda</code> to setup on the disk.</p>
+
+<p><strong>Please remember</strong>: that the only differences between ext2 to ext3 or ext4 filesystems type is by the feathers we enable on the disk, for example if we have ext2 filesystem what we need to do is to add the uninit_bg, dir_index and has_journal feathers for change the ext2 to be ext4, we can achieve that by running <code class="highlighter-rouge">tune2fs -O extents,uninit_bg,dir_index,has_journal /dev/sda1</code>.</p>
+
+<p><img src="/assets/images/lpic2/ext2fs.png" alt="LPIC2 Post" />
+<strong>Figure 122-3</strong> The ext2 filesystem.</p>
+
+<p>mount count, maximum mount count which is my case -1 because I didn’t set it on the fstab, if you remember in my case the pass (which is the max count mount) is set on 0 which mean it will never pass the fsck checking.</p>
 
 <p>We also can use <strong>debugfs</strong> to get more information  about the device, if we run that tool we will be in debug like system, inside of it if we type <strong>ls</strong> it will bring us more details then the normal <strong>ls</strong> done, we also can type <strong>lsdel</strong> which bring us all file in that device that was delited, normally you wouldn’t to see anything becouse <strong>rm</strong> do greate job of deleting file.</p>
 
@@ -1677,19 +1707,18 @@ btrfs subvalume list /mnt/btrfs
 
 <p>Did you know that we have the option to mount disk manly from the network automatically by connect to that directory?</p>
 
-<p>By using <strong>autofs</strong> we can do just that, we run configuration of autofs and only when we trying to connect the nfs server directory, only than this directory will mount on our system and we will be able to see every file on that directory, what we need to achieve that is first of all install autofs and setup the configuration file, on the server side we need to make a shared folder for nfs technologies.</p>
+<p>By using <strong>autofs</strong> we can do just that, we setup configuration of autofs and only when we trying to connect the nfs server directory, only than this directory will mount on our system and we will be able to see every file on that directory, what we need to achieve that is first of all install autofs and setup the configuration file, on the server side we need to make a shared folder for nfs technologies.</p>
 
-<p>So, let’s start on the server side, I am running Ubuntu 18 on vbox, we need to install the following:</p>
+<p>So, let’s start on the server side, I am running Ubuntu 18 on vbox. I need to install the following:</p>
 <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sudo apt install nfs-kernel-server
 </code></pre></div></div>
 
-<p>This command will install the nfs as server side and we can use that to allow users connect for nfs folders, now we need to create folder which will be use as nfs folder and set to it permission and user/group.</p>
+<p>This command will install the nfs on my server, I will show you how to set the folder supporting the nfs as we will proceed, right now I need to allow users connections for nfs folders, for doing so I gonna setup my nfs folder and change the mode and setup permission .</p>
 <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>mkdir /home/guy/files
 chown nobody:nogroup /home/guy/files
 chmod 777 /home/guy/files
 </code></pre></div></div>
-
-<p>Now we need to create export configuration for this folder, in this export we will specify the path to the nfs folder and the source IP client that will be able to connect to this folder.</p>
+<p>So in my case the name of the folder that I am going to use it as my NFS share folder is files. Now we need to create export configuration for this folder, in this export we will specify the path to the NFS folders and the source IP client that will be able to connect to this folder.</p>
 <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sudo vi /etc/exports
 </code></pre></div></div>
 
@@ -1714,12 +1743,12 @@ sudo service nfs-kernel-server restart
 <p><img src="/assets/images/lpic2/autofs.png" alt="LPIC2 Post" />
 <strong>Figure 126</strong> The configuration file for autofs.</p>
 
-<p>We interested in the <strong>auto.nfs</strong> file and <strong>auto.master</strong> file, the master file is the main configuration for our auto mount folders, so we need to setup new one for nfs folder, in my case I setup the following:</p>
+<p>We interested in the <strong>auto.nfs</strong> file and <strong>auto.master</strong> file, the master file is the main configuration for our auto mount folders, so we need to setup on that file new line for our nfs folder, in my case I setup the following by using <strong>vim</strong> editor <code class="highlighter-rouge">sudo vim /etc/auto.master</code>:</p>
 <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/home/zwerd/nfs /etc/auto.nfs
 </code></pre></div></div>
-<p>The path to /home/zwerd/nfs is the folder that will contain the mount folder which will gonna be <strong>files</strong> folder as we saw on my server and the configuration for mounting can be found on the /etc/auto.nfs file.</p>
 
-<p>If we go to the auto.nfs file we will find one line that setup the mount point as follow:</p>
+<p>The path to <code class="highlighter-rouge">/home/zwerd/nfs</code> is the mount point folder which it the <strong>files</strong> folder on my server. The configuration for mounting can be found on the <code class="highlighter-rouge">/etc/auto.nfs</code> file.
+If we go to the auto.nfs file we will find one line that setup the mount point as follow:</p>
 <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>files 172.16.0.192:/home/guy/files
 </code></pre></div></div>
 
@@ -1730,6 +1759,8 @@ sudo service nfs-kernel-server restart
 </code></pre></div></div>
 <p><img src="/assets/images/lpic2/automount.gif" alt="LPIC2 Post" />
 <strong>Figure 127</strong> Auto mount on my client.</p>
+
+<p><strong>Please remember</strong>: I specify the <code class="highlighter-rouge">/etc/auto.nfs</code> for my example, but you can setup that file with other name, as example <code class="highlighter-rouge">/etc/auto.home</code> for being the pointer file for <code class="highlighter-rouge">/user/home</code>, I mean that you can give the auto file what ever name you like and on that file you must specify the mount point on the server.</p>
 
 <p>For the EXAM we need to know more thing like ISO files and encription. The original <strong>ISO 9660</strong> is being around for a long time, in that format there was an issue that at first it didn’t support for long filename, so for support this the <strong>Joliet</strong> extension came alone which have a support for longer filenames, but Joliet doesn’t support in permission which mean that if we make some CD with this extension we can’t store the permissions on the disk, so for solve it the <strong>Rock Ridge</strong> can be use and allow us to use permissions on the CD, the last extension of ISO 9660 is <strong>El Torito</strong> which allow us to make a bootable disk.</p>
 
@@ -2143,7 +2174,11 @@ service iscsid start
 <p><img src="/assets/images/lpic2/vgdisplay.png" alt="LPIC2 Post" />
 <strong>Figure 165</strong> vgdisplay command.</p>
 
-<p>As you can see the name of my VG is vg1 and the format for this is lvm2, also we can see the VG size which is 19.99GB, just remember that we use two disk each is 10GB, now we can proceed to the logical volume creation.</p>
+<p>As you can see the name of my VG is vg1 and the format for this is lvm2, also we can see the VG size which is 19.99GB, just remember that we use two disk each is 10GB.</p>
+
+<p><strong>Please note</strong>: you can remove physical volume from volume group by using the <code class="highlighter-rouge">vgreduce</code> command.</p>
+
+<p>now we can proceed to the logical volume creation.</p>
 <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sudo lvcreate --name lv1 --size 1G vg1
 </code></pre></div></div>
 

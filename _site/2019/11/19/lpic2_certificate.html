@@ -502,6 +502,8 @@
 
 <p>Again, this case mean that we have process that use the hard drive and there is a program that on wait state that in sleep mode that we can’t kill.</p>
 
+<p><strong>Please nore</strong>: this <code class="highlighter-rouge">top</code> command bring us more details that can be handy, as example we can know every command, which is more likely will be service name or process name, what is the CPU and memory that this program will use, also we know the username who run that service and also the PID for every process, if some process is over load we can kill it by typing <code class="highlighter-rouge">kill -9 &lt;PID number&gt;</code>.</p>
+
 <h3 id="vmstat">vmstat</h3>
 
 <p>In that command we can view the memory that being used and CPU values, i/o and system utilizes, if you type this command you will get that information but that’s it, not like top that refresh itself every 3 second by default, but you can run it with refresh like, by using <strong>delay</strong> and <strong>count</strong> option. In the delay you specify how long to wait between every time it display you the information, the count is how many time it will repeat it self, in that case you can see the changes along the way.</p>
@@ -593,7 +595,7 @@ st: Time stolen from a virtual machine. Prior to Linux 2.6.11, unknown.<br /></p
 <p><img src="/assets/images/lpic2/freecount.png" alt="OSCP Post" />
 <strong>Figure 16</strong> free 3 times count.</p>
 
-<p>The swap memory shouldn’t been used, because as we saw earlier that memory should be available only for case we have no memory to use in our system. In my case the was are use more that 300MB, which is note so good, because as I said that was normally are on value of 0. In Ubuntu the default value of the swap that can being used although we have free space in the memory is 60% of the swap in total, we can view our swap value in by using the command <code class="highlighter-rouge">cat /proc/sys/vm/swappiness</code>, in order to change that value we can use the following command:</p>
+<p>The swap memory shouldn’t been used, because as we saw earlier that memory should be available only for case we have no memory to use in our system. In my case the SWAP are use more then 300MB, which is note so good, because as I said that need to be normally in value of 0. In Ubuntu the default value of the swap that can being used although we have free space in the memory is 60% of the swap in total, we can view our swap value in by using the command <code class="highlighter-rouge">cat /proc/sys/vm/swappiness</code>, in order to change that value we can use the following command:</p>
 
 <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sudo sysctl vm.swappiness=10
 </code></pre></div></div>
@@ -683,6 +685,8 @@ st: Time stolen from a virtual machine. Prior to Linux 2.6.11, unknown.<br /></p
 <strong>Figure 24</strong> sar memory used.</p>
 
 <p>You can also run <code class="highlighter-rouge">sar -S</code> which will give us information about the SWAP free and used memory.</p>
+
+<p><strong>Please note</strong>: sar is actually collect, report, or save system activity information and it can be any information activity regarding our system, as example we can use <code class="highlighter-rouge">sar -b</code> which will bring us report I/O and transfer rate statistics, one of them is the tps which is the total number of transfers per second that were issued to physical devices.</p>
 
 <h3 id="iotop">iotop</h3>
 
@@ -831,7 +835,9 @@ st: Time stolen from a virtual machine. Prior to Linux 2.6.11, unknown.<br /></p
 
 <p>You can see that in my case the bandwidth from my computer to another in my lab is 2.57GB which is good for me, in the case of our example that you have client that complain about slow network, you may have to check several thing, the first one is to check his and other computer connectivity out of the local network with speed test, after that you will go to the second check which is bandwidth test between two local computer. If on the first test using the speed test, let’s say you found that the client computer work slow by speed test and other computer aren’t, then you run the second test which is the iperf and found low bandwidth connectivity between the two, in that case it’s mean that we have local network problem that can be found on the local network interface or the nearly network device like switch or router.</p>
 
-<p>On the LPI site under 200.2 object you can found that they want the student will have awareness of monitoring solutions such as Icinga2, Nagios, collectd, MRTG and Cacti, well these programs can be install on you computer or other server and you can monitor the resource you have, but the Cacti is monitor program for network connectivity and so the collectd, so I don’t really understand way they want to have a knowledge of these program, in the day day life I don’t thing I am going to use such program to monitor my network resource, but in the case of these program, all of them work in the browser, this is mean that you have some URL and you can view the bandwidth or interfaces status etc.</p>
+<p>On the LPI site under 200.2 object you can found that they want the student will have awareness of monitoring solutions such as Icinga2, Nagios, collectd, MRTG and Cacti, well these programs can be install on you computer or other server and you can monitor the resource you have, but the Cacti is monitor program for network connectivity and so the collectd, so I don’t really understand way they want to have a knowledge of these program, in the day day life I don’t think I am going to use such program to monitor my network resource, but in the case of these program, all of them work in the browser, this is mean that you have some URL and you can view the bandwidth or interfaces status etc.</p>
+
+<p><strong>Please note</strong>: after all we see here I want to specify something that I solve on many situation I had in the companies I worked for. Let’s say that you have some web server that have some content of data for many users, so far you after you read all of that chapter you have the knowledge to use Linux tool for checking the performance, memory used, network bandwidth and etc. If for some reason you see that the RAM used was increase every months and in percentage that grow up, in that case you may consider to upgrade the hardware for that server like adding more RAM memory or install more web application server and distribute the load between them, so in such case we will check carefully what is going on our server in the hardware used, we can monitor that and track down the performance with the tools I specify above.</p>
 
 <h3 id="challenge">Challenge</h3>
 
@@ -960,7 +966,7 @@ st: Time stolen from a virtual machine. Prior to Linux 2.6.11, unknown.<br /></p
 <p><img src="/assets/images/lpic2/modprobe.png" alt="LPIC2 Post" />
 <strong>Figure 56</strong> Modprobe for remove and adding module.</p>
 
-<p>The command <code class="highlighter-rouge">modprobe</code> know what is the path of every module by using the <strong>modules.dep</strong> file, this file contain every module and it’s information and dependencies, to update this file we can use <code class="highlighter-rouge">depmod -a</code> that will go and insert the information of the modules to this file.</p>
+<p>The command <code class="highlighter-rouge">modprobe</code> know what is the path of every module by using the <strong>modules.dep</strong> file, this file contain every module information and dependencies, to update this file we can use <code class="highlighter-rouge">depmod -a</code> that will go and insert the information of the modules to this file.</p>
 
 <p>important thing you may want to know is that module that have dependencies can’t be remove out because it in use, in that case we will need to remove the modules that are use this module.</p>
 
@@ -973,6 +979,11 @@ st: Time stolen from a virtual machine. Prior to Linux 2.6.11, unknown.<br /></p
 <strong>Figure 58</strong> Module info by using modinfo.</p>
 
 <p>As you can see the usbcore have the param nousb which is boolean, you can insert that module and using that param as example <code class="highlighter-rouge">modprobe usbcore nousb=N</code>.</p>
+
+<p><strong>Please note</strong>: we also can use modinfo for finding the full path for some module by using the <strong>-n</strong> option, as example:</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>modinfo -n dummy
+</code></pre></div></div>
+<p>This will give us the expect path for that module</p>
 
 <p>Please remember that all we talk about are the modules and not the kernel option itself, like enable the NAT operation for example. Option like that can be found on /proc/sys/kernel, in this folder you will found every option that are enable on your kernel, if you want to watch the configuration file which from there you enable them, you need to check the sysctl.conf that can found on the <strong>/etc</strong> folder, in that file you can enable more functionality of the system, like enable ip forwording or such.</p>
 
@@ -1149,6 +1160,8 @@ st: Time stolen from a virtual machine. Prior to Linux 2.6.11, unknown.<br /></p
 <p><img src="/assets/images/lpic2/ddagain.png" alt="LPIC2 Post" />
 <strong>Figure 75</strong> This is it.</p>
 
+<p><strong>Please nore</strong>: the kernel configuration parameters can be found on the config file, this file is also on the boot folder, so as you may remeber you can change some parameter by <code class="highlighter-rouge">make menuconfig</code> but if you remember later on about some setting that you need you can add it in that file before install the kernel. Also remember that the config name is usual as follow <code class="highlighter-rouge">config-&lt;kernel version&gt;</code>.</p>
+
 <h3 id="challenge-1">Challenge</h3>
 
 <ol>
@@ -1314,14 +1327,14 @@ st: Time stolen from a virtual machine. Prior to Linux 2.6.11, unknown.<br /></p
 
 <p>For summery, this systemd with the <code class="highlighter-rouge">systemctl</code> command is another way to check and set the init files, this is also applied on many linux system like Red Hat and opensuse servers for enterprise, there is some distribution that don’t use systemd, but this is only on the desktop linux version, it’s more likely to find systemd in used on enterprises systems.</p>
 
-<p>Now, for this chapter 2 we need also be familiar with GRAB legacy and GRAB2, this GRAB stand for GRand Unified Bootloader, this is bootloader which mean this is the first menu that the computer bring up, in this menu we can choose what operation system we want to load up, let’s say that you have some DELL PC and you want that one partition will be Windows and the other contain Linux, you can do so and the GRAB is the menu which bring you the option to choose between the OS’s.</p>
+<p>Now, for this chapter 2 we need also be familiar with GRUB legacy and GRUB2, this GRUB stand for GRand Unified Bootloader, this is bootloader which mean this is the first menu that the computer bring up, in this menu we can choose what operation system we want to load up, let’s say that you have some DELL PC and you want that one partition will be Windows and the other contain Linux, you can do so and the GRUB is the menu which bring you the option to choose between the OS’s.</p>
 
-<p>You must also be familiar with the different between those two, GRAB legacy is the first version of that GRAB project and on the most linux version you may see that GRAB is on version 0.97 like as follow in centOS (version 6)</p>
+<p>You must also be familiar with the different between those two, GRUB legacy is the first version of that GRUB project and on the most linux version you may see that GRUB is on version 0.97 like as follow in centOS (version 6)</p>
 
-<p><img src="/assets/images/lpic2/GRAB1.png" alt="LPIC2 Post" />
-<strong>Figure 94</strong> GRAB 1 which is the GRAB legacy.</p>
+<p><img src="/assets/images/lpic2/GRUB1.png" alt="LPIC2 Post" />
+<strong>Figure 94</strong> GRUB 1 which is the GRUB legacy.</p>
 
-<p>You can see that in my case the GRAB menu doest contain any other option except centOS 6, I want to show you how this is done, so for that case I download Ubuntu 9 which contain GRAB legacy, I also will install Windows XP on my virtual machine and I will create two partition which one of them will contain the Linux and the other will be Windows, please note that windows contain some different boot loader but this is beyond the scope of our LPIC2 exam.</p>
+<p>You can see that in my case the GRUB menu doest contain any other option except centOS 6, I want to show you how this is done, so for that case I download Ubuntu 9 which contain GRUB legacy, I also will install Windows XP on my virtual machine and I will create two partition which one of them will contain the Linux and the other will be Windows, please note that windows contain some different boot loader but this is beyond the scope of our LPIC2 exam.</p>
 
 <p>If you want to do this exercies on you virtual machine you can download Ubuntu 9 from the following URL:
 http://old-releases.ubuntu.com/releases/9.04/ubuntu-9.04-desktop-i386.iso</p>
@@ -1333,7 +1346,7 @@ https://ia802908.us.archive.org/26/items/WinXPProSP3x86/en_windows_xp_profession
 <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>3D2W3-8DJM6-YKQRB-B2XDB-TVQHF
 </code></pre></div></div>
 
-<p>What we going to do is to install the Windows XP on virtual machine and after that load up the Ubuntu 9 from bootable device and load up the Ubuntu, this Ubuntu will sense the windows and it will ask us to done the installation side by side the Windows and for that he will create partition for it’s installation and will setup the GRAB legacy menu for us.</p>
+<p>What we going to do is to install the Windows XP on virtual machine and after that load up the Ubuntu 9 from bootable device and load up the Ubuntu, this Ubuntu will sense the windows and it will ask us to done the installation side by side the Windows and for that he will create partition for it’s installation and will setup the GRUB legacy menu for us.</p>
 
 <p>So first of all I install windows XP on my virtual machine, this task doesn’t take long time to do, just run through the installation processes till it finish.</p>
 
@@ -1367,45 +1380,47 @@ https://ia802908.us.archive.org/26/items/WinXPProSP3x86/en_windows_xp_profession
 
 <p>After it finish it restart and bring up the GRUB menu, however it’s doesn’t show me what is the version which normally on the upper bar menu.</p>
 
-<p><img src="/assets/images/lpic2/grubmenu.png" alt="LPIC2 Post" />
+<p><img src="/assets/images/lpic2/GRUBmenu.png" alt="LPIC2 Post" />
 <strong>Figure 101</strong> GRUB menu.</p>
 
-<p>I boot up my Ubuntu 9 to view the GRUB menu, to check the version just run the <code class="highlighter-rouge">grub-install --version</code>, this command will print the current version of our GRUB.</p>
+<p>I boot up my Ubuntu 9 to view the GRUB menu, to check the version just run the <code class="highlighter-rouge">GRUB-install --version</code>, this command will print the current version of our GRUB.</p>
 
-<p><img src="/assets/images/lpic2/mygrubversion.png" alt="LPIC2 Post" />
+<p><img src="/assets/images/lpic2/myGRUBversion.png" alt="LPIC2 Post" />
 <strong>Figure 102</strong> GRUB version.</p>
 
-<p>in the case of GRUB legacy we have two file that are important, the first is <strong>menu.lst</strong> which is pointer file to grub.conf,  the second is grub.conf which contain the configuration file for the GRUB menu. In Ubuntu 9 we only have menu.lst which we can change if we want to change the GRUB menu.</p>
+<p>in the case of GRUB legacy we have two file that are important, the first is <strong>menu.lst</strong> which is pointer file to GRUB.conf,  the second is GRUB.conf which contain the configuration file for the GRUB menu. In Ubuntu 9 we only have menu.lst which we can change if we want to change the GRUB menu.</p>
 
 <p>In the <code class="highlighter-rouge">menu.lst</code> file there is many option that comment out, the most importance thing is can be found on the end of that file, the <code class="highlighter-rouge">kernel</code> option and <code class="highlighter-rouge">initrd</code>.</p>
 
-<p><img src="/assets/images/lpic2/gruboptions.png" alt="LPIC2 Post" />
+<p><img src="/assets/images/lpic2/GRUBoptions.png" alt="LPIC2 Post" />
 <strong>Figure 103</strong> GRUB options in menu.lst.</p>
 
-<p>Please remember that if you have some issue with GRUB and after boot you find yourself in <code class="highlighter-rouge">grub&gt;</code> command line, you can type <code class="highlighter-rouge">help</code> which will reveal the command that can be use, but you can also setup the kernel path for the kernel file and the initrd as the same you saw in the <strong>menu.lst</strong> file.</p>
+<p>Please remember that if you have some issue with GRUB and after boot you find yourself in <code class="highlighter-rouge">GRUB&gt;</code> command line, you can type <code class="highlighter-rouge">help</code> which will reveal the command that can be use, but you can also setup the kernel path for the kernel file and the initrd as the same you saw in the <strong>menu.lst</strong> file.</p>
 
 <p>You also need to specify the root partition, which in our case can be a problem because this is some UUID with some long number that must be specified, so if we don’t know the UUID we can bootup from some bootable device and find that information on the <code class="highlighter-rouge">/etc/fstab</code> file.</p>
 
 <p><img src="/assets/images/lpic2/fstab.png" alt="LPIC2 Post" />
 <strong>Figure 104</strong> fstab file.</p>
 
-<p>We will see more as we proceed, now I want to show you the same on centOS, in the operation system we have the grab.conf which is the pointer to menu.lst</p>
+<p>We will see more as we proceed, now I want to show you the same on centOS, in the operation system we have the GRUB.conf which is the pointer to menu.lst</p>
 
 <p><img src="/assets/images/lpic2/centosmenu.png" alt="LPIC2 Post" />
 <strong>Figure 105</strong> menu.lst on centOS.</p>
 
 <p>In that case we have ‘mapper’ which is long, this also can be found in <code class="highlighter-rouge">fstab</code> file as we saw earlier.</p>
 
-<p>If for some reason you get stack on <code class="highlighter-rouge">grub&gt;</code> and you know shorly that this is GRUB2, for your kernel file you need specified the <code class="highlighter-rouge">linux</code> with it’s vmlinuz file and the <code class="highlighter-rouge">inited</code> file, you can also use <code class="highlighter-rouge">ls</code> command which reveal the partitions and <code class="highlighter-rouge">set</code> which will give you clue about all value that are set on your grub, and if needed change every value you need.</p>
+<p>If for some reason you get stack on <code class="highlighter-rouge">GRUB&gt;</code> and you know shorly that this is GRUB2, for your kernel file you need specified the <code class="highlighter-rouge">linux</code> with it’s vmlinuz file and the <code class="highlighter-rouge">inited</code> file, you can also use <code class="highlighter-rouge">ls</code> command which reveal the partitions and <code class="highlighter-rouge">set</code> which will give you clue about all value that are set on your GRUB, and if needed change every value you need.</p>
 
-<p>Please remember that like in GRAB legacy you must specified the root partition with the <code class="highlighter-rouge">linux</code> kernel line on the GRUB2.</p>
+<p>Please remember that like in GRUB legacy you must specified the root partition with the <code class="highlighter-rouge">linux</code> kernel line on the GRUB2.</p>
 
-<p>You can also practices on the grub menu without to mack changes on your actual system, juest when the grub menu reveal it self, press <code class="highlighter-rouge">c</code> for command line or <code class="highlighter-rouge">e</code> for edit the chosen line in the menu.</p>
+<p>You can also practices on the GRUB menu without to mack changes on your actual system, juest when the GRUB menu reveal it self, press <code class="highlighter-rouge">c</code> for command line or <code class="highlighter-rouge">e</code> for edit the chosen line in the menu.</p>
 
-<p><img src="/assets/images/lpic2/grub1.png" alt="LPIC2 Post" />
+<p><img src="/assets/images/lpic2/GRUB1.png" alt="LPIC2 Post" />
 <strong>Figure 106</strong> GRUB 1 command line.</p>
 
 <p>After you finish up the settings just type boot and it’s will boot up the system with your config, if you set it correctly it will bring up your system, if not it will bring the GRUB menu again and it is the same in the case of GRUB1 and GRUB2.</p>
+
+<p><strong>Please note</strong>: you can add the GRUB parameter for the kernel, as example let’s say that we want to use amount of CPU core in that operating system, so we can use the <code class="highlighter-rouge">maxcpus=1</code> for setting 1 CPU core to be in use when the system is boot up, in that example this is the kernel parameter, you can see all parameters you have correctly on your system by using <code class="highlighter-rouge">sysctl -a</code>, I will talk about that later on that post.</p>
 
 <h3 id="challenge-2">Challenge</h3>
 <ol>
@@ -1466,16 +1481,16 @@ but it load the system and doesn’t restart again like it should do, so I check
 
 <h3 id="4-do-the-same-on-system-with-grub2">4. Do the same on system with GRUB2.</h3>
 
-<p>I checked if I have some OS that contain GRUB2, I found that I have virtual machine with Ubuntu 18, the GRUB file in that system need to be at the following path <code class="highlighter-rouge">/etc/default/grub</code>, I load that system and didn’t see the GRUB2 menu, so I need to make changes in the GRUB file.</p>
+<p>I checked if I have some OS that contain GRUB2, I found that I have virtual machine with Ubuntu 18, the GRUB file in that system need to be at the following path <code class="highlighter-rouge">/etc/default/GRUB</code>, I load that system and didn’t see the GRUB2 menu, so I need to make changes in the GRUB file.</p>
 
 <p>You can see that I comment out the <strong>GRUB_DEFAULT</strong> and <strong>GRUB_TIMEOUT_STYLE</strong>, and change the <strong>GRUB_TIMEOUT</strong> to value 10 instead of 0.</p>
 
-<p><img src="/assets/images/lpic2/grub2.png" alt="LPIC2 Post" />
+<p><img src="/assets/images/lpic2/GRUB2.png" alt="LPIC2 Post" />
 <strong>Figure 113</strong> GRUB2 file.</p>
 
-<p>Now all I need to do is run update-grub, and I may need to run it with sudo, now if I reboot the system it will bring me the GRUB menu.</p>
+<p>Now all I need to do is run update-GRUB, and I may need to run it with sudo, now if I reboot the system it will bring me the GRUB menu.</p>
 
-<p><img src="/assets/images/lpic2/grub2menu.png" alt="LPIC2 Post" />
+<p><img src="/assets/images/lpic2/GRUB2menu.png" alt="LPIC2 Post" />
 <strong>Figure 113</strong> GRUB2 menu.</p>
 
 <p>Now we need to make the same issue we have done on Ubuntu 9, for that I am using systemctl which can help me to setup the default runlevel.</p>
@@ -1485,12 +1500,12 @@ but it load the system and doesn’t restart again like it should do, so I check
 
 <p>Now if I trying to restart the system it will be boot again in loop which is exactly what we needed.</p>
 
-<p><img src="/assets/images/lpic2/grub2.gif" alt="LPIC2 Post" />
+<p><img src="/assets/images/lpic2/GRUB2.gif" alt="LPIC2 Post" />
 <strong>Figure 115</strong> GRUB 2 on Ubuntu 18 in loop mode.</p>
 
 <p>To solve it we need to get in the kernel line in the GRUB and change it. I found the <code class="highlighter-rouge">quiet splash</code> and remove it, I write 5 for runlevel 5 and press <strong>F10</strong> for reboot and sure enough it boot up the OS GUI.</p>
 
-<p><img src="/assets/images/lpic2/grub2runlevel.png" alt="LPIC2 Post" />
+<p><img src="/assets/images/lpic2/GRUB2runlevel.png" alt="LPIC2 Post" />
 <strong>Figure 116</strong> add runlevel5 in GRUB2.</p>
 
 <p>Now all I have to do is to type <code class="highlighter-rouge">systemctl set-default runlevel5.target</code> and that it, if I try to reboot the system it will reboot without any problem like we had before.</p>
@@ -1777,7 +1792,7 @@ If we go to the auto.nfs file we will find one line that setup the mount point a
 
 <p>If we need to make a bootable image we can use <strong>-b</strong> option, or if we want to burn ir to DVD file we can use the <strong>-udf</strong> option, in my case I haven’t manual page for this command but I can run <strong>mkisofs –help</strong> to see that options,</p>
 
-<p>Let’s talk about encrypted drive, in case you want to make sure your data is safe, you can encript the device who contain the data, in that way is someone will steal your disk, you can be sure that the data itself are safe and encrypted, for that situation we can use <strong>cryptsetup</strong>.</p>
+<p>Let’s talk about encrypted drive, in case you want to make sure your data is safe, you can encrypt the device who contain the data, in that way if someone will steal your disk, you can be sure that the data itself are safe and encrypted, for that situation we can use <strong>cryptsetup</strong>.</p>
 
 <p>This <strong>cryptsetup</strong> can be use on the drive we choose in order to encrypt that drive, we just need to run some of the command we saw before, I will run it quickly.</p>
 
@@ -1922,7 +1937,7 @@ If we go to the auto.nfs file we will find one line that setup the mount point a
 
 <p>You can see the under UDMA modes there is an asterisk next to the udma6, UDMA is an Ultra DMA which is fster then the normal DMA, you can find more information about the modes in <a href="https://en.wikipedia.org/wiki/UDMA">that link</a> and how faster every mode from the previous one.</p>
 
-<p>So in my case the UDMA is active and this is why every thing work better and fast, but if in your case the DMA is note in active mode then you need to run the following command:</p>
+<p>So in my case the UDMA is active and this is why every thing work better and fast, but if in your case the DMA is not in active mode then you need to run the following command:</p>
 <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sudo hdparm -d 1 /dev/sda6
 </code></pre></div></div>
 
@@ -2018,10 +2033,12 @@ Filesystem features:      has_journal ext_attr resize_inode dir_index filetype n
 
 <p>This command will show us the all setting we have on the kernel, they store in the <em>/proc</em> folder which we can use <strong>cat</strong> for look on them like in the <em>/proc/interrupts</em>, in this file we view the interrupts on the CPU</p>
 
-<p><img src="/assets/images/lpic2/interrupts.png" alt="LPIC2 Post" />
+<p><img src="/assets/images/lpic2/interruptes.png" alt="LPIC2 Post" />
 <strong>Figure 155</strong> The details of interrupts on our CPU.</p>
 
 <p>For change setting we use <strong>sysctl</strong>, we can enable or disable one drive or enother that related to the kernel and it is important to know all of that for the LPIC2 exam, just remember that this is the way that we can maniplate thing on the kernel that related to the hardware of our computer.</p>
+
+<p><strong>Please note</strong>: to set the value for a kernel parameter we can also use sysctl, but using the -w option and followed by the parameter’s name, the equal sign, and the desired value. For example <code class="highlighter-rouge">sysctl -w maxcpus=1</code> this command will set the kernel to use only one CPU on that system. We can also echo it out to the following file <code class="highlighter-rouge">echo 1 &gt; /proc/sys/kernel/maxcpus</code> and this will bring up the same operation.</p>
 
 <p>There is one thing you also need to know, it is the <strong>fstrim</strong> which is use to discard unused blocks on a mounted filesystem, I saw many videos about that on youtube and all of them say that this is can be allow better performance on your system.</p>
 
@@ -2029,7 +2046,7 @@ Filesystem features:      has_journal ext_attr resize_inode dir_index filetype n
 
 <p>So far we talk about hard disk and optical disk with PATA or SATA technologies, we need to have also knowledge about SCSI and iSCSI, when we talk about SCSI it can be sort of hard drive or optical drive or even floppy drive, but it also can referred to bus connector, but it also can be referred as the software technology that know how to connect with the hard disk, if you want to know more about that you can view the <a href="https://www.youtube.com/watch?v=M0i4MxeoatQ&amp;t=1691s">Ancient Electronics</a> video overview which I found the most explainable for us to be ready for the EXAM.</p>
 
-<p>In the LPIC2 objective we need to have more knowledge about <strong>iSCSI</strong> which is the way to mount SCSI device from the network, in <strong>iSCSI</strong> there is a two thing we need to know, the server side configuration and the client side configuration, on the server we need to setup the device that going to be use with iSCSI on remote machine which are the client, we also need to enable on the server his IP address and password if we want.</p>
+<p>In the LPIC2 objective we need to have more knowledge about <strong>iSCSI</strong> which is the way to mount SCSI device from the network, in <strong>iSCSI</strong> there is a two thing we need to know, the server side configuration and the client side configuration, on the server we need to setup the device that going to be use with iSCSI on remote machine which are the client, we also need to enable on the server it’s IP address and password if we want.</p>
 
 <p>On the server side with setup the <strong>target</strong> which going to be some local disk on the server and on the client we use it as a <strong>initiator</strong> which going to mount the <strong>target</strong> from the remote server.</p>
 
@@ -2039,7 +2056,7 @@ Filesystem features:      has_journal ext_attr resize_inode dir_index filetype n
 <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sudo yum -y install scsi-targets-utils
 </code></pre></div></div>
 
-<p>Ufter it finish we need to setup the target so in my case I need to use the following configuration file:</p>
+<p>After it finish we need to setup the target so in my case I need to use the following configuration file:</p>
 <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>vi /etc/tgt/targets.conf
 </code></pre></div></div>
 
@@ -2050,7 +2067,7 @@ incominguser admin admin
 &lt;/target&gt;
 </code></pre></div></div>
 
-<p>With this setting I make single entry which mean it going to be one drive storage that the client (initiator) can be use for mounting it, my backing storage is sdb1 and the username is admin password admin for initiate.</p>
+<p>With this setting I make single entry which mean it’s going to have one drive storage that the client (initiator) can be use for mounting it, my backing storage is sdb1 and the username is admin password admin for initiate.</p>
 
 <p><img src="/assets/images/lpic2/tgt.png" alt="LPIC2 Post" />
 <strong>Figure 156</strong> The target file configuration.</p>
@@ -2093,7 +2110,7 @@ incominguser admin admin
 <p><img src="/assets/images/lpic2/iscsidconf.png" alt="LPIC2 Post" />
 <strong>Figure 159</strong> Setup for the initiator.</p>
 
-<p>Now we need to restart the iscsi demon for making sure our setting applied.</p>
+<p>Now we need to restart the iscsi deamon for making sure our setting applied.</p>
 
 <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>service iscsid stop
 service iscsid start
@@ -2169,14 +2186,14 @@ service iscsid start
 <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sudo vgcreate vg1 /dev/sdc1 /dev/sdd1
 </code></pre></div></div>
 
-<p>The name of our volume group going to be <strong>vg1</strong> and I am using the actual path to the devices I what it to be in this group, after that I can run the <strong>vgdisplay</strong> command.</p>
+<p>The name of our volume group going to be <strong>vg1</strong> and I am using the actual path to the devices I want it to be in this group, after that I can run the <strong>vgdisplay</strong> command.</p>
 
 <p><img src="/assets/images/lpic2/vgdisplay.png" alt="LPIC2 Post" />
 <strong>Figure 165</strong> vgdisplay command.</p>
 
 <p>As you can see the name of my VG is vg1 and the format for this is lvm2, also we can see the VG size which is 19.99GB, just remember that we use two disk each is 10GB.</p>
 
-<p><strong>Please note</strong>: you can remove physical volume from volume group by using the <code class="highlighter-rouge">vgreduce</code> command.</p>
+<p><strong>Please note</strong>: you can remove physical volume from volume group by using the <code class="highlighter-rouge">vgreduce</code> command, and also add physical volume by using <code class="highlighter-rouge">vgextand</code>.</p>
 
 <p>now we can proceed to the logical volume creation.</p>
 <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sudo lvcreate --name lv1 --size 1G vg1
@@ -2195,6 +2212,21 @@ service iscsid start
 <p>So as you can see every command we saw was start in one of the following options: <strong>pv</strong>,<strong>vg</strong>,<strong>lv</strong>.</p>
 
 <p>We have more command that related to LVM in this type of naming, we also have the lvm.conf file that contain the configuration for LVM.</p>
+
+<p>We can run backup of logical volume with the following command:</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>lvcreate -L 500M -s -n backupname /dev/vg1/lv1
+</code></pre></div></div>
+<p>In this command we specify the backup logical volume size by using <strong>-L</strong> for 500M, the <strong>-s</strong> option is for snapshot and <strong>-n</strong> for the name of that backup, after that we need to specify the logical volume we want to backup, only then when we type <strong>lvdisplay</strong> it will show us the backup volume we created.</p>
+
+<p><img src="/assets/images/lpic2/backup.png" alt="LPIC2 Post" />
+<strong>Figure 167-1</strong> Backup logical volume.</p>
+
+<p>You can see the backup volume I have now on my system.</p>
+
+<p><strong>Please note</strong>: we have no such command like lvbackup or lvshanshot, we just use <strong>lvcreate</strong> with the <strong>-s</strong> option for snapshot, if you what to see the all command thaty related for logical volume you can just run the <code class="highlighter-rouge">ls /sbin/lv*</code> this will display all lv command we can use.</p>
+
+<p><img src="/assets/images/lpic2/lv.png" alt="LPIC2 Post" />
+<strong>Figure 167-2</strong> Commands for logical volume.</p>
 
 <h2 id="chapter-5">Chapter 5</h2>
 <h2 id="topic-205-network-configuration">Topic 205: Network Configuration.</h2>
@@ -2312,6 +2344,8 @@ service iscsid start
 
 <p>You can see that I am using <strong>-XX</strong> option for HEX output and <strong>-vvv</strong> option for even more verbose output. So we have a little packets in that seession but you can see that it is a live and working.</p>
 
+<p><strong>Please note</strong>: in the tcpdump we use the direction for monitor packets, we can use <code class="highlighter-rouge">host</code> as you can see in the figure 178, but also we can specify the source by <code class="highlighter-rouge">src</code> or destination by <code class="highlighter-rouge">dst</code> option in the command line.</p>
+
 <p>For that section we need also to learn about <strong>nc</strong> which is <strong>netcat</strong> command that we can use to run remote executable commands or transfer files, and also get to know the <strong>nmap</strong> tools, you can read more about this two in my <a href="http://zwerd.com/2019/09/20/oscp_certificate.html#chapter-3">OSCP</a> post but I also write little about them here.</p>
 
 <p>The command for <strong>Netcat</strong> is nc and according to man page that tool is used for checking TCP/UDP port that are open or listen to them. This is mean that I am able to use it to connect to some email server with pop3 like I used in telnet before.</p>
@@ -2398,7 +2432,14 @@ service iscsid start
 <p><img src="/assets/images/lpic2/ipaddrdown.png" alt="OSCP Post" />
 <strong>Figure 189</strong> ip addr.</p>
 
-<p>You can see that the state for that interface is down, so for bring it up we need to run the following:</p>
+<p>Also by using <code class="highlighter-rouge">ip addr</code> command we can set up it’s ip address by specifying the IP address and the <strong>dev</strong> which is the interface like as follow:</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ip addr add 192.168.0.1/24 dev eth0
+</code></pre></div></div>
+<p>In case you need to specify IPv6 for that interface by using the following:</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ip -6 addr add new 2001:ad4::1223/64 dev eth0
+</code></pre></div></div>
+
+<p>You can see that the state for that interface (figure 189) is down, so for bring it up we need to run the following:</p>
 <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sudo ifconfig enp0s3 up
 </code></pre></div></div>
 
@@ -2458,9 +2499,14 @@ dnsdomainname - show the system's DNS domain name
 
 <p>There is also the <strong>/etc/hosts</strong> file which also contain hostnames and IP address, this file contain static table lookup for hostnames, this is mean that we can use if in case we have no DNS server configure for our host, or we want to specify specific record for some host or block the local machine to successfully resolve the IP address for some host.</p>
 
-<p>We can also apply sort of access list that contain the allow connection host on the network to connect our local machine by specify their name and address in the <strong>/etc/hosts.allow</strong>, in that way we can done we would done with FW, but this time this policy apply on our local machine.</p>
+<p>We can also apply sort of access list that contain the allow connection host on the network to connect our local machine by specify their name and address in the <strong>/etc/hosts.allow</strong>, in that way we can done what we would done with FW, but this time this policy apply on our local machine. We can also do the same to deny hosts from enable their connection to our local machine by specify them in the <strong>/etc/hosts.deny</strong>, this technology is called <strong>TCP Wrapper</strong> which is an open source host-based ACL (Access Control List) system.</p>
 
-<p>We can also do the same to deny hosts from enable their connection to our local machine by specify them in the <strong>/etc/hosts.deny</strong></p>
+<p><strong>Please note</strong>: in that files we specify the information as follow:</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>tftpd : 192.168.1.0/255.255.255.0
+telnetd : 10.2.4.
+httpd : ALL EXCEPT 172.16.
+</code></pre></div></div>
+<p>I the first line we specified the all class C of 192.168.1.0 network, we also allow all telnetd from 10.2.4. which actually class B also, and we specify httpd connection from all hosts except 172.16.0.0.</p>
 
 <p>If we suspect that we had some issue regarding to our network drive and have no IP address or some missing setting on our local machine, we can run <strong>dmesg</strong> tool to find some logs that was created during the bootup, as example in my case let’s say that I suspect that I have some issue related to my wifi card, so I can grep our all of the logs that have the wlp2s0 string which is my wifi interface.</p>
 

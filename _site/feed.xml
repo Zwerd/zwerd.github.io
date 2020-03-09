@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.5">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2020-02-24T17:50:02+02:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Zwerd</title><subtitle>A stunning blog of freaking PT warrior</subtitle><author><name>Guy Zwerdling</name></author><entry><title type="html">My Journey for LPIC2 Certification - Exam 201-450</title><link href="http://localhost:4000/2019/11/19/lpic2_certificate.html" rel="alternate" type="text/html" title="My Journey for LPIC2 Certification - Exam 201-450" /><published>2019-11-19T00:00:00+02:00</published><updated>2019-11-19T00:00:00+02:00</updated><id>http://localhost:4000/2019/11/19/lpic2_certificate</id><content type="html" xml:base="http://localhost:4000/2019/11/19/lpic2_certificate.html">&lt;p&gt;Today morning I received a message from LPI that my certificate will expire in 9 months and so it is time to start studying for the second Linux certification, this will advance me to the third Linux information security certification that I will search for, this certification is divided into two and the two parts are marked by two different codes: 201-450, 202-450&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.5">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2020-03-02T15:56:10+02:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Zwerd</title><subtitle>A stunning blog of freaking PT warrior</subtitle><author><name>Guy Zwerdling</name></author><entry><title type="html">My Journey for LPIC2 Certification - Exam 201-450</title><link href="http://localhost:4000/2019/11/19/lpic2_certificate.html" rel="alternate" type="text/html" title="My Journey for LPIC2 Certification - Exam 201-450" /><published>2019-11-19T00:00:00+02:00</published><updated>2019-11-19T00:00:00+02:00</updated><id>http://localhost:4000/2019/11/19/lpic2_certificate</id><content type="html" xml:base="http://localhost:4000/2019/11/19/lpic2_certificate.html">&lt;p&gt;Today morning I received a message from LPI that my certificate will expire in 9 months and so it is time to start studying for the second Linux certification, this will advance me to the third Linux information security certification that I will search for, this certification is divided into two and the two parts are marked by two different codes: 201-450, 202-450&lt;/p&gt;
 
 &lt;p&gt;In this post I am going to go over each topic as listed on the LPI website, which means I will go over each tool and present it here, in each chapter I will show how to use these tools to get the same information that the subject of the test should deal with, at the end of each chapter I will present a challenge From most of the commands we learned and challenged you and me how to get the information to succeed.&lt;/p&gt;
 
@@ -120,6 +120,8 @@
 
 &lt;p&gt;Again, this case mean that we have process that use the hard drive and there is a program that on wait state that in sleep mode that we can’t kill.&lt;/p&gt;
 
+&lt;p&gt;&lt;strong&gt;Please nore&lt;/strong&gt;: this &lt;code class=&quot;highlighter-rouge&quot;&gt;top&lt;/code&gt; command bring us more details that can be handy, as example we can know every command, which is more likely will be service name or process name, what is the CPU and memory that this program will use, also we know the username who run that service and also the PID for every process, if some process is over load we can kill it by typing &lt;code class=&quot;highlighter-rouge&quot;&gt;kill -9 &amp;lt;PID number&amp;gt;&lt;/code&gt;.&lt;/p&gt;
+
 &lt;h3 id=&quot;vmstat&quot;&gt;vmstat&lt;/h3&gt;
 
 &lt;p&gt;In that command we can view the memory that being used and CPU values, i/o and system utilizes, if you type this command you will get that information but that’s it, not like top that refresh itself every 3 second by default, but you can run it with refresh like, by using &lt;strong&gt;delay&lt;/strong&gt; and &lt;strong&gt;count&lt;/strong&gt; option. In the delay you specify how long to wait between every time it display you the information, the count is how many time it will repeat it self, in that case you can see the changes along the way.&lt;/p&gt;
@@ -211,7 +213,7 @@ st: Time stolen from a virtual machine. Prior to Linux 2.6.11, unknown.&lt;br /&
 &lt;p&gt;&lt;img src=&quot;/assets/images/lpic2/freecount.png&quot; alt=&quot;OSCP Post&quot; /&gt;
 &lt;strong&gt;Figure 16&lt;/strong&gt; free 3 times count.&lt;/p&gt;
 
-&lt;p&gt;The swap memory shouldn’t been used, because as we saw earlier that memory should be available only for case we have no memory to use in our system. In my case the was are use more that 300MB, which is note so good, because as I said that was normally are on value of 0. In Ubuntu the default value of the swap that can being used although we have free space in the memory is 60% of the swap in total, we can view our swap value in by using the command &lt;code class=&quot;highlighter-rouge&quot;&gt;cat /proc/sys/vm/swappiness&lt;/code&gt;, in order to change that value we can use the following command:&lt;/p&gt;
+&lt;p&gt;The swap memory shouldn’t been used, because as we saw earlier that memory should be available only for case we have no memory to use in our system. In my case the SWAP are use more then 300MB, which is note so good, because as I said that need to be normally in value of 0. In Ubuntu the default value of the swap that can being used although we have free space in the memory is 60% of the swap in total, we can view our swap value in by using the command &lt;code class=&quot;highlighter-rouge&quot;&gt;cat /proc/sys/vm/swappiness&lt;/code&gt;, in order to change that value we can use the following command:&lt;/p&gt;
 
 &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;sudo sysctl vm.swappiness=10
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
@@ -301,6 +303,8 @@ st: Time stolen from a virtual machine. Prior to Linux 2.6.11, unknown.&lt;br /&
 &lt;strong&gt;Figure 24&lt;/strong&gt; sar memory used.&lt;/p&gt;
 
 &lt;p&gt;You can also run &lt;code class=&quot;highlighter-rouge&quot;&gt;sar -S&lt;/code&gt; which will give us information about the SWAP free and used memory.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Please note&lt;/strong&gt;: sar is actually collect, report, or save system activity information and it can be any information activity regarding our system, as example we can use &lt;code class=&quot;highlighter-rouge&quot;&gt;sar -b&lt;/code&gt; which will bring us report I/O and transfer rate statistics, one of them is the tps which is the total number of transfers per second that were issued to physical devices.&lt;/p&gt;
 
 &lt;h3 id=&quot;iotop&quot;&gt;iotop&lt;/h3&gt;
 
@@ -449,7 +453,9 @@ st: Time stolen from a virtual machine. Prior to Linux 2.6.11, unknown.&lt;br /&
 
 &lt;p&gt;You can see that in my case the bandwidth from my computer to another in my lab is 2.57GB which is good for me, in the case of our example that you have client that complain about slow network, you may have to check several thing, the first one is to check his and other computer connectivity out of the local network with speed test, after that you will go to the second check which is bandwidth test between two local computer. If on the first test using the speed test, let’s say you found that the client computer work slow by speed test and other computer aren’t, then you run the second test which is the iperf and found low bandwidth connectivity between the two, in that case it’s mean that we have local network problem that can be found on the local network interface or the nearly network device like switch or router.&lt;/p&gt;
 
-&lt;p&gt;On the LPI site under 200.2 object you can found that they want the student will have awareness of monitoring solutions such as Icinga2, Nagios, collectd, MRTG and Cacti, well these programs can be install on you computer or other server and you can monitor the resource you have, but the Cacti is monitor program for network connectivity and so the collectd, so I don’t really understand way they want to have a knowledge of these program, in the day day life I don’t thing I am going to use such program to monitor my network resource, but in the case of these program, all of them work in the browser, this is mean that you have some URL and you can view the bandwidth or interfaces status etc.&lt;/p&gt;
+&lt;p&gt;On the LPI site under 200.2 object you can found that they want the student will have awareness of monitoring solutions such as Icinga2, Nagios, collectd, MRTG and Cacti, well these programs can be install on you computer or other server and you can monitor the resource you have, but the Cacti is monitor program for network connectivity and so the collectd, so I don’t really understand way they want to have a knowledge of these program, in the day day life I don’t think I am going to use such program to monitor my network resource, but in the case of these program, all of them work in the browser, this is mean that you have some URL and you can view the bandwidth or interfaces status etc.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Please note&lt;/strong&gt;: after all we see here I want to specify something that I solve on many situation I had in the companies I worked for. Let’s say that you have some web server that have some content of data for many users, so far you after you read all of that chapter you have the knowledge to use Linux tool for checking the performance, memory used, network bandwidth and etc. If for some reason you see that the RAM used was increase every months and in percentage that grow up, in that case you may consider to upgrade the hardware for that server like adding more RAM memory or install more web application server and distribute the load between them, so in such case we will check carefully what is going on our server in the hardware used, we can monitor that and track down the performance with the tools I specify above.&lt;/p&gt;
 
 &lt;h3 id=&quot;challenge&quot;&gt;Challenge&lt;/h3&gt;
 
@@ -578,7 +584,7 @@ st: Time stolen from a virtual machine. Prior to Linux 2.6.11, unknown.&lt;br /&
 &lt;p&gt;&lt;img src=&quot;/assets/images/lpic2/modprobe.png&quot; alt=&quot;LPIC2 Post&quot; /&gt;
 &lt;strong&gt;Figure 56&lt;/strong&gt; Modprobe for remove and adding module.&lt;/p&gt;
 
-&lt;p&gt;The command &lt;code class=&quot;highlighter-rouge&quot;&gt;modprobe&lt;/code&gt; know what is the path of every module by using the &lt;strong&gt;modules.dep&lt;/strong&gt; file, this file contain every module and it’s information and dependencies, to update this file we can use &lt;code class=&quot;highlighter-rouge&quot;&gt;depmod -a&lt;/code&gt; that will go and insert the information of the modules to this file.&lt;/p&gt;
+&lt;p&gt;The command &lt;code class=&quot;highlighter-rouge&quot;&gt;modprobe&lt;/code&gt; know what is the path of every module by using the &lt;strong&gt;modules.dep&lt;/strong&gt; file, this file contain every module information and dependencies, to update this file we can use &lt;code class=&quot;highlighter-rouge&quot;&gt;depmod -a&lt;/code&gt; that will go and insert the information of the modules to this file.&lt;/p&gt;
 
 &lt;p&gt;important thing you may want to know is that module that have dependencies can’t be remove out because it in use, in that case we will need to remove the modules that are use this module.&lt;/p&gt;
 
@@ -591,6 +597,11 @@ st: Time stolen from a virtual machine. Prior to Linux 2.6.11, unknown.&lt;br /&
 &lt;strong&gt;Figure 58&lt;/strong&gt; Module info by using modinfo.&lt;/p&gt;
 
 &lt;p&gt;As you can see the usbcore have the param nousb which is boolean, you can insert that module and using that param as example &lt;code class=&quot;highlighter-rouge&quot;&gt;modprobe usbcore nousb=N&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Please note&lt;/strong&gt;: we also can use modinfo for finding the full path for some module by using the &lt;strong&gt;-n&lt;/strong&gt; option, as example:&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;modinfo -n dummy
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;This will give us the expect path for that module&lt;/p&gt;
 
 &lt;p&gt;Please remember that all we talk about are the modules and not the kernel option itself, like enable the NAT operation for example. Option like that can be found on /proc/sys/kernel, in this folder you will found every option that are enable on your kernel, if you want to watch the configuration file which from there you enable them, you need to check the sysctl.conf that can found on the &lt;strong&gt;/etc&lt;/strong&gt; folder, in that file you can enable more functionality of the system, like enable ip forwording or such.&lt;/p&gt;
 
@@ -767,6 +778,8 @@ st: Time stolen from a virtual machine. Prior to Linux 2.6.11, unknown.&lt;br /&
 &lt;p&gt;&lt;img src=&quot;/assets/images/lpic2/ddagain.png&quot; alt=&quot;LPIC2 Post&quot; /&gt;
 &lt;strong&gt;Figure 75&lt;/strong&gt; This is it.&lt;/p&gt;
 
+&lt;p&gt;&lt;strong&gt;Please nore&lt;/strong&gt;: the kernel configuration parameters can be found on the config file, this file is also on the boot folder, so as you may remeber you can change some parameter by &lt;code class=&quot;highlighter-rouge&quot;&gt;make menuconfig&lt;/code&gt; but if you remember later on about some setting that you need you can add it in that file before install the kernel. Also remember that the config name is usual as follow &lt;code class=&quot;highlighter-rouge&quot;&gt;config-&amp;lt;kernel version&amp;gt;&lt;/code&gt;.&lt;/p&gt;
+
 &lt;h3 id=&quot;challenge-1&quot;&gt;Challenge&lt;/h3&gt;
 
 &lt;ol&gt;
@@ -932,14 +945,14 @@ st: Time stolen from a virtual machine. Prior to Linux 2.6.11, unknown.&lt;br /&
 
 &lt;p&gt;For summery, this systemd with the &lt;code class=&quot;highlighter-rouge&quot;&gt;systemctl&lt;/code&gt; command is another way to check and set the init files, this is also applied on many linux system like Red Hat and opensuse servers for enterprise, there is some distribution that don’t use systemd, but this is only on the desktop linux version, it’s more likely to find systemd in used on enterprises systems.&lt;/p&gt;
 
-&lt;p&gt;Now, for this chapter 2 we need also be familiar with GRAB legacy and GRAB2, this GRAB stand for GRand Unified Bootloader, this is bootloader which mean this is the first menu that the computer bring up, in this menu we can choose what operation system we want to load up, let’s say that you have some DELL PC and you want that one partition will be Windows and the other contain Linux, you can do so and the GRAB is the menu which bring you the option to choose between the OS’s.&lt;/p&gt;
+&lt;p&gt;Now, for this chapter 2 we need also be familiar with GRUB legacy and GRUB2, this GRUB stand for GRand Unified Bootloader, this is bootloader which mean this is the first menu that the computer bring up, in this menu we can choose what operation system we want to load up, let’s say that you have some DELL PC and you want that one partition will be Windows and the other contain Linux, you can do so and the GRUB is the menu which bring you the option to choose between the OS’s.&lt;/p&gt;
 
-&lt;p&gt;You must also be familiar with the different between those two, GRAB legacy is the first version of that GRAB project and on the most linux version you may see that GRAB is on version 0.97 like as follow in centOS (version 6)&lt;/p&gt;
+&lt;p&gt;You must also be familiar with the different between those two, GRUB legacy is the first version of that GRUB project and on the most linux version you may see that GRUB is on version 0.97 like as follow in centOS (version 6)&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;/assets/images/lpic2/GRAB1.png&quot; alt=&quot;LPIC2 Post&quot; /&gt;
-&lt;strong&gt;Figure 94&lt;/strong&gt; GRAB 1 which is the GRAB legacy.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/images/lpic2/GRUB1.png&quot; alt=&quot;LPIC2 Post&quot; /&gt;
+&lt;strong&gt;Figure 94&lt;/strong&gt; GRUB 1 which is the GRUB legacy.&lt;/p&gt;
 
-&lt;p&gt;You can see that in my case the GRAB menu doest contain any other option except centOS 6, I want to show you how this is done, so for that case I download Ubuntu 9 which contain GRAB legacy, I also will install Windows XP on my virtual machine and I will create two partition which one of them will contain the Linux and the other will be Windows, please note that windows contain some different boot loader but this is beyond the scope of our LPIC2 exam.&lt;/p&gt;
+&lt;p&gt;You can see that in my case the GRUB menu doest contain any other option except centOS 6, I want to show you how this is done, so for that case I download Ubuntu 9 which contain GRUB legacy, I also will install Windows XP on my virtual machine and I will create two partition which one of them will contain the Linux and the other will be Windows, please note that windows contain some different boot loader but this is beyond the scope of our LPIC2 exam.&lt;/p&gt;
 
 &lt;p&gt;If you want to do this exercies on you virtual machine you can download Ubuntu 9 from the following URL:
 http://old-releases.ubuntu.com/releases/9.04/ubuntu-9.04-desktop-i386.iso&lt;/p&gt;
@@ -951,7 +964,7 @@ https://ia802908.us.archive.org/26/items/WinXPProSP3x86/en_windows_xp_profession
 &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;3D2W3-8DJM6-YKQRB-B2XDB-TVQHF
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
-&lt;p&gt;What we going to do is to install the Windows XP on virtual machine and after that load up the Ubuntu 9 from bootable device and load up the Ubuntu, this Ubuntu will sense the windows and it will ask us to done the installation side by side the Windows and for that he will create partition for it’s installation and will setup the GRAB legacy menu for us.&lt;/p&gt;
+&lt;p&gt;What we going to do is to install the Windows XP on virtual machine and after that load up the Ubuntu 9 from bootable device and load up the Ubuntu, this Ubuntu will sense the windows and it will ask us to done the installation side by side the Windows and for that he will create partition for it’s installation and will setup the GRUB legacy menu for us.&lt;/p&gt;
 
 &lt;p&gt;So first of all I install windows XP on my virtual machine, this task doesn’t take long time to do, just run through the installation processes till it finish.&lt;/p&gt;
 
@@ -985,45 +998,47 @@ https://ia802908.us.archive.org/26/items/WinXPProSP3x86/en_windows_xp_profession
 
 &lt;p&gt;After it finish it restart and bring up the GRUB menu, however it’s doesn’t show me what is the version which normally on the upper bar menu.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;/assets/images/lpic2/grubmenu.png&quot; alt=&quot;LPIC2 Post&quot; /&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/images/lpic2/GRUBmenu.png&quot; alt=&quot;LPIC2 Post&quot; /&gt;
 &lt;strong&gt;Figure 101&lt;/strong&gt; GRUB menu.&lt;/p&gt;
 
-&lt;p&gt;I boot up my Ubuntu 9 to view the GRUB menu, to check the version just run the &lt;code class=&quot;highlighter-rouge&quot;&gt;grub-install --version&lt;/code&gt;, this command will print the current version of our GRUB.&lt;/p&gt;
+&lt;p&gt;I boot up my Ubuntu 9 to view the GRUB menu, to check the version just run the &lt;code class=&quot;highlighter-rouge&quot;&gt;GRUB-install --version&lt;/code&gt;, this command will print the current version of our GRUB.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;/assets/images/lpic2/mygrubversion.png&quot; alt=&quot;LPIC2 Post&quot; /&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/images/lpic2/myGRUBversion.png&quot; alt=&quot;LPIC2 Post&quot; /&gt;
 &lt;strong&gt;Figure 102&lt;/strong&gt; GRUB version.&lt;/p&gt;
 
-&lt;p&gt;in the case of GRUB legacy we have two file that are important, the first is &lt;strong&gt;menu.lst&lt;/strong&gt; which is pointer file to grub.conf,  the second is grub.conf which contain the configuration file for the GRUB menu. In Ubuntu 9 we only have menu.lst which we can change if we want to change the GRUB menu.&lt;/p&gt;
+&lt;p&gt;in the case of GRUB legacy we have two file that are important, the first is &lt;strong&gt;menu.lst&lt;/strong&gt; which is pointer file to GRUB.conf,  the second is GRUB.conf which contain the configuration file for the GRUB menu. In Ubuntu 9 we only have menu.lst which we can change if we want to change the GRUB menu.&lt;/p&gt;
 
 &lt;p&gt;In the &lt;code class=&quot;highlighter-rouge&quot;&gt;menu.lst&lt;/code&gt; file there is many option that comment out, the most importance thing is can be found on the end of that file, the &lt;code class=&quot;highlighter-rouge&quot;&gt;kernel&lt;/code&gt; option and &lt;code class=&quot;highlighter-rouge&quot;&gt;initrd&lt;/code&gt;.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;/assets/images/lpic2/gruboptions.png&quot; alt=&quot;LPIC2 Post&quot; /&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/images/lpic2/GRUBoptions.png&quot; alt=&quot;LPIC2 Post&quot; /&gt;
 &lt;strong&gt;Figure 103&lt;/strong&gt; GRUB options in menu.lst.&lt;/p&gt;
 
-&lt;p&gt;Please remember that if you have some issue with GRUB and after boot you find yourself in &lt;code class=&quot;highlighter-rouge&quot;&gt;grub&amp;gt;&lt;/code&gt; command line, you can type &lt;code class=&quot;highlighter-rouge&quot;&gt;help&lt;/code&gt; which will reveal the command that can be use, but you can also setup the kernel path for the kernel file and the initrd as the same you saw in the &lt;strong&gt;menu.lst&lt;/strong&gt; file.&lt;/p&gt;
+&lt;p&gt;Please remember that if you have some issue with GRUB and after boot you find yourself in &lt;code class=&quot;highlighter-rouge&quot;&gt;GRUB&amp;gt;&lt;/code&gt; command line, you can type &lt;code class=&quot;highlighter-rouge&quot;&gt;help&lt;/code&gt; which will reveal the command that can be use, but you can also setup the kernel path for the kernel file and the initrd as the same you saw in the &lt;strong&gt;menu.lst&lt;/strong&gt; file.&lt;/p&gt;
 
 &lt;p&gt;You also need to specify the root partition, which in our case can be a problem because this is some UUID with some long number that must be specified, so if we don’t know the UUID we can bootup from some bootable device and find that information on the &lt;code class=&quot;highlighter-rouge&quot;&gt;/etc/fstab&lt;/code&gt; file.&lt;/p&gt;
 
 &lt;p&gt;&lt;img src=&quot;/assets/images/lpic2/fstab.png&quot; alt=&quot;LPIC2 Post&quot; /&gt;
 &lt;strong&gt;Figure 104&lt;/strong&gt; fstab file.&lt;/p&gt;
 
-&lt;p&gt;We will see more as we proceed, now I want to show you the same on centOS, in the operation system we have the grab.conf which is the pointer to menu.lst&lt;/p&gt;
+&lt;p&gt;We will see more as we proceed, now I want to show you the same on centOS, in the operation system we have the GRUB.conf which is the pointer to menu.lst&lt;/p&gt;
 
 &lt;p&gt;&lt;img src=&quot;/assets/images/lpic2/centosmenu.png&quot; alt=&quot;LPIC2 Post&quot; /&gt;
 &lt;strong&gt;Figure 105&lt;/strong&gt; menu.lst on centOS.&lt;/p&gt;
 
 &lt;p&gt;In that case we have ‘mapper’ which is long, this also can be found in &lt;code class=&quot;highlighter-rouge&quot;&gt;fstab&lt;/code&gt; file as we saw earlier.&lt;/p&gt;
 
-&lt;p&gt;If for some reason you get stack on &lt;code class=&quot;highlighter-rouge&quot;&gt;grub&amp;gt;&lt;/code&gt; and you know shorly that this is GRUB2, for your kernel file you need specified the &lt;code class=&quot;highlighter-rouge&quot;&gt;linux&lt;/code&gt; with it’s vmlinuz file and the &lt;code class=&quot;highlighter-rouge&quot;&gt;inited&lt;/code&gt; file, you can also use &lt;code class=&quot;highlighter-rouge&quot;&gt;ls&lt;/code&gt; command which reveal the partitions and &lt;code class=&quot;highlighter-rouge&quot;&gt;set&lt;/code&gt; which will give you clue about all value that are set on your grub, and if needed change every value you need.&lt;/p&gt;
+&lt;p&gt;If for some reason you get stack on &lt;code class=&quot;highlighter-rouge&quot;&gt;GRUB&amp;gt;&lt;/code&gt; and you know shorly that this is GRUB2, for your kernel file you need specified the &lt;code class=&quot;highlighter-rouge&quot;&gt;linux&lt;/code&gt; with it’s vmlinuz file and the &lt;code class=&quot;highlighter-rouge&quot;&gt;inited&lt;/code&gt; file, you can also use &lt;code class=&quot;highlighter-rouge&quot;&gt;ls&lt;/code&gt; command which reveal the partitions and &lt;code class=&quot;highlighter-rouge&quot;&gt;set&lt;/code&gt; which will give you clue about all value that are set on your GRUB, and if needed change every value you need.&lt;/p&gt;
 
-&lt;p&gt;Please remember that like in GRAB legacy you must specified the root partition with the &lt;code class=&quot;highlighter-rouge&quot;&gt;linux&lt;/code&gt; kernel line on the GRUB2.&lt;/p&gt;
+&lt;p&gt;Please remember that like in GRUB legacy you must specified the root partition with the &lt;code class=&quot;highlighter-rouge&quot;&gt;linux&lt;/code&gt; kernel line on the GRUB2.&lt;/p&gt;
 
-&lt;p&gt;You can also practices on the grub menu without to mack changes on your actual system, juest when the grub menu reveal it self, press &lt;code class=&quot;highlighter-rouge&quot;&gt;c&lt;/code&gt; for command line or &lt;code class=&quot;highlighter-rouge&quot;&gt;e&lt;/code&gt; for edit the chosen line in the menu.&lt;/p&gt;
+&lt;p&gt;You can also practices on the GRUB menu without to mack changes on your actual system, juest when the GRUB menu reveal it self, press &lt;code class=&quot;highlighter-rouge&quot;&gt;c&lt;/code&gt; for command line or &lt;code class=&quot;highlighter-rouge&quot;&gt;e&lt;/code&gt; for edit the chosen line in the menu.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;/assets/images/lpic2/grub1.png&quot; alt=&quot;LPIC2 Post&quot; /&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/images/lpic2/GRUB1.png&quot; alt=&quot;LPIC2 Post&quot; /&gt;
 &lt;strong&gt;Figure 106&lt;/strong&gt; GRUB 1 command line.&lt;/p&gt;
 
 &lt;p&gt;After you finish up the settings just type boot and it’s will boot up the system with your config, if you set it correctly it will bring up your system, if not it will bring the GRUB menu again and it is the same in the case of GRUB1 and GRUB2.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Please note&lt;/strong&gt;: you can add the GRUB parameter for the kernel, as example let’s say that we want to use amount of CPU core in that operating system, so we can use the &lt;code class=&quot;highlighter-rouge&quot;&gt;maxcpus=1&lt;/code&gt; for setting 1 CPU core to be in use when the system is boot up, in that example this is the kernel parameter, you can see all parameters you have correctly on your system by using &lt;code class=&quot;highlighter-rouge&quot;&gt;sysctl -a&lt;/code&gt;, I will talk about that later on that post.&lt;/p&gt;
 
 &lt;h3 id=&quot;challenge-2&quot;&gt;Challenge&lt;/h3&gt;
 &lt;ol&gt;
@@ -1084,16 +1099,16 @@ but it load the system and doesn’t restart again like it should do, so I check
 
 &lt;h3 id=&quot;4-do-the-same-on-system-with-grub2&quot;&gt;4. Do the same on system with GRUB2.&lt;/h3&gt;
 
-&lt;p&gt;I checked if I have some OS that contain GRUB2, I found that I have virtual machine with Ubuntu 18, the GRUB file in that system need to be at the following path &lt;code class=&quot;highlighter-rouge&quot;&gt;/etc/default/grub&lt;/code&gt;, I load that system and didn’t see the GRUB2 menu, so I need to make changes in the GRUB file.&lt;/p&gt;
+&lt;p&gt;I checked if I have some OS that contain GRUB2, I found that I have virtual machine with Ubuntu 18, the GRUB file in that system need to be at the following path &lt;code class=&quot;highlighter-rouge&quot;&gt;/etc/default/GRUB&lt;/code&gt;, I load that system and didn’t see the GRUB2 menu, so I need to make changes in the GRUB file.&lt;/p&gt;
 
 &lt;p&gt;You can see that I comment out the &lt;strong&gt;GRUB_DEFAULT&lt;/strong&gt; and &lt;strong&gt;GRUB_TIMEOUT_STYLE&lt;/strong&gt;, and change the &lt;strong&gt;GRUB_TIMEOUT&lt;/strong&gt; to value 10 instead of 0.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;/assets/images/lpic2/grub2.png&quot; alt=&quot;LPIC2 Post&quot; /&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/images/lpic2/GRUB2.png&quot; alt=&quot;LPIC2 Post&quot; /&gt;
 &lt;strong&gt;Figure 113&lt;/strong&gt; GRUB2 file.&lt;/p&gt;
 
-&lt;p&gt;Now all I need to do is run update-grub, and I may need to run it with sudo, now if I reboot the system it will bring me the GRUB menu.&lt;/p&gt;
+&lt;p&gt;Now all I need to do is run update-GRUB, and I may need to run it with sudo, now if I reboot the system it will bring me the GRUB menu.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;/assets/images/lpic2/grub2menu.png&quot; alt=&quot;LPIC2 Post&quot; /&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/images/lpic2/GRUB2menu.png&quot; alt=&quot;LPIC2 Post&quot; /&gt;
 &lt;strong&gt;Figure 113&lt;/strong&gt; GRUB2 menu.&lt;/p&gt;
 
 &lt;p&gt;Now we need to make the same issue we have done on Ubuntu 9, for that I am using systemctl which can help me to setup the default runlevel.&lt;/p&gt;
@@ -1103,12 +1118,12 @@ but it load the system and doesn’t restart again like it should do, so I check
 
 &lt;p&gt;Now if I trying to restart the system it will be boot again in loop which is exactly what we needed.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;/assets/images/lpic2/grub2.gif&quot; alt=&quot;LPIC2 Post&quot; /&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/images/lpic2/GRUB2.gif&quot; alt=&quot;LPIC2 Post&quot; /&gt;
 &lt;strong&gt;Figure 115&lt;/strong&gt; GRUB 2 on Ubuntu 18 in loop mode.&lt;/p&gt;
 
 &lt;p&gt;To solve it we need to get in the kernel line in the GRUB and change it. I found the &lt;code class=&quot;highlighter-rouge&quot;&gt;quiet splash&lt;/code&gt; and remove it, I write 5 for runlevel 5 and press &lt;strong&gt;F10&lt;/strong&gt; for reboot and sure enough it boot up the OS GUI.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;/assets/images/lpic2/grub2runlevel.png&quot; alt=&quot;LPIC2 Post&quot; /&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/images/lpic2/GRUB2runlevel.png&quot; alt=&quot;LPIC2 Post&quot; /&gt;
 &lt;strong&gt;Figure 116&lt;/strong&gt; add runlevel5 in GRUB2.&lt;/p&gt;
 
 &lt;p&gt;Now all I have to do is to type &lt;code class=&quot;highlighter-rouge&quot;&gt;systemctl set-default runlevel5.target&lt;/code&gt; and that it, if I try to reboot the system it will reboot without any problem like we had before.&lt;/p&gt;
@@ -1395,7 +1410,7 @@ If we go to the auto.nfs file we will find one line that setup the mount point a
 
 &lt;p&gt;If we need to make a bootable image we can use &lt;strong&gt;-b&lt;/strong&gt; option, or if we want to burn ir to DVD file we can use the &lt;strong&gt;-udf&lt;/strong&gt; option, in my case I haven’t manual page for this command but I can run &lt;strong&gt;mkisofs –help&lt;/strong&gt; to see that options,&lt;/p&gt;
 
-&lt;p&gt;Let’s talk about encrypted drive, in case you want to make sure your data is safe, you can encript the device who contain the data, in that way is someone will steal your disk, you can be sure that the data itself are safe and encrypted, for that situation we can use &lt;strong&gt;cryptsetup&lt;/strong&gt;.&lt;/p&gt;
+&lt;p&gt;Let’s talk about encrypted drive, in case you want to make sure your data is safe, you can encrypt the device who contain the data, in that way if someone will steal your disk, you can be sure that the data itself are safe and encrypted, for that situation we can use &lt;strong&gt;cryptsetup&lt;/strong&gt;.&lt;/p&gt;
 
 &lt;p&gt;This &lt;strong&gt;cryptsetup&lt;/strong&gt; can be use on the drive we choose in order to encrypt that drive, we just need to run some of the command we saw before, I will run it quickly.&lt;/p&gt;
 
@@ -1540,7 +1555,7 @@ If we go to the auto.nfs file we will find one line that setup the mount point a
 
 &lt;p&gt;You can see the under UDMA modes there is an asterisk next to the udma6, UDMA is an Ultra DMA which is fster then the normal DMA, you can find more information about the modes in &lt;a href=&quot;https://en.wikipedia.org/wiki/UDMA&quot;&gt;that link&lt;/a&gt; and how faster every mode from the previous one.&lt;/p&gt;
 
-&lt;p&gt;So in my case the UDMA is active and this is why every thing work better and fast, but if in your case the DMA is note in active mode then you need to run the following command:&lt;/p&gt;
+&lt;p&gt;So in my case the UDMA is active and this is why every thing work better and fast, but if in your case the DMA is not in active mode then you need to run the following command:&lt;/p&gt;
 &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;sudo hdparm -d 1 /dev/sda6
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
@@ -1636,10 +1651,12 @@ Filesystem features:      has_journal ext_attr resize_inode dir_index filetype n
 
 &lt;p&gt;This command will show us the all setting we have on the kernel, they store in the &lt;em&gt;/proc&lt;/em&gt; folder which we can use &lt;strong&gt;cat&lt;/strong&gt; for look on them like in the &lt;em&gt;/proc/interrupts&lt;/em&gt;, in this file we view the interrupts on the CPU&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;/assets/images/lpic2/interrupts.png&quot; alt=&quot;LPIC2 Post&quot; /&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/images/lpic2/interruptes.png&quot; alt=&quot;LPIC2 Post&quot; /&gt;
 &lt;strong&gt;Figure 155&lt;/strong&gt; The details of interrupts on our CPU.&lt;/p&gt;
 
 &lt;p&gt;For change setting we use &lt;strong&gt;sysctl&lt;/strong&gt;, we can enable or disable one drive or enother that related to the kernel and it is important to know all of that for the LPIC2 exam, just remember that this is the way that we can maniplate thing on the kernel that related to the hardware of our computer.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Please note&lt;/strong&gt;: to set the value for a kernel parameter we can also use sysctl, but using the -w option and followed by the parameter’s name, the equal sign, and the desired value. For example &lt;code class=&quot;highlighter-rouge&quot;&gt;sysctl -w maxcpus=1&lt;/code&gt; this command will set the kernel to use only one CPU on that system. We can also echo it out to the following file &lt;code class=&quot;highlighter-rouge&quot;&gt;echo 1 &amp;gt; /proc/sys/kernel/maxcpus&lt;/code&gt; and this will bring up the same operation.&lt;/p&gt;
 
 &lt;p&gt;There is one thing you also need to know, it is the &lt;strong&gt;fstrim&lt;/strong&gt; which is use to discard unused blocks on a mounted filesystem, I saw many videos about that on youtube and all of them say that this is can be allow better performance on your system.&lt;/p&gt;
 
@@ -1647,7 +1664,7 @@ Filesystem features:      has_journal ext_attr resize_inode dir_index filetype n
 
 &lt;p&gt;So far we talk about hard disk and optical disk with PATA or SATA technologies, we need to have also knowledge about SCSI and iSCSI, when we talk about SCSI it can be sort of hard drive or optical drive or even floppy drive, but it also can referred to bus connector, but it also can be referred as the software technology that know how to connect with the hard disk, if you want to know more about that you can view the &lt;a href=&quot;https://www.youtube.com/watch?v=M0i4MxeoatQ&amp;amp;t=1691s&quot;&gt;Ancient Electronics&lt;/a&gt; video overview which I found the most explainable for us to be ready for the EXAM.&lt;/p&gt;
 
-&lt;p&gt;In the LPIC2 objective we need to have more knowledge about &lt;strong&gt;iSCSI&lt;/strong&gt; which is the way to mount SCSI device from the network, in &lt;strong&gt;iSCSI&lt;/strong&gt; there is a two thing we need to know, the server side configuration and the client side configuration, on the server we need to setup the device that going to be use with iSCSI on remote machine which are the client, we also need to enable on the server his IP address and password if we want.&lt;/p&gt;
+&lt;p&gt;In the LPIC2 objective we need to have more knowledge about &lt;strong&gt;iSCSI&lt;/strong&gt; which is the way to mount SCSI device from the network, in &lt;strong&gt;iSCSI&lt;/strong&gt; there is a two thing we need to know, the server side configuration and the client side configuration, on the server we need to setup the device that going to be use with iSCSI on remote machine which are the client, we also need to enable on the server it’s IP address and password if we want.&lt;/p&gt;
 
 &lt;p&gt;On the server side with setup the &lt;strong&gt;target&lt;/strong&gt; which going to be some local disk on the server and on the client we use it as a &lt;strong&gt;initiator&lt;/strong&gt; which going to mount the &lt;strong&gt;target&lt;/strong&gt; from the remote server.&lt;/p&gt;
 
@@ -1657,7 +1674,7 @@ Filesystem features:      has_journal ext_attr resize_inode dir_index filetype n
 &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;sudo yum -y install scsi-targets-utils
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
-&lt;p&gt;Ufter it finish we need to setup the target so in my case I need to use the following configuration file:&lt;/p&gt;
+&lt;p&gt;After it finish we need to setup the target so in my case I need to use the following configuration file:&lt;/p&gt;
 &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;vi /etc/tgt/targets.conf
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
@@ -1668,7 +1685,7 @@ incominguser admin admin
 &amp;lt;/target&amp;gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
-&lt;p&gt;With this setting I make single entry which mean it going to be one drive storage that the client (initiator) can be use for mounting it, my backing storage is sdb1 and the username is admin password admin for initiate.&lt;/p&gt;
+&lt;p&gt;With this setting I make single entry which mean it’s going to have one drive storage that the client (initiator) can be use for mounting it, my backing storage is sdb1 and the username is admin password admin for initiate.&lt;/p&gt;
 
 &lt;p&gt;&lt;img src=&quot;/assets/images/lpic2/tgt.png&quot; alt=&quot;LPIC2 Post&quot; /&gt;
 &lt;strong&gt;Figure 156&lt;/strong&gt; The target file configuration.&lt;/p&gt;
@@ -1711,7 +1728,7 @@ incominguser admin admin
 &lt;p&gt;&lt;img src=&quot;/assets/images/lpic2/iscsidconf.png&quot; alt=&quot;LPIC2 Post&quot; /&gt;
 &lt;strong&gt;Figure 159&lt;/strong&gt; Setup for the initiator.&lt;/p&gt;
 
-&lt;p&gt;Now we need to restart the iscsi demon for making sure our setting applied.&lt;/p&gt;
+&lt;p&gt;Now we need to restart the iscsi deamon for making sure our setting applied.&lt;/p&gt;
 
 &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;service iscsid stop
 service iscsid start
@@ -1787,14 +1804,14 @@ service iscsid start
 &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;sudo vgcreate vg1 /dev/sdc1 /dev/sdd1
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
-&lt;p&gt;The name of our volume group going to be &lt;strong&gt;vg1&lt;/strong&gt; and I am using the actual path to the devices I what it to be in this group, after that I can run the &lt;strong&gt;vgdisplay&lt;/strong&gt; command.&lt;/p&gt;
+&lt;p&gt;The name of our volume group going to be &lt;strong&gt;vg1&lt;/strong&gt; and I am using the actual path to the devices I want it to be in this group, after that I can run the &lt;strong&gt;vgdisplay&lt;/strong&gt; command.&lt;/p&gt;
 
 &lt;p&gt;&lt;img src=&quot;/assets/images/lpic2/vgdisplay.png&quot; alt=&quot;LPIC2 Post&quot; /&gt;
 &lt;strong&gt;Figure 165&lt;/strong&gt; vgdisplay command.&lt;/p&gt;
 
 &lt;p&gt;As you can see the name of my VG is vg1 and the format for this is lvm2, also we can see the VG size which is 19.99GB, just remember that we use two disk each is 10GB.&lt;/p&gt;
 
-&lt;p&gt;&lt;strong&gt;Please note&lt;/strong&gt;: you can remove physical volume from volume group by using the &lt;code class=&quot;highlighter-rouge&quot;&gt;vgreduce&lt;/code&gt; command.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Please note&lt;/strong&gt;: you can remove physical volume from volume group by using the &lt;code class=&quot;highlighter-rouge&quot;&gt;vgreduce&lt;/code&gt; command, and also add physical volume by using &lt;code class=&quot;highlighter-rouge&quot;&gt;vgextand&lt;/code&gt;.&lt;/p&gt;
 
 &lt;p&gt;now we can proceed to the logical volume creation.&lt;/p&gt;
 &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;sudo lvcreate --name lv1 --size 1G vg1
@@ -1813,6 +1830,21 @@ service iscsid start
 &lt;p&gt;So as you can see every command we saw was start in one of the following options: &lt;strong&gt;pv&lt;/strong&gt;,&lt;strong&gt;vg&lt;/strong&gt;,&lt;strong&gt;lv&lt;/strong&gt;.&lt;/p&gt;
 
 &lt;p&gt;We have more command that related to LVM in this type of naming, we also have the lvm.conf file that contain the configuration for LVM.&lt;/p&gt;
+
+&lt;p&gt;We can run backup of logical volume with the following command:&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;lvcreate -L 500M -s -n backupname /dev/vg1/lv1
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;In this command we specify the backup logical volume size by using &lt;strong&gt;-L&lt;/strong&gt; for 500M, the &lt;strong&gt;-s&lt;/strong&gt; option is for snapshot and &lt;strong&gt;-n&lt;/strong&gt; for the name of that backup, after that we need to specify the logical volume we want to backup, only then when we type &lt;strong&gt;lvdisplay&lt;/strong&gt; it will show us the backup volume we created.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/lpic2/backup.png&quot; alt=&quot;LPIC2 Post&quot; /&gt;
+&lt;strong&gt;Figure 167-1&lt;/strong&gt; Backup logical volume.&lt;/p&gt;
+
+&lt;p&gt;You can see the backup volume I have now on my system.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Please note&lt;/strong&gt;: we have no such command like lvbackup or lvshanshot, we just use &lt;strong&gt;lvcreate&lt;/strong&gt; with the &lt;strong&gt;-s&lt;/strong&gt; option for snapshot, if you what to see the all command thaty related for logical volume you can just run the &lt;code class=&quot;highlighter-rouge&quot;&gt;ls /sbin/lv*&lt;/code&gt; this will display all lv command we can use.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/lpic2/lv.png&quot; alt=&quot;LPIC2 Post&quot; /&gt;
+&lt;strong&gt;Figure 167-2&lt;/strong&gt; Commands for logical volume.&lt;/p&gt;
 
 &lt;h2 id=&quot;chapter-5&quot;&gt;Chapter 5&lt;/h2&gt;
 &lt;h2 id=&quot;topic-205-network-configuration&quot;&gt;Topic 205: Network Configuration.&lt;/h2&gt;
@@ -1930,6 +1962,8 @@ service iscsid start
 
 &lt;p&gt;You can see that I am using &lt;strong&gt;-XX&lt;/strong&gt; option for HEX output and &lt;strong&gt;-vvv&lt;/strong&gt; option for even more verbose output. So we have a little packets in that seession but you can see that it is a live and working.&lt;/p&gt;
 
+&lt;p&gt;&lt;strong&gt;Please note&lt;/strong&gt;: in the tcpdump we use the direction for monitor packets, we can use &lt;code class=&quot;highlighter-rouge&quot;&gt;host&lt;/code&gt; as you can see in the figure 178, but also we can specify the source by &lt;code class=&quot;highlighter-rouge&quot;&gt;src&lt;/code&gt; or destination by &lt;code class=&quot;highlighter-rouge&quot;&gt;dst&lt;/code&gt; option in the command line.&lt;/p&gt;
+
 &lt;p&gt;For that section we need also to learn about &lt;strong&gt;nc&lt;/strong&gt; which is &lt;strong&gt;netcat&lt;/strong&gt; command that we can use to run remote executable commands or transfer files, and also get to know the &lt;strong&gt;nmap&lt;/strong&gt; tools, you can read more about this two in my &lt;a href=&quot;http://zwerd.com/2019/09/20/oscp_certificate.html#chapter-3&quot;&gt;OSCP&lt;/a&gt; post but I also write little about them here.&lt;/p&gt;
 
 &lt;p&gt;The command for &lt;strong&gt;Netcat&lt;/strong&gt; is nc and according to man page that tool is used for checking TCP/UDP port that are open or listen to them. This is mean that I am able to use it to connect to some email server with pop3 like I used in telnet before.&lt;/p&gt;
@@ -2016,7 +2050,14 @@ service iscsid start
 &lt;p&gt;&lt;img src=&quot;/assets/images/lpic2/ipaddrdown.png&quot; alt=&quot;OSCP Post&quot; /&gt;
 &lt;strong&gt;Figure 189&lt;/strong&gt; ip addr.&lt;/p&gt;
 
-&lt;p&gt;You can see that the state for that interface is down, so for bring it up we need to run the following:&lt;/p&gt;
+&lt;p&gt;Also by using &lt;code class=&quot;highlighter-rouge&quot;&gt;ip addr&lt;/code&gt; command we can set up it’s ip address by specifying the IP address and the &lt;strong&gt;dev&lt;/strong&gt; which is the interface like as follow:&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;ip addr add 192.168.0.1/24 dev eth0
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;In case you need to specify IPv6 for that interface by using the following:&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;ip -6 addr add new 2001:ad4::1223/64 dev eth0
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;You can see that the state for that interface (figure 189) is down, so for bring it up we need to run the following:&lt;/p&gt;
 &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;sudo ifconfig enp0s3 up
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
@@ -2076,9 +2117,14 @@ dnsdomainname - show the system's DNS domain name
 
 &lt;p&gt;There is also the &lt;strong&gt;/etc/hosts&lt;/strong&gt; file which also contain hostnames and IP address, this file contain static table lookup for hostnames, this is mean that we can use if in case we have no DNS server configure for our host, or we want to specify specific record for some host or block the local machine to successfully resolve the IP address for some host.&lt;/p&gt;
 
-&lt;p&gt;We can also apply sort of access list that contain the allow connection host on the network to connect our local machine by specify their name and address in the &lt;strong&gt;/etc/hosts.allow&lt;/strong&gt;, in that way we can done we would done with FW, but this time this policy apply on our local machine.&lt;/p&gt;
+&lt;p&gt;We can also apply sort of access list that contain the allow connection host on the network to connect our local machine by specify their name and address in the &lt;strong&gt;/etc/hosts.allow&lt;/strong&gt;, in that way we can done what we would done with FW, but this time this policy apply on our local machine. We can also do the same to deny hosts from enable their connection to our local machine by specify them in the &lt;strong&gt;/etc/hosts.deny&lt;/strong&gt;, this technology is called &lt;strong&gt;TCP Wrapper&lt;/strong&gt; which is an open source host-based ACL (Access Control List) system.&lt;/p&gt;
 
-&lt;p&gt;We can also do the same to deny hosts from enable their connection to our local machine by specify them in the &lt;strong&gt;/etc/hosts.deny&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Please note&lt;/strong&gt;: in that files we specify the information as follow:&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;tftpd : 192.168.1.0/255.255.255.0
+telnetd : 10.2.4.
+httpd : ALL EXCEPT 172.16.
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;I the first line we specified the all class C of 192.168.1.0 network, we also allow all telnetd from 10.2.4. which actually class B also, and we specify httpd connection from all hosts except 172.16.0.0.&lt;/p&gt;
 
 &lt;p&gt;If we suspect that we had some issue regarding to our network drive and have no IP address or some missing setting on our local machine, we can run &lt;strong&gt;dmesg&lt;/strong&gt; tool to find some logs that was created during the bootup, as example in my case let’s say that I suspect that I have some issue related to my wifi card, so I can grep our all of the logs that have the wlp2s0 string which is my wifi interface.&lt;/p&gt;
 

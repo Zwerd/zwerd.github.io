@@ -211,7 +211,7 @@ st: Time stolen from a virtual machine. Prior to Linux 2.6.11, unknown.<br>
 
 ### free
 
-In that command you can more easily understand your free memory that using mvstate in my opinion, because it allow you to view that memory by using megabyte instead of kilobyte that requires you to calculate these values.
+In that command you can more easily understand your free memory that using mvstat in my opinion, because it allow you to view that memory by using megabyte instead of kilobyte that requires you to calculate these values.
 
 ```
 free -m
@@ -231,12 +231,12 @@ You can also use the **-h** option which stand for human, it can help you more c
 ![OSCP Post](/assets/images/lpic2/freeh.png)
 **Figure 15** free memory in GB.
 
-You can also use count which can help display the output several times like in  the vmstate, but we haven't delay option, the delay will be 1 second.
+You can also use count which can help display the output several times like in  the vmstat, but we haven't delay option, the delay will be 1 second.
 
 ![OSCP Post](/assets/images/lpic2/freecount.png)
 **Figure 16** free 3 times count.
 
-The swap memory shouldn't been used, because as we saw earlier that memory should be available only for case we have no memory to use in our system. In my case the SWAP are use more then 300MB, which is note so good, because as I said that need to be normally in value of 0. In Ubuntu the default value of the swap that can being used although we have free space in the memory is 60% of the swap in total, we can view our swap value in by using the command `cat /proc/sys/vm/swappiness`, in order to change that value we can use the following command:
+The swap memory shouldn't been used, because as we saw earlier that memory should be available only for case we have no memory to use in our system. In my case the SWAP are use more then 300MB, which is not so good, because as I said that need to be normally in value of 0. In Ubuntu the default value of the swap that can being used although we have free space in the memory is 60% of the swap in total, we can view our swap value in by using the command `cat /proc/sys/vm/swappiness`, in order to change that value we can use the following command:
 
 ```
 sudo sysctl vm.swappiness=10
@@ -270,7 +270,7 @@ By running the iostat we can find information about our i/o on our system.
 ![OSCP Post](/assets/images/lpic2/iostat.png)
 **Figure 18** Output of iostat.
 
-The ouput contain the linux kernel version, which is Linux 4.15.0-66-generic and my PC name which is zwerd. you can also see the date (although for just date we use date command). we also can see the type of our operation system which is 64 bit in my case, and that I have 4 CPU available. avr-cpu display the CPU for every of the following
+The ouput contain the linux kernel version, which is Linux 4.15.0-66-generic and my PC name which is zwerd. You can also see the date (although for just date we use date command). we also can see the type of our operation system which is 64 bit in my case, and that I have 4 CPU available. avr-cpu display the CPU for every of the following
 
 **%user** - The CPU that used at the user or application level.
 
@@ -334,7 +334,7 @@ ENABLED="true"
 You can run the command `sar -r 1 5`, the **-r** option stand for report memory utilization statistics, on the output you can find the KBCOMMIT and %COMMIT which are the overall memory used including RAM.
 
 
-![OSCP Post](/assets/images/lpic2/sar.png)
+![OSCP Post](/assets/images/lpic2/sar-r.png)
 **Figure 24** sar memory used.
 
 You can also run `sar -S` which will give us information about the SWAP free and used memory.
@@ -348,7 +348,7 @@ If we found that we have some issue on the hard disk because let's say we found 
 ![OSCP Post](/assets/images/lpic2/iotopstress.png)
 **Figure 25** iotop example.
 
-In my case you can see that he tell us that the most utilizes program in the IO of our hard disk is stress, you also can see that he specify the hdd by side of that, which tell us what option has being used in stress command.
+In my case you can see that it tell us that the most utilizes program in the IO of my hard disk is stress, you also can see that it specify the hdd by side of that, which tell us what option has being used in stress command.
 
 In the iotop you can also see the swapin value, and in my case as you saw earlier, my swap are really utilizes by some program, so I checked it out and find what is the program that used my swap.
 
@@ -357,7 +357,7 @@ In the iotop you can also see the swapin value, and in my case as you saw earlie
 
 ### lsof
 
-This command list open files on your system, which mean you will see all files that are use under you username, so if you run that command it is not very useful, but I tell you what, if you feel like you have some memory issue of hard disk working hard and you check and find what program are running, you can run `lsof` and grep the program you suspect that make you the issue, and then you can see exactly what files are open with that related to this program.
+This command list open files on your system, which mean you will see all files that are use under your username, so if you run that command it is not very useful, but I tell you what, if you feel like you have some memory issue of hard disk working hard and you check and find what program are running, you can run `lsof` and grep the program you suspect that make you the issue, and then you can see exactly what files are open with that related to this program.
 
 
 ![OSCP Post](/assets/images/lpic2/lsof.png)
@@ -431,7 +431,7 @@ You can also use `netstat -tuna`, the **-t** stand for TCP connection only while
 ![OSCP Post](/assets/images/lpic2/netstat-tuna.png)
 **Figure 34** Statistics by using netstat.
 
-The command I love to use is `netstat -aenp` that can show you the program who use the connection and their process ID number which can be handy to find some process that use the connection and stop it by that ID number.
+The command I love to use is `netstat -nepa` that can show you the program who use the connection and their process ID number which can be handy to find some process that use the connection and stop it by that ID number.
 
 ![OSCP Post](/assets/images/lpic2/netstat-aenp.png)
 **Figure 35** Process ID of networking connection.
@@ -472,7 +472,7 @@ Another handy tool you can use is `nload`, this tool are monitor your bandwidth 
 ![OSCP Post](/assets/images/lpic2/nload.gif)
 **Figure 37** Using nload and iftop to see the download traffic.
 
-The graph load up and on the iftop we can see the address that have a connection to my computer which from him I download that iso file.
+The graph load up and on the iftop we can see the address that have a connection to my computer which I download the iso file from it.
 
 You can also use `iptraf` or `iptraf-ng` these tools allow you to see the connectiviry of TCP connection that came to your computer.
 
@@ -481,11 +481,11 @@ You can also use `iptraf` or `iptraf-ng` these tools allow you to see the connec
 
 ### Network Monitoring
 
-Let's say you work at the IT position on some organization and you got some call from the support team that tell you they have some client that his computer work slowly in every action over the network or internet, in that case you will need to check and troubleshoot that issue, you need to find out if the slowness appear when the client work on the internet or on his local network, to do so we have many tools that can help us in these cases.
+Let's say you work at the IT position on some organization and you got some call from the support team that tell you they have some client that his computer work slowly in every action over the network or internet, in that case you will need to check and troubleshoot that issue, you need to find out if the slowness appear when the client side over the internet or on his local network, to do so we have many tools that can help us in these cases.
 
-One of that tools are the `iperf`, this command can check the bandwidth between two point over the network, this is mean that we can use it to check if the local network have the slowness issue of not, the other tool you can use is **speed test**, you can find one on online website that can check the bandwidth between you and the internet, in that case you will be able to see if the slowness are appear over the internet.
+One of that tools are the `iperf`, this command can check the bandwidth between two point over the network, this is mean that we can use it to check if the local network have the slowness issue or not, the other tool you can use is **speed test**, you can find one on online website that can check the bandwidth between you and the internet, in that case you will be able to see if the slowness are appear over the internet.
 
- Let's start with speed test that I found *speedtest.net*, you just need to click the button and this site will give you the details.
+ Let's start with speed test that I found [speedtest.net](speedtest.net), you just need to click the button and this site will give you the details.
 
  ![OSCP Post](/assets/images/lpic2/speedtest.png)
  **Figure 39** Speed Test.
@@ -579,16 +579,20 @@ First of all let's check our version number, we can done that by using the `unam
 ![LPIC2 Post](/assets/images/lpic2/uname-a.png)
 **Figure 47** My linux kernel core.
 
-The first number is the version number, in my case it is kernel version 4, the next number is the major revision which in my case is 15 and the third number is the minor revision number, the fourth number is the patch level. In the past, in the version of the kernel was a general rule in the number version, in the second number every odd number was as developed version, and the even number was as stable version, as example the 1.5.2 kernel was under development and version 1.6.2 was known as stable kernel version, when the kernel version 2.6.x came along it stay for long time without numerate the number except the last one number, because version 2.6.was awesome and fourth number for the patch number, one more thing that you need to know is that after they release the version 2.6, they get ride of the odd/even number and every new release is stable and not under development, every stable version will develop and update on a new version.
+The first number is the version number, in my case it is kernel version 4, the next number is the major revision which in my case is 15 and the third number is the minor revision number, the fourth number is the patch level.
 
-When the version of that kernel raise up and was 2.6.39.4 than Linus Torvalds decided update the enumerating to be more like the old one, which is the first number will be major release, the second will be minor release and the third will be the minor revision which is stable or patch to update abilities on the kernel. You may somtime see like a fourth number which play as a patch, in my case of **72-generic** this is the Ubuntu specific patch they done.
+In the past, in the version of the kernel was a general rule in the number version, in the second number every odd number was as developed version, and the even number was as stable version, as example the 1.5.2 kernel was under development and version 1.6.2 was known as stable kernel version, when the kernel version 2.6.x came along it stay for long time without numerate the number except the last one number, because version 2.6.x was so awesome! so the third number and even the fourth number which stand for the patch number was the only numbers that numerate long the way.
+
+ One more thing that you need to know is that after they release the version 2.6, they get ride of the odd/even number and every new release is stable and not under development, every stable version will develop and update on a new version.
+
+When the version of that kernel raise up and was 2.6.39.4 than Linus Torvalds decided update the enumerating to be more like the old one, which is the first number will be **major release**, the second will be **minor release** and the third will be the **minor revision** which is **stable** or patch to update abilities on the kernel. You may sometime see like a fourth number which play as a patch, in my case of **72-generic** this is the Ubuntu specific patch they done.
 
 You can find the versions of kernels that you have in your Linux machine under the /lib/modules folder and in each one we can found every modules that are run on our system.
 
 ![LPIC2 Post](/assets/images/lpic2/kernels.png)
 **Figure 48** My kernels.
 
-We can go to the kernel archive and found there the kernel that are stable and under operation release use. the meaning of longterm is that this kernel version will be available for long time because one of the operation system like ubuntu or centOS or red hat and such may maintain and using this kernel version, this is why you may be seeing some old kernel version in that site.
+We can go to the kernel archive and found there the kernel that are stable and under operation release use. The meaning of **longterm** is that this kernel version will be available for long time because one of the operation system like Ubuntu or centOS or Red Hat may maintain and using this kernel version, this is why you may be seeing some old kernel version in that site.
 
 ![LPIC2 Post](/assets/images/lpic2/linuxkernels.png)
 **Figure 49** Kernels archive.
@@ -605,10 +609,10 @@ In the net folder we will find every module that related to the network card and
 
 As you can see the modules that are enable print out on my screen with `lsmod`, you can see the module name and it's size, you can also see what modules are depends on which of the modules as example the **vboxdrv** module is the module that responsible for the vbox on my PC I guess, and there is three modules that relay and depend on that one which are vboxpci, vboxnetadp and vboxnetflt.
 
-You can remove module by using `rmmod` you just need to know what is the module name, as example, let's say that we want the floppy out, so we can grep it in `lsmod`.
+You can remove module by using `rmmod` you just need to know what is the module name, as example, let's say that we want the floppy out, so we can grep it by using `lsmod`.
 
 ![LPIC2 Post](/assets/images/lpic2/lsmodgrep.png)
-**Figure 52** find out the floppy by `lsmod`.
+**Figure 52** Find out the floppy by `lsmod`.
 
 Now, in order to pop it out we need to use `rmmod` with the name of that module.
 
@@ -618,7 +622,7 @@ Now, in order to pop it out we need to use `rmmod` with the name of that module.
 If we want the module back in, we need to use `insmod`, but for insert back from the dead some lost module we need to let him know the exact path for it. we can use `find` for finding that module.
 
 ![LPIC2 Post](/assets/images/lpic2/grepfloppy.png)
-**Figure 54** finding the path for floppy module.
+**Figure 54** Finding the path for floppy module.
 
 We now can use this path to insert that module back in. You can see that now I can find that floppy module in the active module list of `lsmod`
 
@@ -670,7 +674,7 @@ This command will change the vfs_cache_pressure to value of 80, but please note 
 
 You may ask how the linux kernel knows when some device pluge in and lunch his appropriate module, this is done by the **udev**, this udev responsible for such a thing so he know to load up the usb module when some USB device pluge in.
 
-You can see what going on your commputer by using some command that related to udev, such as `lsusb` which can show us the devices related to usb,`lspci` that responsible for CPI bridge or the `dmesg` that show us all the log we have from the system like in the boot which we can see on the boot the logs that our system run while bring the OS up.
+You can see what going on your commputer by using some command that related to udev, such as `lsusb` which can show us the devices related to usb,`lspci` that responsible for PCI bridge or the `dmesg` that show us all the log we have from the system like in the boot which we can see on the boot the logs that our system run while bring the OS up.
 
 We also have the `udevadm monitor` which can bring to the screen logs from the system in real time, you can see on the next gif how it work, I plug in my sundisk device and the **udev** found it and load it's logs to my screen, he also showed us the remove log when I remove my device from that computer
 
@@ -682,13 +686,15 @@ You also need to know that there is a blacklist of modules because let's say tha
 ![LPIC2 Post](/assets/images/lpic2/blacklist.png)
  **Figure 61** blacklist.conf file.
 
-In my case you can see that in the blacklist I have the eepro100 module which mean that if Ethernet card plug in, do not use that old driver, so that is the purpose of that blacklist.
+In my case you can see that in the blacklist I have the eepro100 module which mean that if Ethernet card plug in, do not use that old driver, so that is the purpose of that blacklist, you can find that file in the following path: */boot/etc/modprobe.d/blacklist.conf*.
+
+**Please note**: if you need to find some file that you don't know what is path you can always run `find / | grep <string>` which the string stand for what you search.
 
 Now let's say that we want to compile our own kernel so that our kernel will be the latest kernel that can be found in the [linux kernel archive](https://www.kernel.org/).
 
 In the reality, if you asking why you ever customize you own kernel, it can be because you have some old linux system that used for just one purpose like FTP server or somthing like that, in that case you may want to compile kernel without any modules that you know you probably won't be in use.
 
-So first of all, I will display here the compilation and install of new kernel on my kali linux which is virtual machine that I use a lot, you can read more about that in my other PWK post. My current kernel version are 5.2.0 and I am going to compile kernel 5.4.3 which is that latest version in the kernel archive at this writing time.
+So first of all, I will display here the compilation process and installation of new kernel on my kali linux which is virtual machine that I use a lot, you can read more about that in my other PWK post. My current kernel version are 5.2.0 and I am going to compile kernel 5.4.3 which is that latest version in the kernel archive at this writing time.
 
 We need to use the */usr/src/* directory as our kernel, so after we download the source code and decompress it we need to create kernel folder or at least make symbol link to the kernel folder named kernel. After we download the kernel file from the kernel archive we can extract it by using the `tar` command.
 
@@ -701,10 +707,10 @@ tar -Jxvf <path to the compress file>
 
  Than I run the following command in order to make the symbolic link to kernel folder.
 ```
- ln -s /linux-5.4.3 linux
+ ln -s ./linux-5.4.3 linux
 ```
 
-Please note that on the linux folder that we created we have the document for every module that can be use under our system.
+Please note that on the Linux folder that we created we have the document for every module that can be use under our system.
 
 For compiling the kernel we need tools that can help us to do so, in my case I need **build-essential** which is the Informational list of build-essential packages.
 ```
@@ -724,12 +730,9 @@ The first thing we going to do is the `make mrpreper` command which going to rem
 
 After that we going to configure the kernel, to do so we can use `make xconfig`, this will bring up configuration window in GUI mode that you can setup what you need in your kernel by using you mouse and mark the setting you want.
 
-![LPIC2 Post](/assets/images/lpic2/tar.png)
- **Figure 62** tar the kernel file.
+I my Kali Linux I had a lot of issue that related to some pkg that was needed, if you have such an error, the log of that error will tell you what pkg is missing and all you have to do is apt get install that pkg.
 
-I my Kali linux I hade a lot of issue that related to some pkg that was needed, if you have such an error, the log of that error will tell you what pkg is missing and all you have to do is apt get install that pkg.
-
-In my case I mange to run xconfig which bring me the configuration menu in GUI mode up to the scree,
+In my case I mange to run xconfig which bring me the configuration menu in GUI mode up to the screen,
 
 ![LPIC2 Post](/assets/images/lpic2/xconfig.png)
 **Figure 63** GUI for configuration menu.
@@ -799,9 +802,9 @@ As you can see the type of this file is an archive and it's **cpio** file which 
 
 The option **-i** stand for extract files from an archive and the **-d** create leading directories where needed, the **-m** retain previous file modification times when creating files and **-v** used for verbose.
 
-In our case we can see the folder that `cpio` extract to and this can give us a clue about the init file, but if you notice, at the end of the output was print out 56 blocks, and every block is 512 bytes so we viw write now in the first 33280 bytes of this file, but as you saw before, this file contain 54M which are more bigger then 33K we saw, so were is the rest of that file?
+In our case we can see the folder that `cpio` extract to and this can give us a clue about the init file, but if you notice, at the end of the output was print out 56 blocks, and every block is 512 bytes so we view right now in the first 33280 bytes of this file, but as you saw before, this file contain 54M which are more bigger then 33K we saw, so were is the rest of that file?
 
-This situation lets us know that not all the file was open by the cpio, and the rest of that can be something else or new cpio file because in the cpio there is an header that he knows the start and finish of file, so we need the rest of the file, to achieve that goal we can use `dd` to take fixed size for that file and output it to use file.
+This situation let's us know that not all the file was open by the cpio, and the rest of that can be something else or new cpio file because in the cpio there is an header that he knows the start and finish of file, so we need the rest of the file, to achieve that goal we can use `dd` to take fixed size for that file and output it to use file.
 
 ```
 dd if=initrd.img-4.15.0-70-generic of=initrd.img-4.15.0-70-generic_OUT bs=512 skip=56
@@ -812,7 +815,7 @@ In this command I specified the input file which is the **initrd.img-4.15.0-70-g
 ![LPIC2 Post](/assets/images/lpic2/dd.png)
 **Figure 71** Create new file using dd.
 
-What we need now is to use file again to see what is the type of our new file we have.
+What we need now is to use `file` again to see what is the type of our new file we have.
 
 ![LPIC2 Post](/assets/images/lpic2/outfile.png)
 **Figure 72** The second file.
@@ -822,7 +825,7 @@ So this also cpio file, I used cpio to extract that file and found other files t
 ![LPIC2 Post](/assets/images/lpic2/secondfile.png)
 **Figure 73** Extract again using cpio.
 
-Now we need to repeat the process again with dd and after that using `file` command. You can see that we found gzip file so now we need to use gzip to see the contect of that file, in the gzip case the file must contain extension of gzip else we will get some error, so I use mv to change the extension and that use the `gzip` command.
+Now we need to repeat the process again with `dd` and after that using `file` command. You can see that we found gzip file so now we need to use gzip to see the contect of that file, in the gzip case the file must contain extension of gzip else we will get some error, so I use mv to change the extension and that use the `gzip` command.
 
 ```
 gzip -dlv initrd.img-4.15.0-72-generic_OUT2.gz
@@ -840,6 +843,7 @@ To see if this is the end of our search of initrd we can can use `dd` and if he 
 
 **Please nore**: the kernel configuration parameters can be found on the config file, this file is also on the boot folder, so as you may remeber you can change some parameter by `make menuconfig` but if you remember later on about some setting that you need you can add it in that file before install the kernel. Also remember that the config name is usual as follow `config-<kernel version>`.
 
+So far we saw that on GRUB we have two files, the kernel file and the init file, after we done all the compiling stuff we can find the kernel and it's documentation under the `/usr/src/linux`/`/usr/src/linux/documentation`, we also can find there the drives that going to be in used on our system and the configurations files that related to this linux kernel.
 
 ### Challenge
 
@@ -859,7 +863,7 @@ By running this file we run all of the script that exist in that folder, like **
 ![LPIC2 Post](/assets/images/lpic2/scripts.png)
 **Figure 76** our scripts.
 
-while running that script, on my terminal I saw what he did which going to create new file and setup the **.config** file and make it and create initramfs which going to be use under the iso file which I am going to have after that script will done it magic, and this take long time to cook, but on the second script **02_build_kernel.sh** you can see that we use mrproper to clear the local config file and after that we going to create new config file base on the kernel.config file.
+while running that script, on my terminal I saw what it did which going to create new file and setup the **.config** file and make it and create initramfs which going to be use under the iso file which I am going to have after that script will done it magic, and this take long time to cook, but on the second script **02_build_kernel.sh** you can see that we use mrproper to clear the local config file and after that we going to create new config file base on the kernel.config file.
 
 ![LPIC2 Post](/assets/images/lpic2/makeconfig.png)
 **Figure 77** make config file.
@@ -997,7 +1001,7 @@ Systemd can used to define the system state, we have extensions named **.target*
 ![LPIC2 Post](/assets/images/lpic2/systemduser.png)
 **Figure 91** systemd user command.
 
-Of figure 90 you can see that some services are enable and some of them are disable, the services that are on static state means that they have some service that they depend of, so if you want to kill that service it's can't be done until we will stop the depended service.
+On figure 90 you can see that some services are enable and some of them are disable, the services that are on static state means that they have some service that they depend on, so if you want to kill that service it's can't be done until we will stop the depended service.
 
 So we saw that the services are lived in `/usr/lib/systemd` and also in `/etc/systemd/system`, if we take a look on one of them we will see some lines that systemd use them to know how to start or kill service.
 
@@ -1022,7 +1026,7 @@ You must also be familiar with the different between those two, GRUB legacy is t
 ![LPIC2 Post](/assets/images/lpic2/GRUB1.png)
 **Figure 94** GRUB 1 which is the GRUB legacy.
 
-You can see that in my case the GRUB menu doest contain any other option except centOS 6, I want to show you how this is done, so for that case I download Ubuntu 9 which contain GRUB legacy, I also will install Windows XP on my virtual machine and I will create two partition which one of them will contain the Linux and the other will be Windows, please note that windows contain some different boot loader but this is beyond the scope of our LPIC2 exam.
+You can see that in my case the GRUB menu doesn't contain any other option except centOS 6, I want to show you how this is done, so for that case I download Ubuntu 9 which contain GRUB legacy, I also will install Windows XP on my virtual machine and I will create two partition which one of them will contain the Linux and the other will be Windows, please note that windows contain some different boot loader but this is beyond the scope of our LPIC2 exam.
 
 If you want to do this exercies on you virtual machine you can download Ubuntu 9 from the following URL:
 http://old-releases.ubuntu.com/releases/9.04/ubuntu-9.04-desktop-i386.iso
@@ -1071,19 +1075,19 @@ After I choose that option it resize the partition size for me, now al I have to
 
 After it finish it restart and bring up the GRUB menu, however it's doesn't show me what is the version which normally on the upper bar menu.
 
-![LPIC2 Post](/assets/images/lpic2/GRUBmenu.png)
+![LPIC2 Post](/assets/images/lpic2/grubmenu.png)
 **Figure 101** GRUB menu.
 
 I boot up my Ubuntu 9 to view the GRUB menu, to check the version just run the `GRUB-install --version`, this command will print the current version of our GRUB.
 
-![LPIC2 Post](/assets/images/lpic2/myGRUBversion.png)
+![LPIC2 Post](/assets/images/lpic2/mygrubversion.png)
 **Figure 102** GRUB version.
 
 in the case of GRUB legacy we have two file that are important, the first is **menu.lst** which is pointer file to GRUB.conf,  the second is GRUB.conf which contain the configuration file for the GRUB menu. In Ubuntu 9 we only have menu.lst which we can change if we want to change the GRUB menu.
 
 In the `menu.lst` file there is many option that comment out, the most importance thing is can be found on the end of that file, the `kernel` option and `initrd`.
 
-![LPIC2 Post](/assets/images/lpic2/GRUBoptions.png)
+![LPIC2 Post](/assets/images/lpic2/gruboptions.png)
 **Figure 103** GRUB options in menu.lst.
 
 Please remember that if you have some issue with GRUB and after boot you find yourself in `GRUB>` command line, you can type `help` which will reveal the command that can be use, but you can also setup the kernel path for the kernel file and the initrd as the same you saw in the **menu.lst** file.
@@ -1108,7 +1112,7 @@ Please remember that like in GRUB legacy you must specified the root partition w
 
 You can also practices on the GRUB menu without to mack changes on your actual system, juest when the GRUB menu reveal it self, press `c` for command line or `e` for edit the chosen line in the menu.
 
-![LPIC2 Post](/assets/images/lpic2/GRUB1.png)
+![LPIC2 Post](/assets/images/lpic2/grub1.png)
 **Figure 106** GRUB 1 command line.
 
 After you finish up the settings just type boot and it's will boot up the system with your config, if you set it correctly it will bring up your system, if not it will bring the GRUB menu again and it is the same in the case of GRUB1 and GRUB2.
@@ -1177,12 +1181,12 @@ I checked if I have some OS that contain GRUB2, I found that I have virtual mach
 
 You can see that I comment out the **GRUB_DEFAULT** and **GRUB_TIMEOUT_STYLE**, and change the **GRUB_TIMEOUT** to value 10 instead of 0.
 
-![LPIC2 Post](/assets/images/lpic2/GRUB2.png)
+![LPIC2 Post](/assets/images/lpic2/grub2.png)
 **Figure 113** GRUB2 file.
 
 Now all I need to do is run update-GRUB, and I may need to run it with sudo, now if I reboot the system it will bring me the GRUB menu.
 
-![LPIC2 Post](/assets/images/lpic2/GRUB2menu.png)
+![LPIC2 Post](/assets/images/lpic2/grub2menu.png)
 **Figure 113** GRUB2 menu.
 
 Now we need to make the same issue we have done on Ubuntu 9, for that I am using systemctl which can help me to setup the default runlevel.
@@ -1192,12 +1196,12 @@ Now we need to make the same issue we have done on Ubuntu 9, for that I am using
 
 Now if I trying to restart the system it will be boot again in loop which is exactly what we needed.
 
-![LPIC2 Post](/assets/images/lpic2/GRUB2.gif)
+![LPIC2 Post](/assets/images/lpic2/grub2.gif)
 **Figure 115** GRUB 2 on Ubuntu 18 in loop mode.
 
 To solve it we need to get in the kernel line in the GRUB and change it. I found the `quiet splash` and remove it, I write 5 for runlevel 5 and press **F10** for reboot and sure enough it boot up the OS GUI.
 
-![LPIC2 Post](/assets/images/lpic2/GRUB2runlevel.png)
+![LPIC2 Post](/assets/images/lpic2/grub2runlevel.png)
 **Figure 116** add runlevel5 in GRUB2.
 
 Now all I have to do is to type `systemctl set-default runlevel5.target` and that it, if I try to reboot the system it will reboot without any problem like we had before.
@@ -1355,9 +1359,9 @@ The **-b** option stend for block size, the **-s** stand for superblock which in
 
 You can also run **debugfs** without parameters and you be able to debug the disk, in my case I just want to show you how can you check a specific superblock in the disk.
 
-So far we talk about ext2, ext3 and ext4, we have more filesystem type like **btrfs** which is what I want to display now, this **btrfs** have more features then we have in ext4, like support in more large file zise like 16 EiB on disk, which is 2^64 byte which is realy big, it also support RAID functionality, and snapshotting and more feature then we saw so far.
+So far we talk about ext2, ext3 and ext4, we have more filesystem type like **btrfs** which is what I want to display now, this **btrfs** have more features then we have in ext4, like support in more large file zise like 16 EiB on disk, which is 2^64 byte which is really big, it also support RAID functionality, and snapshotting and more feature then we saw so far.
 
-First of all let's talk about the RAID functionality, we will view on the RAID in the next chapter also but the basic of it is that this RAID can help to do some backup or more likely to distribute the data on the drives which can be handy if one or more of the data is corrupted, because if on disk went done, you still have data that you can use on another disk, we will talk about that later on, but right know you need to know that **btrfs** support in RAID in such of thing that we can adding more disk to the system which we have RAID on it, I mean more devices can be added after the filesystem (which is btrfs) was created.
+First of all let's talk about the RAID functionality, we will view on the RAID in the next chapter also but the basic of it is that this RAID can help to do some backup or more likely to distribute the data on the drives which can be handy if one or more of the data is corrupted, because if one disk went done, you still have data that you can use on another disk, we will talk about that later on, but right know you need to know that **btrfs** support in RAID in such of thing that we can adding more disk to the system which we have RAID on it, I mean more devices can be added after the filesystem (which is btrfs) was created.
 
 To make **btrfs** filesystem we can use the **mkfs.btrfs** command and we can run that command on multiple devices like as follow:
 
@@ -1372,7 +1376,7 @@ At first we mount our **btrfs** to mount point which is in my case */mnt/btrfs*.
 mount -t btrfs /dev/sdb1 /mnt/btrfs
 ```
 
-Now we need to create something that called **subvalume**, which we can use that for snapshotting as we proceed foreword.
+Now we need to create somewhat that called **subvalume**, which we can use for snapshotting as we proceed foreword.
 
 ```
 btrfs subvalume create root

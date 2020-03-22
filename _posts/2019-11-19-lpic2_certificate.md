@@ -501,7 +501,7 @@ On the LPI site under 200.2 object you can found that they want the student will
 
 **Please note**: after all we see here I want to specify something that I solve on many situation I had in the companies I worked for. Let's say that you have some web server that have some content of data for many users, so far you after you read all of that chapter you have the knowledge to use Linux tool for checking the performance, memory used, network bandwidth and etc. If for some reason you see that the RAM used was increase every months and in percentage that grow up, in that case you may consider to upgrade the hardware for that server like adding more RAM memory or install more web application server and distribute the load between them, so in such case we will check carefully what is going on our server in the hardware used, we can monitor that and track down the performance with the tools I specify above.
 
-### Challenge
+### Challenge 200-1
 
 1. create some large file that contain more that 100MB.
 2. Transfer that file from other computer in your lab by using `nc` command.
@@ -868,17 +868,15 @@ To see if this is the end of our search of initrd we can can use `dd` and if he 
 
 So far we saw that on GRUB we have two files, the kernel file and the init file, after we done all the compiling stuff we can find the kernel and it's documentation under the `/usr/src/linux`/`/usr/src/linux/documentation`, we also can find there the drives that going to be in used on our system and the configurations files that related to this linux kernel.
 
+For making initrd file we can use `mkinitrd` command (on RedHet and CentOS distro), if you use Ubuntu you will need to use `update-initramfs` or `mkinitramfs` commands, those command will create initrd file which we can move to our boot folder and update the GRUB to use it, so in case you find the initrd dummege or it accidentally deleted, you can use those command and create your new initrd file for booting the system normally.
 
-
-### Challenge
+### Challenge 201-1
 
 1. Create your minimal linux kernel and archive it as iso file (you can use the minimal linux live project).
 2. Run the file on virtual machine and check if it working correctly.
 3. check if you have network activity, if you haven't, try to solved it and check connectivity on your local lab.
 
 To solve this issue I will go with you step by step how to make new minimal linux kernel, I am going to use the minimal linux live project that was written by davidov.i@gmail.com, you can find the minimal linux document at the following URL:[Minimal Linux Tutorial](http://minimal.linux-bg.org/the_dao_of_minimal_linux_live.txt).
-
-For making initrd file we can use `mkinitrd` command (on RedHet and CentOS distro), if you use Ubuntu you will need to use `update-initramfs` or `mkinitramfs` commands, those command will create initrd file which we can move to our boot folder and update the GRUB to use it, so in case you find the initrd dummege or it accidentally deleted, you can use those command and create your new initrd file for booting the system normally.
 
 ### 1. Create minimal linux kernel.
 
@@ -931,6 +929,103 @@ I just run ping to 8.8.8.8 with is google dns server and I saw reply from this s
 
 So we finish our challenge, so we can proceed foreword to the next chapter.
 
+### Challenge 201-2
+
+This time we going to do something that can help us in real world scenario. It's not something that can happen on a daily basis, but it seems to be a good exercise.
+
+1. Setup CentOS on virtual machine and after full installation on your virtual hard disk verified the initrd file.
+2. Go to the GRUB file and remove the initrd line.
+3. Remove the initrd file and reboot the system.
+4. After you found out that the system can not start, find the way to soled it
+
+
+### 1. setup CentOS on VM and verified the `initrd` file
+
+So, I download the file from CentOS site, I chose the CentOS 6 for that exercise but you can do the same on more advance system.
+
+In the first step I make new virtual machine and load it up with the ISO file of the CentOS. After it cam up I start the installation and wait for it to finish. After that I restart the system and load it up from the virtual hard disk and checking the system, I found the initrd on the boot folder.
+
+![LPIC2 Post](/assets/images/lpic2/centos.png)
+**Figure 81-0** CentOS system.
+
+
+### 2. Remove the initrd line from GRUB
+
+You can see the I have folder named `grub` which is contain the GRUB configuration on my local system, I need to change it and remove the the line that contain the initrd, this line is used to load up some minimal modules to load the hard disk.
+
+![LPIC2 Post](/assets/images/lpic2/grubfilemenu.png)
+**Figure 81-1** GRUB file menu.
+
+I remove the line by using `vim`, you can also use nano if vim is difficult for you but remember that knowing to use every tool in Linux will help you as you proceed foreword.
+
+### 3. Remove the initrd file
+
+Now I need to remove the `initrd` file from my boot folder, so I use the `rm -rf`, but before that I verified the file on the boot folder to see that is exist.
+
+![LPIC2 Post](/assets/images/lpic2/rm-initrd.png)
+**Figure 81-2** Remove initrd file.
+
+### 4. Reboot the system and fix the issue
+
+Now this is time to reboot the system to see if it can boot up normally. In my case it stack on black screen without any way to stop the start process, so I power off the system.
+
+![LPIC2 Post](/assets/images/lpic2/restartcentos.gif)
+**Figure 81-3** My system stack.
+
+So let's say that your frind can boot up the system and he knows that you are an expert in everything that related to Linux so he ask for help, in that case we can see the line that said:
+```
+kernel panic ... can't mount root fs ...
+```
+In that case we know that the kernel tried to load up the root filesystem and he tried to do so with the initrd, so it we get that error it may because he cannot find the initrd file.
+
+To solve that I boot up the system by using external device like bootable usb or optical disk and bring the system up for making change in the boot folder for that system.
+
+![LPIC2 Post](/assets/images/lpic2/mountcentos.gif)
+**Figure 81-4** Mount command after boot from bootable device.
+
+You can see the I have not any `/dev/sda` storage in that system becouse I boot it up from optical disk, now I need to find the hard disk and mount it to my system.
+
+![LPIC2 Post](/assets/images/lpic2/harddiskcentos.png)
+**Figure 81-5** My local hard disk using fdisk.
+
+Now after I know what is my hard drive I need to create mount point, which is in my case going to be `/mnt/centos/` folder and I create that folder by using `mkdir`, after that I need to use mount for mounting the hard drive to that point.
+
+![LPIC2 Post](/assets/images/lpic2/mountpointcentos.png)
+**Figure 81-6** My mount point.
+
+You can see that I had to run it with root privilege for making the mount point and mount that drive, now I need to see what I have on that folder.
+
+![LPIC2 Post](/assets/images/lpic2/centosboot.png)
+**Figure 81-7** My centos boot folder.
+
+So I need to create new initrd file, I can do so with the `mkinitrd` command, in my case I want to specified the kernel version and I know that my bootable optical disk is in the same version so I use the `uname -r` which bring me the version of the system and create the file with that system code number.
+
+```
+mkinitrd -v ./initrd-`uname -r`.img `uname -r`
+```
+
+You can see that the image was successfully created.
+
+![LPIC2 Post](/assets/images/lpic2/initrdimage.png)
+**Figure 81-8** My initrd image.
+
+Now I need to update the grub file, on my system I use GRUB1 so I have not any automatic way to update the grub, I need to do so manually.
+
+![LPIC2 Post](/assets/images/lpic2/grub1oncentos.png)
+**Figure 81-9** My GRUB version.
+
+So I use `vim` to edit the GRUB file and I add the initrd line which contain the path to that file.
+
+```
+initrd /boot/initrd-2.6.32-754.el6.x86_64.img
+```
+
+After that I reboot the system to check if it working write.
+
+![LPIC2 Post](/assets/images/lpic2/bootit.png)
+**Figure 81-10** Boot the CentOS.
+
+
 ## Chapter 2
 ## Topic 202: System Startup
 
@@ -941,12 +1036,12 @@ We can setup also runlevel as we want, as example we can enable create runlevel 
 If we talk about systems like Red Hat systems in my case centOS you can run **runlevel**, this command will show us the runlevel that our system run for, in my case it was **N 5**.
 
 ![LPIC2 Post](/assets/images/lpic2/runlevel.png)
-**Figure 81** My runlevel on centOS.
+**Figure 82-1** My runlevel on centOS.
 
 The **5** means that we working now with runlevel 5, the **N** means that the previous runlevel was none, if we change the run level for 3, the numbers will be **5 3**. To change the runlevel on the running machine we can use the **telinit**.
 
 ![LPIC2 Post](/assets/images/lpic2/runlevel3.png)
-**Figure 82** init 3 on centOS.
+**Figure 82-2** init 3 on centOS.
 
 You can see that I on the command line level, so in that case I can change it again to  level 5 and it will bring up the GUI environment again, you can see now that if I run runlevel command I can see that the last runlevel was 3, and now it set on level 5.
 

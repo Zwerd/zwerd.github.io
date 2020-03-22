@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.5">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2020-03-02T15:56:10+02:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Zwerd</title><subtitle>A stunning blog of freaking PT warrior</subtitle><author><name>Guy Zwerdling</name></author><entry><title type="html">My Journey for LPIC2 Certification - Exam 201-450</title><link href="http://localhost:4000/2019/11/19/lpic2_certificate.html" rel="alternate" type="text/html" title="My Journey for LPIC2 Certification - Exam 201-450" /><published>2019-11-19T00:00:00+02:00</published><updated>2019-11-19T00:00:00+02:00</updated><id>http://localhost:4000/2019/11/19/lpic2_certificate</id><content type="html" xml:base="http://localhost:4000/2019/11/19/lpic2_certificate.html">&lt;p&gt;Today morning I received a message from LPI that my certificate will expire in 9 months and so it is time to start studying for the second Linux certification, this will advance me to the third Linux information security certification that I will search for, this certification is divided into two and the two parts are marked by two different codes: 201-450, 202-450&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.5">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2020-03-22T22:11:24+02:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Zwerd</title><subtitle>A stunning blog of freaking PT warrior</subtitle><author><name>Guy Zwerdling</name></author><entry><title type="html">My Journey for LPIC2 Certification - Exam 201-450</title><link href="http://localhost:4000/2019/11/19/lpic2_certificate.html" rel="alternate" type="text/html" title="My Journey for LPIC2 Certification - Exam 201-450" /><published>2019-11-19T00:00:00+02:00</published><updated>2019-11-19T00:00:00+02:00</updated><id>http://localhost:4000/2019/11/19/lpic2_certificate</id><content type="html" xml:base="http://localhost:4000/2019/11/19/lpic2_certificate.html">&lt;p&gt;Today morning I received a message from LPI that my certificate will expire in 9 months and so it is time to start studying for the second Linux certification, this will advance me to the third Linux information security certification that I will search for, this certification is divided into two and the two parts are marked by two different codes: 201-450, 202-450&lt;/p&gt;
 
 &lt;p&gt;In this post I am going to go over each topic as listed on the LPI website, which means I will go over each tool and present it here, in each chapter I will show how to use these tools to get the same information that the subject of the test should deal with, at the end of each chapter I will present a challenge From most of the commands we learned and challenged you and me how to get the information to succeed.&lt;/p&gt;
 
@@ -191,7 +191,7 @@ st: Time stolen from a virtual machine. Prior to Linux 2.6.11, unknown.&lt;br /&
 
 &lt;h3 id=&quot;free&quot;&gt;free&lt;/h3&gt;
 
-&lt;p&gt;In that command you can more easily understand your free memory that using mvstate in my opinion, because it allow you to view that memory by using megabyte instead of kilobyte that requires you to calculate these values.&lt;/p&gt;
+&lt;p&gt;In that command you can more easily understand your free memory that using mvstat in my opinion, because it allow you to view that memory by using megabyte instead of kilobyte that requires you to calculate these values.&lt;/p&gt;
 
 &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;free -m
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
@@ -208,12 +208,12 @@ st: Time stolen from a virtual machine. Prior to Linux 2.6.11, unknown.&lt;br /&
 &lt;p&gt;&lt;img src=&quot;/assets/images/lpic2/freeh.png&quot; alt=&quot;OSCP Post&quot; /&gt;
 &lt;strong&gt;Figure 15&lt;/strong&gt; free memory in GB.&lt;/p&gt;
 
-&lt;p&gt;You can also use count which can help display the output several times like in  the vmstate, but we haven’t delay option, the delay will be 1 second.&lt;/p&gt;
+&lt;p&gt;You can also use count which can help display the output several times like in  the vmstat, but we haven’t delay option, the delay will be 1 second.&lt;/p&gt;
 
 &lt;p&gt;&lt;img src=&quot;/assets/images/lpic2/freecount.png&quot; alt=&quot;OSCP Post&quot; /&gt;
 &lt;strong&gt;Figure 16&lt;/strong&gt; free 3 times count.&lt;/p&gt;
 
-&lt;p&gt;The swap memory shouldn’t been used, because as we saw earlier that memory should be available only for case we have no memory to use in our system. In my case the SWAP are use more then 300MB, which is note so good, because as I said that need to be normally in value of 0. In Ubuntu the default value of the swap that can being used although we have free space in the memory is 60% of the swap in total, we can view our swap value in by using the command &lt;code class=&quot;highlighter-rouge&quot;&gt;cat /proc/sys/vm/swappiness&lt;/code&gt;, in order to change that value we can use the following command:&lt;/p&gt;
+&lt;p&gt;The swap memory shouldn’t been used, because as we saw earlier that memory should be available only for case we have no memory to use in our system. In my case the SWAP are use more then 300MB, which is not so good, because as I said that need to be normally in value of 0. In Ubuntu the default value of the swap that can being used although we have free space in the memory is 60% of the swap in total, we can view our swap value in by using the command &lt;code class=&quot;highlighter-rouge&quot;&gt;cat /proc/sys/vm/swappiness&lt;/code&gt;, in order to change that value we can use the following command:&lt;/p&gt;
 
 &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;sudo sysctl vm.swappiness=10
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
@@ -240,7 +240,7 @@ st: Time stolen from a virtual machine. Prior to Linux 2.6.11, unknown.&lt;br /&
 &lt;p&gt;&lt;img src=&quot;/assets/images/lpic2/iostat.png&quot; alt=&quot;OSCP Post&quot; /&gt;
 &lt;strong&gt;Figure 18&lt;/strong&gt; Output of iostat.&lt;/p&gt;
 
-&lt;p&gt;The ouput contain the linux kernel version, which is Linux 4.15.0-66-generic and my PC name which is zwerd. you can also see the date (although for just date we use date command). we also can see the type of our operation system which is 64 bit in my case, and that I have 4 CPU available. avr-cpu display the CPU for every of the following&lt;/p&gt;
+&lt;p&gt;The ouput contain the linux kernel version, which is Linux 4.15.0-66-generic and my PC name which is zwerd. You can also see the date (although for just date we use date command). we also can see the type of our operation system which is 64 bit in my case, and that I have 4 CPU available. avr-cpu display the CPU for every of the following&lt;/p&gt;
 
 &lt;p&gt;&lt;strong&gt;%user&lt;/strong&gt; - The CPU that used at the user or application level.&lt;/p&gt;
 
@@ -299,7 +299,7 @@ st: Time stolen from a virtual machine. Prior to Linux 2.6.11, unknown.&lt;br /&
 
 &lt;p&gt;You can run the command &lt;code class=&quot;highlighter-rouge&quot;&gt;sar -r 1 5&lt;/code&gt;, the &lt;strong&gt;-r&lt;/strong&gt; option stand for report memory utilization statistics, on the output you can find the KBCOMMIT and %COMMIT which are the overall memory used including RAM.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;/assets/images/lpic2/sar.png&quot; alt=&quot;OSCP Post&quot; /&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/images/lpic2/sar-r.png&quot; alt=&quot;OSCP Post&quot; /&gt;
 &lt;strong&gt;Figure 24&lt;/strong&gt; sar memory used.&lt;/p&gt;
 
 &lt;p&gt;You can also run &lt;code class=&quot;highlighter-rouge&quot;&gt;sar -S&lt;/code&gt; which will give us information about the SWAP free and used memory.&lt;/p&gt;
@@ -313,7 +313,7 @@ st: Time stolen from a virtual machine. Prior to Linux 2.6.11, unknown.&lt;br /&
 &lt;p&gt;&lt;img src=&quot;/assets/images/lpic2/iotopstress.png&quot; alt=&quot;OSCP Post&quot; /&gt;
 &lt;strong&gt;Figure 25&lt;/strong&gt; iotop example.&lt;/p&gt;
 
-&lt;p&gt;In my case you can see that he tell us that the most utilizes program in the IO of our hard disk is stress, you also can see that he specify the hdd by side of that, which tell us what option has being used in stress command.&lt;/p&gt;
+&lt;p&gt;In my case you can see that it tell us that the most utilizes program in the IO of my hard disk is stress, you also can see that it specify the hdd by side of that, which tell us what option has being used in stress command.&lt;/p&gt;
 
 &lt;p&gt;In the iotop you can also see the swapin value, and in my case as you saw earlier, my swap are really utilizes by some program, so I checked it out and find what is the program that used my swap.&lt;/p&gt;
 
@@ -322,7 +322,7 @@ st: Time stolen from a virtual machine. Prior to Linux 2.6.11, unknown.&lt;br /&
 
 &lt;h3 id=&quot;lsof&quot;&gt;lsof&lt;/h3&gt;
 
-&lt;p&gt;This command list open files on your system, which mean you will see all files that are use under you username, so if you run that command it is not very useful, but I tell you what, if you feel like you have some memory issue of hard disk working hard and you check and find what program are running, you can run &lt;code class=&quot;highlighter-rouge&quot;&gt;lsof&lt;/code&gt; and grep the program you suspect that make you the issue, and then you can see exactly what files are open with that related to this program.&lt;/p&gt;
+&lt;p&gt;This command list open files on your system, which mean you will see all files that are use under your username, so if you run that command it is not very useful, but I tell you what, if you feel like you have some memory issue of hard disk working hard and you check and find what program are running, you can run &lt;code class=&quot;highlighter-rouge&quot;&gt;lsof&lt;/code&gt; and grep the program you suspect that make you the issue, and then you can see exactly what files are open with that related to this program.&lt;/p&gt;
 
 &lt;p&gt;&lt;img src=&quot;/assets/images/lpic2/lsof.png&quot; alt=&quot;OSCP Post&quot; /&gt;
 &lt;strong&gt;Figure 26&lt;/strong&gt; lsof.&lt;/p&gt;
@@ -391,7 +391,7 @@ st: Time stolen from a virtual machine. Prior to Linux 2.6.11, unknown.&lt;br /&
 &lt;p&gt;&lt;img src=&quot;/assets/images/lpic2/netstat-tuna.png&quot; alt=&quot;OSCP Post&quot; /&gt;
 &lt;strong&gt;Figure 34&lt;/strong&gt; Statistics by using netstat.&lt;/p&gt;
 
-&lt;p&gt;The command I love to use is &lt;code class=&quot;highlighter-rouge&quot;&gt;netstat -aenp&lt;/code&gt; that can show you the program who use the connection and their process ID number which can be handy to find some process that use the connection and stop it by that ID number.&lt;/p&gt;
+&lt;p&gt;The command I love to use is &lt;code class=&quot;highlighter-rouge&quot;&gt;netstat -nepa&lt;/code&gt; that can show you the program who use the connection and their process ID number which can be handy to find some process that use the connection and stop it by that ID number.&lt;/p&gt;
 
 &lt;p&gt;&lt;img src=&quot;/assets/images/lpic2/netstat-aenp.png&quot; alt=&quot;OSCP Post&quot; /&gt;
 &lt;strong&gt;Figure 35&lt;/strong&gt; Process ID of networking connection.&lt;/p&gt;
@@ -428,7 +428,7 @@ st: Time stolen from a virtual machine. Prior to Linux 2.6.11, unknown.&lt;br /&
 &lt;p&gt;&lt;img src=&quot;/assets/images/lpic2/nload.gif&quot; alt=&quot;OSCP Post&quot; /&gt;
 &lt;strong&gt;Figure 37&lt;/strong&gt; Using nload and iftop to see the download traffic.&lt;/p&gt;
 
-&lt;p&gt;The graph load up and on the iftop we can see the address that have a connection to my computer which from him I download that iso file.&lt;/p&gt;
+&lt;p&gt;The graph load up and on the iftop we can see the address that have a connection to my computer which I download the iso file from it.&lt;/p&gt;
 
 &lt;p&gt;You can also use &lt;code class=&quot;highlighter-rouge&quot;&gt;iptraf&lt;/code&gt; or &lt;code class=&quot;highlighter-rouge&quot;&gt;iptraf-ng&lt;/code&gt; these tools allow you to see the connectiviry of TCP connection that came to your computer.&lt;/p&gt;
 
@@ -437,11 +437,11 @@ st: Time stolen from a virtual machine. Prior to Linux 2.6.11, unknown.&lt;br /&
 
 &lt;h3 id=&quot;network-monitoring&quot;&gt;Network Monitoring&lt;/h3&gt;
 
-&lt;p&gt;Let’s say you work at the IT position on some organization and you got some call from the support team that tell you they have some client that his computer work slowly in every action over the network or internet, in that case you will need to check and troubleshoot that issue, you need to find out if the slowness appear when the client work on the internet or on his local network, to do so we have many tools that can help us in these cases.&lt;/p&gt;
+&lt;p&gt;Let’s say you work at the IT position on some organization and you got some call from the support team that tell you they have some client that his computer work slowly in every action over the network or internet, in that case you will need to check and troubleshoot that issue, you need to find out if the slowness appear when the client side over the internet or on his local network, to do so we have many tools that can help us in these cases.&lt;/p&gt;
 
-&lt;p&gt;One of that tools are the &lt;code class=&quot;highlighter-rouge&quot;&gt;iperf&lt;/code&gt;, this command can check the bandwidth between two point over the network, this is mean that we can use it to check if the local network have the slowness issue of not, the other tool you can use is &lt;strong&gt;speed test&lt;/strong&gt;, you can find one on online website that can check the bandwidth between you and the internet, in that case you will be able to see if the slowness are appear over the internet.&lt;/p&gt;
+&lt;p&gt;One of that tools are the &lt;code class=&quot;highlighter-rouge&quot;&gt;iperf&lt;/code&gt;, this command can check the bandwidth between two point over the network, this is mean that we can use it to check if the local network have the slowness issue or not, the other tool you can use is &lt;strong&gt;speed test&lt;/strong&gt;, you can find one on online website that can check the bandwidth between you and the internet, in that case you will be able to see if the slowness are appear over the internet.&lt;/p&gt;
 
-&lt;p&gt;Let’s start with speed test that I found &lt;em&gt;speedtest.net&lt;/em&gt;, you just need to click the button and this site will give you the details.&lt;/p&gt;
+&lt;p&gt;Let’s start with speed test that I found &lt;a href=&quot;speedtest.net&quot;&gt;speedtest.net&lt;/a&gt;, you just need to click the button and this site will give you the details.&lt;/p&gt;
 
 &lt;p&gt;&lt;img src=&quot;/assets/images/lpic2/speedtest.png&quot; alt=&quot;OSCP Post&quot; /&gt;
  &lt;strong&gt;Figure 39&lt;/strong&gt; Speed Test.&lt;/p&gt;
@@ -457,7 +457,7 @@ st: Time stolen from a virtual machine. Prior to Linux 2.6.11, unknown.&lt;br /&
 
 &lt;p&gt;&lt;strong&gt;Please note&lt;/strong&gt;: after all we see here I want to specify something that I solve on many situation I had in the companies I worked for. Let’s say that you have some web server that have some content of data for many users, so far you after you read all of that chapter you have the knowledge to use Linux tool for checking the performance, memory used, network bandwidth and etc. If for some reason you see that the RAM used was increase every months and in percentage that grow up, in that case you may consider to upgrade the hardware for that server like adding more RAM memory or install more web application server and distribute the load between them, so in such case we will check carefully what is going on our server in the hardware used, we can monitor that and track down the performance with the tools I specify above.&lt;/p&gt;
 
-&lt;h3 id=&quot;challenge&quot;&gt;Challenge&lt;/h3&gt;
+&lt;h3 id=&quot;challenge-200-1&quot;&gt;Challenge 200-1&lt;/h3&gt;
 
 &lt;ol&gt;
   &lt;li&gt;create some large file that contain more that 100MB.&lt;/li&gt;
@@ -533,16 +533,20 @@ st: Time stolen from a virtual machine. Prior to Linux 2.6.11, unknown.&lt;br /&
 &lt;p&gt;&lt;img src=&quot;/assets/images/lpic2/uname-a.png&quot; alt=&quot;LPIC2 Post&quot; /&gt;
 &lt;strong&gt;Figure 47&lt;/strong&gt; My linux kernel core.&lt;/p&gt;
 
-&lt;p&gt;The first number is the version number, in my case it is kernel version 4, the next number is the major revision which in my case is 15 and the third number is the minor revision number, the fourth number is the patch level. In the past, in the version of the kernel was a general rule in the number version, in the second number every odd number was as developed version, and the even number was as stable version, as example the 1.5.2 kernel was under development and version 1.6.2 was known as stable kernel version, when the kernel version 2.6.x came along it stay for long time without numerate the number except the last one number, because version 2.6.was awesome and fourth number for the patch number, one more thing that you need to know is that after they release the version 2.6, they get ride of the odd/even number and every new release is stable and not under development, every stable version will develop and update on a new version.&lt;/p&gt;
+&lt;p&gt;The first number is the version number, in my case it is kernel version 4, the next number is the major revision which in my case is 15 and the third number is the minor revision number, the fourth number is the patch level.&lt;/p&gt;
 
-&lt;p&gt;When the version of that kernel raise up and was 2.6.39.4 than Linus Torvalds decided update the enumerating to be more like the old one, which is the first number will be major release, the second will be minor release and the third will be the minor revision which is stable or patch to update abilities on the kernel. You may somtime see like a fourth number which play as a patch, in my case of &lt;strong&gt;72-generic&lt;/strong&gt; this is the Ubuntu specific patch they done.&lt;/p&gt;
+&lt;p&gt;In the past, in the version of the kernel was a general rule in the number version, in the second number every odd number was as developed version, and the even number was as stable version, as example the 1.5.2 kernel was under development and version 1.6.2 was known as stable kernel version, when the kernel version 2.6.x came along it stay for long time without numerate the number except the last one number, because version 2.6.x was so awesome! so the third number and even the fourth number which stand for the patch number was the only numbers that numerate long the way.&lt;/p&gt;
+
+&lt;p&gt;One more thing that you need to know is that after they release the version 2.6, they get ride of the odd/even number and every new release is stable and not under development, every stable version will develop and update on a new version.&lt;/p&gt;
+
+&lt;p&gt;When the version of that kernel raise up and was 2.6.39.4 than Linus Torvalds decided update the enumerating to be more like the old one, which is the first number will be &lt;strong&gt;major release&lt;/strong&gt;, the second will be &lt;strong&gt;minor release&lt;/strong&gt; and the third will be the &lt;strong&gt;minor revision&lt;/strong&gt; which is &lt;strong&gt;stable&lt;/strong&gt; or patch to update abilities on the kernel. You may sometime see like a fourth number which play as a patch, in my case of &lt;strong&gt;72-generic&lt;/strong&gt; this is the Ubuntu specific patch they done.&lt;/p&gt;
 
 &lt;p&gt;You can find the versions of kernels that you have in your Linux machine under the /lib/modules folder and in each one we can found every modules that are run on our system.&lt;/p&gt;
 
 &lt;p&gt;&lt;img src=&quot;/assets/images/lpic2/kernels.png&quot; alt=&quot;LPIC2 Post&quot; /&gt;
 &lt;strong&gt;Figure 48&lt;/strong&gt; My kernels.&lt;/p&gt;
 
-&lt;p&gt;We can go to the kernel archive and found there the kernel that are stable and under operation release use. the meaning of longterm is that this kernel version will be available for long time because one of the operation system like ubuntu or centOS or red hat and such may maintain and using this kernel version, this is why you may be seeing some old kernel version in that site.&lt;/p&gt;
+&lt;p&gt;We can go to the kernel archive and found there the kernel that are stable and under operation release use. The meaning of &lt;strong&gt;longterm&lt;/strong&gt; is that this kernel version will be available for long time because one of the operation system like Ubuntu or centOS or Red Hat may maintain and using this kernel version, this is why you may be seeing some old kernel version in that site.&lt;/p&gt;
 
 &lt;p&gt;&lt;img src=&quot;/assets/images/lpic2/linuxkernels.png&quot; alt=&quot;LPIC2 Post&quot; /&gt;
 &lt;strong&gt;Figure 49&lt;/strong&gt; Kernels archive.&lt;/p&gt;
@@ -559,10 +563,10 @@ st: Time stolen from a virtual machine. Prior to Linux 2.6.11, unknown.&lt;br /&
 
 &lt;p&gt;As you can see the modules that are enable print out on my screen with &lt;code class=&quot;highlighter-rouge&quot;&gt;lsmod&lt;/code&gt;, you can see the module name and it’s size, you can also see what modules are depends on which of the modules as example the &lt;strong&gt;vboxdrv&lt;/strong&gt; module is the module that responsible for the vbox on my PC I guess, and there is three modules that relay and depend on that one which are vboxpci, vboxnetadp and vboxnetflt.&lt;/p&gt;
 
-&lt;p&gt;You can remove module by using &lt;code class=&quot;highlighter-rouge&quot;&gt;rmmod&lt;/code&gt; you just need to know what is the module name, as example, let’s say that we want the floppy out, so we can grep it in &lt;code class=&quot;highlighter-rouge&quot;&gt;lsmod&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;You can remove module by using &lt;code class=&quot;highlighter-rouge&quot;&gt;rmmod&lt;/code&gt; you just need to know what is the module name, as example, let’s say that we want the floppy out, so we can grep it by using &lt;code class=&quot;highlighter-rouge&quot;&gt;lsmod&lt;/code&gt;.&lt;/p&gt;
 
 &lt;p&gt;&lt;img src=&quot;/assets/images/lpic2/lsmodgrep.png&quot; alt=&quot;LPIC2 Post&quot; /&gt;
-&lt;strong&gt;Figure 52&lt;/strong&gt; find out the floppy by &lt;code class=&quot;highlighter-rouge&quot;&gt;lsmod&lt;/code&gt;.&lt;/p&gt;
+&lt;strong&gt;Figure 52&lt;/strong&gt; Find out the floppy by &lt;code class=&quot;highlighter-rouge&quot;&gt;lsmod&lt;/code&gt;.&lt;/p&gt;
 
 &lt;p&gt;Now, in order to pop it out we need to use &lt;code class=&quot;highlighter-rouge&quot;&gt;rmmod&lt;/code&gt; with the name of that module.&lt;/p&gt;
 
@@ -572,7 +576,7 @@ st: Time stolen from a virtual machine. Prior to Linux 2.6.11, unknown.&lt;br /&
 &lt;p&gt;If we want the module back in, we need to use &lt;code class=&quot;highlighter-rouge&quot;&gt;insmod&lt;/code&gt;, but for insert back from the dead some lost module we need to let him know the exact path for it. we can use &lt;code class=&quot;highlighter-rouge&quot;&gt;find&lt;/code&gt; for finding that module.&lt;/p&gt;
 
 &lt;p&gt;&lt;img src=&quot;/assets/images/lpic2/grepfloppy.png&quot; alt=&quot;LPIC2 Post&quot; /&gt;
-&lt;strong&gt;Figure 54&lt;/strong&gt; finding the path for floppy module.&lt;/p&gt;
+&lt;strong&gt;Figure 54&lt;/strong&gt; Finding the path for floppy module.&lt;/p&gt;
 
 &lt;p&gt;We now can use this path to insert that module back in. You can see that now I can find that floppy module in the active module list of &lt;code class=&quot;highlighter-rouge&quot;&gt;lsmod&lt;/code&gt;&lt;/p&gt;
 
@@ -620,7 +624,7 @@ st: Time stolen from a virtual machine. Prior to Linux 2.6.11, unknown.&lt;br /&
 
 &lt;p&gt;You may ask how the linux kernel knows when some device pluge in and lunch his appropriate module, this is done by the &lt;strong&gt;udev&lt;/strong&gt;, this udev responsible for such a thing so he know to load up the usb module when some USB device pluge in.&lt;/p&gt;
 
-&lt;p&gt;You can see what going on your commputer by using some command that related to udev, such as &lt;code class=&quot;highlighter-rouge&quot;&gt;lsusb&lt;/code&gt; which can show us the devices related to usb,&lt;code class=&quot;highlighter-rouge&quot;&gt;lspci&lt;/code&gt; that responsible for CPI bridge or the &lt;code class=&quot;highlighter-rouge&quot;&gt;dmesg&lt;/code&gt; that show us all the log we have from the system like in the boot which we can see on the boot the logs that our system run while bring the OS up.&lt;/p&gt;
+&lt;p&gt;You can see what going on your commputer by using some command that related to udev, such as &lt;code class=&quot;highlighter-rouge&quot;&gt;lsusb&lt;/code&gt; which can show us the devices related to usb,&lt;code class=&quot;highlighter-rouge&quot;&gt;lspci&lt;/code&gt; that responsible for PCI bridge or the &lt;code class=&quot;highlighter-rouge&quot;&gt;dmesg&lt;/code&gt; that show us all the log we have from the system like in the boot which we can see on the boot the logs that our system run while bring the OS up.&lt;/p&gt;
 
 &lt;p&gt;We also have the &lt;code class=&quot;highlighter-rouge&quot;&gt;udevadm monitor&lt;/code&gt; which can bring to the screen logs from the system in real time, you can see on the next gif how it work, I plug in my sundisk device and the &lt;strong&gt;udev&lt;/strong&gt; found it and load it’s logs to my screen, he also showed us the remove log when I remove my device from that computer&lt;/p&gt;
 
@@ -632,13 +636,15 @@ st: Time stolen from a virtual machine. Prior to Linux 2.6.11, unknown.&lt;br /&
 &lt;p&gt;&lt;img src=&quot;/assets/images/lpic2/blacklist.png&quot; alt=&quot;LPIC2 Post&quot; /&gt;
  &lt;strong&gt;Figure 61&lt;/strong&gt; blacklist.conf file.&lt;/p&gt;
 
-&lt;p&gt;In my case you can see that in the blacklist I have the eepro100 module which mean that if Ethernet card plug in, do not use that old driver, so that is the purpose of that blacklist.&lt;/p&gt;
+&lt;p&gt;In my case you can see that in the blacklist I have the eepro100 module which mean that if Ethernet card plug in, do not use that old driver, so that is the purpose of that blacklist, you can find that file in the following path: &lt;em&gt;/boot/etc/modprobe.d/blacklist.conf&lt;/em&gt;.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Please note&lt;/strong&gt;: if you need to find some file that you don’t know what is path you can always run &lt;code class=&quot;highlighter-rouge&quot;&gt;find / | grep &amp;lt;string&amp;gt;&lt;/code&gt; which the string stand for what you search.&lt;/p&gt;
 
 &lt;p&gt;Now let’s say that we want to compile our own kernel so that our kernel will be the latest kernel that can be found in the &lt;a href=&quot;https://www.kernel.org/&quot;&gt;linux kernel archive&lt;/a&gt;.&lt;/p&gt;
 
 &lt;p&gt;In the reality, if you asking why you ever customize you own kernel, it can be because you have some old linux system that used for just one purpose like FTP server or somthing like that, in that case you may want to compile kernel without any modules that you know you probably won’t be in use.&lt;/p&gt;
 
-&lt;p&gt;So first of all, I will display here the compilation and install of new kernel on my kali linux which is virtual machine that I use a lot, you can read more about that in my other PWK post. My current kernel version are 5.2.0 and I am going to compile kernel 5.4.3 which is that latest version in the kernel archive at this writing time.&lt;/p&gt;
+&lt;p&gt;So first of all, I will display here the compilation process and installation of new kernel on my kali linux which is virtual machine that I use a lot, you can read more about that in my other PWK post. My current kernel version are 5.2.0 and I am going to compile kernel 5.4.3 which is that latest version in the kernel archive at this writing time.&lt;/p&gt;
 
 &lt;p&gt;We need to use the &lt;em&gt;/usr/src/&lt;/em&gt; directory as our kernel, so after we download the source code and decompress it we need to create kernel folder or at least make symbol link to the kernel folder named kernel. After we download the kernel file from the kernel archive we can extract it by using the &lt;code class=&quot;highlighter-rouge&quot;&gt;tar&lt;/code&gt; command.&lt;/p&gt;
 
@@ -649,10 +655,10 @@ st: Time stolen from a virtual machine. Prior to Linux 2.6.11, unknown.&lt;br /&
  &lt;strong&gt;Figure 62&lt;/strong&gt; tar the kernel file.&lt;/p&gt;
 
 &lt;p&gt;Than I run the following command in order to make the symbolic link to kernel folder.&lt;/p&gt;
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt; ln -s /linux-5.4.3 linux
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt; ln -s ./linux-5.4.3 linux
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
-&lt;p&gt;Please note that on the linux folder that we created we have the document for every module that can be use under our system.&lt;/p&gt;
+&lt;p&gt;Please note that on the Linux folder that we created we have the document for every module that can be use under our system.&lt;/p&gt;
 
 &lt;p&gt;For compiling the kernel we need tools that can help us to do so, in my case I need &lt;strong&gt;build-essential&lt;/strong&gt; which is the Informational list of build-essential packages.&lt;/p&gt;
 &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;apt-get install build-essential
@@ -670,12 +676,9 @@ st: Time stolen from a virtual machine. Prior to Linux 2.6.11, unknown.&lt;br /&
 
 &lt;p&gt;After that we going to configure the kernel, to do so we can use &lt;code class=&quot;highlighter-rouge&quot;&gt;make xconfig&lt;/code&gt;, this will bring up configuration window in GUI mode that you can setup what you need in your kernel by using you mouse and mark the setting you want.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;/assets/images/lpic2/tar.png&quot; alt=&quot;LPIC2 Post&quot; /&gt;
- &lt;strong&gt;Figure 62&lt;/strong&gt; tar the kernel file.&lt;/p&gt;
+&lt;p&gt;I my Kali Linux I had a lot of issue that related to some pkg that was needed, if you have such an error, the log of that error will tell you what pkg is missing and all you have to do is apt get install that pkg.&lt;/p&gt;
 
-&lt;p&gt;I my Kali linux I hade a lot of issue that related to some pkg that was needed, if you have such an error, the log of that error will tell you what pkg is missing and all you have to do is apt get install that pkg.&lt;/p&gt;
-
-&lt;p&gt;In my case I mange to run xconfig which bring me the configuration menu in GUI mode up to the scree,&lt;/p&gt;
+&lt;p&gt;In my case I mange to run xconfig which bring me the configuration menu in GUI mode up to the screen,&lt;/p&gt;
 
 &lt;p&gt;&lt;img src=&quot;/assets/images/lpic2/xconfig.png&quot; alt=&quot;LPIC2 Post&quot; /&gt;
 &lt;strong&gt;Figure 63&lt;/strong&gt; GUI for configuration menu.&lt;/p&gt;
@@ -729,6 +732,8 @@ st: Time stolen from a virtual machine. Prior to Linux 2.6.11, unknown.&lt;br /&
 &lt;p&gt;&lt;img src=&quot;/assets/images/lpic2/initrdfiles.png&quot; alt=&quot;LPIC2 Post&quot; /&gt;
 &lt;strong&gt;Figure 68&lt;/strong&gt; initrd files.&lt;/p&gt;
 
+&lt;p&gt;&lt;strong&gt;Please note&lt;/strong&gt;:At boot time, the boot loader loads the kernel and the initramfs image into memory and starts the kernel. The kernel checks for the presence of the initramfs and, if found, mounts it as &lt;code class=&quot;highlighter-rouge&quot;&gt;/&lt;/code&gt; and runs &lt;code class=&quot;highlighter-rouge&quot;&gt;/init&lt;/code&gt;. The init program is typically a shell script. Note that the boot process takes longer, possibly significantly longer, if an initramfs is used.&lt;/p&gt;
+
 &lt;p&gt;Let’s take a closer look at this file, it will help you understand more about this file, so I’m run the command &lt;code class=&quot;highlighter-rouge&quot;&gt;file&lt;/code&gt; on one of the init file to check what is the type of that file, in that way I will be able to find out how to read that file.&lt;/p&gt;
 
 &lt;p&gt;&lt;img src=&quot;/assets/images/lpic2/initfile.png&quot; alt=&quot;LPIC2 Post&quot; /&gt;
@@ -741,19 +746,19 @@ st: Time stolen from a virtual machine. Prior to Linux 2.6.11, unknown.&lt;br /&
 
 &lt;p&gt;The option &lt;strong&gt;-i&lt;/strong&gt; stand for extract files from an archive and the &lt;strong&gt;-d&lt;/strong&gt; create leading directories where needed, the &lt;strong&gt;-m&lt;/strong&gt; retain previous file modification times when creating files and &lt;strong&gt;-v&lt;/strong&gt; used for verbose.&lt;/p&gt;
 
-&lt;p&gt;In our case we can see the folder that &lt;code class=&quot;highlighter-rouge&quot;&gt;cpio&lt;/code&gt; extract to and this can give us a clue about the init file, but if you notice, at the end of the output was print out 56 blocks, and every block is 512 bytes so we viw write now in the first 33280 bytes of this file, but as you saw before, this file contain 54M which are more bigger then 33K we saw, so were is the rest of that file?&lt;/p&gt;
+&lt;p&gt;In our case we can see the folder that &lt;code class=&quot;highlighter-rouge&quot;&gt;cpio&lt;/code&gt; extract to and this can give us a clue about the init file, but if you notice, at the end of the output was print out 56 blocks, and every block is 512 bytes so we view right now in the first 33280 bytes of this file, but as you saw before, this file contain 54M which are more bigger then 33K, so were is the rest of that file?&lt;/p&gt;
 
-&lt;p&gt;This situation lets us know that not all the file was open by the cpio, and the rest of that can be something else or new cpio file because in the cpio there is an header that he knows the start and finish of file, so we need the rest of the file, to achieve that goal we can use &lt;code class=&quot;highlighter-rouge&quot;&gt;dd&lt;/code&gt; to take fixed size for that file and output it to use file.&lt;/p&gt;
+&lt;p&gt;This situation let’s us know that not all the file was open by the cpio, and the rest of that can be something else or new cpio file because in the cpio there is an header that he knows the start and finish of file, so we need the rest of the file, to achieve that goal we can use &lt;code class=&quot;highlighter-rouge&quot;&gt;dd&lt;/code&gt; to take fixed size for that file and output it to use file.&lt;/p&gt;
 
 &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;dd if=initrd.img-4.15.0-70-generic of=initrd.img-4.15.0-70-generic_OUT bs=512 skip=56
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
-&lt;p&gt;In this command I specified the input file which is the &lt;strong&gt;initrd.img-4.15.0-70-generic&lt;/strong&gt; and the output file going to be &lt;strong&gt;initrd.img-4.15.0-70-generic_OUT&lt;/strong&gt;, the block size are 512 bytes and we want to skip the first 56 blocks.&lt;/p&gt;
+&lt;p&gt;In this command I specified the input file which is the &lt;strong&gt;initrd.img-4.15.0-70-generic&lt;/strong&gt; and the output file going to be &lt;strong&gt;initrd.img-4.15.0-70-generic_OUT&lt;/strong&gt;, the block size are 512 bytes and we want to skip the first 56 blocks which mean the rest of that file will be taken.&lt;/p&gt;
 
 &lt;p&gt;&lt;img src=&quot;/assets/images/lpic2/dd.png&quot; alt=&quot;LPIC2 Post&quot; /&gt;
 &lt;strong&gt;Figure 71&lt;/strong&gt; Create new file using dd.&lt;/p&gt;
 
-&lt;p&gt;What we need now is to use file again to see what is the type of our new file we have.&lt;/p&gt;
+&lt;p&gt;What we need now is to use &lt;code class=&quot;highlighter-rouge&quot;&gt;file&lt;/code&gt; again to see what is the type of our new file we have.&lt;/p&gt;
 
 &lt;p&gt;&lt;img src=&quot;/assets/images/lpic2/outfile.png&quot; alt=&quot;LPIC2 Post&quot; /&gt;
 &lt;strong&gt;Figure 72&lt;/strong&gt; The second file.&lt;/p&gt;
@@ -763,12 +768,33 @@ st: Time stolen from a virtual machine. Prior to Linux 2.6.11, unknown.&lt;br /&
 &lt;p&gt;&lt;img src=&quot;/assets/images/lpic2/secondfile.png&quot; alt=&quot;LPIC2 Post&quot; /&gt;
 &lt;strong&gt;Figure 73&lt;/strong&gt; Extract again using cpio.&lt;/p&gt;
 
-&lt;p&gt;Now we need to repeat the process again with dd and after that using &lt;code class=&quot;highlighter-rouge&quot;&gt;file&lt;/code&gt; command. You can see that we found gzip file so now we need to use gzip to see the contect of that file, in the gzip case the file must contain extension of gzip else we will get some error, so I use mv to change the extension and that use the &lt;code class=&quot;highlighter-rouge&quot;&gt;gzip&lt;/code&gt; command.&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;gzip -dlv initrd.img-4.15.0-72-generic_OUT2.gz
+&lt;p&gt;Now we need to repeat the process again with &lt;code class=&quot;highlighter-rouge&quot;&gt;dd&lt;/code&gt; and after that using &lt;code class=&quot;highlighter-rouge&quot;&gt;file&lt;/code&gt; command.&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;sudo dd if=initrd.img-4.15.0-70-generic_OUT of=initrd.img-4.15.0-70-generic_OUT2 bs=512 skip=5784
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
-&lt;p&gt;This will bring file name &lt;strong&gt;initrd.img-4.15.0-72-generic_OUT2&lt;/strong&gt; so now we need to check that file type again. in my case it was cpio. so I decompress it.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/images/lpic2/thirdfile.png&quot; alt=&quot;LPIC2 Post&quot; /&gt;
+&lt;strong&gt;Figure 73-2&lt;/strong&gt; Checking the new file with &lt;code class=&quot;highlighter-rouge&quot;&gt;file&lt;/code&gt; command.&lt;/p&gt;
+
+&lt;p&gt;You can see that we found gzip file so now we need to use gzip to see the contect of that file, in the gzip case the file must contain extension of gzip else we will get some error, so I use mv to change the extension and then use the &lt;code class=&quot;highlighter-rouge&quot;&gt;gzip&lt;/code&gt; command.&lt;/p&gt;
+
+&lt;p&gt;So for change the extention:&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;sudo mv initrd.img-4.15.0-70-generic_OUT2 initrd.img-4.15.0-70-generic_OUT3.gz
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;And now extract the gzip file:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;gzip -dlv initrd.img-4.15.0-70-generic_OUT3.gz
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;This will bring file name &lt;strong&gt;initrd.img-4.15.0-70-generic_OUT3&lt;/strong&gt; so now we need to check that file type again. in my case it was cpio.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/lpic2/gzipfile.png&quot; alt=&quot;LPIC2 Post&quot; /&gt;
+&lt;strong&gt;Figure 73-2&lt;/strong&gt; Decompress the gzip file.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/lpic2/cpioagain.png&quot; alt=&quot;LPIC2 Post&quot; /&gt;
+&lt;strong&gt;Figure 73-3&lt;/strong&gt; Checking the file type again.&lt;/p&gt;
+
+&lt;p&gt;So I decompress it.&lt;/p&gt;
 
 &lt;p&gt;&lt;img src=&quot;/assets/images/lpic2/cpiolastfile.png&quot; alt=&quot;LPIC2 Post&quot; /&gt;
 &lt;strong&gt;Figure 74&lt;/strong&gt; Extract again using cpio.&lt;/p&gt;
@@ -778,9 +804,13 @@ st: Time stolen from a virtual machine. Prior to Linux 2.6.11, unknown.&lt;br /&
 &lt;p&gt;&lt;img src=&quot;/assets/images/lpic2/ddagain.png&quot; alt=&quot;LPIC2 Post&quot; /&gt;
 &lt;strong&gt;Figure 75&lt;/strong&gt; This is it.&lt;/p&gt;
 
-&lt;p&gt;&lt;strong&gt;Please nore&lt;/strong&gt;: the kernel configuration parameters can be found on the config file, this file is also on the boot folder, so as you may remeber you can change some parameter by &lt;code class=&quot;highlighter-rouge&quot;&gt;make menuconfig&lt;/code&gt; but if you remember later on about some setting that you need you can add it in that file before install the kernel. Also remember that the config name is usual as follow &lt;code class=&quot;highlighter-rouge&quot;&gt;config-&amp;lt;kernel version&amp;gt;&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Please nore&lt;/strong&gt;: the kernel configuration parameters can be found on the config file, this file is also on the boot folder, so as you need to remember that you can change some parameter by &lt;code class=&quot;highlighter-rouge&quot;&gt;make menuconfig&lt;/code&gt; but if you forget  about some setting that you need you can add it in that file before install the kernel. Also remember that the config name is usual as follow &lt;code class=&quot;highlighter-rouge&quot;&gt;config-&amp;lt;kernel version&amp;gt;&lt;/code&gt;.&lt;/p&gt;
 
-&lt;h3 id=&quot;challenge-1&quot;&gt;Challenge&lt;/h3&gt;
+&lt;p&gt;So far we saw that on GRUB we have two files, the kernel file and the init file, after we done all the compiling stuff we can find the kernel and it’s documentation under the &lt;code class=&quot;highlighter-rouge&quot;&gt;/usr/src/linux&lt;/code&gt;/&lt;code class=&quot;highlighter-rouge&quot;&gt;/usr/src/linux/documentation&lt;/code&gt;, we also can find there the drives that going to be in used on our system and the configurations files that related to this linux kernel.&lt;/p&gt;
+
+&lt;p&gt;For making initrd file we can use &lt;code class=&quot;highlighter-rouge&quot;&gt;mkinitrd&lt;/code&gt; command (on RedHet and CentOS distro), if you use Ubuntu you will need to use &lt;code class=&quot;highlighter-rouge&quot;&gt;update-initramfs&lt;/code&gt; or &lt;code class=&quot;highlighter-rouge&quot;&gt;mkinitramfs&lt;/code&gt; commands, those command will create initrd file which we can move to our boot folder and update the GRUB to use it, so in case you find the initrd dummege or it accidentally deleted, you can use those command and create your new initrd file for booting the system normally.&lt;/p&gt;
+
+&lt;h3 id=&quot;challenge-201-1&quot;&gt;Challenge 201-1&lt;/h3&gt;
 
 &lt;ol&gt;
   &lt;li&gt;Create your minimal linux kernel and archive it as iso file (you can use the minimal linux live project).&lt;/li&gt;
@@ -799,7 +829,7 @@ st: Time stolen from a virtual machine. Prior to Linux 2.6.11, unknown.&lt;br /&
 &lt;p&gt;&lt;img src=&quot;/assets/images/lpic2/scripts.png&quot; alt=&quot;LPIC2 Post&quot; /&gt;
 &lt;strong&gt;Figure 76&lt;/strong&gt; our scripts.&lt;/p&gt;
 
-&lt;p&gt;while running that script, on my terminal I saw what he did which going to create new file and setup the &lt;strong&gt;.config&lt;/strong&gt; file and make it and create initramfs which going to be use under the iso file which I am going to have after that script will done it magic, and this take long time to cook, but on the second script &lt;strong&gt;02_build_kernel.sh&lt;/strong&gt; you can see that we use mrproper to clear the local config file and after that we going to create new config file base on the kernel.config file.&lt;/p&gt;
+&lt;p&gt;while running that script, on my terminal I saw what it did which going to create new file and setup the &lt;strong&gt;.config&lt;/strong&gt; file and make it and create initramfs which going to be use under the iso file which I am going to have after that script will done it magic, and this take long time to cook, but on the second script &lt;strong&gt;02_build_kernel.sh&lt;/strong&gt; you can see that we use mrproper to clear the local config file and after that we going to create new config file base on the kernel.config file.&lt;/p&gt;
 
 &lt;p&gt;&lt;img src=&quot;/assets/images/lpic2/makeconfig.png&quot; alt=&quot;LPIC2 Post&quot; /&gt;
 &lt;strong&gt;Figure 77&lt;/strong&gt; make config file.&lt;/p&gt;
@@ -838,6 +868,99 @@ st: Time stolen from a virtual machine. Prior to Linux 2.6.11, unknown.&lt;br /&
 
 &lt;p&gt;So we finish our challenge, so we can proceed foreword to the next chapter.&lt;/p&gt;
 
+&lt;h3 id=&quot;challenge-201-2&quot;&gt;Challenge 201-2&lt;/h3&gt;
+
+&lt;p&gt;This time we going to do something that can help us in real world scenario. It’s not something that can happen on a daily basis, but it seems to be a good exercise.&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;Setup CentOS on virtual machine and after full installation on your virtual hard disk verified the initrd file.&lt;/li&gt;
+  &lt;li&gt;Go to the GRUB file and remove the initrd line.&lt;/li&gt;
+  &lt;li&gt;Remove the initrd file and reboot the system.&lt;/li&gt;
+  &lt;li&gt;After you found out that the system can not start, find the way to soled it&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h3 id=&quot;1-setup-centos-on-vm-and-verified-the-initrd-file&quot;&gt;1. setup CentOS on VM and verified the &lt;code class=&quot;highlighter-rouge&quot;&gt;initrd&lt;/code&gt; file&lt;/h3&gt;
+
+&lt;p&gt;So, I download the file from CentOS site, I chose the CentOS 6 for that exercise but you can do the same on more advance system.&lt;/p&gt;
+
+&lt;p&gt;In the first step I make new virtual machine and load it up with the ISO file of the CentOS. After it cam up I start the installation and wait for it to finish. After that I restart the system and load it up from the virtual hard disk and checking the system, I found the initrd on the boot folder.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/lpic2/centos.png&quot; alt=&quot;LPIC2 Post&quot; /&gt;
+&lt;strong&gt;Figure 81-0&lt;/strong&gt; CentOS system.&lt;/p&gt;
+
+&lt;h3 id=&quot;2-remove-the-initrd-line-from-grub&quot;&gt;2. Remove the initrd line from GRUB&lt;/h3&gt;
+
+&lt;p&gt;You can see the I have folder named &lt;code class=&quot;highlighter-rouge&quot;&gt;grub&lt;/code&gt; which is contain the GRUB configuration on my local system, I need to change it and remove the the line that contain the initrd, this line is used to load up some minimal modules to load the hard disk.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/lpic2/grubfilemenu.png&quot; alt=&quot;LPIC2 Post&quot; /&gt;
+&lt;strong&gt;Figure 81-1&lt;/strong&gt; GRUB file menu.&lt;/p&gt;
+
+&lt;p&gt;I remove the line by using &lt;code class=&quot;highlighter-rouge&quot;&gt;vim&lt;/code&gt;, you can also use nano if vim is difficult for you but remember that knowing to use every tool in Linux will help you as you proceed foreword.&lt;/p&gt;
+
+&lt;h3 id=&quot;3-remove-the-initrd-file&quot;&gt;3. Remove the initrd file&lt;/h3&gt;
+
+&lt;p&gt;Now I need to remove the &lt;code class=&quot;highlighter-rouge&quot;&gt;initrd&lt;/code&gt; file from my boot folder, so I use the &lt;code class=&quot;highlighter-rouge&quot;&gt;rm -rf&lt;/code&gt;, but before that I verified the file on the boot folder to see that is exist.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/lpic2/rm-initrd.png&quot; alt=&quot;LPIC2 Post&quot; /&gt;
+&lt;strong&gt;Figure 81-2&lt;/strong&gt; Remove initrd file.&lt;/p&gt;
+
+&lt;h3 id=&quot;4-reboot-the-system-and-fix-the-issue&quot;&gt;4. Reboot the system and fix the issue&lt;/h3&gt;
+
+&lt;p&gt;Now this is time to reboot the system to see if it can boot up normally. In my case it stack on black screen without any way to stop the start process, so I power off the system.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/lpic2/restartcentos.gif&quot; alt=&quot;LPIC2 Post&quot; /&gt;
+&lt;strong&gt;Figure 81-3&lt;/strong&gt; My system stack.&lt;/p&gt;
+
+&lt;p&gt;So let’s say that your frind can boot up the system and he knows that you are an expert in everything that related to Linux so he ask for help, in that case we can see the line that said:&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;kernel panic ... can't mount root fs ...
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;In that case we know that the kernel tried to load up the root filesystem and he tried to do so with the initrd, so it we get that error it may because he cannot find the initrd file.&lt;/p&gt;
+
+&lt;p&gt;To solve that I boot up the system by using external device like bootable usb or optical disk and bring the system up for making change in the boot folder for that system.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/lpic2/mountcentos.gif&quot; alt=&quot;LPIC2 Post&quot; /&gt;
+&lt;strong&gt;Figure 81-4&lt;/strong&gt; Mount command after boot from bootable device.&lt;/p&gt;
+
+&lt;p&gt;You can see the I have not any &lt;code class=&quot;highlighter-rouge&quot;&gt;/dev/sda&lt;/code&gt; storage in that system becouse I boot it up from optical disk, now I need to find the hard disk and mount it to my system.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/lpic2/harddiskcentos.png&quot; alt=&quot;LPIC2 Post&quot; /&gt;
+&lt;strong&gt;Figure 81-5&lt;/strong&gt; My local hard disk using fdisk.&lt;/p&gt;
+
+&lt;p&gt;Now after I know what is my hard drive I need to create mount point, which is in my case going to be &lt;code class=&quot;highlighter-rouge&quot;&gt;/mnt/centos/&lt;/code&gt; folder and I create that folder by using &lt;code class=&quot;highlighter-rouge&quot;&gt;mkdir&lt;/code&gt;, after that I need to use mount for mounting the hard drive to that point.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/lpic2/mountpointcentos.png&quot; alt=&quot;LPIC2 Post&quot; /&gt;
+&lt;strong&gt;Figure 81-6&lt;/strong&gt; My mount point.&lt;/p&gt;
+
+&lt;p&gt;You can see that I had to run it with root privilege for making the mount point and mount that drive, now I need to see what I have on that folder.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/lpic2/centosboot.png&quot; alt=&quot;LPIC2 Post&quot; /&gt;
+&lt;strong&gt;Figure 81-7&lt;/strong&gt; My centos boot folder.&lt;/p&gt;
+
+&lt;p&gt;So I need to create new initrd file, I can do so with the &lt;code class=&quot;highlighter-rouge&quot;&gt;mkinitrd&lt;/code&gt; command, in my case I want to specified the kernel version and I know that my bootable optical disk is in the same version so I use the &lt;code class=&quot;highlighter-rouge&quot;&gt;uname -r&lt;/code&gt; which bring me the version of the system and create the file with that system code number.&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;mkinitrd -v ./initrd-`uname -r`.img `uname -r`
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;You can see that the image was successfully created.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/lpic2/initrdimage.png&quot; alt=&quot;LPIC2 Post&quot; /&gt;
+&lt;strong&gt;Figure 81-8&lt;/strong&gt; My initrd image.&lt;/p&gt;
+
+&lt;p&gt;Now I need to update the grub file, on my system I use GRUB1 so I have not any automatic way to update the grub, I need to do so manually.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/lpic2/grub1oncentos.png&quot; alt=&quot;LPIC2 Post&quot; /&gt;
+&lt;strong&gt;Figure 81-9&lt;/strong&gt; My GRUB version.&lt;/p&gt;
+
+&lt;p&gt;So I use &lt;code class=&quot;highlighter-rouge&quot;&gt;vim&lt;/code&gt; to edit the GRUB file and I add the initrd line which contain the path to that file.&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;initrd /boot/initrd-2.6.32-754.el6.x86_64.img
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;After that I reboot the system to check if it working write.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/lpic2/bootit.png&quot; alt=&quot;LPIC2 Post&quot; /&gt;
+&lt;strong&gt;Figure 81-10&lt;/strong&gt; Boot the CentOS.&lt;/p&gt;
+
 &lt;h2 id=&quot;chapter-2&quot;&gt;Chapter 2&lt;/h2&gt;
 &lt;h2 id=&quot;topic-202-system-startup&quot;&gt;Topic 202: System Startup&lt;/h2&gt;
 
@@ -848,12 +971,12 @@ st: Time stolen from a virtual machine. Prior to Linux 2.6.11, unknown.&lt;br /&
 &lt;p&gt;If we talk about systems like Red Hat systems in my case centOS you can run &lt;strong&gt;runlevel&lt;/strong&gt;, this command will show us the runlevel that our system run for, in my case it was &lt;strong&gt;N 5&lt;/strong&gt;.&lt;/p&gt;
 
 &lt;p&gt;&lt;img src=&quot;/assets/images/lpic2/runlevel.png&quot; alt=&quot;LPIC2 Post&quot; /&gt;
-&lt;strong&gt;Figure 81&lt;/strong&gt; My runlevel on centOS.&lt;/p&gt;
+&lt;strong&gt;Figure 82-1&lt;/strong&gt; My runlevel on centOS.&lt;/p&gt;
 
 &lt;p&gt;The &lt;strong&gt;5&lt;/strong&gt; means that we working now with runlevel 5, the &lt;strong&gt;N&lt;/strong&gt; means that the previous runlevel was none, if we change the run level for 3, the numbers will be &lt;strong&gt;5 3&lt;/strong&gt;. To change the runlevel on the running machine we can use the &lt;strong&gt;telinit&lt;/strong&gt;.&lt;/p&gt;
 
 &lt;p&gt;&lt;img src=&quot;/assets/images/lpic2/runlevel3.png&quot; alt=&quot;LPIC2 Post&quot; /&gt;
-&lt;strong&gt;Figure 82&lt;/strong&gt; init 3 on centOS.&lt;/p&gt;
+&lt;strong&gt;Figure 82-2&lt;/strong&gt; init 3 on centOS.&lt;/p&gt;
 
 &lt;p&gt;You can see that I on the command line level, so in that case I can change it again to  level 5 and it will bring up the GUI environment again, you can see now that if I run runlevel command I can see that the last runlevel was 3, and now it set on level 5.&lt;/p&gt;
 
@@ -876,6 +999,8 @@ st: Time stolen from a virtual machine. Prior to Linux 2.6.11, unknown.&lt;br /&
 
 &lt;p&gt;&lt;img src=&quot;/assets/images/lpic2/inittab.png&quot; alt=&quot;LPIC2 Post&quot; /&gt;
 &lt;strong&gt;Figure 86&lt;/strong&gt; rc-sysinit.conf file on Ubuntu.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Please note&lt;/strong&gt;:we can set the runlevel also on the boot loader which in my case is the GRUB and we can specify the RUNLEVEL we want on the &lt;code class=&quot;highlighter-rouge&quot;&gt;menu.lst&lt;/code&gt; and run &lt;code class=&quot;highlighter-rouge&quot;&gt;grub-install&lt;/code&gt; and every time the system will reboot it will use this RUNLEVEL.&lt;/p&gt;
 
 &lt;p&gt;Let’s go back to centOS machine, we have folder called rc.d which contain the folders for each runlevel, as example the &lt;em&gt;rc3.d&lt;/em&gt; is conatin simbolic link of the utility that going to be active on that run level.&lt;/p&gt;
 
@@ -927,7 +1052,7 @@ st: Time stolen from a virtual machine. Prior to Linux 2.6.11, unknown.&lt;br /&
 &lt;p&gt;&lt;img src=&quot;/assets/images/lpic2/systemduser.png&quot; alt=&quot;LPIC2 Post&quot; /&gt;
 &lt;strong&gt;Figure 91&lt;/strong&gt; systemd user command.&lt;/p&gt;
 
-&lt;p&gt;Of figure 90 you can see that some services are enable and some of them are disable, the services that are on static state means that they have some service that they depend of, so if you want to kill that service it’s can’t be done until we will stop the depended service.&lt;/p&gt;
+&lt;p&gt;On figure 90 you can see that some services are enable and some of them are disable, the services that are on static state means that they have some service that they depend on, so if you want to kill that service it’s can’t be done until we will stop the depended service.&lt;/p&gt;
 
 &lt;p&gt;So we saw that the services are lived in &lt;code class=&quot;highlighter-rouge&quot;&gt;/usr/lib/systemd&lt;/code&gt; and also in &lt;code class=&quot;highlighter-rouge&quot;&gt;/etc/systemd/system&lt;/code&gt;, if we take a look on one of them we will see some lines that systemd use them to know how to start or kill service.&lt;/p&gt;
 
@@ -952,7 +1077,7 @@ st: Time stolen from a virtual machine. Prior to Linux 2.6.11, unknown.&lt;br /&
 &lt;p&gt;&lt;img src=&quot;/assets/images/lpic2/GRUB1.png&quot; alt=&quot;LPIC2 Post&quot; /&gt;
 &lt;strong&gt;Figure 94&lt;/strong&gt; GRUB 1 which is the GRUB legacy.&lt;/p&gt;
 
-&lt;p&gt;You can see that in my case the GRUB menu doest contain any other option except centOS 6, I want to show you how this is done, so for that case I download Ubuntu 9 which contain GRUB legacy, I also will install Windows XP on my virtual machine and I will create two partition which one of them will contain the Linux and the other will be Windows, please note that windows contain some different boot loader but this is beyond the scope of our LPIC2 exam.&lt;/p&gt;
+&lt;p&gt;You can see that in my case the GRUB menu doesn’t contain any other option except centOS 6, I want to show you how this is done, so for that case I download Ubuntu 9 which contain GRUB legacy, I also will install Windows XP on my virtual machine and I will create two partition which one of them will contain the Linux and the other will be Windows, please note that windows contain some different boot loader but this is beyond the scope of our LPIC2 exam.&lt;/p&gt;
 
 &lt;p&gt;If you want to do this exercies on you virtual machine you can download Ubuntu 9 from the following URL:
 http://old-releases.ubuntu.com/releases/9.04/ubuntu-9.04-desktop-i386.iso&lt;/p&gt;
@@ -998,22 +1123,24 @@ https://ia802908.us.archive.org/26/items/WinXPProSP3x86/en_windows_xp_profession
 
 &lt;p&gt;After it finish it restart and bring up the GRUB menu, however it’s doesn’t show me what is the version which normally on the upper bar menu.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;/assets/images/lpic2/GRUBmenu.png&quot; alt=&quot;LPIC2 Post&quot; /&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/images/lpic2/grubmenu.png&quot; alt=&quot;LPIC2 Post&quot; /&gt;
 &lt;strong&gt;Figure 101&lt;/strong&gt; GRUB menu.&lt;/p&gt;
 
 &lt;p&gt;I boot up my Ubuntu 9 to view the GRUB menu, to check the version just run the &lt;code class=&quot;highlighter-rouge&quot;&gt;GRUB-install --version&lt;/code&gt;, this command will print the current version of our GRUB.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;/assets/images/lpic2/myGRUBversion.png&quot; alt=&quot;LPIC2 Post&quot; /&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/images/lpic2/mygrubversion.png&quot; alt=&quot;LPIC2 Post&quot; /&gt;
 &lt;strong&gt;Figure 102&lt;/strong&gt; GRUB version.&lt;/p&gt;
 
 &lt;p&gt;in the case of GRUB legacy we have two file that are important, the first is &lt;strong&gt;menu.lst&lt;/strong&gt; which is pointer file to GRUB.conf,  the second is GRUB.conf which contain the configuration file for the GRUB menu. In Ubuntu 9 we only have menu.lst which we can change if we want to change the GRUB menu.&lt;/p&gt;
 
 &lt;p&gt;In the &lt;code class=&quot;highlighter-rouge&quot;&gt;menu.lst&lt;/code&gt; file there is many option that comment out, the most importance thing is can be found on the end of that file, the &lt;code class=&quot;highlighter-rouge&quot;&gt;kernel&lt;/code&gt; option and &lt;code class=&quot;highlighter-rouge&quot;&gt;initrd&lt;/code&gt;.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;/assets/images/lpic2/GRUBoptions.png&quot; alt=&quot;LPIC2 Post&quot; /&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/images/lpic2/gruboptions.png&quot; alt=&quot;LPIC2 Post&quot; /&gt;
 &lt;strong&gt;Figure 103&lt;/strong&gt; GRUB options in menu.lst.&lt;/p&gt;
 
 &lt;p&gt;Please remember that if you have some issue with GRUB and after boot you find yourself in &lt;code class=&quot;highlighter-rouge&quot;&gt;GRUB&amp;gt;&lt;/code&gt; command line, you can type &lt;code class=&quot;highlighter-rouge&quot;&gt;help&lt;/code&gt; which will reveal the command that can be use, but you can also setup the kernel path for the kernel file and the initrd as the same you saw in the &lt;strong&gt;menu.lst&lt;/strong&gt; file.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Please note&lt;/strong&gt;: example for such case to jump in the &lt;code class=&quot;highlighter-rouge&quot;&gt;grub&amp;gt;&lt;/code&gt; command line is when the kernel file is missing, so check the menu.lst again after you fix that error and specify the kernel from the &lt;code class=&quot;highlighter-rouge&quot;&gt;grub&amp;gt;&lt;/code&gt; line.&lt;/p&gt;
 
 &lt;p&gt;You also need to specify the root partition, which in our case can be a problem because this is some UUID with some long number that must be specified, so if we don’t know the UUID we can bootup from some bootable device and find that information on the &lt;code class=&quot;highlighter-rouge&quot;&gt;/etc/fstab&lt;/code&gt; file.&lt;/p&gt;
 
@@ -1033,14 +1160,14 @@ https://ia802908.us.archive.org/26/items/WinXPProSP3x86/en_windows_xp_profession
 
 &lt;p&gt;You can also practices on the GRUB menu without to mack changes on your actual system, juest when the GRUB menu reveal it self, press &lt;code class=&quot;highlighter-rouge&quot;&gt;c&lt;/code&gt; for command line or &lt;code class=&quot;highlighter-rouge&quot;&gt;e&lt;/code&gt; for edit the chosen line in the menu.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;/assets/images/lpic2/GRUB1.png&quot; alt=&quot;LPIC2 Post&quot; /&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/images/lpic2/grub1.png&quot; alt=&quot;LPIC2 Post&quot; /&gt;
 &lt;strong&gt;Figure 106&lt;/strong&gt; GRUB 1 command line.&lt;/p&gt;
 
 &lt;p&gt;After you finish up the settings just type boot and it’s will boot up the system with your config, if you set it correctly it will bring up your system, if not it will bring the GRUB menu again and it is the same in the case of GRUB1 and GRUB2.&lt;/p&gt;
 
 &lt;p&gt;&lt;strong&gt;Please note&lt;/strong&gt;: you can add the GRUB parameter for the kernel, as example let’s say that we want to use amount of CPU core in that operating system, so we can use the &lt;code class=&quot;highlighter-rouge&quot;&gt;maxcpus=1&lt;/code&gt; for setting 1 CPU core to be in use when the system is boot up, in that example this is the kernel parameter, you can see all parameters you have correctly on your system by using &lt;code class=&quot;highlighter-rouge&quot;&gt;sysctl -a&lt;/code&gt;, I will talk about that later on that post.&lt;/p&gt;
 
-&lt;h3 id=&quot;challenge-2&quot;&gt;Challenge&lt;/h3&gt;
+&lt;h3 id=&quot;challenge&quot;&gt;Challenge&lt;/h3&gt;
 &lt;ol&gt;
   &lt;li&gt;Upload to your chosen system, it can be any virtual system that contain only GRUB legacy.&lt;/li&gt;
   &lt;li&gt;Change the run level for number 0 or 6 on the system.&lt;/li&gt;
@@ -1103,12 +1230,12 @@ but it load the system and doesn’t restart again like it should do, so I check
 
 &lt;p&gt;You can see that I comment out the &lt;strong&gt;GRUB_DEFAULT&lt;/strong&gt; and &lt;strong&gt;GRUB_TIMEOUT_STYLE&lt;/strong&gt;, and change the &lt;strong&gt;GRUB_TIMEOUT&lt;/strong&gt; to value 10 instead of 0.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;/assets/images/lpic2/GRUB2.png&quot; alt=&quot;LPIC2 Post&quot; /&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/images/lpic2/grub2.png&quot; alt=&quot;LPIC2 Post&quot; /&gt;
 &lt;strong&gt;Figure 113&lt;/strong&gt; GRUB2 file.&lt;/p&gt;
 
 &lt;p&gt;Now all I need to do is run update-GRUB, and I may need to run it with sudo, now if I reboot the system it will bring me the GRUB menu.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;/assets/images/lpic2/GRUB2menu.png&quot; alt=&quot;LPIC2 Post&quot; /&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/images/lpic2/grub2menu.png&quot; alt=&quot;LPIC2 Post&quot; /&gt;
 &lt;strong&gt;Figure 113&lt;/strong&gt; GRUB2 menu.&lt;/p&gt;
 
 &lt;p&gt;Now we need to make the same issue we have done on Ubuntu 9, for that I am using systemctl which can help me to setup the default runlevel.&lt;/p&gt;
@@ -1118,12 +1245,12 @@ but it load the system and doesn’t restart again like it should do, so I check
 
 &lt;p&gt;Now if I trying to restart the system it will be boot again in loop which is exactly what we needed.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;/assets/images/lpic2/GRUB2.gif&quot; alt=&quot;LPIC2 Post&quot; /&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/images/lpic2/grub2.gif&quot; alt=&quot;LPIC2 Post&quot; /&gt;
 &lt;strong&gt;Figure 115&lt;/strong&gt; GRUB 2 on Ubuntu 18 in loop mode.&lt;/p&gt;
 
 &lt;p&gt;To solve it we need to get in the kernel line in the GRUB and change it. I found the &lt;code class=&quot;highlighter-rouge&quot;&gt;quiet splash&lt;/code&gt; and remove it, I write 5 for runlevel 5 and press &lt;strong&gt;F10&lt;/strong&gt; for reboot and sure enough it boot up the OS GUI.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;/assets/images/lpic2/GRUB2runlevel.png&quot; alt=&quot;LPIC2 Post&quot; /&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/images/lpic2/grub2runlevel.png&quot; alt=&quot;LPIC2 Post&quot; /&gt;
 &lt;strong&gt;Figure 116&lt;/strong&gt; add runlevel5 in GRUB2.&lt;/p&gt;
 
 &lt;p&gt;Now all I have to do is to type &lt;code class=&quot;highlighter-rouge&quot;&gt;systemctl set-default runlevel5.target&lt;/code&gt; and that it, if I try to reboot the system it will reboot without any problem like we had before.&lt;/p&gt;
@@ -1132,6 +1259,8 @@ but it load the system and doesn’t restart again like it should do, so I check
 &lt;strong&gt;Figure 117&lt;/strong&gt; Changing to runlevel5 using systemctl.&lt;/p&gt;
 
 &lt;p&gt;Please note that I am using Ubuntu which more like Debian, if you use centOS you may use and change &lt;code class=&quot;highlighter-rouge&quot;&gt;inittab&lt;/code&gt; file.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Please note&lt;/strong&gt;: in the grub we have file named device.map that tell the grub the path to the filesystem partitions.&lt;/p&gt;
 
 &lt;h2 id=&quot;chapter-3&quot;&gt;Chapter 3&lt;/h2&gt;
 &lt;h2 id=&quot;topic-203-filesystem-and-devices&quot;&gt;Topic 203: Filesystem and Devices&lt;/h2&gt;
@@ -1198,12 +1327,16 @@ see that device but didn’t mount it, we can use the &lt;strong&gt;mount&lt;/st
 
 &lt;p&gt;We also can create swap file which work in the same way as partition, all we need to do is to create file by using &lt;strong&gt;dd&lt;/strong&gt; command and named it swap.&lt;/p&gt;
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;sudo make -v /var/cache/swap
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;sudo mkdir -v /var/cache/swap
 cd /var/cache/swap
 sudo dd if=/dev/zero of=swapfile bs=1k count=4M
 sudo chmod 600 swapfile
 sudo mkswap swapfile
 sudo swapon swapfile
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;strong&gt;Please note&lt;/strong&gt;: you can run all in one line as follow:&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;sudo dd if=/dev/zero of=swapfile bs=1k count=4M; sudo chmod 600 swapfile; sudo mkswap swapfile; sudo swapon swapfile
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;p&gt;In that example we create folder named &lt;code class=&quot;highlighter-rouge&quot;&gt;swap&lt;/code&gt; and in that folder we create zero file named &lt;code class=&quot;highlighter-rouge&quot;&gt;swapfile&lt;/code&gt; with block size of 1K for 4M which mean that size of 4G, after that we convert that file for swap space by using &lt;strong&gt;mkswap&lt;/strong&gt;, that last command is &lt;code class=&quot;highlighter-rouge&quot;&gt;swapon&lt;/code&gt; for enable this swapfile to paging and swapping, we can verified that swap by running the &lt;code class=&quot;highlighter-rouge&quot;&gt;swapon -s&lt;/code&gt;&lt;/p&gt;
@@ -1263,9 +1396,9 @@ sudo swapon swapfile
 
 &lt;p&gt;You can also run &lt;strong&gt;debugfs&lt;/strong&gt; without parameters and you be able to debug the disk, in my case I just want to show you how can you check a specific superblock in the disk.&lt;/p&gt;
 
-&lt;p&gt;So far we talk about ext2, ext3 and ext4, we have more filesystem type like &lt;strong&gt;btrfs&lt;/strong&gt; which is what I want to display now, this &lt;strong&gt;btrfs&lt;/strong&gt; have more features then we have in ext4, like support in more large file zise like 16 EiB on disk, which is 2^64 byte which is realy big, it also support RAID functionality, and snapshotting and more feature then we saw so far.&lt;/p&gt;
+&lt;p&gt;So far we talk about ext2, ext3 and ext4, we have more filesystem type like &lt;strong&gt;btrfs&lt;/strong&gt; which is what I want to display now, this &lt;strong&gt;btrfs&lt;/strong&gt; have more features then we have in ext4, like support in more large file zise like 16 EiB on disk, which is 2^64 byte which is really big, it also support RAID functionality, and snapshotting and more feature then we saw so far.&lt;/p&gt;
 
-&lt;p&gt;First of all let’s talk about the RAID functionality, we will view on the RAID in the next chapter also but the basic of it is that this RAID can help to do some backup or more likely to distribute the data on the drives which can be handy if one or more of the data is corrupted, because if on disk went done, you still have data that you can use on another disk, we will talk about that later on, but right know you need to know that &lt;strong&gt;btrfs&lt;/strong&gt; support in RAID in such of thing that we can adding more disk to the system which we have RAID on it, I mean more devices can be added after the filesystem (which is btrfs) was created.&lt;/p&gt;
+&lt;p&gt;First of all let’s talk about the RAID functionality, we will view on the RAID in the next chapter also but the basic of it is that this RAID can help to do some backup or more likely to distribute the data on the drives which can be handy if one or more of the data is corrupted, because if one disk went done, you still have data that you can use on another disk, we will talk about that later on, but right know you need to know that &lt;strong&gt;btrfs&lt;/strong&gt; support in RAID in such of thing that we can adding more disk to the system which we have RAID on it, I mean more devices can be added after the filesystem (which is btrfs) was created.&lt;/p&gt;
 
 &lt;p&gt;To make &lt;strong&gt;btrfs&lt;/strong&gt; filesystem we can use the &lt;strong&gt;mkfs.btrfs&lt;/strong&gt; command and we can run that command on multiple devices like as follow:&lt;/p&gt;
 
@@ -1278,7 +1411,7 @@ sudo swapon swapfile
 &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;mount -t btrfs /dev/sdb1 /mnt/btrfs
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
-&lt;p&gt;Now we need to create something that called &lt;strong&gt;subvalume&lt;/strong&gt;, which we can use that for snapshotting as we proceed foreword.&lt;/p&gt;
+&lt;p&gt;Now we need to create somewhat that called &lt;strong&gt;subvalume&lt;/strong&gt;, which we can use for snapshotting as we proceed foreword.&lt;/p&gt;
 
 &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;btrfs subvalume create root
 btrfs subvalume create home
@@ -1508,7 +1641,10 @@ If we go to the auto.nfs file we will find one line that setup the mount point a
 &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;mdadm --detail --scan &amp;gt; /etc/mdadm.conf
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
-&lt;p&gt;Now I want to talk about the hard disk, we saw so far the hard disk, memory, cpu and such on chapter 0 but now we need to have more knowledge about that so let’s dive in. On the LPIC2 it’s say that we need to know about the DMA, this is short for Direct Memory Access and it’s can be use to help to improve performance over the PC, in the computer we have hard disk, memory, and processor, in the not so far past when we want to load data from the hard disk to the memory the processor start to run and load the data from the disk to the memory, in that case every action that we done on our computer would take a long time because the processor was busy, let’s take for example case that we want burn data to our optical disk, in that case the processor need to take data from the hard disk, load it to memory and use it to burn it down, this would take a 20 minutes to finish to burn just one file in size of 600M, which is very frustrating, consider that in our days everything works fast, so to solve it there is a very simple solution, we need to find a way to leave the processor out of the picture, so the DMA came alone and it allow direct access from the disk to the memory without needed to use the processor, so if your PC are slow we may want to check if the DMA functionality are enable on your PC.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Please note&lt;/strong&gt;: we also can run test on our RAID’s to simulate failed device within a RAID 5 array:&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;mdadm --fail /dev/md0 /dev/sdc1
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;In that case we specify the &lt;code class=&quot;highlighter-rouge&quot;&gt;sdc1&lt;/code&gt; to mark as fail, this will cause the RAID5 to do the action he would done if the disk was really damage. Using the –set-faulty would done the same operation.&lt;/p&gt;
 
 &lt;p&gt;for doing just that we need to use &lt;strong&gt;hdparm&lt;/strong&gt;, this tool can give us information about the IDE drive, which one of them is if the DMA are active or not and it also can give us information of performance to check the buffer reading or disk reading in seconds.&lt;/p&gt;
 
@@ -1600,6 +1736,8 @@ dma = on
 
 &lt;p&gt;&lt;img src=&quot;https://cdn.shopify.com/s/files/1/0703/8597/products/24f0e6c9-3b9c-5987-998c-e2164a4f4bbe.png?v=1496360927&quot; alt=&quot;LPIC2 Post&quot; /&gt;
 &lt;strong&gt;Figure 152&lt;/strong&gt; SDD with SATA port.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Please note&lt;/strong&gt;: if you have HDD drive it will be specify as &lt;code class=&quot;highlighter-rouge&quot;&gt;hd*&lt;/code&gt; in the &lt;code class=&quot;highlighter-rouge&quot;&gt;/dev/&lt;/code&gt; directory, the &lt;code class=&quot;highlighter-rouge&quot;&gt;sd*&lt;/code&gt; stand for SSD drive and CD writer will sign as &lt;code class=&quot;highlighter-rouge&quot;&gt;sr*&lt;/code&gt; which stand for CD-ROM.&lt;/p&gt;
 
 &lt;p&gt;It’s more likely that you found SSD card with PCI connectors like as in the following image:&lt;/p&gt;
 
@@ -1811,7 +1949,7 @@ service iscsid start
 
 &lt;p&gt;As you can see the name of my VG is vg1 and the format for this is lvm2, also we can see the VG size which is 19.99GB, just remember that we use two disk each is 10GB.&lt;/p&gt;
 
-&lt;p&gt;&lt;strong&gt;Please note&lt;/strong&gt;: you can remove physical volume from volume group by using the &lt;code class=&quot;highlighter-rouge&quot;&gt;vgreduce&lt;/code&gt; command, and also add physical volume by using &lt;code class=&quot;highlighter-rouge&quot;&gt;vgextand&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Please note&lt;/strong&gt;: you can remove physical volume from volume group by using the &lt;code class=&quot;highlighter-rouge&quot;&gt;vgreduce&lt;/code&gt; command, and also add physical volume by using &lt;code class=&quot;highlighter-rouge&quot;&gt;vgextend&lt;/code&gt;.&lt;/p&gt;
 
 &lt;p&gt;now we can proceed to the logical volume creation.&lt;/p&gt;
 &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;sudo lvcreate --name lv1 --size 1G vg1
@@ -1892,6 +2030,8 @@ service iscsid start
 &lt;p&gt;&lt;img src=&quot;/assets/images/lpic2/arp.png&quot; alt=&quot;LPIC2 Post&quot; /&gt;
 &lt;strong&gt;Figure 171&lt;/strong&gt; Arp command.&lt;/p&gt;
 
+&lt;p&gt;&lt;strong&gt;Please note&lt;/strong&gt;: we can also use the &lt;code class=&quot;highlighter-rouge&quot;&gt;ip neigh show&lt;/code&gt; which show the neighbors on the segment.&lt;/p&gt;
+
 &lt;p&gt;I guess that the default getaway is 172.16.3.254, so this is what I am going to setup on my route table.&lt;/p&gt;
 &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;sudo route add default gw 172.16.3.254 enp0s3
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
@@ -1913,6 +2053,10 @@ service iscsid start
 
 &lt;p&gt;&lt;img src=&quot;/assets/images/lpic2/ESSID.png&quot; alt=&quot;LPIC2 Post&quot; /&gt;
 &lt;strong&gt;Figure 174&lt;/strong&gt; ESSID in my local area.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Please note&lt;/strong&gt;: we can use the following command to view that capabilities of our wireless information, such as the frequencies, what are the Ciphers that being use and so on:&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;iw phy phy0 info
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;p&gt;We can use the following to connect that network by using the ESSID we have now:&lt;/p&gt;
 &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;sudo iwconfig wlan0 essid IT-WIFI
@@ -1960,7 +2104,7 @@ service iscsid start
 &lt;p&gt;&lt;img src=&quot;/assets/images/lpic2/tcpdump.png&quot; alt=&quot;LPIC2 Post&quot; /&gt;
 &lt;strong&gt;Figure 178&lt;/strong&gt; tcpdump.&lt;/p&gt;
 
-&lt;p&gt;You can see that I am using &lt;strong&gt;-XX&lt;/strong&gt; option for HEX output and &lt;strong&gt;-vvv&lt;/strong&gt; option for even more verbose output. So we have a little packets in that seession but you can see that it is a live and working.&lt;/p&gt;
+&lt;p&gt;You can see that I am using &lt;strong&gt;-XX&lt;/strong&gt; option for HEX output and &lt;strong&gt;-vvv&lt;/strong&gt; option for even more verbose output. So we have a little packets in that session but you can see that it is a live and working, also please note that the service that are being use is http of anydask, normally we can now what is the service by the port number, in my case it display as the service who use that port, but if we had port number 53 we know that this is DNS service of port 23 which is telnet, the server is always the side how specify that service port on the packet, so in my case the anydask is the server.&lt;/p&gt;
 
 &lt;p&gt;&lt;strong&gt;Please note&lt;/strong&gt;: in the tcpdump we use the direction for monitor packets, we can use &lt;code class=&quot;highlighter-rouge&quot;&gt;host&lt;/code&gt; as you can see in the figure 178, but also we can specify the source by &lt;code class=&quot;highlighter-rouge&quot;&gt;src&lt;/code&gt; or destination by &lt;code class=&quot;highlighter-rouge&quot;&gt;dst&lt;/code&gt; option in the command line.&lt;/p&gt;
 
@@ -2115,7 +2259,13 @@ dnsdomainname - show the system's DNS domain name
 
 &lt;p&gt;You can also use the &lt;strong&gt;/etc/resolv.conf&lt;/strong&gt; file which contain a list nameservers that are used by your host or DNS resolution. if we are using DHCP this file is automatically populated with DNS recode issued by DHCP server.&lt;/p&gt;
 
+&lt;p&gt;&lt;strong&gt;Please note&lt;/strong&gt;: if none of dns server specify on that resolv.conf file you can check on nslookup, every query need to specify the DNS IP address, if it dosn’t or it specify 172.0.1.1 which is local loopback, ensure that the dns service are list in /etc/nsswitch.conf, you also can run the following command to get that information:&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;nmcli dev show | grep DNS
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
 &lt;p&gt;There is also the &lt;strong&gt;/etc/hosts&lt;/strong&gt; file which also contain hostnames and IP address, this file contain static table lookup for hostnames, this is mean that we can use if in case we have no DNS server configure for our host, or we want to specify specific record for some host or block the local machine to successfully resolve the IP address for some host.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Please note&lt;/strong&gt;: if users complain about slowness that related to the network like let’s say the browser bring up sites slow, so you checked the network and bandwidth and it’s look working good, in that case you may want to check how much time does it take to resolve DNS query, you can do so with the &lt;code class=&quot;highlighter-rouge&quot;&gt;dig&lt;/code&gt; or &lt;code class=&quot;highlighter-rouge&quot;&gt;time&lt;/code&gt; command as example &lt;code class=&quot;highlighter-rouge&quot;&gt;time nslookup zwerd.com&lt;/code&gt;.&lt;/p&gt;
 
 &lt;p&gt;We can also apply sort of access list that contain the allow connection host on the network to connect our local machine by specify their name and address in the &lt;strong&gt;/etc/hosts.allow&lt;/strong&gt;, in that way we can done what we would done with FW, but this time this policy apply on our local machine. We can also do the same to deny hosts from enable their connection to our local machine by specify them in the &lt;strong&gt;/etc/hosts.deny&lt;/strong&gt;, this technology is called &lt;strong&gt;TCP Wrapper&lt;/strong&gt; which is an open source host-based ACL (Access Control List) system.&lt;/p&gt;
 
@@ -2210,6 +2360,8 @@ httpd : ALL EXCEPT 172.16.
 &lt;p&gt;For applying this patch just run.&lt;/p&gt;
 &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;patch &amp;lt; program.patch
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;strong&gt;Please note&lt;/strong&gt;: you can use the &lt;code class=&quot;highlighter-rouge&quot;&gt;-p&lt;/code&gt; option and specify the number of path it will strip off&lt;/p&gt;
 
 &lt;p&gt;I want to talk about tar and rsync right now, with these two tools we can use to back up some important folders that back them up:&lt;/p&gt;
 &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;/etc/

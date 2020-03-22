@@ -786,7 +786,7 @@ You can find the initrd under boot folder, usually every kernel have it's own in
 ![LPIC2 Post](/assets/images/lpic2/initrdfiles.png)
 **Figure 68** initrd files.
 
-**Please note**:At boot time, the boot loader loads the kernel and the initramfs image into memory and starts the kernel. The kernel checks for the presence of the initramfs and, if found, mounts it as / and runs /init. The init program is typically a shell script. Note that the boot process takes longer, possibly significantly longer, if an initramfs is used.
+**Please note**:At boot time, the boot loader loads the kernel and the initramfs image into memory and starts the kernel. The kernel checks for the presence of the initramfs and, if found, mounts it as `/` and runs `/init`. The init program is typically a shell script. Note that the boot process takes longer, possibly significantly longer, if an initramfs is used.
 
 Let's take a closer look at this file, it will help you understand more about this file, so I'm run the command `file` on one of the init file to check what is the type of that file, in that way I will be able to find out how to read that file.
 
@@ -802,7 +802,7 @@ As you can see the type of this file is an archive and it's **cpio** file which 
 
 The option **-i** stand for extract files from an archive and the **-d** create leading directories where needed, the **-m** retain previous file modification times when creating files and **-v** used for verbose.
 
-In our case we can see the folder that `cpio` extract to and this can give us a clue about the init file, but if you notice, at the end of the output was print out 56 blocks, and every block is 512 bytes so we view right now in the first 33280 bytes of this file, but as you saw before, this file contain 54M which are more bigger then 33K we saw, so were is the rest of that file?
+In our case we can see the folder that `cpio` extract to and this can give us a clue about the init file, but if you notice, at the end of the output was print out 56 blocks, and every block is 512 bytes so we view right now in the first 33280 bytes of this file, but as you saw before, this file contain 54M which are more bigger then 33K, so were is the rest of that file?
 
 This situation let's us know that not all the file was open by the cpio, and the rest of that can be something else or new cpio file because in the cpio there is an header that he knows the start and finish of file, so we need the rest of the file, to achieve that goal we can use `dd` to take fixed size for that file and output it to use file.
 
@@ -810,7 +810,7 @@ This situation let's us know that not all the file was open by the cpio, and the
 dd if=initrd.img-4.15.0-70-generic of=initrd.img-4.15.0-70-generic_OUT bs=512 skip=56
 ```
 
-In this command I specified the input file which is the **initrd.img-4.15.0-70-generic** and the output file going to be **initrd.img-4.15.0-70-generic_OUT**, the block size are 512 bytes and we want to skip the first 56 blocks.
+In this command I specified the input file which is the **initrd.img-4.15.0-70-generic** and the output file going to be **initrd.img-4.15.0-70-generic_OUT**, the block size are 512 bytes and we want to skip the first 56 blocks which mean the rest of that file will be taken.
 
 ![LPIC2 Post](/assets/images/lpic2/dd.png)
 **Figure 71** Create new file using dd.
@@ -825,13 +825,36 @@ So this also cpio file, I used cpio to extract that file and found other files t
 ![LPIC2 Post](/assets/images/lpic2/secondfile.png)
 **Figure 73** Extract again using cpio.
 
-Now we need to repeat the process again with `dd` and after that using `file` command. You can see that we found gzip file so now we need to use gzip to see the contect of that file, in the gzip case the file must contain extension of gzip else we will get some error, so I use mv to change the extension and that use the `gzip` command.
+Now we need to repeat the process again with `dd` and after that using `file` command.
+```
+sudo dd if=initrd.img-4.15.0-70-generic_OUT of=initrd.img-4.15.0-70-generic_OUT2 bs=512 skip=5784
+```
+
+![LPIC2 Post](/assets/images/lpic2/thirdfile.png)
+**Figure 73-2** Checking the new file with `file` command.
+
+You can see that we found gzip file so now we need to use gzip to see the contect of that file, in the gzip case the file must contain extension of gzip else we will get some error, so I use mv to change the extension and then use the `gzip` command.
+
+So for change the extention:
+```
+sudo mv initrd.img-4.15.0-70-generic_OUT2 initrd.img-4.15.0-70-generic_OUT3.gz
+```
+
+And now extract the gzip file:
 
 ```
-gzip -dlv initrd.img-4.15.0-72-generic_OUT2.gz
+gzip -dlv initrd.img-4.15.0-70-generic_OUT3.gz
 ```
 
-This will bring file name **initrd.img-4.15.0-72-generic_OUT2** so now we need to check that file type again. in my case it was cpio. so I decompress it.
+This will bring file name **initrd.img-4.15.0-70-generic_OUT3** so now we need to check that file type again. in my case it was cpio.
+
+![LPIC2 Post](/assets/images/lpic2/gzipfile.png)
+**Figure 73-2** Decompress the gzip file.
+
+![LPIC2 Post](/assets/images/lpic2/cpioagain.png)
+**Figure 73-3** Checking the file type again.
+
+So I decompress it.
 
 ![LPIC2 Post](/assets/images/lpic2/cpiolastfile.png)
 **Figure 74** Extract again using cpio.
@@ -841,9 +864,11 @@ To see if this is the end of our search of initrd we can can use `dd` and if he 
 ![LPIC2 Post](/assets/images/lpic2/ddagain.png)
 **Figure 75** This is it.
 
-**Please nore**: the kernel configuration parameters can be found on the config file, this file is also on the boot folder, so as you may remeber you can change some parameter by `make menuconfig` but if you remember later on about some setting that you need you can add it in that file before install the kernel. Also remember that the config name is usual as follow `config-<kernel version>`.
+**Please nore**: the kernel configuration parameters can be found on the config file, this file is also on the boot folder, so as you need to remember that you can change some parameter by `make menuconfig` but if you forget  about some setting that you need you can add it in that file before install the kernel. Also remember that the config name is usual as follow `config-<kernel version>`.
 
 So far we saw that on GRUB we have two files, the kernel file and the init file, after we done all the compiling stuff we can find the kernel and it's documentation under the `/usr/src/linux`/`/usr/src/linux/documentation`, we also can find there the drives that going to be in used on our system and the configurations files that related to this linux kernel.
+
+
 
 ### Challenge
 
@@ -853,6 +878,7 @@ So far we saw that on GRUB we have two files, the kernel file and the init file,
 
 To solve this issue I will go with you step by step how to make new minimal linux kernel, I am going to use the minimal linux live project that was written by davidov.i@gmail.com, you can find the minimal linux document at the following URL:[Minimal Linux Tutorial](http://minimal.linux-bg.org/the_dao_of_minimal_linux_live.txt).
 
+For making initrd file we can use `mkinitrd` command (on RedHet and CentOS distro), if you use Ubuntu you will need to use `update-initramfs` or `mkinitramfs` commands, those command will create initrd file which we can move to our boot folder and update the GRUB to use it, so in case you find the initrd dummege or it accidentally deleted, you can use those command and create your new initrd file for booting the system normally.
 
 ### 1. Create minimal linux kernel.
 

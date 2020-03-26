@@ -1014,7 +1014,7 @@ st: Time stolen from a virtual machine. Prior to Linux 2.6.11, unknown.<br /></p
 
 <p>You may ask how the linux kernel knows when some device pluge in and lunch his appropriate module, this is done by the <strong>udev</strong>, this udev responsible for such a thing so he know to load up the usb module when some USB device pluge in.</p>
 
-<p>You can see what going on your commputer by using some command that related to udev, such as <code class="highlighter-rouge">lsusb</code> which can show us the devices related to usb,<code class="highlighter-rouge">lspci</code> that responsible for PCI bridge or the <code class="highlighter-rouge">dmesg</code> that show us all the log we have from the system like in the boot which we can see on the boot the logs that our system run while bring the OS up.</p>
+<p>You can see what going on your commputer by using some command that related to udev, such as <code class="highlighter-rouge">lsusb</code> which can show us the devices related to usb,<code class="highlighter-rouge">lspci</code> that responsible for PCI bridge and we can use <code class="highlighter-rouge">lsdev</code> to display information about installed hardware or the <code class="highlighter-rouge">dmesg</code> that show us all the log we have from the system like in the boot which we can see on the boot the logs that our system run while bring the OS up.</p>
 
 <p>We also have the <code class="highlighter-rouge">udevadm monitor</code> which can bring to the screen logs from the system in real time, you can see on the next gif how it work, I plug in my sundisk device and the <strong>udev</strong> found it and load it’s logs to my screen, he also showed us the remove log when I remove my device from that computer</p>
 
@@ -1109,7 +1109,16 @@ st: Time stolen from a virtual machine. Prior to Linux 2.6.11, unknown.<br /></p
 
 <p>At the end of this process it will run <strong>depmod</strong> which will create the <strong>modules.dep</strong> file which contain all the modules information and dependencies.</p>
 
-<p>After the <code class="highlighter-rouge">make modules</code> finish we can find the modules we compile under the <em>/lib/modules/</em> folder which will be contain the modules folder as the name of the kernel version we compile.</p>
+<p>Now I want to talk little about the DKMS, this is sort of direction about how to build specific kernel module, this is mean that the DKMS contain the configuration file to tell the system how to build/configure the module and what its name is.</p>
+
+<p>Let’s take a look in my local Ubuntu system, in the <em>/usr/src/</em> directory I have module for virtualbox and that module use the <code class="highlighter-rouge">dkms.conf</code> file that contain direction for build the module in my system.</p>
+
+<p><img src="/assets/images/lpic2/dkmsconf.png" alt="LPIC2 Post" />
+<strong>Figure 75-1</strong> DKMS configuration file.</p>
+
+<p>You can see that this file contain information about the package name, version, build module name, build module location and so on. As you already know for build module we use <code class="highlighter-rouge">make</code> command, it’s more likely that the module we going to install will be some  <code class="highlighter-rouge">c</code> file and we use make to compile it, after it finish to do it magic we find in the current directory <code class="highlighter-rouge">ko</code> and <code class="highlighter-rouge">o</code> file and now we can run <code class="highlighter-rouge">make install</code> for installing the module, the DKMS can do all of that for us, we just need to specify what to do in the dkms.conf file.</p>
+
+<p>Let’s go back to the <code class="highlighter-rouge">make modules</code> command we talk about erlier, so after the <code class="highlighter-rouge">make modules</code> finish we can find the modules we compile under the <em>/lib/modules/</em> folder which will be contain the modules folder as the name of the kernel version we compile.</p>
 
 <p>Now we need to install the modules with the command <code class="highlighter-rouge">make modules_install</code> it will install the modules under the /lib/modules/<em>kernel-version</em> which is the kernel version of our modules.</p>
 
@@ -1251,7 +1260,7 @@ st: Time stolen from a virtual machine. Prior to Linux 2.6.11, unknown.<br /></p
 
 <h3 id="3-check-network-connectivity">3. check network connectivity.</h3>
 
-<p>I just run ping to 8.8.8.8 with is google dns server and I saw reply from this server.</p>
+<p>I just run ping to 8.8.8.8 which is google DNS server and I saw reply from this server.</p>
 
 <p><img src="/assets/images/lpic2/ping.png" alt="LPIC2 Post" />
 <strong>Figure 80</strong> Checking network connectiviry.</p>
@@ -1308,7 +1317,7 @@ st: Time stolen from a virtual machine. Prior to Linux 2.6.11, unknown.<br /></p
 
 <p>To solve that I boot up the system by using external device like bootable usb or optical disk and bring the system up for making change in the boot folder for that system.</p>
 
-<p><img src="/assets/images/lpic2/mountcentos.gif" alt="LPIC2 Post" />
+<p><img src="/assets/images/lpic2/mountcentos.png" alt="LPIC2 Post" />
 <strong>Figure 81-4</strong> Mount command after boot from bootable device.</p>
 
 <p>You can see the I have not any <code class="highlighter-rouge">/dev/sda</code> storage in that system becouse I boot it up from optical disk, now I need to find the hard disk and mount it to my system.</p>
@@ -1348,15 +1357,15 @@ st: Time stolen from a virtual machine. Prior to Linux 2.6.11, unknown.<br /></p
 
 <p>After that I reboot the system to check if it working write.</p>
 
-<p><img src="/assets/images/lpic2/bootit.png" alt="LPIC2 Post" />
+<p><img src="/assets/images/lpic2/bootit.gif" alt="LPIC2 Post" />
 <strong>Figure 81-10</strong> Boot the CentOS.</p>
 
 <h2 id="chapter-2">Chapter 2</h2>
 <h2 id="topic-202-system-startup">Topic 202: System Startup</h2>
 
-<p>In linux systems we have the way to control the system mode we going to load up, we have numbers of system mode type that some of that very useful and some of them are not in use, as example one of them is full system mode that contain everything that normal system can contain for work, we have also single user mode that can be use to do specific thing on the machine, that sort of control tool called runlevel. In the linux world we can use run level to boot up specific mode of our operation system.</p>
+<p>In linux systems we have the way to control the system mode we going to load up, we have numbers of system mode that some of them very useful and some of them are not in use, as example one of them is full system mode that contain everything that normal system need contain for work, we have also single user mode that can be use to do specific thing on the machine, that sort of control tool called runlevel. In the Linux world we can use run level to boot up specific mode of our operation system.</p>
 
-<p>We can setup also runlevel as we want, as example we can enable create runlevel that enable on the system the mail service and disable apache2, in that way we can customize the system with specific tools and program that can be work on it, this is quite useful because let’s say you have user on your organization that use tools that related to design pictures or document and he need connectivity to the network and this is it, in that case why we allow the <strong>vsftpd</strong> service for example, this is not useful for that user, so we can disable that on customize runlevel.</p>
+<p>We can setup also runlevel as we want, as example we can create runlevel that enable on the system the mail service and disable apache2, in that way we can customize the system with specific tools and program that can be work on it, this is quite useful because let’s say you have user on your organization that use tools that related to design pictures or document and he need connectivity to the network and nothing else, in that case why we allow the <strong>vsftpd</strong> service for example, this is not useful for that user, so we can disable that on customize runlevel.</p>
 
 <p>If we talk about systems like Red Hat systems in my case centOS you can run <strong>runlevel</strong>, this command will show us the runlevel that our system run for, in my case it was <strong>N 5</strong>.</p>
 
@@ -1365,22 +1374,25 @@ st: Time stolen from a virtual machine. Prior to Linux 2.6.11, unknown.<br /></p
 
 <p>The <strong>5</strong> means that we working now with runlevel 5, the <strong>N</strong> means that the previous runlevel was none, if we change the run level for 3, the numbers will be <strong>5 3</strong>. To change the runlevel on the running machine we can use the <strong>telinit</strong>.</p>
 
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>telinit 3
+</code></pre></div></div>
+
 <p><img src="/assets/images/lpic2/runlevel3.png" alt="LPIC2 Post" />
 <strong>Figure 82-2</strong> init 3 on centOS.</p>
 
-<p>You can see that I on the command line level, so in that case I can change it again to  level 5 and it will bring up the GUI environment again, you can see now that if I run runlevel command I can see that the last runlevel was 3, and now it set on level 5.</p>
+<p>You can see that I am in command line level, so in that case I can change it again to level 5 and it will bring up the GUI environment again, you can see now that if I run runlevel command I can see that the last runlevel was 3, and now it set on level 5.</p>
 
 <p><img src="/assets/images/lpic2/runlevel5.png" alt="LPIC2 Post" />
 <strong>Figure 83</strong> init 5 on centOS.</p>
 
-<p>Now let’s look on the configuration file of that inittab, you can find that file on /etc/inittab, this configuration file contain several init level. 0 - halt which mean that if we use that init, the system will go shutdown, this is why it is recommended not to setup the runlevel at this init level or at level 6, 1 - single user mode for administrative tasks, 2  is multiuser mode without NFS and 3 is fill multiuser mode, 5 is x11 which have the nice GUI view with desktop environment.</p>
+<p>Now let’s look on the configuration file of that inittab, you can find that file on <code class="highlighter-rouge">/etc/inittab</code>, this configuration file contain several init level. 0 - halt which mean that if we use that init, the system will go shutdown, this is why it is recommended not to setup the runlevel at this init level or at level 6, 1 - single user mode for administrative tasks, 2  is multiuser mode without NFS and 3 is fill multiuser mode, 5 is x11 which have the nice GUI view with desktop environment.</p>
 
 <p><img src="/assets/images/lpic2/inittab-centos.png" alt="LPIC2 Post" />
 <strong>Figure 84</strong> inittab file on centOS.</p>
 
 <p>You can see on the bottom of that file the line <code class="highlighter-rouge">id:5:initdefault:</code>, we can change it value to what init level we want and on the next boot it will bring the new init level up, what you mast not do on that file is to setup the run level for 0 or 6 which cause your system won’t be able to load the user enviroment and we can’t work in that case.</p>
 
-<p>If you want to see your level on Debian like as Ubuntu you can also run <code class="highlighter-rouge">runlevel</code> command or check your <strong>sysinit.config</strong> file on <em>/etc/init.d</em> folder this file contain the init level for distribution like Debian and you can change it what ever you like but please notice that this run level in my case on Ubuntu is pretty different from Red Hat like distrabution, in my case I found that information in the man page of <code class="highlighter-rouge">telinit</code> file.</p>
+<p>If you want to see your level on Debian like as Ubuntu you can also run <code class="highlighter-rouge">runlevel</code> command or check your <strong>sysinit.config</strong> file on <code class="highlighter-rouge">/etc/init.d</code> folder this file contain the init level for distribution like Debian and you can change it what ever you like but please notice that this run level in my case on Ubuntu is pretty different from Red Hat like distrabution, in my case I found that information in the man page of <code class="highlighter-rouge">telinit</code> file.</p>
 
 <p><img src="/assets/images/lpic2/initman.png" alt="LPIC2 Post" />
 <strong>Figure 85</strong> Runlevels on Ubuntu.</p>
@@ -1408,6 +1420,8 @@ st: Time stolen from a virtual machine. Prior to Linux 2.6.11, unknown.<br /></p
 <p><img src="/assets/images/lpic2/chkconfig--list.png" alt="LPIC2 Post" />
 <strong>Figure 88</strong> list on chkconfig.</p>
 
+<p><strong>Please note</strong>: this <code class="highlighter-rouge">chkconfig</code> command is available on operation systems like RedHet, CentOS etc.</p>
+
 <p>In my case I run the following command.</p>
 
 <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>chkconfig smartd on
@@ -1427,7 +1441,7 @@ st: Time stolen from a virtual machine. Prior to Linux 2.6.11, unknown.<br /></p
 </code></pre></div></div>
 <p>If you want to change the operation state permanently you need to use disable or enable instead start or stop. You can also remove it from the symbolic links with the remove option.</p>
 
-<p>So far we saw the command <code class="highlighter-rouge">chkconfig</code> that can help us to view all the services on centOS system or any Red Hat like distribution, on Ubuntu we can use the command <code class="highlighter-rouge">netstat -tulpn</code> as we saw on chapter 1, but for the matter fact we can use more handy command like <code class="highlighter-rouge">service --status-all</code>, this command will show us every service that exist on our system and each status.</p>
+<p>So far we saw the command <code class="highlighter-rouge">chkconfig --list</code> that can help us to view all the services on centOS system or any Red Hat like distribution, on Ubuntu we can use the command <code class="highlighter-rouge">netstat -tulpn</code> as we saw on chapter 1, but for the matter fact we can use more handy command like <code class="highlighter-rouge">service --status-all</code>, this command will show us every service that exist on our system and each status.</p>
 
 <p><img src="/assets/images/lpic2/service--status-all.png" alt="LPIC2 Post" />
 <strong>Figure 90</strong> all services on my system.</p>
@@ -1449,7 +1463,71 @@ st: Time stolen from a virtual machine. Prior to Linux 2.6.11, unknown.<br /></p
 <p><img src="/assets/images/lpic2/catservice.png" alt="LPIC2 Post" />
 <strong>Figure 92</strong> the service itself on system.</p>
 
-<p>As you can see this file contain some description and after field, this after field mean that the services - NetworkManager-wait-online.service network.target network-online.dbus.service, must be on enable state and only <strong>after</strong> that was done, we can bring the teamviewerd.service service up. you can see also the <strong>ExecStart</strong> field that contain the exact command for running that service.</p>
+<p>As you can see this file contain some description and after field, this after field mean that the services - NetworkManager-wait-online.service network.target network-online.dbus.service, must be on enable state and only <strong>after</strong> that was done, we can bring the teamviewerd.service service up, so in that case the dbus.service must to be run before we can be able to use teamviewerd service, so if we run the following command we will see that dbus is on static as we saw on figure 90:</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>systemctl list-unit-files --type=service | grep dbus
+</code></pre></div></div>
+
+<p>you can see also the <strong>ExecStart</strong> field that contain the exact command for running that service.</p>
+
+<p>There is also a third location available in which you can place files to override your unit definitions, this is the <em>/run/systemd</em> directory. I want to do some experiment (<a href="https://askubuntu.com/questions/1120023/how-to-use-systemd-notify">credit filbranden</a>) We have the <em>/run/systemd</em> directory that contain the systemd notify, as much as I understand this norify allows a process to send a notification to another process, so let’s create our own service and look about the status of that service.</p>
+
+<p>First of all we create a script like the one below somewhere in your system, such as <em>/usr/local/bin/mytest.sh</em>:</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">#!/bin/bash</span>
+
+<span class="nb">mkfifo</span> /tmp/waldo
+<span class="nb">sleep </span>10
+systemd-notify <span class="nt">--ready</span> <span class="nt">--status</span><span class="o">=</span><span class="s2">"Waiting for data…"</span>
+
+<span class="k">while</span> : <span class="p">;</span> <span class="k">do
+        </span><span class="nb">read </span>a &lt; /tmp/waldo
+        systemd-notify <span class="nt">--status</span><span class="o">=</span><span class="s2">"Processing </span><span class="nv">$a</span><span class="s2">"</span>
+
+        <span class="c"># Do something with $a …</span>
+        <span class="nb">sleep </span>10
+
+        systemd-notify <span class="nt">--status</span><span class="o">=</span><span class="s2">"Waiting for data…"</span>
+<span class="k">done</span>
+</code></pre></div></div>
+
+<p>We use sleep 10s so we can see what’s happen, when watching the systemctl status mytest.service output. Now we need to make the script executable:</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ sudo chmod +x /usr/local/bin/mytest.sh
+</code></pre></div></div>
+
+<p>After that we need to create <em>/etc/systemd/system/mytest.service</em>, with contents:</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[Unit]
+Description=My Test
+
+[Service]
+Type=notify
+ExecStart=/usr/local/bin/mytest.sh
+
+[Install]
+WantedBy=multi-user.target
+</code></pre></div></div>
+
+<p>Now we need to reload systemd (so it learns about the unit) and start it:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ sudo systemctl daemon-reload
+$ sudo systemctl start mytest.service
+</code></pre></div></div>
+
+<p>Then watch status output, every so often:</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ systemctl status mytest.service
+</code></pre></div></div>
+
+<p><img src="/assets/images/lpic2/mytestservice.png" alt="LPIC2 Post" />
+<strong>Figure 92-1</strong> My test service is on active state.</p>
+
+<p>You’ll see it’s starting for the first 10 seconds, after which it will be started and its status will be “Waiting for data…”. Now write some data into the FIFO (you’ll need to use tee to run it as root):</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ echo somedata | sudo tee /tmp/waldo
+</code></pre></div></div>
+<p>And watch the status:</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ systemctl status mytest.service
+</code></pre></div></div>
+<p>It will show the status of the service as “Processing some data” for 10 seconds, then back to “Waiting for data…”.</p>
+
+<p><img src="/assets/images/lpic2/servicestatus.png" alt="LPIC2 Post" />
+<strong>Figure 92-2</strong> My test service status.</p>
 
 <p>If you check, you will find that most of the services are symbolic link to other location and most of them are for <code class="highlighter-rouge">/lib/systemd/system</code>.</p>
 
@@ -1460,7 +1538,9 @@ st: Time stolen from a virtual machine. Prior to Linux 2.6.11, unknown.<br /></p
 
 <p>For summery, this systemd with the <code class="highlighter-rouge">systemctl</code> command is another way to check and set the init files, this is also applied on many linux system like Red Hat and opensuse servers for enterprise, there is some distribution that don’t use systemd, but this is only on the desktop linux version, it’s more likely to find systemd in used on enterprises systems.</p>
 
-<p>Now, for this chapter 2 we need also be familiar with GRUB legacy and GRUB2, this GRUB stand for GRand Unified Bootloader, this is bootloader which mean this is the first menu that the computer bring up, in this menu we can choose what operation system we want to load up, let’s say that you have some DELL PC and you want that one partition will be Windows and the other contain Linux, you can do so and the GRUB is the menu which bring you the option to choose between the OS’s.</p>
+<p>We also need to be familiar with <strong>systemd-delta</strong>, it may be used to identify and compare configuration files that override other configuration files. Files in /etc have highest priority, files in /run have the second highest priority, …, files in /usr/lib have lowest priority. Files in a directory with higher priority override files with the same name in directories of lower priority. In addition, certain configuration files can have “.d” directories which contain “drop-in” files with configuration snippets which augment the main configuration file.</p>
+
+<p>Now, for this chapter 2 we need also be familiar with GRUB legacy and GRUB2, this GRUB stand for GRand Unified Bootloader, this is bootloader which mean this is the first menu that the computer bring up, GRUB is a modular bootloader and supports booting from PC UEFI, PC BIOS and other platforms, in this menu we can choose what operation system we want to load up, let’s say that you have some DELL PC and you want that one partition will be Windows and the other contain Linux, you can do so and the GRUB is the menu which bring you the option to choose between the OS’s.</p>
 
 <p>You must also be familiar with the different between those two, GRUB legacy is the first version of that GRUB project and on the most linux version you may see that GRUB is on version 0.97 like as follow in centOS (version 6)</p>
 
@@ -1556,6 +1636,110 @@ https://ia802908.us.archive.org/26/items/WinXPProSP3x86/en_windows_xp_profession
 <p>After you finish up the settings just type boot and it’s will boot up the system with your config, if you set it correctly it will bring up your system, if not it will bring the GRUB menu again and it is the same in the case of GRUB1 and GRUB2.</p>
 
 <p><strong>Please note</strong>: you can add the GRUB parameter for the kernel, as example let’s say that we want to use amount of CPU core in that operating system, so we can use the <code class="highlighter-rouge">maxcpus=1</code> for setting 1 CPU core to be in use when the system is boot up, in that example this is the kernel parameter, you can see all parameters you have correctly on your system by using <code class="highlighter-rouge">sysctl -a</code>, I will talk about that later on that post.</p>
+
+<p>After you familiar with GRUB you need to know little bit about BIOS and EFI, the BIOS stand for Basic Input/Output System this is the lower layer on the PC, if you not already know how your system is boot up or more likely what is the order on the computer, so is as follow:</p>
+
+<ol>
+  <li>BIOS - loads and executes the MBR (Master Boot Record) boot loader</li>
+  <li>MBR - loads and executes the GRUB boot loader</li>
+  <li>GRUB - loads and executes Kernel and initrd images.</li>
+  <li>kernel - Mounts the root file system as specified in the “root=” in grub.conf then it executes the /sbin/init program which going to be the 1st program that executed (with PID of 1), it also use the initrd as a temporary root file system until the kernel is booted and the real root file system is mounted. It also contains necessary drivers compiled inside, which helps it to access the hard drive partitions, and other hardware.</li>
+  <li>init - Looks at the /etc/inittab file to decide the Linux run level.</li>
+  <li>Runlevel program - When the Linux system is booting up, you might see various services getting started. For example, it might say “starting sendmail …. OK”. Those are the runlevel programs, executed from the run level directory as defined by your run level.</li>
+</ol>
+
+<p>Now let’s talk about stage 1, your computer can be with BIOS or UEFI, in my case I run the <code class="highlighter-rouge">dmesg</code> and grep the BIOS out:</p>
+
+<p><img src="/assets/images/lpic2/BIOS.png" alt="LPIC2 Post" />
+<strong>Figure 106-1</strong> BIOS in dmesg.</p>
+
+<p>So in my case I have BIOS here, but if you have UEFI you may know the grate news about UEFI, it have advantage over BIOS, first of all it have more faster in initializing for your hardware, second it offer Secure Boot which means everything you load before an OS is loaded has to be signed. This gives your system an added layer of protection from running malware. third BIOS do not support a partition of over 2TB and UEFI does! Fourth Most importantly, if you are dual booting it’s always advisable to install both the OS in the same booting mode.</p>
+
+<p>If your computer have UEFI you can install <code class="highlighter-rouge">efibootmgr</code> and run it to see the EFI variables, in my case it just popup the following message:</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>fibootmgr: EFI variables are not supported on this system.
+</code></pre></div></div>
+
+<p>So far we talk about the GRUB boot loader, but there is more typical boot loader, SYSLINUX, ISOLINUX, PXELINUX, we need to be familiar with those so let’s look what we can do.</p>
+
+<p>So first of all you must remember the following fact:</p>
+<ol>
+  <li>The original SYSLINUX used for booting from FAT and NTFS filesystems.</li>
+  <li>The ISOLINUX used for booting from CD-ROM of ISO 9660 standard.</li>
+  <li>The PXELINUX used for booting from network server using Preboot Execution Enviroment (PXE) system.</li>
+  <li>The EXTLINUX for booting ext2/3/4 filesystem.</li>
+</ol>
+
+<p>SYSLINUX is not normally used for booting full linux installation since Linux is not normally install on FAT filesystems, instead it is often used for boot or rescue floppy discs live USBs or others lighweight boot system.</p>
+
+<p>The Syslinux packege contain all of those boot loaders (syslinux, isolinux, pxelinux and extlinux) for supporting any situation of booting, the advantage of Syslinux it’s easy to configure and easier to manage than GRUB.</p>
+
+<p>Let’s take a look on syslinux, please remember that the all others boot loaders are pretty much the same process for using them. In the syslinux boot loader we going to be experiment so bear with me, first of all we going to use USB drive on VBOX and run from that the syslinux menu.</p>
+
+<p>At first we need to make the USB, which is mean to format it and create partition on it, so we use <code class="highlighter-rouge">fdisk</code> for that task, after that we use <code class="highlighter-rouge">mkfs.vfat</code> which going to prepare the drive for support FAT filesystem, in my case I also changed the USB label name by using the command <code class="highlighter-rouge">fatlable /dev/sdb1 Multiboot</code>, as you remember the SYSLINUX is booting from FAT or NTFS, after it finish to do it’s magic, we need to run the following command:</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sudo syslinux -i /dev/sdb1
+</code></pre></div></div>
+
+<p>This command going to install syslinux on the first partition on our USB drive, this is mean that after it done we will find the following filesystem:</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ldlinux.c32
+ldlinux.sys
+</code></pre></div></div>
+<p>Of course don’t forget to mount the USB for using that and view the installed files. Now we need to copy more files to our USB drive which can be found on <code class="highlighter-rouge">/usr/lib/syslinux/modules/bios/</code> directory:</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>libcom32.c32
+libutil.c32
+vesamenu.c32
+</code></pre></div></div>
+
+<p><img src="/assets/images/lpic2/syslinuxbiosfile.png" alt="LPIC2 Post" />
+<strong>Figure 106-2</strong> Syslinux files for BIOS.</p>
+
+<p>After that I used for copy the <strong>mbr</strong> folder (which also can found under /usr/lib/syslinux/ directory) and also created the <strong>syslinux.cfg</strong> file by using <code class="highlighter-rouge">touch syslinux.cfg</code> which is the configuration menu to this boot loader and we need to edit it, I am using <code class="highlighter-rouge">vim</code> but you can use any editor you like</p>
+
+<p><img src="/assets/images/lpic2/vimsyslinuxconfig.png" alt="LPIC2 Post" />
+<strong>Figure 106-3</strong> Syslinux menu config.</p>
+
+<p>You can see the comment out line which can help you to understand what each line mean, please note that the <code class="highlighter-rouge">UI vesamenu.c32</code> line call the vesamenu.c32 file and the <code class="highlighter-rouge">TIMEOUT 300</code> mean wait 30s befor load the default OS LABEL, we also have the LABEL name and is’t menu that contain the path to the configuration file which is isolinux. So in my case I have two of them, Ubuntu and CentOS, so in my USB drive I use <code class="highlighter-rouge">sudo mkdir Ubuntu ; sudo mkdir CentOS</code> commands for these directories and copy all of the files from live iso file to my local file, if you do so you may get the errors as follow:</p>
+
+<p><img src="/assets/images/lpic2/errorsymlinks.png" alt="LPIC2 Post" />
+<strong>Figure 106-4</strong> Error for symbolic link whill copying Ubuntu files.</p>
+
+<p><img src="/assets/images/lpic2/errorhardlink.png" alt="LPIC2 Post" />
+<strong>Figure 106-5</strong> Error for hard links whill coping CentOS files.</p>
+
+<p>You can ignoring these error, it occur becouse on the FAT filesystem we have no such thing like symbolic links. So now we need to run last command and boot that USB drive.</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sudo dd bs=440 count=1 conv=notrunc if=/mnt/Multiboot/mbr/mbr.bin of=/dev/sdb ; sudo parted /dev/sdb set 1 boot on
+</code></pre></div></div>
+
+<p>This command will copy the <strong>mbr.bin</strong> file to the first sector of my sdb drive, this will allow the BIOS to load the MBR which going to load the SYSCONFIG right after that, the second command will set the first sector to boot on.</p>
+
+<p>Now, if you like me using VBOX you need to add USB drive to the machine, you may see some issue we that so you need to install the following package:</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Oracle_VM_VirtualBox_Extension_Pack-5.1.38-122592.vbox-extpack
+</code></pre></div></div>
+
+<p>Please note that in my case I donwload the version <code class="highlighter-rouge">5.1.38-122592</code> which is my VBOX version, you can see the version by press Help&gt;About&gt;version in the bar menu of your VBOX, and download that package from the VBOX <a href="https://download.virtualbox.org/virtualbox/">site</a>, please note that you need the <code class="highlighter-rouge">vbox-extpack</code> for this case, after you run that you will be able to chose USB to load up the virtual machine and use it, also please remember to choose USB 1.1!</p>
+
+<p><img src="/assets/images/lpic2/USBdrive.png" alt="LPIC2 Post" />
+<strong>Figure 106-6</strong> Adding USB drive to the vm.</p>
+
+<p>Now there is more part we need to do, in normal computer we can chose over the BIOS which drive we what to be first booting up, in the vmbox we can choose to load the USB, but we can choose to using virtual optical disk, so we going to use <strong>plop.iso</strong> that this menu can help us to choose what device we what to load up, you can download if from that <a href="https://www.plop.at/en/bootmanager/download.html">link</a>, just download the zip file and you will find there the iso file you need.</p>
+
+<p>Now change the boot order on the vbox system menu for that the optical disk be the first boot before the hard disk.</p>
+
+<p><img src="/assets/images/lpic2/bootreorder.png" alt="LPIC2 Post" />
+<strong>Figure 106-7</strong> Re-order the boot devices.</p>
+
+<p>On the storage menu change the optical disk to load the <strong>plop.iso</strong> image and only after you finish that ass you can boot the machine, It will bring you the plop menu which have nice tabs to choose what we need which is the USB drive.</p>
+
+<p><img src="/assets/images/lpic2/plopmenu.png" alt="LPIC2 Post" />
+<strong>Figure 106-8</strong> The plop menu.</p>
+
+<p>If you done all right, after you choose and press on USB it load the syslinux menu like charm!</p>
+
+<p><img src="/assets/images/lpic2/syslinuxmenu.png" alt="LPIC2 Post" />
+<strong>Figure 106-9</strong> The SYSLINUX menu.</p>
+
+<p>You can see that I have the option to choose the Ubuntu or CentOS operation system, just remember that the other boot loaders are pritty much the same, you need to format drive, prepare it, copy the relevent file to is, setup the menu for that boot loader and you ready to go.</p>
+
+<p>If we talk about the PXE boot loader, have the option to boot from the network with the PXELINUX. This PXE work with protocols such as UDP/IP, DHCP and TFTP, on the server side we prepare the machine with the image file of our chosen distribution we want to install, setup the PXE and another files that related to the remote boot operation, on the client side we setup it to boot from the server and we specify that in the BIOS. <a href="https://www.tecmint.com/install-pxe-network-boot-server-in-centos-7/">more information</a></p>
 
 <h3 id="challenge">Challenge</h3>
 <ol>
@@ -1823,6 +2007,8 @@ btrfs subvalume list /mnt/btrfs
 <p>You can also find more information in the <a href="https://ramsdenj.com/2016/04/05/using-btrfs-for-easy-backup-and-rollback.html">ramsdenj.com</a>, but you may want to know how to specified the btrfs on the fstab file, because if you write at the option defaults or something else that we saw earlier in EXT this will not work, the option you need to write at fstab file is as follow:</p>
 <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/dev/sdb1  /mnt/btrfs    btrfs   rw,noatime,discard,ssd,space_cache    0 0
 </code></pre></div></div>
+
+<p>We can also convert ext3/4 filesystem to btrfs by using <code class="highlighter-rouge">btrfs-convert</code> tool.</p>
 
 <p>Please remember that btrfs have it’s own way to check and repair error, you can’t use <strong>fsck</strong> tool for that kind of filesystem, and the same principle on the <strong>XFS</strong> filesystem, let’s format the sdb device for XFS and after that you can see that I tried to run fsck.</p>
 
@@ -2844,6 +3030,17 @@ at can help us, one of them is <strong>Amanda</strong> previously known as Advan
 <strong>Figure 209</strong> The net issue file.</p>
 
 <p>And we inform our user if we want to run on <strong>shotdown</strong> or <strong>systemctl poweroff</strong>.</p>
+
+<p>Let’s look on the centOS, I remotly connected to it from my Ubuntu by using ssh, on my centOS I run the following:</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>shutdown 2 the system is going shutdown!
+</code></pre></div></div>
+<p><img src="/assets/images/lpic2/centosshut.png" alt="OSCP Post" />
+<strong>Figure 210</strong> CentOS shutdown command.</p>
+
+<p>On my Ubuntu I can see the following massage:</p>
+
+<p><img src="/assets/images/lpic2/centosshut2.png" alt="OSCP Post" />
+<strong>Figure 211</strong> CentOS shutdown report.</p>
 
     
 

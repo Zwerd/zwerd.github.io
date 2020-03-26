@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.5">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2020-03-22T22:11:24+02:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Zwerd</title><subtitle>A stunning blog of freaking PT warrior</subtitle><author><name>Guy Zwerdling</name></author><entry><title type="html">My Journey for LPIC2 Certification - Exam 201-450</title><link href="http://localhost:4000/2019/11/19/lpic2_certificate.html" rel="alternate" type="text/html" title="My Journey for LPIC2 Certification - Exam 201-450" /><published>2019-11-19T00:00:00+02:00</published><updated>2019-11-19T00:00:00+02:00</updated><id>http://localhost:4000/2019/11/19/lpic2_certificate</id><content type="html" xml:base="http://localhost:4000/2019/11/19/lpic2_certificate.html">&lt;p&gt;Today morning I received a message from LPI that my certificate will expire in 9 months and so it is time to start studying for the second Linux certification, this will advance me to the third Linux information security certification that I will search for, this certification is divided into two and the two parts are marked by two different codes: 201-450, 202-450&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.5">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2020-03-26T21:36:54+02:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Zwerd</title><subtitle>A stunning blog of freaking PT warrior</subtitle><author><name>Guy Zwerdling</name></author><entry><title type="html">My Journey for LPIC2 Certification - Exam 201-450</title><link href="http://localhost:4000/2019/11/19/lpic2_certificate.html" rel="alternate" type="text/html" title="My Journey for LPIC2 Certification - Exam 201-450" /><published>2019-11-19T00:00:00+02:00</published><updated>2019-11-19T00:00:00+02:00</updated><id>http://localhost:4000/2019/11/19/lpic2_certificate</id><content type="html" xml:base="http://localhost:4000/2019/11/19/lpic2_certificate.html">&lt;p&gt;Today morning I received a message from LPI that my certificate will expire in 9 months and so it is time to start studying for the second Linux certification, this will advance me to the third Linux information security certification that I will search for, this certification is divided into two and the two parts are marked by two different codes: 201-450, 202-450&lt;/p&gt;
 
 &lt;p&gt;In this post I am going to go over each topic as listed on the LPI website, which means I will go over each tool and present it here, in each chapter I will show how to use these tools to get the same information that the subject of the test should deal with, at the end of each chapter I will present a challenge From most of the commands we learned and challenged you and me how to get the information to succeed.&lt;/p&gt;
 
@@ -624,7 +624,7 @@ st: Time stolen from a virtual machine. Prior to Linux 2.6.11, unknown.&lt;br /&
 
 &lt;p&gt;You may ask how the linux kernel knows when some device pluge in and lunch his appropriate module, this is done by the &lt;strong&gt;udev&lt;/strong&gt;, this udev responsible for such a thing so he know to load up the usb module when some USB device pluge in.&lt;/p&gt;
 
-&lt;p&gt;You can see what going on your commputer by using some command that related to udev, such as &lt;code class=&quot;highlighter-rouge&quot;&gt;lsusb&lt;/code&gt; which can show us the devices related to usb,&lt;code class=&quot;highlighter-rouge&quot;&gt;lspci&lt;/code&gt; that responsible for PCI bridge or the &lt;code class=&quot;highlighter-rouge&quot;&gt;dmesg&lt;/code&gt; that show us all the log we have from the system like in the boot which we can see on the boot the logs that our system run while bring the OS up.&lt;/p&gt;
+&lt;p&gt;You can see what going on your commputer by using some command that related to udev, such as &lt;code class=&quot;highlighter-rouge&quot;&gt;lsusb&lt;/code&gt; which can show us the devices related to usb,&lt;code class=&quot;highlighter-rouge&quot;&gt;lspci&lt;/code&gt; that responsible for PCI bridge and we can use &lt;code class=&quot;highlighter-rouge&quot;&gt;lsdev&lt;/code&gt; to display information about installed hardware or the &lt;code class=&quot;highlighter-rouge&quot;&gt;dmesg&lt;/code&gt; that show us all the log we have from the system like in the boot which we can see on the boot the logs that our system run while bring the OS up.&lt;/p&gt;
 
 &lt;p&gt;We also have the &lt;code class=&quot;highlighter-rouge&quot;&gt;udevadm monitor&lt;/code&gt; which can bring to the screen logs from the system in real time, you can see on the next gif how it work, I plug in my sundisk device and the &lt;strong&gt;udev&lt;/strong&gt; found it and load it’s logs to my screen, he also showed us the remove log when I remove my device from that computer&lt;/p&gt;
 
@@ -719,7 +719,16 @@ st: Time stolen from a virtual machine. Prior to Linux 2.6.11, unknown.&lt;br /&
 
 &lt;p&gt;At the end of this process it will run &lt;strong&gt;depmod&lt;/strong&gt; which will create the &lt;strong&gt;modules.dep&lt;/strong&gt; file which contain all the modules information and dependencies.&lt;/p&gt;
 
-&lt;p&gt;After the &lt;code class=&quot;highlighter-rouge&quot;&gt;make modules&lt;/code&gt; finish we can find the modules we compile under the &lt;em&gt;/lib/modules/&lt;/em&gt; folder which will be contain the modules folder as the name of the kernel version we compile.&lt;/p&gt;
+&lt;p&gt;Now I want to talk little about the DKMS, this is sort of direction about how to build specific kernel module, this is mean that the DKMS contain the configuration file to tell the system how to build/configure the module and what its name is.&lt;/p&gt;
+
+&lt;p&gt;Let’s take a look in my local Ubuntu system, in the &lt;em&gt;/usr/src/&lt;/em&gt; directory I have module for virtualbox and that module use the &lt;code class=&quot;highlighter-rouge&quot;&gt;dkms.conf&lt;/code&gt; file that contain direction for build the module in my system.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/lpic2/dkmsconf.png&quot; alt=&quot;LPIC2 Post&quot; /&gt;
+&lt;strong&gt;Figure 75-1&lt;/strong&gt; DKMS configuration file.&lt;/p&gt;
+
+&lt;p&gt;You can see that this file contain information about the package name, version, build module name, build module location and so on. As you already know for build module we use &lt;code class=&quot;highlighter-rouge&quot;&gt;make&lt;/code&gt; command, it’s more likely that the module we going to install will be some  &lt;code class=&quot;highlighter-rouge&quot;&gt;c&lt;/code&gt; file and we use make to compile it, after it finish to do it magic we find in the current directory &lt;code class=&quot;highlighter-rouge&quot;&gt;ko&lt;/code&gt; and &lt;code class=&quot;highlighter-rouge&quot;&gt;o&lt;/code&gt; file and now we can run &lt;code class=&quot;highlighter-rouge&quot;&gt;make install&lt;/code&gt; for installing the module, the DKMS can do all of that for us, we just need to specify what to do in the dkms.conf file.&lt;/p&gt;
+
+&lt;p&gt;Let’s go back to the &lt;code class=&quot;highlighter-rouge&quot;&gt;make modules&lt;/code&gt; command we talk about erlier, so after the &lt;code class=&quot;highlighter-rouge&quot;&gt;make modules&lt;/code&gt; finish we can find the modules we compile under the &lt;em&gt;/lib/modules/&lt;/em&gt; folder which will be contain the modules folder as the name of the kernel version we compile.&lt;/p&gt;
 
 &lt;p&gt;Now we need to install the modules with the command &lt;code class=&quot;highlighter-rouge&quot;&gt;make modules_install&lt;/code&gt; it will install the modules under the /lib/modules/&lt;em&gt;kernel-version&lt;/em&gt; which is the kernel version of our modules.&lt;/p&gt;
 
@@ -861,7 +870,7 @@ st: Time stolen from a virtual machine. Prior to Linux 2.6.11, unknown.&lt;br /&
 
 &lt;h3 id=&quot;3-check-network-connectivity&quot;&gt;3. check network connectivity.&lt;/h3&gt;
 
-&lt;p&gt;I just run ping to 8.8.8.8 with is google dns server and I saw reply from this server.&lt;/p&gt;
+&lt;p&gt;I just run ping to 8.8.8.8 which is google DNS server and I saw reply from this server.&lt;/p&gt;
 
 &lt;p&gt;&lt;img src=&quot;/assets/images/lpic2/ping.png&quot; alt=&quot;LPIC2 Post&quot; /&gt;
 &lt;strong&gt;Figure 80&lt;/strong&gt; Checking network connectiviry.&lt;/p&gt;
@@ -918,7 +927,7 @@ st: Time stolen from a virtual machine. Prior to Linux 2.6.11, unknown.&lt;br /&
 
 &lt;p&gt;To solve that I boot up the system by using external device like bootable usb or optical disk and bring the system up for making change in the boot folder for that system.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;/assets/images/lpic2/mountcentos.gif&quot; alt=&quot;LPIC2 Post&quot; /&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/images/lpic2/mountcentos.png&quot; alt=&quot;LPIC2 Post&quot; /&gt;
 &lt;strong&gt;Figure 81-4&lt;/strong&gt; Mount command after boot from bootable device.&lt;/p&gt;
 
 &lt;p&gt;You can see the I have not any &lt;code class=&quot;highlighter-rouge&quot;&gt;/dev/sda&lt;/code&gt; storage in that system becouse I boot it up from optical disk, now I need to find the hard disk and mount it to my system.&lt;/p&gt;
@@ -958,15 +967,15 @@ st: Time stolen from a virtual machine. Prior to Linux 2.6.11, unknown.&lt;br /&
 
 &lt;p&gt;After that I reboot the system to check if it working write.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;/assets/images/lpic2/bootit.png&quot; alt=&quot;LPIC2 Post&quot; /&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/images/lpic2/bootit.gif&quot; alt=&quot;LPIC2 Post&quot; /&gt;
 &lt;strong&gt;Figure 81-10&lt;/strong&gt; Boot the CentOS.&lt;/p&gt;
 
 &lt;h2 id=&quot;chapter-2&quot;&gt;Chapter 2&lt;/h2&gt;
 &lt;h2 id=&quot;topic-202-system-startup&quot;&gt;Topic 202: System Startup&lt;/h2&gt;
 
-&lt;p&gt;In linux systems we have the way to control the system mode we going to load up, we have numbers of system mode type that some of that very useful and some of them are not in use, as example one of them is full system mode that contain everything that normal system can contain for work, we have also single user mode that can be use to do specific thing on the machine, that sort of control tool called runlevel. In the linux world we can use run level to boot up specific mode of our operation system.&lt;/p&gt;
+&lt;p&gt;In linux systems we have the way to control the system mode we going to load up, we have numbers of system mode that some of them very useful and some of them are not in use, as example one of them is full system mode that contain everything that normal system need contain for work, we have also single user mode that can be use to do specific thing on the machine, that sort of control tool called runlevel. In the Linux world we can use run level to boot up specific mode of our operation system.&lt;/p&gt;
 
-&lt;p&gt;We can setup also runlevel as we want, as example we can enable create runlevel that enable on the system the mail service and disable apache2, in that way we can customize the system with specific tools and program that can be work on it, this is quite useful because let’s say you have user on your organization that use tools that related to design pictures or document and he need connectivity to the network and this is it, in that case why we allow the &lt;strong&gt;vsftpd&lt;/strong&gt; service for example, this is not useful for that user, so we can disable that on customize runlevel.&lt;/p&gt;
+&lt;p&gt;We can setup also runlevel as we want, as example we can create runlevel that enable on the system the mail service and disable apache2, in that way we can customize the system with specific tools and program that can be work on it, this is quite useful because let’s say you have user on your organization that use tools that related to design pictures or document and he need connectivity to the network and nothing else, in that case why we allow the &lt;strong&gt;vsftpd&lt;/strong&gt; service for example, this is not useful for that user, so we can disable that on customize runlevel.&lt;/p&gt;
 
 &lt;p&gt;If we talk about systems like Red Hat systems in my case centOS you can run &lt;strong&gt;runlevel&lt;/strong&gt;, this command will show us the runlevel that our system run for, in my case it was &lt;strong&gt;N 5&lt;/strong&gt;.&lt;/p&gt;
 
@@ -975,22 +984,25 @@ st: Time stolen from a virtual machine. Prior to Linux 2.6.11, unknown.&lt;br /&
 
 &lt;p&gt;The &lt;strong&gt;5&lt;/strong&gt; means that we working now with runlevel 5, the &lt;strong&gt;N&lt;/strong&gt; means that the previous runlevel was none, if we change the run level for 3, the numbers will be &lt;strong&gt;5 3&lt;/strong&gt;. To change the runlevel on the running machine we can use the &lt;strong&gt;telinit&lt;/strong&gt;.&lt;/p&gt;
 
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;telinit 3
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
 &lt;p&gt;&lt;img src=&quot;/assets/images/lpic2/runlevel3.png&quot; alt=&quot;LPIC2 Post&quot; /&gt;
 &lt;strong&gt;Figure 82-2&lt;/strong&gt; init 3 on centOS.&lt;/p&gt;
 
-&lt;p&gt;You can see that I on the command line level, so in that case I can change it again to  level 5 and it will bring up the GUI environment again, you can see now that if I run runlevel command I can see that the last runlevel was 3, and now it set on level 5.&lt;/p&gt;
+&lt;p&gt;You can see that I am in command line level, so in that case I can change it again to level 5 and it will bring up the GUI environment again, you can see now that if I run runlevel command I can see that the last runlevel was 3, and now it set on level 5.&lt;/p&gt;
 
 &lt;p&gt;&lt;img src=&quot;/assets/images/lpic2/runlevel5.png&quot; alt=&quot;LPIC2 Post&quot; /&gt;
 &lt;strong&gt;Figure 83&lt;/strong&gt; init 5 on centOS.&lt;/p&gt;
 
-&lt;p&gt;Now let’s look on the configuration file of that inittab, you can find that file on /etc/inittab, this configuration file contain several init level. 0 - halt which mean that if we use that init, the system will go shutdown, this is why it is recommended not to setup the runlevel at this init level or at level 6, 1 - single user mode for administrative tasks, 2  is multiuser mode without NFS and 3 is fill multiuser mode, 5 is x11 which have the nice GUI view with desktop environment.&lt;/p&gt;
+&lt;p&gt;Now let’s look on the configuration file of that inittab, you can find that file on &lt;code class=&quot;highlighter-rouge&quot;&gt;/etc/inittab&lt;/code&gt;, this configuration file contain several init level. 0 - halt which mean that if we use that init, the system will go shutdown, this is why it is recommended not to setup the runlevel at this init level or at level 6, 1 - single user mode for administrative tasks, 2  is multiuser mode without NFS and 3 is fill multiuser mode, 5 is x11 which have the nice GUI view with desktop environment.&lt;/p&gt;
 
 &lt;p&gt;&lt;img src=&quot;/assets/images/lpic2/inittab-centos.png&quot; alt=&quot;LPIC2 Post&quot; /&gt;
 &lt;strong&gt;Figure 84&lt;/strong&gt; inittab file on centOS.&lt;/p&gt;
 
 &lt;p&gt;You can see on the bottom of that file the line &lt;code class=&quot;highlighter-rouge&quot;&gt;id:5:initdefault:&lt;/code&gt;, we can change it value to what init level we want and on the next boot it will bring the new init level up, what you mast not do on that file is to setup the run level for 0 or 6 which cause your system won’t be able to load the user enviroment and we can’t work in that case.&lt;/p&gt;
 
-&lt;p&gt;If you want to see your level on Debian like as Ubuntu you can also run &lt;code class=&quot;highlighter-rouge&quot;&gt;runlevel&lt;/code&gt; command or check your &lt;strong&gt;sysinit.config&lt;/strong&gt; file on &lt;em&gt;/etc/init.d&lt;/em&gt; folder this file contain the init level for distribution like Debian and you can change it what ever you like but please notice that this run level in my case on Ubuntu is pretty different from Red Hat like distrabution, in my case I found that information in the man page of &lt;code class=&quot;highlighter-rouge&quot;&gt;telinit&lt;/code&gt; file.&lt;/p&gt;
+&lt;p&gt;If you want to see your level on Debian like as Ubuntu you can also run &lt;code class=&quot;highlighter-rouge&quot;&gt;runlevel&lt;/code&gt; command or check your &lt;strong&gt;sysinit.config&lt;/strong&gt; file on &lt;code class=&quot;highlighter-rouge&quot;&gt;/etc/init.d&lt;/code&gt; folder this file contain the init level for distribution like Debian and you can change it what ever you like but please notice that this run level in my case on Ubuntu is pretty different from Red Hat like distrabution, in my case I found that information in the man page of &lt;code class=&quot;highlighter-rouge&quot;&gt;telinit&lt;/code&gt; file.&lt;/p&gt;
 
 &lt;p&gt;&lt;img src=&quot;/assets/images/lpic2/initman.png&quot; alt=&quot;LPIC2 Post&quot; /&gt;
 &lt;strong&gt;Figure 85&lt;/strong&gt; Runlevels on Ubuntu.&lt;/p&gt;
@@ -1018,6 +1030,8 @@ st: Time stolen from a virtual machine. Prior to Linux 2.6.11, unknown.&lt;br /&
 &lt;p&gt;&lt;img src=&quot;/assets/images/lpic2/chkconfig--list.png&quot; alt=&quot;LPIC2 Post&quot; /&gt;
 &lt;strong&gt;Figure 88&lt;/strong&gt; list on chkconfig.&lt;/p&gt;
 
+&lt;p&gt;&lt;strong&gt;Please note&lt;/strong&gt;: this &lt;code class=&quot;highlighter-rouge&quot;&gt;chkconfig&lt;/code&gt; command is available on operation systems like RedHet, CentOS etc.&lt;/p&gt;
+
 &lt;p&gt;In my case I run the following command.&lt;/p&gt;
 
 &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;chkconfig smartd on
@@ -1037,7 +1051,7 @@ st: Time stolen from a virtual machine. Prior to Linux 2.6.11, unknown.&lt;br /&
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 &lt;p&gt;If you want to change the operation state permanently you need to use disable or enable instead start or stop. You can also remove it from the symbolic links with the remove option.&lt;/p&gt;
 
-&lt;p&gt;So far we saw the command &lt;code class=&quot;highlighter-rouge&quot;&gt;chkconfig&lt;/code&gt; that can help us to view all the services on centOS system or any Red Hat like distribution, on Ubuntu we can use the command &lt;code class=&quot;highlighter-rouge&quot;&gt;netstat -tulpn&lt;/code&gt; as we saw on chapter 1, but for the matter fact we can use more handy command like &lt;code class=&quot;highlighter-rouge&quot;&gt;service --status-all&lt;/code&gt;, this command will show us every service that exist on our system and each status.&lt;/p&gt;
+&lt;p&gt;So far we saw the command &lt;code class=&quot;highlighter-rouge&quot;&gt;chkconfig --list&lt;/code&gt; that can help us to view all the services on centOS system or any Red Hat like distribution, on Ubuntu we can use the command &lt;code class=&quot;highlighter-rouge&quot;&gt;netstat -tulpn&lt;/code&gt; as we saw on chapter 1, but for the matter fact we can use more handy command like &lt;code class=&quot;highlighter-rouge&quot;&gt;service --status-all&lt;/code&gt;, this command will show us every service that exist on our system and each status.&lt;/p&gt;
 
 &lt;p&gt;&lt;img src=&quot;/assets/images/lpic2/service--status-all.png&quot; alt=&quot;LPIC2 Post&quot; /&gt;
 &lt;strong&gt;Figure 90&lt;/strong&gt; all services on my system.&lt;/p&gt;
@@ -1059,7 +1073,71 @@ st: Time stolen from a virtual machine. Prior to Linux 2.6.11, unknown.&lt;br /&
 &lt;p&gt;&lt;img src=&quot;/assets/images/lpic2/catservice.png&quot; alt=&quot;LPIC2 Post&quot; /&gt;
 &lt;strong&gt;Figure 92&lt;/strong&gt; the service itself on system.&lt;/p&gt;
 
-&lt;p&gt;As you can see this file contain some description and after field, this after field mean that the services - NetworkManager-wait-online.service network.target network-online.dbus.service, must be on enable state and only &lt;strong&gt;after&lt;/strong&gt; that was done, we can bring the teamviewerd.service service up. you can see also the &lt;strong&gt;ExecStart&lt;/strong&gt; field that contain the exact command for running that service.&lt;/p&gt;
+&lt;p&gt;As you can see this file contain some description and after field, this after field mean that the services - NetworkManager-wait-online.service network.target network-online.dbus.service, must be on enable state and only &lt;strong&gt;after&lt;/strong&gt; that was done, we can bring the teamviewerd.service service up, so in that case the dbus.service must to be run before we can be able to use teamviewerd service, so if we run the following command we will see that dbus is on static as we saw on figure 90:&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;systemctl list-unit-files --type=service | grep dbus
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;you can see also the &lt;strong&gt;ExecStart&lt;/strong&gt; field that contain the exact command for running that service.&lt;/p&gt;
+
+&lt;p&gt;There is also a third location available in which you can place files to override your unit definitions, this is the &lt;em&gt;/run/systemd&lt;/em&gt; directory. I want to do some experiment (&lt;a href=&quot;https://askubuntu.com/questions/1120023/how-to-use-systemd-notify&quot;&gt;credit filbranden&lt;/a&gt;) We have the &lt;em&gt;/run/systemd&lt;/em&gt; directory that contain the systemd notify, as much as I understand this norify allows a process to send a notification to another process, so let’s create our own service and look about the status of that service.&lt;/p&gt;
+
+&lt;p&gt;First of all we create a script like the one below somewhere in your system, such as &lt;em&gt;/usr/local/bin/mytest.sh&lt;/em&gt;:&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c&quot;&gt;#!/bin/bash&lt;/span&gt;
+
+&lt;span class=&quot;nb&quot;&gt;mkfifo&lt;/span&gt; /tmp/waldo
+&lt;span class=&quot;nb&quot;&gt;sleep &lt;/span&gt;10
+systemd-notify &lt;span class=&quot;nt&quot;&gt;--ready&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;--status&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;Waiting for data…&quot;&lt;/span&gt;
+
+&lt;span class=&quot;k&quot;&gt;while&lt;/span&gt; : &lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;do
+        &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;read &lt;/span&gt;a &amp;lt; /tmp/waldo
+        systemd-notify &lt;span class=&quot;nt&quot;&gt;--status&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;Processing &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$a&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;
+
+        &lt;span class=&quot;c&quot;&gt;# Do something with $a …&lt;/span&gt;
+        &lt;span class=&quot;nb&quot;&gt;sleep &lt;/span&gt;10
+
+        systemd-notify &lt;span class=&quot;nt&quot;&gt;--status&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;Waiting for data…&quot;&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;done&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;We use sleep 10s so we can see what’s happen, when watching the systemctl status mytest.service output. Now we need to make the script executable:&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ sudo chmod +x /usr/local/bin/mytest.sh
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;After that we need to create &lt;em&gt;/etc/systemd/system/mytest.service&lt;/em&gt;, with contents:&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;[Unit]
+Description=My Test
+
+[Service]
+Type=notify
+ExecStart=/usr/local/bin/mytest.sh
+
+[Install]
+WantedBy=multi-user.target
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Now we need to reload systemd (so it learns about the unit) and start it:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ sudo systemctl daemon-reload
+$ sudo systemctl start mytest.service
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Then watch status output, every so often:&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ systemctl status mytest.service
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/lpic2/mytestservice.png&quot; alt=&quot;LPIC2 Post&quot; /&gt;
+&lt;strong&gt;Figure 92-1&lt;/strong&gt; My test service is on active state.&lt;/p&gt;
+
+&lt;p&gt;You’ll see it’s starting for the first 10 seconds, after which it will be started and its status will be “Waiting for data…”. Now write some data into the FIFO (you’ll need to use tee to run it as root):&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ echo somedata | sudo tee /tmp/waldo
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;And watch the status:&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ systemctl status mytest.service
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;It will show the status of the service as “Processing some data” for 10 seconds, then back to “Waiting for data…”.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/lpic2/servicestatus.png&quot; alt=&quot;LPIC2 Post&quot; /&gt;
+&lt;strong&gt;Figure 92-2&lt;/strong&gt; My test service status.&lt;/p&gt;
 
 &lt;p&gt;If you check, you will find that most of the services are symbolic link to other location and most of them are for &lt;code class=&quot;highlighter-rouge&quot;&gt;/lib/systemd/system&lt;/code&gt;.&lt;/p&gt;
 
@@ -1070,7 +1148,9 @@ st: Time stolen from a virtual machine. Prior to Linux 2.6.11, unknown.&lt;br /&
 
 &lt;p&gt;For summery, this systemd with the &lt;code class=&quot;highlighter-rouge&quot;&gt;systemctl&lt;/code&gt; command is another way to check and set the init files, this is also applied on many linux system like Red Hat and opensuse servers for enterprise, there is some distribution that don’t use systemd, but this is only on the desktop linux version, it’s more likely to find systemd in used on enterprises systems.&lt;/p&gt;
 
-&lt;p&gt;Now, for this chapter 2 we need also be familiar with GRUB legacy and GRUB2, this GRUB stand for GRand Unified Bootloader, this is bootloader which mean this is the first menu that the computer bring up, in this menu we can choose what operation system we want to load up, let’s say that you have some DELL PC and you want that one partition will be Windows and the other contain Linux, you can do so and the GRUB is the menu which bring you the option to choose between the OS’s.&lt;/p&gt;
+&lt;p&gt;We also need to be familiar with &lt;strong&gt;systemd-delta&lt;/strong&gt;, it may be used to identify and compare configuration files that override other configuration files. Files in /etc have highest priority, files in /run have the second highest priority, …, files in /usr/lib have lowest priority. Files in a directory with higher priority override files with the same name in directories of lower priority. In addition, certain configuration files can have “.d” directories which contain “drop-in” files with configuration snippets which augment the main configuration file.&lt;/p&gt;
+
+&lt;p&gt;Now, for this chapter 2 we need also be familiar with GRUB legacy and GRUB2, this GRUB stand for GRand Unified Bootloader, this is bootloader which mean this is the first menu that the computer bring up, GRUB is a modular bootloader and supports booting from PC UEFI, PC BIOS and other platforms, in this menu we can choose what operation system we want to load up, let’s say that you have some DELL PC and you want that one partition will be Windows and the other contain Linux, you can do so and the GRUB is the menu which bring you the option to choose between the OS’s.&lt;/p&gt;
 
 &lt;p&gt;You must also be familiar with the different between those two, GRUB legacy is the first version of that GRUB project and on the most linux version you may see that GRUB is on version 0.97 like as follow in centOS (version 6)&lt;/p&gt;
 
@@ -1166,6 +1246,110 @@ https://ia802908.us.archive.org/26/items/WinXPProSP3x86/en_windows_xp_profession
 &lt;p&gt;After you finish up the settings just type boot and it’s will boot up the system with your config, if you set it correctly it will bring up your system, if not it will bring the GRUB menu again and it is the same in the case of GRUB1 and GRUB2.&lt;/p&gt;
 
 &lt;p&gt;&lt;strong&gt;Please note&lt;/strong&gt;: you can add the GRUB parameter for the kernel, as example let’s say that we want to use amount of CPU core in that operating system, so we can use the &lt;code class=&quot;highlighter-rouge&quot;&gt;maxcpus=1&lt;/code&gt; for setting 1 CPU core to be in use when the system is boot up, in that example this is the kernel parameter, you can see all parameters you have correctly on your system by using &lt;code class=&quot;highlighter-rouge&quot;&gt;sysctl -a&lt;/code&gt;, I will talk about that later on that post.&lt;/p&gt;
+
+&lt;p&gt;After you familiar with GRUB you need to know little bit about BIOS and EFI, the BIOS stand for Basic Input/Output System this is the lower layer on the PC, if you not already know how your system is boot up or more likely what is the order on the computer, so is as follow:&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;BIOS - loads and executes the MBR (Master Boot Record) boot loader&lt;/li&gt;
+  &lt;li&gt;MBR - loads and executes the GRUB boot loader&lt;/li&gt;
+  &lt;li&gt;GRUB - loads and executes Kernel and initrd images.&lt;/li&gt;
+  &lt;li&gt;kernel - Mounts the root file system as specified in the “root=” in grub.conf then it executes the /sbin/init program which going to be the 1st program that executed (with PID of 1), it also use the initrd as a temporary root file system until the kernel is booted and the real root file system is mounted. It also contains necessary drivers compiled inside, which helps it to access the hard drive partitions, and other hardware.&lt;/li&gt;
+  &lt;li&gt;init - Looks at the /etc/inittab file to decide the Linux run level.&lt;/li&gt;
+  &lt;li&gt;Runlevel program - When the Linux system is booting up, you might see various services getting started. For example, it might say “starting sendmail …. OK”. Those are the runlevel programs, executed from the run level directory as defined by your run level.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;Now let’s talk about stage 1, your computer can be with BIOS or UEFI, in my case I run the &lt;code class=&quot;highlighter-rouge&quot;&gt;dmesg&lt;/code&gt; and grep the BIOS out:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/lpic2/BIOS.png&quot; alt=&quot;LPIC2 Post&quot; /&gt;
+&lt;strong&gt;Figure 106-1&lt;/strong&gt; BIOS in dmesg.&lt;/p&gt;
+
+&lt;p&gt;So in my case I have BIOS here, but if you have UEFI you may know the grate news about UEFI, it have advantage over BIOS, first of all it have more faster in initializing for your hardware, second it offer Secure Boot which means everything you load before an OS is loaded has to be signed. This gives your system an added layer of protection from running malware. third BIOS do not support a partition of over 2TB and UEFI does! Fourth Most importantly, if you are dual booting it’s always advisable to install both the OS in the same booting mode.&lt;/p&gt;
+
+&lt;p&gt;If your computer have UEFI you can install &lt;code class=&quot;highlighter-rouge&quot;&gt;efibootmgr&lt;/code&gt; and run it to see the EFI variables, in my case it just popup the following message:&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;fibootmgr: EFI variables are not supported on this system.
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;So far we talk about the GRUB boot loader, but there is more typical boot loader, SYSLINUX, ISOLINUX, PXELINUX, we need to be familiar with those so let’s look what we can do.&lt;/p&gt;
+
+&lt;p&gt;So first of all you must remember the following fact:&lt;/p&gt;
+&lt;ol&gt;
+  &lt;li&gt;The original SYSLINUX used for booting from FAT and NTFS filesystems.&lt;/li&gt;
+  &lt;li&gt;The ISOLINUX used for booting from CD-ROM of ISO 9660 standard.&lt;/li&gt;
+  &lt;li&gt;The PXELINUX used for booting from network server using Preboot Execution Enviroment (PXE) system.&lt;/li&gt;
+  &lt;li&gt;The EXTLINUX for booting ext2/3/4 filesystem.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;SYSLINUX is not normally used for booting full linux installation since Linux is not normally install on FAT filesystems, instead it is often used for boot or rescue floppy discs live USBs or others lighweight boot system.&lt;/p&gt;
+
+&lt;p&gt;The Syslinux packege contain all of those boot loaders (syslinux, isolinux, pxelinux and extlinux) for supporting any situation of booting, the advantage of Syslinux it’s easy to configure and easier to manage than GRUB.&lt;/p&gt;
+
+&lt;p&gt;Let’s take a look on syslinux, please remember that the all others boot loaders are pretty much the same process for using them. In the syslinux boot loader we going to be experiment so bear with me, first of all we going to use USB drive on VBOX and run from that the syslinux menu.&lt;/p&gt;
+
+&lt;p&gt;At first we need to make the USB, which is mean to format it and create partition on it, so we use &lt;code class=&quot;highlighter-rouge&quot;&gt;fdisk&lt;/code&gt; for that task, after that we use &lt;code class=&quot;highlighter-rouge&quot;&gt;mkfs.vfat&lt;/code&gt; which going to prepare the drive for support FAT filesystem, in my case I also changed the USB label name by using the command &lt;code class=&quot;highlighter-rouge&quot;&gt;fatlable /dev/sdb1 Multiboot&lt;/code&gt;, as you remember the SYSLINUX is booting from FAT or NTFS, after it finish to do it’s magic, we need to run the following command:&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;sudo syslinux -i /dev/sdb1
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;This command going to install syslinux on the first partition on our USB drive, this is mean that after it done we will find the following filesystem:&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;ldlinux.c32
+ldlinux.sys
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;Of course don’t forget to mount the USB for using that and view the installed files. Now we need to copy more files to our USB drive which can be found on &lt;code class=&quot;highlighter-rouge&quot;&gt;/usr/lib/syslinux/modules/bios/&lt;/code&gt; directory:&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;libcom32.c32
+libutil.c32
+vesamenu.c32
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/lpic2/syslinuxbiosfile.png&quot; alt=&quot;LPIC2 Post&quot; /&gt;
+&lt;strong&gt;Figure 106-2&lt;/strong&gt; Syslinux files for BIOS.&lt;/p&gt;
+
+&lt;p&gt;After that I used for copy the &lt;strong&gt;mbr&lt;/strong&gt; folder (which also can found under /usr/lib/syslinux/ directory) and also created the &lt;strong&gt;syslinux.cfg&lt;/strong&gt; file by using &lt;code class=&quot;highlighter-rouge&quot;&gt;touch syslinux.cfg&lt;/code&gt; which is the configuration menu to this boot loader and we need to edit it, I am using &lt;code class=&quot;highlighter-rouge&quot;&gt;vim&lt;/code&gt; but you can use any editor you like&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/lpic2/vimsyslinuxconfig.png&quot; alt=&quot;LPIC2 Post&quot; /&gt;
+&lt;strong&gt;Figure 106-3&lt;/strong&gt; Syslinux menu config.&lt;/p&gt;
+
+&lt;p&gt;You can see the comment out line which can help you to understand what each line mean, please note that the &lt;code class=&quot;highlighter-rouge&quot;&gt;UI vesamenu.c32&lt;/code&gt; line call the vesamenu.c32 file and the &lt;code class=&quot;highlighter-rouge&quot;&gt;TIMEOUT 300&lt;/code&gt; mean wait 30s befor load the default OS LABEL, we also have the LABEL name and is’t menu that contain the path to the configuration file which is isolinux. So in my case I have two of them, Ubuntu and CentOS, so in my USB drive I use &lt;code class=&quot;highlighter-rouge&quot;&gt;sudo mkdir Ubuntu ; sudo mkdir CentOS&lt;/code&gt; commands for these directories and copy all of the files from live iso file to my local file, if you do so you may get the errors as follow:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/lpic2/errorsymlinks.png&quot; alt=&quot;LPIC2 Post&quot; /&gt;
+&lt;strong&gt;Figure 106-4&lt;/strong&gt; Error for symbolic link whill copying Ubuntu files.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/lpic2/errorhardlink.png&quot; alt=&quot;LPIC2 Post&quot; /&gt;
+&lt;strong&gt;Figure 106-5&lt;/strong&gt; Error for hard links whill coping CentOS files.&lt;/p&gt;
+
+&lt;p&gt;You can ignoring these error, it occur becouse on the FAT filesystem we have no such thing like symbolic links. So now we need to run last command and boot that USB drive.&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;sudo dd bs=440 count=1 conv=notrunc if=/mnt/Multiboot/mbr/mbr.bin of=/dev/sdb ; sudo parted /dev/sdb set 1 boot on
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;This command will copy the &lt;strong&gt;mbr.bin&lt;/strong&gt; file to the first sector of my sdb drive, this will allow the BIOS to load the MBR which going to load the SYSCONFIG right after that, the second command will set the first sector to boot on.&lt;/p&gt;
+
+&lt;p&gt;Now, if you like me using VBOX you need to add USB drive to the machine, you may see some issue we that so you need to install the following package:&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;Oracle_VM_VirtualBox_Extension_Pack-5.1.38-122592.vbox-extpack
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Please note that in my case I donwload the version &lt;code class=&quot;highlighter-rouge&quot;&gt;5.1.38-122592&lt;/code&gt; which is my VBOX version, you can see the version by press Help&amp;gt;About&amp;gt;version in the bar menu of your VBOX, and download that package from the VBOX &lt;a href=&quot;https://download.virtualbox.org/virtualbox/&quot;&gt;site&lt;/a&gt;, please note that you need the &lt;code class=&quot;highlighter-rouge&quot;&gt;vbox-extpack&lt;/code&gt; for this case, after you run that you will be able to chose USB to load up the virtual machine and use it, also please remember to choose USB 1.1!&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/lpic2/USBdrive.png&quot; alt=&quot;LPIC2 Post&quot; /&gt;
+&lt;strong&gt;Figure 106-6&lt;/strong&gt; Adding USB drive to the vm.&lt;/p&gt;
+
+&lt;p&gt;Now there is more part we need to do, in normal computer we can chose over the BIOS which drive we what to be first booting up, in the vmbox we can choose to load the USB, but we can choose to using virtual optical disk, so we going to use &lt;strong&gt;plop.iso&lt;/strong&gt; that this menu can help us to choose what device we what to load up, you can download if from that &lt;a href=&quot;https://www.plop.at/en/bootmanager/download.html&quot;&gt;link&lt;/a&gt;, just download the zip file and you will find there the iso file you need.&lt;/p&gt;
+
+&lt;p&gt;Now change the boot order on the vbox system menu for that the optical disk be the first boot before the hard disk.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/lpic2/bootreorder.png&quot; alt=&quot;LPIC2 Post&quot; /&gt;
+&lt;strong&gt;Figure 106-7&lt;/strong&gt; Re-order the boot devices.&lt;/p&gt;
+
+&lt;p&gt;On the storage menu change the optical disk to load the &lt;strong&gt;plop.iso&lt;/strong&gt; image and only after you finish that ass you can boot the machine, It will bring you the plop menu which have nice tabs to choose what we need which is the USB drive.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/lpic2/plopmenu.png&quot; alt=&quot;LPIC2 Post&quot; /&gt;
+&lt;strong&gt;Figure 106-8&lt;/strong&gt; The plop menu.&lt;/p&gt;
+
+&lt;p&gt;If you done all right, after you choose and press on USB it load the syslinux menu like charm!&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/lpic2/syslinuxmenu.png&quot; alt=&quot;LPIC2 Post&quot; /&gt;
+&lt;strong&gt;Figure 106-9&lt;/strong&gt; The SYSLINUX menu.&lt;/p&gt;
+
+&lt;p&gt;You can see that I have the option to choose the Ubuntu or CentOS operation system, just remember that the other boot loaders are pritty much the same, you need to format drive, prepare it, copy the relevent file to is, setup the menu for that boot loader and you ready to go.&lt;/p&gt;
+
+&lt;p&gt;If we talk about the PXE boot loader, have the option to boot from the network with the PXELINUX. This PXE work with protocols such as UDP/IP, DHCP and TFTP, on the server side we prepare the machine with the image file of our chosen distribution we want to install, setup the PXE and another files that related to the remote boot operation, on the client side we setup it to boot from the server and we specify that in the BIOS. &lt;a href=&quot;https://www.tecmint.com/install-pxe-network-boot-server-in-centos-7/&quot;&gt;more information&lt;/a&gt;&lt;/p&gt;
 
 &lt;h3 id=&quot;challenge&quot;&gt;Challenge&lt;/h3&gt;
 &lt;ol&gt;
@@ -1433,6 +1617,8 @@ btrfs subvalume list /mnt/btrfs
 &lt;p&gt;You can also find more information in the &lt;a href=&quot;https://ramsdenj.com/2016/04/05/using-btrfs-for-easy-backup-and-rollback.html&quot;&gt;ramsdenj.com&lt;/a&gt;, but you may want to know how to specified the btrfs on the fstab file, because if you write at the option defaults or something else that we saw earlier in EXT this will not work, the option you need to write at fstab file is as follow:&lt;/p&gt;
 &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;/dev/sdb1  /mnt/btrfs    btrfs   rw,noatime,discard,ssd,space_cache    0 0
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;We can also convert ext3/4 filesystem to btrfs by using &lt;code class=&quot;highlighter-rouge&quot;&gt;btrfs-convert&lt;/code&gt; tool.&lt;/p&gt;
 
 &lt;p&gt;Please remember that btrfs have it’s own way to check and repair error, you can’t use &lt;strong&gt;fsck&lt;/strong&gt; tool for that kind of filesystem, and the same principle on the &lt;strong&gt;XFS&lt;/strong&gt; filesystem, let’s format the sdb device for XFS and after that you can see that I tried to run fsck.&lt;/p&gt;
 
@@ -2453,7 +2639,18 @@ at can help us, one of them is &lt;strong&gt;Amanda&lt;/strong&gt; previously kn
 &lt;p&gt;&lt;img src=&quot;/assets/images/lpic2/issue.net.png&quot; alt=&quot;OSCP Post&quot; /&gt;
 &lt;strong&gt;Figure 209&lt;/strong&gt; The net issue file.&lt;/p&gt;
 
-&lt;p&gt;And we inform our user if we want to run on &lt;strong&gt;shotdown&lt;/strong&gt; or &lt;strong&gt;systemctl poweroff&lt;/strong&gt;.&lt;/p&gt;</content><author><name>Guy Zwerdling</name></author><category term="Linux" /><summary type="html">Today morning I received a message from LPI that my certificate will expire in 9 months and so it is time to start studying for the second Linux certification, this will advance me to the third Linux information security certification that will include what I am looking for, this certification is split in two</summary></entry><entry><title type="html">OSCP Certification Journey</title><link href="http://localhost:4000/2019/09/20/oscp_certificate.html" rel="alternate" type="text/html" title="OSCP Certification Journey" /><published>2019-09-20T00:00:00+03:00</published><updated>2019-09-20T00:00:00+03:00</updated><id>http://localhost:4000/2019/09/20/oscp_certificate</id><content type="html" xml:base="http://localhost:4000/2019/09/20/oscp_certificate.html">&lt;p&gt;I set myself a lot of goals this year to advance to the next level, among all the goals being the OSCP certification from Offensive Security. It’s been a certification I’ve been talking about for years, since 2012, it’s really time to sit down and do that certification. It all started when I was writing in a forum on computer communications, where I presented the dilemma, whether to study information security of companies that are involved in the field or something else when my goal is to be an expert in the cyber world.&lt;/p&gt;
+&lt;p&gt;And we inform our user if we want to run on &lt;strong&gt;shotdown&lt;/strong&gt; or &lt;strong&gt;systemctl poweroff&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;p&gt;Let’s look on the centOS, I remotly connected to it from my Ubuntu by using ssh, on my centOS I run the following:&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;shutdown 2 the system is going shutdown!
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/images/lpic2/centosshut.png&quot; alt=&quot;OSCP Post&quot; /&gt;
+&lt;strong&gt;Figure 210&lt;/strong&gt; CentOS shutdown command.&lt;/p&gt;
+
+&lt;p&gt;On my Ubuntu I can see the following massage:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/lpic2/centosshut2.png&quot; alt=&quot;OSCP Post&quot; /&gt;
+&lt;strong&gt;Figure 211&lt;/strong&gt; CentOS shutdown report.&lt;/p&gt;</content><author><name>Guy Zwerdling</name></author><category term="Linux" /><summary type="html">Today morning I received a message from LPI that my certificate will expire in 9 months and so it is time to start studying for the second Linux certification, this will advance me to the third Linux information security certification that will include what I am looking for, this certification is split in two</summary></entry><entry><title type="html">OSCP Certification Journey</title><link href="http://localhost:4000/2019/09/20/oscp_certificate.html" rel="alternate" type="text/html" title="OSCP Certification Journey" /><published>2019-09-20T00:00:00+03:00</published><updated>2019-09-20T00:00:00+03:00</updated><id>http://localhost:4000/2019/09/20/oscp_certificate</id><content type="html" xml:base="http://localhost:4000/2019/09/20/oscp_certificate.html">&lt;p&gt;I set myself a lot of goals this year to advance to the next level, among all the goals being the OSCP certification from Offensive Security. It’s been a certification I’ve been talking about for years, since 2012, it’s really time to sit down and do that certification. It all started when I was writing in a forum on computer communications, where I presented the dilemma, whether to study information security of companies that are involved in the field or something else when my goal is to be an expert in the cyber world.&lt;/p&gt;
 
 &lt;p&gt;Eventually, someone responded to me, depending on what I want to learn, whether I want to be on the attacker or on the defensive side, he introduced a number of certifications and wrote about each certification separately. Among all the certifications he presented were Cisco certificates, Check Point certificates, and all sorts of large companies that manufacture and market security sites that protect the entire corporate network.&lt;/p&gt;
 

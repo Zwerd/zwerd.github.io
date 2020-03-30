@@ -1545,7 +1545,7 @@ Every device we have on our PC and the system can see it, will be likely to list
 
 In that file we can find several things, first is the device drive, in my case the following drive */dev/mapper/vg_centos-lv_root* is mount on the root folder, the root folder as you should know is **/**, the type of that device filesystem is **ext4**. You should know that there is several type of filesystem, as example of ext2, ext3 and ext4, the different between those three is historically, basically on the ext2 filesystem there is no support of **journaling**, journaling is process that can help us to avoid errors in case there is a power outage, let's say we start to saved some document we write and the power goes off, if the saveing dosn't finish this is data that lost, the same is on our case, we write data to the disk and if the power goes off we may have some issue to read the data from that disk or alternatively we may be unavailable to read any data from the disk, there is several way to solved that issue (we will look on that as we foreword) but in the ext3 there is a **jounaling** that can solve that issue before it appear, the ext3 filesystem write some journal which is **metadata** that tracking down every access that done on the disk and in that way if the power outage was occur, he know exactly were it done and can repair that alone or by using fsck tool.
 
-The ext4 filesystem is more advance then ext3, is support in really large file and there is more feature that we have on ext4, what we need to know is that we have more than one filesystem type, so in the fidure 118 you can see that my root drive will use ext4 filesystem, the fourth entry can be use to allow the system run that drive on some group or some mode, in my case it is defaults which is mean according the man page of mount that it support of the rw, suid, dev, exec, auto, nouser, and async options.
+The ext4 filesystem is more advance then ext3, is support in really large file and there is more feature that we have on ext4, what we need to know is that we have more than one filesystem type, so in the figure 118 you can see that my root drive will use ext4 filesystem, the fourth entry can be use to allow the system run that drive on some group or some mode, in my case it is defaults which is mean according the man page of mount that it support of the rw, suid, dev, exec, auto, nouser, and async options.
 
 The fifth value mostly be zero, but I don't really know why in my case it's one, this stand for dump which mean to dump all the file on mounting process, but as much as I know this no used any more, the sixth entry
 is the mount max count, this is mean that if we unmount and mount again the disk up to the max value, on the next boot it will be check with the fsck for errors.
@@ -1578,7 +1578,7 @@ You can also see on the **fstab** that I have some UUID that point on the */boot
 ![LPIC2 Post](/assets/images/lpic2/blkid.png)
 **Figure 121** The blkid command.
 
-So you can find your device name and his UUID for use in the fstab file. Let's say that your linux computer is working right know and you want to mount some drive you plug in, let's say that the Linux can
+So you can find your device name and his UUID for use in the fstab file. Let's say that your linux computer is working right now and you want to mount some drive you plug in, let's say that the Linux can
 see that device but didn't mount it, we can use the **mount** command for mount it or alternatively **umount** for unmount other device we want to plug out.
 
 ```
@@ -1597,7 +1597,7 @@ this will sync only the sdb1 partition in the sdb device.
 
 If you remember we talk about the swap in that post earlier, and as you already know the swap is actually the memory that use directly from the disk, only when the RAM are full then the swap take an action, if we want to create swap by using the **mkswap** command, we have also the way to start that swap or disable it. The **swapon** command used for enable and start swap while **swapoff** used for disabling it, you also can check the **fstab** as we saw earlier to see the swap partition.
 
-So let's for example create swap space, what we can do is to make new partition on our disk by **fdisk** tool and and find the UUID of that partition by using **blkid** command and specified that UUID on the `fstab` file with the type of swap.
+So let's for example create swap space, what we can do is to make new partition on our disk by **fdisk** tool and find the UUID of that partition by using **blkid** command and specified that UUID on the `fstab` file with the type of swap.
 
 We also can create swap file which work in the same way as partition, all we need to do is to create file by using **dd** command and named it swap.
 
@@ -1663,7 +1663,7 @@ You can see that we have lots of information, UUID, filesystem type, label that 
 
 mount count, maximum mount count which is my case -1 because I didn't set it on the fstab, if you remember in my case the pass (which is the max count mount) is set on 0 which mean it will never pass the fsck checking.
 
-We also can use **debugfs** to get more information  about the device, if we run that tool we will be in debug like system, inside of it if we type **ls** it will bring us more details then the normal **ls** done, we also can type **lsdel** which bring us all file in that device that was delited, normally you wouldn't to see anything becouse **rm** do greate job of deleting file.
+We also can use **debugfs** to get more information  about the device, if we run that tool we will be in debug like system, inside of it if we type **ls** it will bring us more details then the normal **ls** done, we also can type **lsdel** which bring us all file in that device that was deleted, normally you wouldn't to see anything becouse **rm** do greate job of deleting file.
 
 We also can specified what is the superblock we want to read and what is the size of block with the following command:
 
@@ -1877,6 +1877,148 @@ sudo cryptsetup luksOpen /dev/sdb1 sdb1
 
 Now we just need to mount the drive and we can use it, every time we connect the drive even on the GUI like Ubuntu he will ask for password, it he dosn't we can alwase use this open command for opening that drive.
 
+### Challenge 203-1
+
+So it's time to Challenge 203-1! I'm so excited!
+
+1. Format USB drive, connect it to virtual CentOS machine and prepare it to be type of ext4 filesystem.
+2. Set that new drive to be auto mount on client side.
+3. Set up for that drive password protected.
+4. Mount again the drive and try to use it on the client side.
+
+So let's look who to do those tasks
+
+### 1. Add new drive and format it on CentOS.
+
+So I start up my CentOS and check to see if it read the new drive, by using `fdisk`, you can see that I have new drive in sdb.
+
+![LPIC2 Post](/assets/images/lpic2/fdiskoncentos.png)
+**Figure 140-1** Adding drive to my machine.
+
+For prepare it to be use, I need to create new partition, I can run fdisk on that drive and create the primary partition.
+
+![LPIC2 Post](/assets/images/lpic2/primarypartition.png)
+**Figure 140-2** Creating partition.
+
+New we need to check that we can see that partition by using fdisk again,
+
+![LPIC2 Post](/assets/images/lpic2/fdiskagain.png)
+**Figure 140-3** List of my current drive.
+
+So it's time to make the drive by format it to the ext4 type by using `mkfs.ext4` command.
+
+![LPIC2 Post](/assets/images/lpic2/makethefs.png)
+**Figure 140-4** Ext4 Filesystem.
+
+Now that I have new drive ready I need to mount it.
+
+![LPIC2 Post](/assets/images/lpic2/mountfs.png)
+**Figure 140-5** Mount the drive.
+
+So now I have mounted drive, so let's proceed.
+
+### 2. Setup the auto mount on the server and client.
+
+So now I need to setup auto mounted on this server, let's install the
+```
+yum install nfs-utils nfs-utils-lib
+```
+
+So now I need to create new folder with permission for any one.
+
+![LPIC2 Post](/assets/images/lpic2/chownandchmod.png)
+**Figure 140-6** Using chmod and chown.
+
+After that we need to make export setting for that folder, we can find the export on the `etc`.
+
+```
+#/etc/exportfs
+
+/mnt/drive1/backup 192.168.43.145
+```
+
+After that we need to run the following command:
+
+![LPIC2 Post](/assets/images/lpic2/nfsconfig.png)
+**Figure 140-7** You can see that the nfs is ready.
+
+On the client side I going to create folder that will be used for my mount point.
+```
+mkdir /home/zwerd/drive1
+```
+
+Now I need to check in my auto.master the configuration.
+```
+/home/zwerd/drive1 /etc/auto.drive
+```
+
+Now for my folder drive1 on the client I need to set the auto.drive with the current path to that drive.
+
+![LPIC2 Post](/assets/images/lpic2/autodrive.png)
+**Figure 140-8** Exact path to mount drive1.
+
+Now it's time to restart the autofs service.
+```
+sudo service autofs restart
+```
+
+So now I need to check if I see that on my `mount` output.
+
+![LPIC2 Post](/assets/images/lpic2/mountautofs.png)
+**Figure 140-9** Mount.
+
+After that done I checked if I can connect to the "drive1" directory, but it didn't work well, so what can I do is to trying mount that drive manually and check for error that can help us to find why is can't be mounted automatically.
+
+Let's check if now I can mount the backup folder and use that.
+![LPIC2 Post](/assets/images/lpic2/mountfailed.png)
+**Figure 140-10** Mount failed.
+
+You can see that the mount is failed, as much as I know I done what needed in order to create NFS directory and use it with auto mount, so now I trying to run `tcpdump` on the centOS machine and after that I will try to mount the drive again and see what si going on.
+
+So you can see the logs I have from my capture.
+
+![LPIC2 Post](/assets/images/lpic2/tcpdumpmount.png)
+**Figure 140-11** My tcpdump capture.
+
+As you can see my zwerd station trying to connect the CentOS via nfs but the CentOS server dosn't replay for that request, at the same time there is an ICMP packets that specify that this port is **unreachable - admin prohibited**, this may mean that the service is not reached, but I activated the NFS on that machine so I don't think that the service is not active, it may be blocked out by local firewall that I have on that machine, so I run the `system-config-firewall` command and view the firewall configuration in GUI mode.
+
+![LPIC2 Post](/assets/images/lpic2/firewallnfs.png)
+**Figure 140-12** My firewall and nfs service.
+
+So I allowed the nfs ports, and now it time to check if it working as expected.
+
+![LPIC2 Post](/assets/images/lpic2/centosfile.png)
+**Figure 140-13** My CentOS file on my CentOS machine.
+
+### 3. Create password protected on the mounted drive.
+
+First of all I need to umount the drive and set it for password protected, I am using the following command:
+```
+sudo cryptsetup -v -y luksFormat /dev/sdb1
+```
+
+![LPIC2 Post](/assets/images/lpic2/passsdb1.png)
+**Figure 140-14** Password protected on sdb1.
+
+After it finish I need to run the following:
+```
+sudo cryptsetup luksOpen /dev/sdb1 sdb1
+```
+
+![LPIC2 Post](/assets/images/lpic2/openpasssdb1.png)
+**Figure 140-15** Open the protected drive sdb1.
+
+This command will open the drive in /dev/mapper/sdb1 - it will ask for the password we setup, only after that done I need run `mkfs.ext4 /dev/mapper/sdb1` on the drive and prepare it to be use by the client.
+
+### 4. Mount the drive again.
+
+please remember that we have all auto mount settings so we need just to mount that drive to `/mnt/drive1` and make the backup folder and on the client side to mount that.
+
+![LPIC2 Post](/assets/images/lpic2/mountagainonclient.png)
+**Figure 140-16** Mount the drive again on my Ubuntu system.
+
+Now I can reboot the system and it should mount that directory automatically over NFS, so we finish the task.
+
 ## Chapter 4
 ## Topic 204: Advanced Storage Device Administration.
 
@@ -1886,7 +2028,7 @@ RAID 0 is the first one and not contain any sort of backup, what we do with that
 
 RAID 1 however have backup for every data you save on the disk, let's say that we have two disk and on every disk we setup only one partition, after that we run RAID 1 a top on that and start to save data on the RAID 1, in that case every data are duplicated and save twice, one on the first disk and one on the second, in that way if disk one was corrupted we have full backup on disk two.
 
-RAID 5 for me is more complicated to understand but I will try the best to explain it down, RAID 5 can only be used when we have 3 or more disk, on top of it we activate RAID 5 and the data can be save over that disks with plus data that called **parity**, this parity is the sum in XOR which mean the following:
+RAID 5 for me is more complicated to understand but I will try the best to explain it down, RAID 5 can only be used when we have 3 or more disk, on top of it we activate RAID 5 and the data can be save over these disks with plus data that called **parity**, this parity is the sum in XOR which mean the following:
 ```
 0 xor 0 = 0
 0 xor 1 = 1
@@ -1937,7 +2079,7 @@ After we finish to setup both of the disks, we will find these new partition by 
 mdadm --create --verbose /dev/md0 --level=1 --raid-devices=2 /dev/sdd1 /dev/sde1
 ```
 
-In this command we create new RAID so this is why we use **--create** option, we also want to see more output so we using **--verbose** option, after that we choose the device name, please note that this command go and create the md0 for us, we also choose the level 1 which is RAID 1, but please remember that if you choose RAID level 3 you need to choose at least three devices, the next option is **--raid-devices=2** which let the mdadm to use two devices in that RAID.
+In this command we create new RAID so this is why we use **--create** option, we also want to see more output so we using **--verbose** option, after that we choose the device name, please note that this command go and create the md0 for us, we also choose the level 1 which is RAID 1, but please remember that if you choose RAID level 5 you need to choose at least three devices, the next option is **--raid-devices=2** which let the mdadm to use two devices in that RAID.
 
 ![LPIC2 Post](/assets/images/lpic2/mdadm.png)
 **Figure 145** Using mdadm command with super-user.
@@ -1963,6 +2105,8 @@ mdadm --fail /dev/md0 /dev/sdc1
 ```
 In that case we specify the `sdc1` to mark as fail, this will cause the RAID5 to do the action he would done if the disk was really damage. Using the --set-faulty would done the same operation.
 
+Now I want to talk about the hard disk, we saw so far the hard disk, memory, cpu and such on chapter 0 but now we need to have more knowledge about that so let's dive in. On the LPIC2 it's say that we need to know about the DMA, this is short for Direct Memory Access and it's can be use to help to improve performance over the PC, in the computer we have hard disk, memory, and processor, in the not so far past when we want to load data from the hard disk to the memory the processor start to run and load the data from the disk to the memory, in that case every action that we done on our computer would take a long time because the processor was busy, let's take for example case that we want burn data to our optical disk, in that case the processor need to take data from the hard disk, load it to memory and use it to burn it down, this would take a 20 minutes to finish to burn just one file in size of 600M, which is very frustrating, consider that in our days everything works fast, so to solve it there is a very simple solution, we need to find a way to leave the processor out of the picture, so the DMA came alone and it allow direct access from the disk to the memory without needed to use the processor, so if your PC are slow we may want to check if the DMA functionality are enable on your PC.
+
 for doing just that we need to use **hdparm**, this tool can give us information about the IDE drive, which one of them is if the DMA are active or not and it also can give us information of performance to check the buffer reading or disk reading in seconds.
 
 ```
@@ -1974,7 +2118,7 @@ The option **-t** is used for perform device read timings and with that data we 
 /dev/sda6:
  Timing buffered disk reads: 424 MB in  3.00 seconds = 141.20 MB/sec
 ```
-You can see that 424 MB was read from the disk in timing of 3 second with is very fast, we also can use the **-t** option which perform cache read timings which is the memory, so this should be faster then the disk reading by using the following command:
+You can see that 424 MB was read from the disk in timing of 3 second with is very fast, we also can use the **-T** option which perform cache read timings which is the memory, so this should be faster then the disk reading by using the following command:
 ```
 sudo hdparm -T /dev/sda6
 ```
@@ -2037,7 +2181,7 @@ In **hdparm** you also have an option for specific device, like **-H** which wil
 
 The **sdparm** utility is the same as hdparm but it used for accesses SCSI mode page. We may want to change some parm of the device, like */proc/interrupts* which will give us information about the device interrupt value that be use to interact with the kernel.
 
-I want to clarify more about the IDE and ATA, PATA, SATA, this all are the same, they equally the same principles of ATA, what I understand so far that every one of them is like advance version of ATA. Also every one of them have connector that they oprate, like in RJ-45 that operate by ethernet, I don't know it the same principle, but we have SATA for example and we also have SATA connector, the SATA operate the connector.
+I want to clarify more about the IDE and ATA, PATA, SATA, this all are the same, they equally the same principles of ATA, what I understand so far that every one of them is like advance version of ATA. Also every one of them have connector that they oprate, like in RJ-45 that operate by ethernet, I don't know if it the same principle, but we have SATA for example and we also have SATA connector, the SATA operate the connector.
 
 SCSI is other world of connectors and other then the PATA or SATA operator, it work better with SSD, as much as I understand (you can leave here a comment if you think I am wrong) we have two type of disk, the first one is HDD which stand for Hard Disk Drive, it is an magnetic drive with metal arm that read and write data from the disk and to the disk, it most likely that you found on that kind of disk PATA port.
 
@@ -2059,7 +2203,7 @@ Please note that SATA have it's own cable and serial port that is different from
 ![LPIC2 Post](https://www.ferniefix.com/sites/default/files/answerguy-aug16_0.jpg)
 **Figure 151** SATA cables.
 
-The SSD is different from HDD, it stand for Solid State Disk and it support very high performance, it more likely to find SSD with SAPA port, but I also found that there is a SSD that came with PATA connector.
+The SSD is different from HDD, it stand for Solid State Disk and it support very high performance, it more likely to find SSD with SATA port, but I also found that there is a SSD that came with PATA connector.
 
 ![LPIC2 Post](https://cdn.shopify.com/s/files/1/0703/8597/products/24f0e6c9-3b9c-5987-998c-e2164a4f4bbe.png?v=1496360927)
 **Figure 152** SDD with SATA port.
@@ -2180,7 +2324,7 @@ In this command we specify the mode which in our case is target becouse we setup
 ![LPIC2 Post](/assets/images/lpic2/tgtadm.png)
 **Figure 158** tgtadm command.
 
-You can see that we have LUN0 for the conntroler and LUN1 for the disk and it contain the backing store path which is what we mount on the client, the **initiator**.
+You can see that we have LUN0 for the controller and LUN1 for the disk and it contain the backing store path which is what we mount on the client, the **initiator**.
 
 Now on the client or the **initiator** we can use the user admin with password admin to mount that device, but it will never work well because the centOS using Firewall by default, so we need to allow the connection for that server using port 3260 which is the port for iSCSI protocol that base on TCP connection.
 
@@ -2266,7 +2410,7 @@ The **logical volumes** is sort of logical partition, which mean that we can cre
 
 Let's say that we use sda1, sdb1 and sdc1 for each to be **physical volume** and we group all together for  **volume groups** and from that group we setup many partitions as **logical volumes**, this implementation have advance abilities like to have the ability to resize the **logical volumes** and add more memory space for that, or to shrink it down, we can also have multiple partition for separate the data between them.
 
-This is not like RIAD, becouse lvm have not backup data, we can use RAIN under LVM, and on top of it to run LVM. The LVM also have the way ro run snapshot.
+This is not like RIAD, because lvm have not backup data, we can use RAID under LVM, and on top of it to run LVM. The LVM also have the way to run snapshot.
 
 For installing LVM we need to run the following on Ubuntu system:
 ```
@@ -2306,7 +2450,7 @@ now we can proceed to the logical volume creation.
 sudo lvcreate --name lv1 --size 1G vg1
 ```
 
-The name in my case is lv1, the size I am going to use is just ! giga, and the name of the volume group to use for that space location is vg1, you can see the ditails on **lvdisplay** command.
+The name in my case is lv1, the size I am going to use is just ! giga, and the name of the volume group to use for that space location is vg1, you can see the details on **lvdisplay** command.
 
 ![LPIC2 Post](/assets/images/lpic2/lvdisplay.png)
 **Figure 166** lvdisplay command.
@@ -2335,6 +2479,21 @@ You can see the backup volume I have now on my system.
 
 ![LPIC2 Post](/assets/images/lpic2/lv.png)
 **Figure 167-2** Commands for logical volume.
+
+### Challenge 204-1
+
+So now the challenge going to be complicated, we going to use most of what we saw on that chapter.
+
+1. Setup server with 6 SCSI disk each in size of 512MB
+2. On other machine use iSCSI for mount the SCSI disks.
+3. Setup RAID 5 on these 6 disk and create two **dm** volume.
+4. Use the two dm for create one virtual group and create three logical volume partitions with size of 1GB each, 1 as Documents, 2 as Programs, 3 as Public, all of these partition need to created under home directory on the local machine.
+
+### 1. Setup server with 6 SCSI disks.
+
+I have virtual machine with CentOS system, so this is my server, I added to this server 6 virtual disk which each 512MB, now I need to set each disk.
+
+
 
 
 ## Chapter 5

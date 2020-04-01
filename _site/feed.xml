@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.5">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2020-03-30T19:25:23+03:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Zwerd</title><subtitle>A stunning blog of freaking PT warrior</subtitle><author><name>Guy Zwerdling</name></author><entry><title type="html">My Journey for LPIC2 Certification - Exam 201-450</title><link href="http://localhost:4000/2019/11/19/lpic2_certificate.html" rel="alternate" type="text/html" title="My Journey for LPIC2 Certification - Exam 201-450" /><published>2019-11-19T00:00:00+02:00</published><updated>2019-11-19T00:00:00+02:00</updated><id>http://localhost:4000/2019/11/19/lpic2_certificate</id><content type="html" xml:base="http://localhost:4000/2019/11/19/lpic2_certificate.html">&lt;p&gt;Today morning I received a message from LPI that my certificate will expire in 9 months and so it is time to start studying for the second Linux certification, this will advance me to the third Linux information security certification that I will search for, this certification is divided into two and the two parts are marked by two different codes: 201-450, 202-450&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.5">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2020-04-01T23:35:07+03:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Zwerd</title><subtitle>A stunning blog of freaking PT warrior</subtitle><author><name>Guy Zwerdling</name></author><entry><title type="html">My Journey for LPIC2 Certification - Exam 201-450</title><link href="http://localhost:4000/2019/11/19/lpic2_certificate.html" rel="alternate" type="text/html" title="My Journey for LPIC2 Certification - Exam 201-450" /><published>2019-11-19T00:00:00+02:00</published><updated>2019-11-19T00:00:00+02:00</updated><id>http://localhost:4000/2019/11/19/lpic2_certificate</id><content type="html" xml:base="http://localhost:4000/2019/11/19/lpic2_certificate.html">&lt;p&gt;Today morning I received a message from LPI that my certificate will expire in 9 months and so it is time to start studying for the second Linux certification, this will advance me to the third Linux information security certification that I will search for, this certification is divided into two and the two parts are marked by two different codes: 201-450, 202-450&lt;/p&gt;
 
 &lt;p&gt;In this post I am going to go over each topic as listed on the LPI website, which means I will go over each tool and present it here, in each chapter I will show how to use these tools to get the same information that the subject of the test should deal with, at the end of each chapter I will present a challenge From most of the commands we learned and challenged you and me how to get the information to succeed.&lt;/p&gt;
 
@@ -2134,7 +2134,7 @@ Filesystem features:      has_journal ext_attr resize_inode dir_index filetype n
 &lt;p&gt;I am going to use centOS 6 for server side which is my &lt;strong&gt;target&lt;/strong&gt; and I will use ubuntu 18 as client which is the &lt;strong&gt;initiator&lt;/strong&gt;.&lt;/p&gt;
 
 &lt;p&gt;In my server I need to install the following utile:&lt;/p&gt;
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;sudo yum -y install scsi-targets-utils
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;sudo yum -y install scsi-target-utils
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;p&gt;After it finish we need to setup the target so in my case I need to use the following configuration file:&lt;/p&gt;
@@ -2186,7 +2186,7 @@ incominguser admin admin
 &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;sudo apt install open-iscsi
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
-&lt;p&gt;After that we need to edit the following file &lt;em&gt;/etc/iscsi/iscsid.cont&lt;/em&gt;, we not need to change much of that file, what we want to change is the node session for username and password because we set it on our server.&lt;/p&gt;
+&lt;p&gt;After that we need to edit the following file &lt;em&gt;/etc/iscsi/iscsid.conf&lt;/em&gt;, we not need to change much of that file, what we want to change is the node session for username and password because we set it on our server.&lt;/p&gt;
 
 &lt;p&gt;&lt;img src=&quot;/assets/images/lpic2/iscsidconf.png&quot; alt=&quot;LPIC2 Post&quot; /&gt;
 &lt;strong&gt;Figure 159&lt;/strong&gt; Setup for the initiator.&lt;/p&gt;
@@ -2315,14 +2315,184 @@ service iscsid start
 
 &lt;ol&gt;
   &lt;li&gt;Setup server with 6 SCSI disk each in size of 512MB&lt;/li&gt;
-  &lt;li&gt;On other machine use iSCSI for mount the SCSI disks.&lt;/li&gt;
   &lt;li&gt;Setup RAID 5 on these 6 disk and create two &lt;strong&gt;dm&lt;/strong&gt; volume.&lt;/li&gt;
-  &lt;li&gt;Use the two dm for create one virtual group and create three logical volume partitions with size of 1GB each, 1 as Documents, 2 as Programs, 3 as Public, all of these partition need to created under home directory on the local machine.&lt;/li&gt;
+  &lt;li&gt;Use the two dm for create one virtual group and create three logical volume partitions, check the size of each.&lt;/li&gt;
+  &lt;li&gt;Create iSCSI target and initiator by using the LVM’s and mount it on the client, 1 storage as Documents, storage 2 as Programs, storage 3 as Public.&lt;/li&gt;
+  &lt;li&gt;Check the size of the mounted devices&lt;/li&gt;
 &lt;/ol&gt;
 
 &lt;h3 id=&quot;1-setup-server-with-6-scsi-disks&quot;&gt;1. Setup server with 6 SCSI disks.&lt;/h3&gt;
 
-&lt;p&gt;I have virtual machine with CentOS system, so this is my server, I added to this server 6 virtual disk which each 512MB, now I need to set each disk.&lt;/p&gt;
+&lt;p&gt;I have virtual machine with CentOS system, so this is my server, I added to that server 6 virtual disk which each 512MB, now I need to set each disk, first I run &lt;code class=&quot;highlighter-rouge&quot;&gt;fdisk&lt;/code&gt; on sdb for creating the first partition on that disk.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/lpic2/fdiskforsdb.png&quot; alt=&quot;LPIC2 Post&quot; /&gt;
+&lt;strong&gt;Figure 168-1&lt;/strong&gt; Create partition by using fdisk.&lt;/p&gt;
+
+&lt;p&gt;Now we need to do the same for every disk we have or we can just use &lt;code class=&quot;highlighter-rouge&quot;&gt;sfdisk&lt;/code&gt; for doing all at the same time (fdisk-multiple-disks-in-linux)[https://ittopix.wordpress.com/2016/05/31/fdisk-multiple-disks-in-linux/].&lt;/p&gt;
+
+&lt;h3 id=&quot;2-setup-raid-5-on-each-disk&quot;&gt;2. setup RAID 5 on each disk.&lt;/h3&gt;
+
+&lt;p&gt;For setup RAID I need to change the partition type so by using &lt;code class=&quot;highlighter-rouge&quot;&gt;fdisk&lt;/code&gt; I can chose &lt;code class=&quot;highlighter-rouge&quot;&gt;t&lt;/code&gt; option and &lt;code class=&quot;highlighter-rouge&quot;&gt;fd&lt;/code&gt; for RAID, after that done I check with fdisk the type of that partition.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/lpic2/raidpartition.png&quot; alt=&quot;LPIC2 Post&quot; /&gt;
+&lt;strong&gt;Figure 168-2&lt;/strong&gt; My new RAID partition.&lt;/p&gt;
+
+&lt;p&gt;Now I need to do the same on my sdc and sdd for making tham ready for RAID 5.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/lpic2/threeraidpartitions.png&quot; alt=&quot;LPIC2 Post&quot; /&gt;
+&lt;strong&gt;Figure 168-3&lt;/strong&gt; Three RAID partitons.&lt;/p&gt;
+
+&lt;p&gt;After we done to setup the partition for supporting RAID, we need to create the RAID my using &lt;code class=&quot;highlighter-rouge&quot;&gt;mdadm&lt;/code&gt; command:&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;mdadm --create --verbose /dev/md1 --level=5 --raid-devices=3 /dev/sdc1 /dev/sdd1
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/images/lpic2/createraid5.png&quot; alt=&quot;LPIC2 Post&quot; /&gt;
+&lt;strong&gt;Figure 168-4&lt;/strong&gt; Create RAID 5 with three partitions.&lt;/p&gt;
+
+&lt;p&gt;Now we can see the details of that RAID by using the following:&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;mdadm --detail /dev/md1
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;And also we can extract out the UUID by using &lt;code class=&quot;highlighter-rouge&quot;&gt;--scan&lt;/code&gt; option.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/lpic2/raid5uuid.png&quot; alt=&quot;LPIC2 Post&quot; /&gt;
+&lt;strong&gt;Figure 168-5&lt;/strong&gt; The details of our RAID.&lt;/p&gt;
+
+&lt;p&gt;Now I need to do the same with the others three disks I have on that machine and create RAID 5 which I am going to call it md2.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/lpic2/raiddevices.png&quot; alt=&quot;LPIC2 Post&quot; /&gt;
+&lt;strong&gt;Figure 168-6&lt;/strong&gt; The details of our RAID.&lt;/p&gt;
+
+&lt;p&gt;Please note that in my case md1 is contain the /dev/sdb1 /dev/sdc1 /dev/sdd1 and md2 contain the /dev/sde1 /dev/sdf1 /dev/sda1.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/lpic2/raidgroups.png&quot; alt=&quot;LPIC2 Post&quot; /&gt;
+&lt;strong&gt;Figure 168-7&lt;/strong&gt; My RAID groups are ready to use.&lt;/p&gt;
+
+&lt;h3 id=&quot;3-create-three-logical-volume-each-with-size-of-1gb&quot;&gt;3. Create three logical volume each with size of 1GB&lt;/h3&gt;
+
+&lt;p&gt;So now I need to use these two RAID’s and create the LVM, I can doing so by proceed with the three step of the VLM creation, the first one is using the &lt;code class=&quot;highlighter-rouge&quot;&gt;pvcreate&lt;/code&gt; command, this will create physical volume so we can use that to create the volume group.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/lpic2/pvcreate.png&quot; alt=&quot;LPIC2 Post&quot; /&gt;
+&lt;strong&gt;Figure 168-8&lt;/strong&gt; The creation of the physical group.&lt;/p&gt;
+
+&lt;p&gt;You can see that I use the &lt;code class=&quot;highlighter-rouge&quot;&gt;pvs&lt;/code&gt; command which can show us the size of it, but you can also use the pvdisplay that give you more data, now I need to create the group and that will help us to create the logical volume we need.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/lpic2/vg1.png&quot; alt=&quot;LPIC2 Post&quot; /&gt;
+&lt;strong&gt;Figure 168-9&lt;/strong&gt; My volume group.&lt;/p&gt;
+
+&lt;p&gt;You can see that I use both md’s to create one volume group, we can use the &lt;code class=&quot;highlighter-rouge&quot;&gt;vgs&lt;/code&gt; command and also the &lt;code class=&quot;highlighter-rouge&quot;&gt;pvdisplay&lt;/code&gt; or &lt;code class=&quot;highlighter-rouge&quot;&gt;vgdisplay&lt;/code&gt; to see that vg1 group setup on both of the RAID storage.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/lpic2/vgsandpvdisplay.png&quot; alt=&quot;LPIC2 Post&quot; /&gt;
+&lt;strong&gt;Figure 168-10&lt;/strong&gt; Display my group.&lt;/p&gt;
+
+&lt;p&gt;Now it’s time to create the logical volume out of the group we have, as you saw the size of the whole group is 1.99GB so you may ask how it can be we use three 6 disks which every one of them is 512G so we need to have at least 3GB free to use, so the answer is that the RAID use for each of md’s storage 512MB as the dev size, so we laft with 1GB for each of md’s storage and the programe that create the PV or VG is also take a place so we left with 1.99GB to use before we going to create the LV.&lt;/p&gt;
+
+&lt;p&gt;So in my case I create every logical volume with 512MB by runing the following command:&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;lvcreate --name lv1 --size 512MB vg1
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/images/lpic2/lvandlvs.png&quot; alt=&quot;LPIC2 Post&quot; /&gt;
+&lt;strong&gt;Figure 168-11&lt;/strong&gt; My logical volume with the size of it.&lt;/p&gt;
+
+&lt;p&gt;Now I need to create more two logical volume with different names.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/lpic2/lvs.png&quot; alt=&quot;LPIC2 Post&quot; /&gt;
+&lt;strong&gt;Figure 168-11&lt;/strong&gt; My logical volume with the size of it.&lt;/p&gt;
+
+&lt;h3 id=&quot;4-setup-the-iscsi-devices-on-the-client&quot;&gt;4. Setup the iscsi devices on the client.&lt;/h3&gt;
+
+&lt;p&gt;So now I need to install the target package, I don’t shore what is the correct name so I can use the following:&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;rpm -ra | grep scsi
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;This will give me the name of the package so I can use it to install it.&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;yum install scsi-target-utils
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Now it’s time to setup the target, I need to make changes in the targets.conf file as follow:&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&amp;lt;target 172.16.0.104:target01&amp;gt;
+backing-store /dev/vg1/lv1
+incominguser guy zwerd1234
+&amp;lt;/target&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/lpic2/targets.png&quot; alt=&quot;LPIC2 Post&quot; /&gt;
+&lt;strong&gt;Figure 168-11&lt;/strong&gt; My targets on the targets.conf file.&lt;/p&gt;
+
+&lt;p&gt;Please note the directory for the logical volume’s and the IP address which is the server address, so now we need to restart the service.&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;service tgtd stop
+service tgtd start
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;To verify that all setup correctly we can use the following:&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;tgtadm --mode target --op show
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/lpic2/targetontgt.png&quot; alt=&quot;LPIC2 Post&quot; /&gt;
+&lt;strong&gt;Figure 168-12&lt;/strong&gt; You can see the three targets.&lt;/p&gt;
+
+&lt;p&gt;We also need to allow communication to the iSCSI port which is 3260 so we can use &lt;code class=&quot;highlighter-rouge&quot;&gt;iptable&lt;/code&gt; to allow such connections:&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;iptables -I INPUT 1 -p tcp --dport 3260 -j ACCEPT
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Now I need to setup the username and password in the /etc/iscsi/iscsid.conf file which we going to use to initicate the connection to the target.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/lpic2/authentications.png&quot; alt=&quot;LPIC2 Post&quot; /&gt;
+&lt;strong&gt;Figure 168-13&lt;/strong&gt; Addin the auth on the file.&lt;/p&gt;
+
+&lt;p&gt;Now restart the service:&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;service iscsid stop
+service iscsid start
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;And tring to initiate the connection to the targets&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;iscsiadm --mode discovery -t sendtargets --portal 172.16.0.204
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/lpic2/foundtargets.png&quot; alt=&quot;LPIC2 Post&quot; /&gt;
+&lt;strong&gt;Figure 168-14&lt;/strong&gt; You can see that it find the targets.&lt;/p&gt;
+
+&lt;p&gt;So now we need to use every target and initiate the connection, we will see the we have more scsi drive on the client machine.&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;iscsiadm --mode node --targetname 172.16.0.104:target01 --portal 172.16.0.104 --login
+iscsiadm --mode node --targetname 172.16.0.104:target02 --portal 172.16.0.104 --login
+iscsiadm --mode node --targetname 172.16.0.104:target03 --portal 172.16.0.104 --login
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/lpic2/iscsiadm.png&quot; alt=&quot;LPIC2 Post&quot; /&gt;
+&lt;strong&gt;Figure 168-15&lt;/strong&gt; Initiate the targets on the clients.&lt;/p&gt;
+
+&lt;p&gt;You can see that it successfully added the targets on the client machine, so now we can see if we have more drive on the client.&lt;/p&gt;
+
+&lt;p&gt;In my case when I checked the dev directory on my client I didn’t found the new drive, and on that day I work on my PC very late to find the issue, but I didn’t, so I start to check it again day after, then I find that in my CentOS on the targets.conf I setup the target with &lt;strong&gt;backing-stor&lt;/strong&gt; without &lt;strong&gt;e&lt;/strong&gt;, so I change it to &lt;strong&gt;backing-store&lt;/strong&gt; and on my clent I run again the discovery.&lt;/p&gt;
+
+&lt;p&gt;Than I had the error no portal on the target so I run the following command:&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;tgtadm --lld iscsi --op bind --mode target --tid 1 -I ALL
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;After that I tried to run discovery again and it worked!&lt;/p&gt;
+
+&lt;p&gt;My dev directory before I run the iscsi was contain the following&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/lpic2/devdirectory.png&quot; alt=&quot;LPIC2 Post&quot; /&gt;
+&lt;strong&gt;Figure 168-16&lt;/strong&gt; My dev directory.&lt;/p&gt;
+
+&lt;p&gt;After that I find that I have more devices that I can use.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/lpic2/devdirectory2.png&quot; alt=&quot;LPIC2 Post&quot; /&gt;
+&lt;strong&gt;Figure 168-17&lt;/strong&gt; My dev directory again.&lt;/p&gt;
+
+&lt;p&gt;So now I need to mount all of those devices.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/lpic2/mounteddevices.png&quot; alt=&quot;LPIC2 Post&quot; /&gt;
+&lt;strong&gt;Figure 168-18&lt;/strong&gt; You can see that all drives are mounted.&lt;/p&gt;
+
+&lt;p&gt;Please remember that I used &lt;code class=&quot;highlighter-rouge&quot;&gt;fdisk&lt;/code&gt; to make partition and &lt;code class=&quot;highlighter-rouge&quot;&gt;mkfs.ext4&lt;/code&gt; for making filesystem type of ext4.&lt;/p&gt;
+
+&lt;h3 id=&quot;5-check-the-size-of-each-disk&quot;&gt;5. Check the size of each disk.&lt;/h3&gt;
+
+&lt;p&gt;So I use &lt;code class=&quot;highlighter-rouge&quot;&gt;df -h&lt;/code&gt; for find the size of each disk.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/lpic2/df-hdisks.png&quot; alt=&quot;LPIC2 Post&quot; /&gt;
+&lt;strong&gt;Figure 168-19&lt;/strong&gt; My disks.&lt;/p&gt;
+
+&lt;p&gt;You can see that the size is less than 500MB, so you need to remember, every time you plan to add disk and use sort of technology which can be RAID or LVM or other technology, every such use part of the size you have on the disk, so you mush take it as count becouse if you need more large device at the first stage you mush bring more large disk that can give you the space you want to be allow to use.&lt;/p&gt;
 
 &lt;h2 id=&quot;chapter-5&quot;&gt;Chapter 5&lt;/h2&gt;
 &lt;h2 id=&quot;topic-205-network-configuration&quot;&gt;Topic 205: Network Configuration.&lt;/h2&gt;
@@ -2334,17 +2504,17 @@ service iscsid start
 &lt;p&gt;The first thing we can do when it come to networking, is to view our local eternet card and find what is our IP address, to do so we need to run &lt;strong&gt;ifconfig&lt;/strong&gt;, with that command we can use to look our network card and even virtual like loopback.&lt;/p&gt;
 
 &lt;p&gt;&lt;img src=&quot;/assets/images/lpic2/ifconfig1.png&quot; alt=&quot;LPIC2 Post&quot; /&gt;
-&lt;strong&gt;Figure 167&lt;/strong&gt; ifconfig command.&lt;/p&gt;
+&lt;strong&gt;Figure 169-1&lt;/strong&gt; ifconfig command.&lt;/p&gt;
 
 &lt;p&gt;You can see that I have only &lt;strong&gt;lo&lt;/strong&gt; that is my local loopback, but I know that I have also network card, so to view it also I can run the &lt;strong&gt;-a&lt;/strong&gt; option, it will give me every network card that I have in that machine.&lt;/p&gt;
 
 &lt;p&gt;&lt;img src=&quot;/assets/images/lpic2/ifconfigall.png&quot; alt=&quot;LPIC2 Post&quot; /&gt;
-&lt;strong&gt;Figure 168&lt;/strong&gt; ifconfig all devices.&lt;/p&gt;
+&lt;strong&gt;Figure 169-2&lt;/strong&gt; ifconfig all devices.&lt;/p&gt;
 
 &lt;p&gt;You can see now that Ia have network device named enp0s3, in that device I haven’t associated IP address, so in that case I have note network connectivity for sure through that interface. Please be aware that if you can’t see some network card on the &lt;strong&gt;ifconfig&lt;/strong&gt; command and the only way to view it is by &lt;strong&gt;-a&lt;/strong&gt; option, this is mean that this interface is in down state, for bring it up we can use &lt;strong&gt;up&lt;/strong&gt; by specifying the network interface.&lt;/p&gt;
 
 &lt;p&gt;&lt;img src=&quot;/assets/images/lpic2/ifconfigup.png&quot; alt=&quot;LPIC2 Post&quot; /&gt;
-&lt;strong&gt;Figure 169&lt;/strong&gt; ifconfig bring the interface up devices.&lt;/p&gt;
+&lt;strong&gt;Figure 169-3&lt;/strong&gt; ifconfig bring the interface up devices.&lt;/p&gt;
 
 &lt;p&gt;You can see that I bring the interface up and after that it showed up on the ifconfig command, in case there is no IP associated with it even after we bring this interface up, we can not use ping or 8.8.8.8 as example, so what we can do is to setup the IP address manually or checking on our network why the DHCP dosn’t give us IP address.&lt;/p&gt;
 
@@ -2626,16 +2796,98 @@ httpd : ALL EXCEPT 172.16.
 &lt;p&gt;&lt;img src=&quot;/assets/images/lpic2/wifisyslogs.png&quot; alt=&quot;OSCP Post&quot; /&gt;
 &lt;strong&gt;Figure 197&lt;/strong&gt; My local syslog grep wifi.&lt;/p&gt;
 
+&lt;h3 id=&quot;challenge-205-1&quot;&gt;Challenge 205-1&lt;/h3&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;Donwload TinyCore and run it as command line mode.&lt;/li&gt;
+  &lt;li&gt;Setup new virtual interface.&lt;/li&gt;
+  &lt;li&gt;Try to run ping from you local computer to the TinyCore virtual interface.&lt;/li&gt;
+  &lt;li&gt;If it doesn’t work, try to solve it.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h3 id=&quot;1-download-and-run-tinycore&quot;&gt;1. Download and run TinyCore.&lt;/h3&gt;
+
+&lt;p&gt;The TinyCore is minimal linux that can run live, we can use that for this task, you can find the iso image on the following link from the TinyCore site.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;http://tinycorelinux.net/11.x/x86/release/TinyCore-current.iso&quot;&gt;TinyCore&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;After we have the iso file we can run it on virtual box and bring up the cli.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/lpic2/tinycoreboot.png&quot; alt=&quot;LPIC2 Post&quot; /&gt;
+&lt;strong&gt;Figure 198-1&lt;/strong&gt; My TinyCore boot menu.&lt;/p&gt;
+
+&lt;p&gt;You can see that we have the option for cli mode which is what we need to use.&lt;/p&gt;
+
+&lt;h3 id=&quot;2-bring-up-virtual-interface&quot;&gt;2. Bring up virtual interface.&lt;/h3&gt;
+
+&lt;p&gt;The virtual interface is mostly &lt;strong&gt;lo&lt;/strong&gt; so we need to create one more &lt;strong&gt;lo&lt;/strong&gt; which is going to be number as what we specified, so we need to run the following command for that task:&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;ifconfig lo:1 10.1.1.1 netmask 255.255.255.0
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/images/lpic2/lo1.png&quot; alt=&quot;LPIC2 Post&quot; /&gt;
+&lt;strong&gt;Figure 198-2&lt;/strong&gt; My loopback interface.&lt;/p&gt;
+
+&lt;p&gt;You can see that I use sudo, you should do the same, after that you need to check if that interface is up and runing, we can type &lt;code class=&quot;highlighter-rouge&quot;&gt;ifconfig&lt;/code&gt; again and also use &lt;code class=&quot;highlighter-rouge&quot;&gt;ping&lt;/code&gt; to check that you have local answer.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/lpic2/lo1isup.png&quot; alt=&quot;LPIC2 Post&quot; /&gt;
+&lt;strong&gt;Figure 198-3&lt;/strong&gt; The interface is up and running.&lt;/p&gt;
+
+&lt;h3 id=&quot;3-ping-from-my-local-machine&quot;&gt;3. &lt;code class=&quot;highlighter-rouge&quot;&gt;ping&lt;/code&gt; from my local machine.&lt;/h3&gt;
+
+&lt;p&gt;So on my ubuntu I run the followin:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;ping 10.1.1.1
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;But guess what, it failed….&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/lpic2/packetloss.png&quot; alt=&quot;LPIC2 Post&quot; /&gt;
+&lt;strong&gt;Figure 198-4&lt;/strong&gt; Packets loss.&lt;/p&gt;
+
+&lt;p&gt;This is append because we have no route to tell us what is the next step for the virtual machine, on the virtual machine I setup the interface to be brig so it should be in my network.&lt;/p&gt;
+
+&lt;h3 id=&quot;4-trying-to-solve-the-network-issue&quot;&gt;4. Trying to solve the network issue.&lt;/h3&gt;
+
+&lt;p&gt;So we have network issue, in the real world if you try to use some service like ssh to some server and this is not working you can run ping for checking communication to the server, if the ping is not working we have some networking issue that need to be solve before we can get to that server.&lt;/p&gt;
+
+&lt;p&gt;In my case I have no ping to the TinyCore machine so I need to check what is the IP address of that machine, and if you remember on Figure 198-2 we saw that the address for wth0 is 192.168.43.243, so I know that this machine is locate at the same subnet my local machine, so what I can do is run ARP to see if I have the MAC address for that machine.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/lpic2/arp-a2.png&quot; alt=&quot;LPIC2 Post&quot; /&gt;
+&lt;strong&gt;Figure 198-5&lt;/strong&gt; MAC addresses.&lt;/p&gt;
+
+&lt;p&gt;Please remember that you can also use &lt;code class=&quot;highlighter-rouge&quot;&gt;ip neigh&lt;/code&gt; to see the neighbors on the same local network. You can also see that MAC address for TinyCore machine is &lt;code class=&quot;highlighter-rouge&quot;&gt;08:00:27:bf:f9:17&lt;/code&gt;, so we can trying to &lt;code class=&quot;highlighter-rouge&quot;&gt;ping&lt;/code&gt; that and is should work.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/lpic2/pingtotinycore.png&quot; alt=&quot;LPIC2 Post&quot; /&gt;
+&lt;strong&gt;Figure 198-6&lt;/strong&gt; My ping is working.&lt;/p&gt;
+
+&lt;p&gt;So now we know for sure that we have network connection to the virtual machine, but we have no right connection to the loopback interface on the virtual machine, so we need to check on our routing table if our local machine knows how to get there.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/lpic2/routetable.png&quot; alt=&quot;LPIC2 Post&quot; /&gt;
+&lt;strong&gt;Figure 198-7&lt;/strong&gt; My route table.&lt;/p&gt;
+
+&lt;p&gt;You can see that I have no route to this 10.1.1.0 network so this is why the connection or ping dosnt work for that network, what I need to do is to add that route to my routing table.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/lpic2/myroutingtable.png&quot; alt=&quot;LPIC2 Post&quot; /&gt;
+&lt;strong&gt;Figure 198-7&lt;/strong&gt; Adding more route to the table.&lt;/p&gt;
+
+&lt;p&gt;tou can see that I specify how to get the 10.1.1.0 network, this is the interface eth0 of the TinyCore machine, I use the &lt;code class=&quot;highlighter-rouge&quot;&gt;route&lt;/code&gt; command to check if that route is on my routing table, also we can run &lt;code class=&quot;highlighter-rouge&quot;&gt;ip route&lt;/code&gt; that bring us more details about the route, like who is the DG for that route which is in my case 192.168.43.243.&lt;/p&gt;
+
+&lt;p&gt;So now it’s time to ping again to the loopback of the virtual machine and check if its working right.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/lpic2/pingworking.png&quot; alt=&quot;LPIC2 Post&quot; /&gt;
+&lt;strong&gt;Figure 198-7&lt;/strong&gt; We have network connectivity.&lt;/p&gt;
+
+&lt;p&gt;So it working! we finish the challenge!&lt;/p&gt;
+
 &lt;h2 id=&quot;chapter-6&quot;&gt;Chapter 6&lt;/h2&gt;
 &lt;h2 id=&quot;topic-206-system-maintenance&quot;&gt;Topic 206: System Maintenance.&lt;/h2&gt;
 
 &lt;p&gt;Now I want to tell you a story that happened to me in the last year, if you follow my posts you can see that already 8 years ago I was talking about OSCP certification, last year I met a friend who knew me for a small group that opened for one purpose - Bug Bounty. For those who don’t know, Bug Bounty is a program that allows us to hack software from reputable companies and earn money! Yes Yes! Money on hacking into software.&lt;/p&gt;
 
-&lt;p&gt;That evening as the group got into acquaintance, each one talked about himself, one of the members said that in his company someone had exploited some weakness and was able to apply bitminer to one of the servers in the organization he was working on, he surpassed it with all kinds of tools that slowly identified the server to other servers.&lt;/p&gt;
+&lt;p&gt;That evening as the group got into acquaintance, each one talked about himself, one of the members said that in his company some day had exploited some weakness and was able to apply bitminer to one of the servers in the organization he was working on, he surpassed it with all kinds of tools that slowly identified the server to other servers.&lt;/p&gt;
 
 &lt;p&gt;I knew the bitcoin issue already, but I did not know what actually made bitminer and how it uses resources to perform other process calculations.&lt;/p&gt;
 
-&lt;p&gt;Why am I talking about this? Because in this chapter we have to compile our own software, it’s similar to what we did with the kernel in the second chapter, but here is more about a binary program when the compiler is supposed to prepare it for execution, and guess what software we’re going to compile?&lt;/p&gt;
+&lt;p&gt;Why am I talking about that? Because in this chapter we have to compile our own software, it’s similar to what we did with the kernel in the second chapter, but here is more about a binary program when the compiler is supposed to prepare it for execution, and guess what software we’re going to compile?&lt;/p&gt;
 
 &lt;p&gt;exactly!&lt;/p&gt;
 
@@ -2648,12 +2900,12 @@ httpd : ALL EXCEPT 172.16.
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;p&gt;&lt;img src=&quot;/assets/images/lpic2/tarfile.png&quot; alt=&quot;OSCP Post&quot; /&gt;
-&lt;strong&gt;Figure 198&lt;/strong&gt; Extract the file using tar.&lt;/p&gt;
+&lt;strong&gt;Figure 199-1&lt;/strong&gt; Extract the file using tar.&lt;/p&gt;
 
 &lt;p&gt;After that we will have new folder that contain many files.&lt;/p&gt;
 
 &lt;p&gt;&lt;img src=&quot;/assets/images/lpic2/cpuminer.png&quot; alt=&quot;OSCP Post&quot; /&gt;
-&lt;strong&gt;Figure 199&lt;/strong&gt; My folder.&lt;/p&gt;
+&lt;strong&gt;Figure 199-2&lt;/strong&gt; My folder.&lt;/p&gt;
 
 &lt;p&gt;What we need to search now is the configure file and run it as &lt;code class=&quot;highlighter-rouge&quot;&gt;./configure&lt;/code&gt;, while it run you can see what is does, if some error appears we will need to fix if before we can compile this binary.&lt;/p&gt;
 

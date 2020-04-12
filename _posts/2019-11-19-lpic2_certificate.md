@@ -1,6 +1,6 @@
 ---
 layout: post
-title: My Journey for LPIC2 Certification - Exam 201-450
+title: Linux from novice to professional tutorial post.
 excerpt: "Today morning I received a message from LPI that my certificate will expire in 9 months and so it is time to start studying for the second Linux certification, this will advance me to the third Linux information security certification that will include what I am looking for, this certification is split in two"
 tags:
 - Linux

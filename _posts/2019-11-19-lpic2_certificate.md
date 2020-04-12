@@ -2552,7 +2552,7 @@ You can see that I use the `pvs` command which can show us the size of it, but y
 
 You can see that I use both md's to create one volume group, we can use the `vgs` command and also the `pvdisplay` or `vgdisplay` to see that vg1 group setup on both of the RAID storage.
 
-![LPIC2 Post](/assets/images/lpic2/vgsandpvdisplay.png)
+![LPIC2 Post](/assets/images/lpic2/vgsandpvdispay.png)
 **Figure 168-10** Display my group.
 
 Now it's time to create the logical volume out of the group we have, as you saw the size of the whole group is 1.99GB so you may ask how it can be we use three 6 disks which every one of them is 512G so we need to have at least 3GB free to use, so the answer is that the RAID use for each of md's storage 512MB as the dev size, so we laft with 1GB for each of md's storage and the programe that create the PV or VG is also take a place so we left with 1.99GB to use before we going to create the LV.
@@ -3102,7 +3102,7 @@ exactly!
 
 We're going to compile the bitminer and prepare the binary for execution, I'm sure it will be interesting.
 
-So first of all we download the tar file from the following link (pooler-cpuminer-2.5.0-linux-x86.tar.gz)[https://github.com/pooler/cpuminer/releases/download/v2.5.0/pooler-cpuminer-2.5.0-linux-x86.tar.gz]
+So first of all we download the tar file from the following link [pooler-cpuminer-2.5.0-linux-x86.tar.gz](https://github.com/pooler/cpuminer/releases/download/v2.5.0/pooler-cpuminer-2.5.0-linux-x86.tar.gz)
 
 after that run the following:
 ```
@@ -3143,7 +3143,7 @@ Now if I run that minerd file you can see that I have an output, but as you may 
 ![OSCP Post](/assets/images/lpic2/minerd.png)
 **Figure 204** minerd.
 
-So what we need to do is to run `sudo make install`, this command will put it in /usr/local/bin, so know we can run it from any directory location in our machine.
+So what we need to do is to run `sudo make install`, this command will put it in /usr/local/bin, so now we can run it from any directory location in our machine.
 
 ![OSCP Post](/assets/images/lpic2/makeinstall.png)
 **Figure 205** make install.
@@ -3153,7 +3153,7 @@ Please remember that by default all source code are store and can be found in th
 /usr/src
 ```
 
-In case we have a program that already install on our system we may what to apply a patch for that program, to do so we can run the patch command with that program patch file.
+In case we have a program that already install on our system we may want to apply a patch for that program, to do so we can run the patch command with that program patch file.
 
 The patch file is file that contain the differences between the old file and the new one, this will update our program by applying it.
 
@@ -3206,8 +3206,7 @@ rsync -av Documents guy@172.16.1.9:/home/guy/
 
 This will make backup on other server so if we make change of some file that in the Documents folder it will update the backup on the server.
 
-For backup there is another solutions th
-at can help us, one of them is **Amanda** previously known as Advanced Maryland Automatic Network Disk Archiver is an open source computer archiving tool that is able to back up data residing on multiple computers on a network. It uses a client–server model, where the server contacts each client to perform a backup at a scheduled time.
+For backup there is another solutions that can help us, one of them is **Amanda** previously known as Advanced Maryland Automatic Network Disk Archiver is an open source computer archiving tool that is able to back up data residing on multiple computers on a network. It uses a client–server model, where the server contacts each client to perform a backup at a scheduled time.
 
 You can install that step by step by watching that [videro](https://www.youtube.com/watch?v=D-gmLictqws), there is more solution for backup like Bacula, Bareos and BackupPC, all are the same consept.
 
@@ -3216,7 +3215,7 @@ For the exam we need to know **mt** tool, as much as I understand this tool is u
 ![OSCP Post](https://www.nakivo.com/blog/wp-content/uploads/2019/07/Tape-Cartridges-Tape-Backup-Advantages.jpg)
 **Figure 206** tape.
 
-The default drive for tape is `/dev/st0` , we can use tar to backup what we need to this tape as follow:
+The default drive for tape is `/dev/st0` , so we can use tar for backup what we need, just run on this tape as follow:
 ```
 tar -czf /dev/st0 /www /home
 ```
@@ -3283,3 +3282,80 @@ On my Ubuntu I can see the following massage:
 
 ![OSCP Post](/assets/images/lpic2/centosshut2.png)
 **Figure 211** CentOS shutdown report.
+
+### Challenge 206-1
+
+You are working as system administrator in company X, and some of their user contact you and say that he need backup for his documents which contain some classified data, he also told you that he make changes on the documentation folder which must be backup for every day and he need that every day new archive need to be created that backup all the file on the Documentation folder, you also need to backup the archive to other server.
+
+1. Create cone job that going to be run every day and create archive folder.
+2. Backup the archive on other server by using rsync, this also need to be run using cron.
+3. When the job is done popup some message for that cleant to inform that the backup was completed.
+
+If I remember right the `cron` was part of the materials for the LPIC1 exam so this is knowledge that we must be well strong base, about the popup message we saw so far that we can use wall, in that case we need to inform about backup completed to the user interface.
+
+### 1. Create cron job for archive the Document folder.
+
+In my case like every challenge in that post I am using centOS as my server and Ubuntu as client, I am going to create the cron job on the client but please remember that it the real world you need to do that on the server which mean that if you going to using some script it can be run on the user side because in that way you can not menage those files scripts.
+
+To create new cron job we need to edit the crontab cy using the `crontab -e` command, this command will bring up the crontab file which going to use and specified the task job we need to run.
+
+![LPIC2 Post](/assets/images/lpic2/crontab.png)
+**Figure 212-1** My crontab file.
+
+You can see that I add to this file the job for run every day as 6:00 AM, the first 0 stand for minutes and the 6 stand for hour, the followup asterisks are for day of month, month number and day of week that can be 0-7, in my case I didnt specify any of those so this is mean that I am going to run this job every day ar 6 AM.
+
+Now if we want to check the logs that related to the cron job we can use the `/var/log/syslog` and search for every line that realated to CRON:
+
+![LPIC2 Post](/assets/images/lpic2/syslogcron.png)
+**Figure 212-2** My syslog about CRON.
+
+You can see that I grep out the CRON and this give me line that related to some jobs that was run, now I need to create the script `backupfiles.sh`, in this script we going to archive the Documents folder and specified the new file with the name of the correct day.
+
+```
+#! /bin/bash
+cd /home/zwerd/backups
+tar -zcvf "documents_backup_$(date '+%Y-%m-%d').tar.gz" /home/zwerd/Documents
+```
+
+You can see that I specified the date as numbers in the name of the backup file, this can help us to do what is the date of that backup.
+
+### 2. Add rsync to cron script for backup the file to other server.
+
+So now we need to backup all to other server which again in my case it's CentOS, in that server I have folder named `/mnt/share/backup` and this is what I going to use, I also need to bring up the sshd service by typing `service sshd start` for using rsync backuping to my CentOS.
+
+Now I need to add the following line to my script:
+
+```
+#! /bin/bash
+cd /home/zwerd/backups
+tar -zcvf "documents_backup_$(date '+%Y-%m-%d').tar.gz" /home/zwerd/Documents
+rsync -av ./ root@192.168.43.107:/mnt/share/backup
+```
+
+This line will cause backup all the correct folder to the remote server, we can test it without the cron job to see that it working.
+
+### 3. After the backup is finish alart it to the UI and CLI.
+
+For doing just that we need to add to out script more line, the first one going to be echo message by using wall to inform the user via CLI that the backup was done.
+
+```
+echo "Done Backup the document folder, you can find the last backup on the server /mnt/share/backup" | wall
+```
+
+Now I need to bring message to the UI so I using zenity and give it parameters for my message:
+```
+zenity --info --text="Your backup is ready\!" --title="Documents Backup"
+```
+
+So, the cron job need to look like as follow:
+
+```
+#! /bin/bash
+cd /home/zwerd/backups
+tar -zcvf "documents_backup_$(date '+%Y-%m-%d').tar.gz" /home/zwerd/Documents
+rsync -av ./ root@192.168.43.107:/mnt/share/backup
+echo "Done Backup the document folder, you can find the last backup on the server /mnt/share/backup" | wall
+zenity --info --text="Your backup is ready\!" --title="Documents Backup"
+```
+
+And this is it, we finish the challenge!

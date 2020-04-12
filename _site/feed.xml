@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.5">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2020-04-01T23:35:07+03:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Zwerd</title><subtitle>A stunning blog of freaking PT warrior</subtitle><author><name>Guy Zwerdling</name></author><entry><title type="html">My Journey for LPIC2 Certification - Exam 201-450</title><link href="http://localhost:4000/2019/11/19/lpic2_certificate.html" rel="alternate" type="text/html" title="My Journey for LPIC2 Certification - Exam 201-450" /><published>2019-11-19T00:00:00+02:00</published><updated>2019-11-19T00:00:00+02:00</updated><id>http://localhost:4000/2019/11/19/lpic2_certificate</id><content type="html" xml:base="http://localhost:4000/2019/11/19/lpic2_certificate.html">&lt;p&gt;Today morning I received a message from LPI that my certificate will expire in 9 months and so it is time to start studying for the second Linux certification, this will advance me to the third Linux information security certification that I will search for, this certification is divided into two and the two parts are marked by two different codes: 201-450, 202-450&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.5">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2020-04-12T10:26:33+03:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Zwerd</title><subtitle>A stunning blog of freaking PT warrior</subtitle><author><name>Guy Zwerdling</name></author><entry><title type="html">My Journey for LPIC2 Certification - Exam 201-450</title><link href="http://localhost:4000/2019/11/19/lpic2_certificate.html" rel="alternate" type="text/html" title="My Journey for LPIC2 Certification - Exam 201-450" /><published>2019-11-19T00:00:00+02:00</published><updated>2019-11-19T00:00:00+02:00</updated><id>http://localhost:4000/2019/11/19/lpic2_certificate</id><content type="html" xml:base="http://localhost:4000/2019/11/19/lpic2_certificate.html">&lt;p&gt;Today morning I received a message from LPI that my certificate will expire in 9 months and so it is time to start studying for the second Linux certification, this will advance me to the third Linux information security certification that I will search for, this certification is divided into two and the two parts are marked by two different codes: 201-450, 202-450&lt;/p&gt;
 
 &lt;p&gt;In this post I am going to go over each topic as listed on the LPI website, which means I will go over each tool and present it here, in each chapter I will show how to use these tools to get the same information that the subject of the test should deal with, at the end of each chapter I will present a challenge From most of the commands we learned and challenged you and me how to get the information to succeed.&lt;/p&gt;
 
@@ -2381,7 +2381,7 @@ service iscsid start
 
 &lt;p&gt;You can see that I use both md’s to create one volume group, we can use the &lt;code class=&quot;highlighter-rouge&quot;&gt;vgs&lt;/code&gt; command and also the &lt;code class=&quot;highlighter-rouge&quot;&gt;pvdisplay&lt;/code&gt; or &lt;code class=&quot;highlighter-rouge&quot;&gt;vgdisplay&lt;/code&gt; to see that vg1 group setup on both of the RAID storage.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;/assets/images/lpic2/vgsandpvdisplay.png&quot; alt=&quot;LPIC2 Post&quot; /&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/images/lpic2/vgsandpvdispay.png&quot; alt=&quot;LPIC2 Post&quot; /&gt;
 &lt;strong&gt;Figure 168-10&lt;/strong&gt; Display my group.&lt;/p&gt;
 
 &lt;p&gt;Now it’s time to create the logical volume out of the group we have, as you saw the size of the whole group is 1.99GB so you may ask how it can be we use three 6 disks which every one of them is 512G so we need to have at least 3GB free to use, so the answer is that the RAID use for each of md’s storage 512MB as the dev size, so we laft with 1GB for each of md’s storage and the programe that create the PV or VG is also take a place so we left with 1.99GB to use before we going to create the LV.&lt;/p&gt;
@@ -2893,7 +2893,7 @@ httpd : ALL EXCEPT 172.16.
 
 &lt;p&gt;We’re going to compile the bitminer and prepare the binary for execution, I’m sure it will be interesting.&lt;/p&gt;
 
-&lt;p&gt;So first of all we download the tar file from the following link (pooler-cpuminer-2.5.0-linux-x86.tar.gz)[https://github.com/pooler/cpuminer/releases/download/v2.5.0/pooler-cpuminer-2.5.0-linux-x86.tar.gz]&lt;/p&gt;
+&lt;p&gt;So first of all we download the tar file from the following link &lt;a href=&quot;https://github.com/pooler/cpuminer/releases/download/v2.5.0/pooler-cpuminer-2.5.0-linux-x86.tar.gz&quot;&gt;pooler-cpuminer-2.5.0-linux-x86.tar.gz&lt;/a&gt;&lt;/p&gt;
 
 &lt;p&gt;after that run the following:&lt;/p&gt;
 &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;tar -zxvf pooler-cpuminer-2.5.0-linux-x86.tar.gz
@@ -2932,7 +2932,7 @@ httpd : ALL EXCEPT 172.16.
 &lt;p&gt;&lt;img src=&quot;/assets/images/lpic2/minerd.png&quot; alt=&quot;OSCP Post&quot; /&gt;
 &lt;strong&gt;Figure 204&lt;/strong&gt; minerd.&lt;/p&gt;
 
-&lt;p&gt;So what we need to do is to run &lt;code class=&quot;highlighter-rouge&quot;&gt;sudo make install&lt;/code&gt;, this command will put it in /usr/local/bin, so know we can run it from any directory location in our machine.&lt;/p&gt;
+&lt;p&gt;So what we need to do is to run &lt;code class=&quot;highlighter-rouge&quot;&gt;sudo make install&lt;/code&gt;, this command will put it in /usr/local/bin, so now we can run it from any directory location in our machine.&lt;/p&gt;
 
 &lt;p&gt;&lt;img src=&quot;/assets/images/lpic2/makeinstall.png&quot; alt=&quot;OSCP Post&quot; /&gt;
 &lt;strong&gt;Figure 205&lt;/strong&gt; make install.&lt;/p&gt;
@@ -2941,7 +2941,7 @@ httpd : ALL EXCEPT 172.16.
 &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;/usr/src
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
-&lt;p&gt;In case we have a program that already install on our system we may what to apply a patch for that program, to do so we can run the patch command with that program patch file.&lt;/p&gt;
+&lt;p&gt;In case we have a program that already install on our system we may want to apply a patch for that program, to do so we can run the patch command with that program patch file.&lt;/p&gt;
 
 &lt;p&gt;The patch file is file that contain the differences between the old file and the new one, this will update our program by applying it.&lt;/p&gt;
 
@@ -2987,8 +2987,7 @@ httpd : ALL EXCEPT 172.16.
 
 &lt;p&gt;This will make backup on other server so if we make change of some file that in the Documents folder it will update the backup on the server.&lt;/p&gt;
 
-&lt;p&gt;For backup there is another solutions th
-at can help us, one of them is &lt;strong&gt;Amanda&lt;/strong&gt; previously known as Advanced Maryland Automatic Network Disk Archiver is an open source computer archiving tool that is able to back up data residing on multiple computers on a network. It uses a client–server model, where the server contacts each client to perform a backup at a scheduled time.&lt;/p&gt;
+&lt;p&gt;For backup there is another solutions that can help us, one of them is &lt;strong&gt;Amanda&lt;/strong&gt; previously known as Advanced Maryland Automatic Network Disk Archiver is an open source computer archiving tool that is able to back up data residing on multiple computers on a network. It uses a client–server model, where the server contacts each client to perform a backup at a scheduled time.&lt;/p&gt;
 
 &lt;p&gt;You can install that step by step by watching that &lt;a href=&quot;https://www.youtube.com/watch?v=D-gmLictqws&quot;&gt;videro&lt;/a&gt;, there is more solution for backup like Bacula, Bareos and BackupPC, all are the same consept.&lt;/p&gt;
 
@@ -2997,7 +2996,7 @@ at can help us, one of them is &lt;strong&gt;Amanda&lt;/strong&gt; previously kn
 &lt;p&gt;&lt;img src=&quot;https://www.nakivo.com/blog/wp-content/uploads/2019/07/Tape-Cartridges-Tape-Backup-Advantages.jpg&quot; alt=&quot;OSCP Post&quot; /&gt;
 &lt;strong&gt;Figure 206&lt;/strong&gt; tape.&lt;/p&gt;
 
-&lt;p&gt;The default drive for tape is &lt;code class=&quot;highlighter-rouge&quot;&gt;/dev/st0&lt;/code&gt; , we can use tar to backup what we need to this tape as follow:&lt;/p&gt;
+&lt;p&gt;The default drive for tape is &lt;code class=&quot;highlighter-rouge&quot;&gt;/dev/st0&lt;/code&gt; , so we can use tar for backup what we need, just run on this tape as follow:&lt;/p&gt;
 &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;tar -czf /dev/st0 /www /home
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
@@ -3056,7 +3055,81 @@ at can help us, one of them is &lt;strong&gt;Amanda&lt;/strong&gt; previously kn
 &lt;p&gt;On my Ubuntu I can see the following massage:&lt;/p&gt;
 
 &lt;p&gt;&lt;img src=&quot;/assets/images/lpic2/centosshut2.png&quot; alt=&quot;OSCP Post&quot; /&gt;
-&lt;strong&gt;Figure 211&lt;/strong&gt; CentOS shutdown report.&lt;/p&gt;</content><author><name>Guy Zwerdling</name></author><category term="Linux" /><summary type="html">Today morning I received a message from LPI that my certificate will expire in 9 months and so it is time to start studying for the second Linux certification, this will advance me to the third Linux information security certification that will include what I am looking for, this certification is split in two</summary></entry><entry><title type="html">OSCP Certification Journey</title><link href="http://localhost:4000/2019/09/20/oscp_certificate.html" rel="alternate" type="text/html" title="OSCP Certification Journey" /><published>2019-09-20T00:00:00+03:00</published><updated>2019-09-20T00:00:00+03:00</updated><id>http://localhost:4000/2019/09/20/oscp_certificate</id><content type="html" xml:base="http://localhost:4000/2019/09/20/oscp_certificate.html">&lt;p&gt;I set myself a lot of goals this year to advance to the next level, among all the goals being the OSCP certification from Offensive Security. It’s been a certification I’ve been talking about for years, since 2012, it’s really time to sit down and do that certification. It all started when I was writing in a forum on computer communications, where I presented the dilemma, whether to study information security of companies that are involved in the field or something else when my goal is to be an expert in the cyber world.&lt;/p&gt;
+&lt;strong&gt;Figure 211&lt;/strong&gt; CentOS shutdown report.&lt;/p&gt;
+
+&lt;h3 id=&quot;challenge-206-1&quot;&gt;Challenge 206-1&lt;/h3&gt;
+
+&lt;p&gt;You are working as system administrator in company X, and some of their user contact you and say that he need backup for his documents which contain some classified data, he also told you that he make changes on the documentation folder which must be backup for every day and he need that every day new archive need to be created that backup all the file on the Documentation folder, you also need to backup the archive to other server.&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;Create cone job that going to be run every day and create archive folder.&lt;/li&gt;
+  &lt;li&gt;Backup the archive on other server by using rsync, this also need to be run using cron.&lt;/li&gt;
+  &lt;li&gt;When the job is done popup some message for that cleant to inform that the backup was completed.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;If I remember right the &lt;code class=&quot;highlighter-rouge&quot;&gt;cron&lt;/code&gt; was part of the materials for the LPIC1 exam so this is knowledge that we must be well strong base, about the popup message we saw so far that we can use wall, in that case we need to inform about backup completed to the user interface.&lt;/p&gt;
+
+&lt;h3 id=&quot;1-create-cron-job-for-archive-the-document-folder&quot;&gt;1. Create cron job for archive the Document folder.&lt;/h3&gt;
+
+&lt;p&gt;In my case like every challenge in that post I am using centOS as my server and Ubuntu as client, I am going to create the cron job on the client but please remember that it the real world you need to do that on the server which mean that if you going to using some script it can be run on the user side because in that way you can not menage those files scripts.&lt;/p&gt;
+
+&lt;p&gt;To create new cron job we need to edit the crontab cy using the &lt;code class=&quot;highlighter-rouge&quot;&gt;crontab -e&lt;/code&gt; command, this command will bring up the crontab file which going to use and specified the task job we need to run.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/lpic2/crontab.png&quot; alt=&quot;LPIC2 Post&quot; /&gt;
+&lt;strong&gt;Figure 212-1&lt;/strong&gt; My crontab file.&lt;/p&gt;
+
+&lt;p&gt;You can see that I add to this file the job for run every day as 6:00 AM, the first 0 stand for minutes and the 6 stand for hour, the followup asterisks are for day of month, month number and day of week that can be 0-7, in my case I didnt specify any of those so this is mean that I am going to run this job every day ar 6 AM.&lt;/p&gt;
+
+&lt;p&gt;Now if we want to check the logs that related to the cron job we can use the &lt;code class=&quot;highlighter-rouge&quot;&gt;/var/log/syslog&lt;/code&gt; and search for every line that realated to CRON:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/lpic2/syslogcron.png&quot; alt=&quot;LPIC2 Post&quot; /&gt;
+&lt;strong&gt;Figure 212-2&lt;/strong&gt; My syslog about CRON.&lt;/p&gt;
+
+&lt;p&gt;You can see that I grep out the CRON and this give me line that related to some jobs that was run, now I need to create the script &lt;code class=&quot;highlighter-rouge&quot;&gt;backupfiles.sh&lt;/code&gt;, in this script we going to archive the Documents folder and specified the new file with the name of the correct day.&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c&quot;&gt;#! /bin/bash&lt;/span&gt;
+&lt;span class=&quot;nb&quot;&gt;cd&lt;/span&gt; /home/zwerd/backups
+&lt;span class=&quot;nb&quot;&gt;tar&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-zcvf&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;documents_backup_&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;$(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;date&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'+%Y-%m-%d'&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;.tar.gz&quot;&lt;/span&gt; /home/zwerd/Documents
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;You can see that I specified the date as numbers in the name of the backup file, this can help us to do what is the date of that backup.&lt;/p&gt;
+
+&lt;h3 id=&quot;2-add-rsync-to-cron-script-for-backup-the-file-to-other-server&quot;&gt;2. Add rsync to cron script for backup the file to other server.&lt;/h3&gt;
+
+&lt;p&gt;So now we need to backup all to other server which again in my case it’s CentOS, in that server I have folder named &lt;code class=&quot;highlighter-rouge&quot;&gt;/mnt/share/backup&lt;/code&gt; and this is what I going to use, I also need to bring up the sshd service by typing &lt;code class=&quot;highlighter-rouge&quot;&gt;service sshd start&lt;/code&gt; for using rsync backuping to my CentOS.&lt;/p&gt;
+
+&lt;p&gt;Now I need to add the following line to my script:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c&quot;&gt;#! /bin/bash&lt;/span&gt;
+&lt;span class=&quot;nb&quot;&gt;cd&lt;/span&gt; /home/zwerd/backups
+&lt;span class=&quot;nb&quot;&gt;tar&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-zcvf&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;documents_backup_&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;$(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;date&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'+%Y-%m-%d'&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;.tar.gz&quot;&lt;/span&gt; /home/zwerd/Documents
+rsync &lt;span class=&quot;nt&quot;&gt;-av&lt;/span&gt; ./ root@192.168.43.107:/mnt/share/backup
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;This line will cause backup all the correct folder to the remote server, we can test it without the cron job to see that it working.&lt;/p&gt;
+
+&lt;h3 id=&quot;3-after-the-backup-is-finish-alart-it-to-the-ui-and-cli&quot;&gt;3. After the backup is finish alart it to the UI and CLI.&lt;/h3&gt;
+
+&lt;p&gt;For doing just that we need to add to out script more line, the first one going to be echo message by using wall to inform the user via CLI that the backup was done.&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;echo &quot;Done Backup the document folder, you can find the last backup on the server /mnt/share/backup&quot; | wall
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Now I need to bring message to the UI so I using zenity and give it parameters for my message:&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;zenity --info --text=&quot;Your backup is ready\!&quot; --title=&quot;Documents Backup&quot;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;So, the cron job need to look like as follow:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c&quot;&gt;#! /bin/bash&lt;/span&gt;
+&lt;span class=&quot;nb&quot;&gt;cd&lt;/span&gt; /home/zwerd/backups
+&lt;span class=&quot;nb&quot;&gt;tar&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-zcvf&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;documents_backup_&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;$(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;date&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'+%Y-%m-%d'&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;.tar.gz&quot;&lt;/span&gt; /home/zwerd/Documents
+rsync &lt;span class=&quot;nt&quot;&gt;-av&lt;/span&gt; ./ root@192.168.43.107:/mnt/share/backup
+&lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;Done Backup the document folder, you can find the last backup on the server /mnt/share/backup&quot;&lt;/span&gt; | wall
+zenity &lt;span class=&quot;nt&quot;&gt;--info&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;--text&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;Your backup is ready&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\!&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;--title&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;Documents Backup&quot;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;And this is it, we finish the challenge!&lt;/p&gt;</content><author><name>Guy Zwerdling</name></author><category term="Linux" /><summary type="html">Today morning I received a message from LPI that my certificate will expire in 9 months and so it is time to start studying for the second Linux certification, this will advance me to the third Linux information security certification that will include what I am looking for, this certification is split in two</summary></entry><entry><title type="html">OSCP Certification Journey</title><link href="http://localhost:4000/2019/09/20/oscp_certificate.html" rel="alternate" type="text/html" title="OSCP Certification Journey" /><published>2019-09-20T00:00:00+03:00</published><updated>2019-09-20T00:00:00+03:00</updated><id>http://localhost:4000/2019/09/20/oscp_certificate</id><content type="html" xml:base="http://localhost:4000/2019/09/20/oscp_certificate.html">&lt;p&gt;I set myself a lot of goals this year to advance to the next level, among all the goals being the OSCP certification from Offensive Security. It’s been a certification I’ve been talking about for years, since 2012, it’s really time to sit down and do that certification. It all started when I was writing in a forum on computer communications, where I presented the dilemma, whether to study information security of companies that are involved in the field or something else when my goal is to be an expert in the cyber world.&lt;/p&gt;
 
 &lt;p&gt;Eventually, someone responded to me, depending on what I want to learn, whether I want to be on the attacker or on the defensive side, he introduced a number of certifications and wrote about each certification separately. Among all the certifications he presented were Cisco certificates, Check Point certificates, and all sorts of large companies that manufacture and market security sites that protect the entire corporate network.&lt;/p&gt;
 

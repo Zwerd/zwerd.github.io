@@ -1340,7 +1340,7 @@ After you familiar with GRUB you need to know little bit about BIOS and EFI, the
 
 Now let's talk about stage 1, your computer can be with BIOS or UEFI, in my case I run the `dmesg` and grep the BIOS out:
 
-![LPIC2 Post](/assets/images/lpic2/BIOS.png)
+![LPIC2 Post](/assets/images/lpic2/bios.png)
 **Figure 106-1** BIOS in dmesg.
 
 So in my case I have BIOS here, but if you have UEFI you may know the grate news about UEFI, it have advantage over BIOS, first of all it have more faster in initializing for your hardware, second it offer Secure Boot which means everything you load before an OS is loaded has to be signed. This gives your system an added layer of protection from running malware. third BIOS do not support a partition of over 2TB and UEFI does! Fourth Most importantly, if you are dual booting it’s always advisable to install both the OS in the same booting mode.

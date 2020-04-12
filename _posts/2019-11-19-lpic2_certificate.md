@@ -3359,3 +3359,13 @@ zenity --info --text="Your backup is ready\!" --title="Documents Backup"
 ```
 
 And this is it, we finish the challenge!
+
+For the end of that post I'd like to finish with another video of Linux foundation.
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/fvPSNK8iB0Y" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+
+Please remember that Linux if every where, so learn it and support it can be great thing for you.
+
+Cheers.
+
+Guy.

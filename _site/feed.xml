@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.5">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2020-05-27T09:54:10+03:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Zwerd</title><subtitle>A stunning blog of freaking PT warrior</subtitle><author><name>Guy Zwerdling</name></author><entry><title type="html">Linux from Novice to Professional Part 2 - Application Level.</title><link href="http://localhost:4000/2020/05/04/lpic2-202.html" rel="alternate" type="text/html" title="Linux from Novice to Professional &lt;br&gt; Part 2 - Application Level." /><published>2020-05-04T00:00:00+03:00</published><updated>2020-05-04T00:00:00+03:00</updated><id>http://localhost:4000/2020/05/04/lpic2-202</id><content type="html" xml:base="http://localhost:4000/2020/05/04/lpic2-202.html">&lt;p&gt;After I finish the learning for my LPIC2 201 objective, The COVID-19 epidemic came to my country and test centers were closed so I couldn’t take the test, at least I got a refund as scheduled for the test date. What is happening right now is that I cannot take the first LPIC2 exam, and because I am very energized to learn to Linux and get to know all the cyber and hacking issues associated with it, I am writing this post. In the current post unlike its predecessor, I am going to write about every components, tools and knowledge, for inform you what you need to know for exam 202, in addition to focusing on the hacking issues that are hiding in the same tools that we are going to note here. This is how this article will be much more interesting and attractive for OSCP studies that I will do later. You can of course send me a message if there is a question or comment.&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.5">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2020-05-27T12:46:46+03:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Zwerd</title><subtitle>A stunning blog of freaking PT warrior</subtitle><author><name>Guy Zwerdling</name></author><entry><title type="html">Linux from Novice to Professional Part 2 - Application Level.</title><link href="http://localhost:4000/2020/05/04/lpic2-202.html" rel="alternate" type="text/html" title="Linux from Novice to Professional &lt;br&gt; Part 2 - Application Level." /><published>2020-05-04T00:00:00+03:00</published><updated>2020-05-04T00:00:00+03:00</updated><id>http://localhost:4000/2020/05/04/lpic2-202</id><content type="html" xml:base="http://localhost:4000/2020/05/04/lpic2-202.html">&lt;p&gt;After I finish the learning for my LPIC2 201 objective, The COVID-19 epidemic came to my country and test centers were closed so I couldn’t take the test, at least I got a refund as scheduled for the test date. What is happening right now is that I cannot take the first LPIC2 exam, and because I am very energized to learn to Linux and get to know all the cyber and hacking issues associated with it, I am writing this post. In the current post unlike its predecessor, I am going to write about every components, tools and knowledge, for inform you what you need to know for exam 202, in addition to focusing on the hacking issues that are hiding in the same tools that we are going to note here. This is how this article will be much more interesting and attractive for OSCP studies that I will do later. You can of course send me a message if there is a question or comment.&lt;/p&gt;
 
 &lt;ul&gt;
   &lt;li&gt;&lt;a href=&quot;#chapter-0&quot;&gt;Chapter 0&lt;/a&gt;&lt;/li&gt;
@@ -507,9 +507,11 @@ col.subject syntax. The TLSA Resource Record always starts with an underscore �
 &lt;p&gt;So in the CentOS file if we want to disable some conf file we can just change the extention to be something else and it will not load that config file.&lt;/p&gt;
 
 &lt;p&gt;&lt;img src=&quot;/assets/images/lpic2/httpdapache2centos.png&quot; alt=&quot;LPIC2 Post&quot; /&gt;
-&lt;strong&gt;Figure 42&lt;/strong&gt; The files in httpd folder.&lt;/p&gt;
+&lt;strong&gt;Figure 42-1&lt;/strong&gt; The files in httpd folder.&lt;/p&gt;
 
 &lt;p&gt;so let’s say I change the welcome.conf to welcome.conf.disable, this will make the apache2 to not load that welcome config file.&lt;/p&gt;
+
+&lt;p&gt;If for some reason you can’t change the main configuration for file of apache2 you can use the &lt;code class=&quot;highlighter-rouge&quot;&gt;.htaccess&lt;/code&gt; for making your changes, that file contain the subset for apache directives, there is referance in the apache2.conf file as example you can find the line &lt;code class=&quot;highlighter-rouge&quot;&gt;AccessFileName .htaccess&lt;/code&gt; which is use for name of the file to look for in each directory for additional configuration directives.&lt;/p&gt;
 
 &lt;p&gt;Let’s talk about apache modules processes, we have the way to install some module that can be for example SQL, PHP, PERL ect. every such module can bring us ability that we didn’t have before, just remeber that so far we saw that the apache render some HTML code to be more readable in user browser, but he didn’t know how to manage and read more languages, for example if we bring some PHP code, in the regular way apache don’t know how to render it so it will print out the code on the document, but it we install apache module that support PHP, then the apache will know how to render the PHP code and display it on out browser.&lt;/p&gt;
 
@@ -586,9 +588,14 @@ php7.0.load
 
 &lt;p&gt;The AuthType is the type of the authentication we going to use which is basic, there is also digest which is implements HTTP Digest Authentication (RFC2617), and provides an alternative to mod_auth_basic where the password is not transmitted as cleartext.&lt;/p&gt;
 
+&lt;p&gt;You can see all the mod in the following folder &lt;code class=&quot;highlighter-rouge&quot;&gt;/usr/lib/apache2/modules/&lt;/code&gt;, this folder contain several modules for different method that we can use in the &lt;code class=&quot;highlighter-rouge&quot;&gt;000-default.conf&lt;/code&gt;, another example is mod_authz_host that can allow only specific source client to connect our server, like required IP address, or hostnmae etc, also the mod_access_compat that allow us to group authrizations based on hostname or IP address.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/lpic2/apachemodules.png&quot; alt=&quot;LPIC2 Post&quot; /&gt;
+&lt;strong&gt;Figure 47-1&lt;/strong&gt; The modules we can use.&lt;/p&gt;
+
 &lt;p&gt;The AuthName is actually the title of the popup alert the client will have when he trying to connect our site.&lt;/p&gt;
 
-&lt;p&gt;The AuthUserFile used for the direct path to the password file, this is the were the password and usernames stored.&lt;/p&gt;
+&lt;p&gt;The AuthUserFile used for the direct path to the password file, this is the were the password and usernames stored, we can use AuthGroupFile string if we want it to look at file that contain list of user groups for authorization.&lt;/p&gt;
 
 &lt;p&gt;The Require is say that only valid user will be allow to get that folder.&lt;/p&gt;
 
@@ -605,7 +612,7 @@ php7.0.load
 &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;sudo apache2ctl restart
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
-&lt;p&gt;This is the same like &lt;code class=&quot;highlighter-rouge&quot;&gt;service apache2 restart&lt;/code&gt; done, we need to create the secret folder and add some html code that only authorize users can get to.&lt;/p&gt;
+&lt;p&gt;This is the same like &lt;code class=&quot;highlighter-rouge&quot;&gt;service apache2 restart&lt;/code&gt; done, you can also use &lt;code class=&quot;highlighter-rouge&quot;&gt;apachectl&lt;/code&gt; that also can used to control the service, we need to create the secret folder and add some html code that only authorize users can get to.&lt;/p&gt;
 &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;mkdir /var/www/html/secret
 cd /var/www/html/secret
 sudo touch index.html
@@ -742,9 +749,11 @@ sudo cp sites-available/000-default.conf sites-available/name.conf
 
 &lt;p&gt;You can see that I also use &lt;code class=&quot;highlighter-rouge&quot;&gt;http&lt;/code&gt; for get to this page, if you didn’t specify http in the URL it’s likely the browser try to use the default search engine with the name you write on the URL bar.&lt;/p&gt;
 
+&lt;p&gt;If you have some issue with apache2 you can always check the service status and it may specified the error, if you need more details it a good idea that you check the logs itsef, you can find that on &lt;code class=&quot;highlighter-rouge&quot;&gt;/var/logs/apache2/&lt;/code&gt;, that folder contain the &lt;code class=&quot;highlighter-rouge&quot;&gt;access.log&lt;/code&gt; file which give you information about every connection that has done on this web server regarding to apache2, and &lt;code class=&quot;highlighter-rouge&quot;&gt;error.log&lt;/code&gt; file which give you the error log about apache2 as example if you have some syntax mistyping it will be specified on that log.&lt;/p&gt;
+
 &lt;p&gt;if you want to use &lt;code class=&quot;highlighter-rouge&quot;&gt;https&lt;/code&gt; which option encription connection to the server using SSL, you can do so with apache2, but there is more thing that related to that like certificate and the encription session so let’s look how it work.&lt;/p&gt;
 
-&lt;p&gt;The client trying to connect web server by using https, it actually open SSL connection, at first there is the 3 way hand shake in TCP and then he try to connect using https, the server will give him his public key that sign by some root authority that browser on the client trust, then the server send trafice down the client that incripted by the server privet key, the browser on the client decript that by using the public key, all of that is for deny Man In The Middle attack that act like he is the server and give the client some sert, because the client has the root authority that he trust so in that case we will continue the session only with server that have certificate that sign with the root authority.&lt;/p&gt;
+&lt;p&gt;The client trying to connect web server by using https, it actually open SSL connection, at first there is the 3 way hand shake in TCP and then he try to connect using https, the server will give him his public key that sign by some root authority that browser on the client trust, then the server send traffic down the client that encrypted by the server privet key, the browser on the client decrypt that by using the public key, all of that is for deny Man In The Middle attack that act like he is the server and give the client some cert, because the client has the root authority that he trust so in that case we will continue the session only with server that have certificate that sign with the root authority.&lt;/p&gt;
 
 &lt;p&gt;In our case we going to setup self-signed certificate and you will see on the client browser that he complain about that certificate, we also going to setup public and private key on our server.&lt;/p&gt;
 
@@ -778,7 +787,7 @@ sudo cp sites-available/000-default.conf sites-available/name.conf
 &lt;p&gt;&lt;img src=&quot;/assets/images/lpic2/creatingcert.png&quot; alt=&quot;LPIC2 Post&quot; /&gt;
 &lt;strong&gt;Figure 64&lt;/strong&gt; U.sing openssl for cert creation.&lt;/p&gt;
 
-&lt;p&gt;You can see the I run new request for X.r09 cent so this is way I am using &lt;code class=&quot;highlighter-rouge&quot;&gt;req&lt;/code&gt; option cent, please remember that there are several types of certificates, the X509 certificate comes with a certain structure and that’s what we are going to get out of this command, the &lt;code class=&quot;highlighter-rouge&quot;&gt;-x509&lt;/code&gt; is for the type of our certificate, The option -nodes is not the English word &lt;code class=&quot;highlighter-rouge&quot;&gt;-nodes&lt;/code&gt;, but rather is “no DES”. When given as an argument, it means OpenSSL will not encrypt the private key in a PKCS#12 file, (credit indiv)[https://stackoverflow.com/questions/5051655/what-is-the-purpose-of-the-nodes-argument-in-openssl].&lt;/p&gt;
+&lt;p&gt;You can see the I run new request for X.r09 cent so this is way I am using &lt;code class=&quot;highlighter-rouge&quot;&gt;req&lt;/code&gt; option cent, please remember that there are several types of certificates, the X509 certificate comes with a certain structure and that’s what we are going to get out of this command, the &lt;code class=&quot;highlighter-rouge&quot;&gt;-x509&lt;/code&gt; is for the type of our certificate, The option -nodes is not the English word &lt;code class=&quot;highlighter-rouge&quot;&gt;-nodes&lt;/code&gt;, but rather is “no DES”. When given as an argument, it means OpenSSL will not encrypt the private key in a PKCS#12 file, &lt;a href=&quot;https://stackoverflow.com/questions/5051655/what-is-the-purpose-of-the-nodes-argument-in-openssl&quot;&gt;credit indiv&lt;/a&gt;.&lt;/p&gt;
 
 &lt;p&gt;We also setup the time for that cert will be vaild, in my case 365 days, this is new key so this is way &lt;code class=&quot;highlighter-rouge&quot;&gt;-newkehy&lt;/code&gt;, the type of it encription is RSA 2048 bit, and we specify the key name and cert name, all we need now is to give information on the cert and we done.&lt;/p&gt;
 
@@ -795,12 +804,53 @@ sudo cp sites-available/000-default.conf sites-available/name.conf
 &lt;p&gt;All we need now is to restart the apache service by using the following&lt;/p&gt;
 &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;service httpd restart
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Please remember that certificate that installed as part of your Linux distributions are usually installed on &lt;code class=&quot;highlighter-rouge&quot;&gt;/etc/ssl&lt;/code&gt; Debian based or &lt;code class=&quot;highlighter-rouge&quot;&gt;/etc/pki&lt;/code&gt; Red Hat based.&lt;/p&gt;
+
 &lt;p&gt;Before we trying to connect the web server, we need to create the html page, in my case on CentOS this need to locate at &lt;code class=&quot;highlighter-rouge&quot;&gt;/var/www/html/index.html&lt;/code&gt;.&lt;/p&gt;
 
 &lt;p&gt;&lt;img src=&quot;/assets/images/lpic2/sslconnection.gif&quot; alt=&quot;LPIC2 Post&quot; /&gt;
 &lt;strong&gt;Figure 67&lt;/strong&gt; Our ssl connection.&lt;/p&gt;
 
 &lt;p&gt;You can see that the browser is complain about the connection because the certificate is not sign by root authority server, but still the traffic is encrypted.&lt;/p&gt;
+
+&lt;p&gt;There is more settings that we can do regards to ssl.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;SSLCACertificateFile&lt;/strong&gt; This directive sets the all-in-one file where you can assemble the certificates of Certification Au-
+thorities (CA) whose clients you deal with. These are used for Client Authentication. Such a file is simply the concatenation
+of the various PEM-encoded certificate files, in order of preference.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;SSLCACertificatePath&lt;/strong&gt; Sets the directory where you keep the certificates of Certification Authorities (CAs) whose clients
+you deal with. These are used to verify the client certificate on Client Authentication.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;SSLCipherSuite&lt;/strong&gt; This complex directive uses a colon-separated cipher-spec string consisting of OpenSSL cipher specifica-
+tions to configure the Cipher Suite the client is permitted to negotiate in the SSL handshake phase. Notice that this directive
+can be used both in per-server and per-directory context. In per-server context it applies to the standard SSL handshake
+when a connection is established. In per-directory context it forces a SSL renegotiation with the reconfigured Cipher Suite
+after the HTTP request was read but before the HTTP response is sent.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;SSLProtocol&lt;/strong&gt; This directive can be used to control the SSL protocol flavors mod_ssl should use when establishing its server
+environment. Clients then can only connect with one of the provided protocols.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;ServerSignature&lt;/strong&gt; The ServerSignature directive allows the configuration of a trailing footer line under server-generated
+documents (error messages, mod_proxy ftp directory listings, mod_info output, …). The reason why you would want to
+enable such a footer line is that in a chain of proxies, the user often has no possibility to tell which of the chained servers
+actually produced a returned error message.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;ServerTokens&lt;/strong&gt; This directive controls whether the Server response header field which is sent back to clients includes minimal
+information, everything worth mentioning or somewhere in between. By default, the ServerTokens directive is set to
+Full. By declaring this (global) directive and setting it to Prod, the supplied information will be reduced to the bare
+minimum. During the first chapter of this subject the necessity for compiling Apache from source is mentioned. Modifying
+the Apache Server response header field values could be a scenario that requires modification of source code. This could
+very well be part of a server hardening process. As a result, the Apache server could provide different values as response
+header fields.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;TraceEnable&lt;/strong&gt; This directive overrides the behavior of TRACE for both the core server and mod_proxy. The default Tra
+ceEnable on permits TRACE requests per RFC 2616, which disallows any request body to accompany the request.
+TraceEnable off causes the core server and mod_proxy to return a 405 (method not allowed) error to the client.
+There is also the non-compliant setting extended which will allow message bodies to accompany the trace requests.
+This setting should only be used for debugging purposes. Despite what a security scan may say, the TRACE method is part
+of the HTTP/1.1 RFC 2616 specification and should therefore not be disabled without a specific reason.&lt;/p&gt;
 
 &lt;p&gt;For the LPIC2 202 we need also know how proxy work, proxy server is some middle server between us and the internet, by using proxy server every connection that related to web, is going through the proxy server, there is several reasons way to use proxy, the first one is that proxy server can cache webpages on local memory, so it’s mean that if someone on the organization want to get zwerd.com web pages, the proxy server will save these pages on it’s local memory and disk, if other person want to get the same information we will get it more fast because there is that data cache on the proxy server, the second reason is security, when connecting to some site, that site can contain some JavaScript or PHP code that can harm your system, the proxy server can contain some smart implementation that check on the application level every code that will run on our clients can block if found any malicious file or code, on LPIC2 202 we just need to get know Squid proxy server which bring the first reason why to use proxy, but remember that there is more other proxies solutions our there that considered the security issue and trying to solve it.&lt;/p&gt;
 

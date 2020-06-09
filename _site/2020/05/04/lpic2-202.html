@@ -1360,7 +1360,7 @@ so the action we will done on that ACL will be apply on every connection that us
 <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sudo htpasswd -c /etc/squid/password zwerd
 </code></pre></div></div>
 <p>This command going to ask us for password, the output is that file name we specified in that command. Please note that this <code class="highlighter-rouge">htpasswd</code> is part of <code class="highlighter-rouge">apache2-utils</code>.
-<img src="/assets/images/lpic2/hdpasswd.png" alt="LPIC2 Post" />
+<img src="/assets/images/lpic2/htpasswd.png" alt="LPIC2 Post" />
 <strong>Figure 80</strong> Creating the password file using htpasswd.</p>
 
 <p>You can see that it ask for retype the password for zwerd and that this file is contain the hash of that password.</p>
@@ -1402,7 +1402,7 @@ http_access allow AUTHENTICATED
 
 <p>We just run that command and it will also configure all the stuff we need, so in the end of that we can open browser and see that it connected to the nginx machine.</p>
 
-<p><img src="/assets/images/lpic2/nginx.gif" alt="LPIC2 Post" />
+<p><img src="/assets/images/lpic2/nginx.png" alt="LPIC2 Post" />
 <strong>Figure 84</strong> The nginx default page.</p>
 
 <p>The nginx location for that page can found <code class="highlighter-rouge">/share/nginx/html/</code>, please note that this diffrent then apache2 <code class="highlighter-rouge">/var/www/html/</code>.</p>
@@ -1454,6 +1454,643 @@ http_access allow AUTHENTICATED
 <strong>Figure 88</strong> Web connection to hack.me which is zwerd.com.</p>
 
 <p>Please note that if you try that on your lab you can’t direct connection to my zwerd.com actual site, or youtube site or yahoo site, they disable such request because of the proxy_params, so you need to check the params for it to work right, in my example I set up the zwerd.com site locally, also note that the browser use this nginx proxy without or with port 80, this is not like squid that use 3128 port.</p>
+
+<h2 id="chapter-2">Chapter 2</h2>
+<h2 id="topic-209-file-sharing">Topic 209: File Sharing.</h2>
+
+<p>For the File Sharing part we should have be able to set up a Samba server for various client, by various I think that mean that our Samba server should have a way to get Linux and Windows client to connect our server using SMB.</p>
+
+<p>Samba Daemons is actually the windows server daemon that allow Linux server interact in the windows enviroment, when we talk about samba we need to know that there is two part of that, <strong>nmbd</strong> which is the name resolution for that file sharing, the <strong>smbd</strong> used for the actual file sharing, now please remember that smbd is daemon, there is also <strong>smbclient</strong> and this is just the client sort of agent that allow clients interact with file sharing server.</p>
+
+<p>All we need to know is that if we have some network that are windows environment, we can setup some Linux server working with samba for file sharing, in that way the windows client will never know that this Linux samba server is actually Linux, and they can use the network share on that server for saving file and creating folder and do other stuff the same way they can do on windows file share server, also note that there is service called <strong>winbindd</strong> which is Name Service Switch daemon for resolving names from NT servers, this service provided by winbindd is called <code class="highlighter-rouge">winbind</code> and can be used to resolve user and group information from a Windows NT server. The service can also provide authentication services via an associated PAM module.</p>
+
+<p>So, <strong>nmbd</strong> is using for finding the name share for file share server, this is like NetBIOS was work for finding the name of the local server that contain file sharing, we can use <strong>nmblookup</strong> for finding local server that serve file sharing and use nmb daemon on the local network, just remember that on modern network we can do just that by using DNS, but for the exam we need to know about nmbd.</p>
+
+<p>Now, we can as clients to lookup for local sharing file server, we need to run <code class="highlighter-rouge">nmblookup</code> and we can find server interesting information.</p>
+
+<p><img src="/assets/images/lpic2/nmblookup.png" alt="LPIC2 Post" />
+<strong>Figure 89</strong> My NetBIOS query by using nmblookup.</p>
+
+<p>You can see that I running query to find all the server that are in the working group named WORKGROUP, it find me serveral server, I can now run <code class="highlighter-rouge">-S</code> for status information of each server.</p>
+
+<p><img src="/assets/images/lpic2/nmblookup-s.png" alt="LPIC2 Post" />
+<strong>Figure 90</strong> The status information of servers in WORKGROUP.</p>
+
+<p>The first on the list is my ZWERD machine that I use a lot, the ZWERD is the name of that machine, the other machine is 172.16.0.75 that contain the name ADSL-43, we also can see it’s MAC address.</p>
+
+<p>Please remember that this is not DNS lookup, it’s NetBIOS lookup that the nmb search on the network.</p>
+
+<p>When we talk about security in samba world there is two levels, the USER level and the SHARE level, with USER level the client need to supply the username and the password, with SHARE level the client need to supply only password, the server will check if the password is match to one of the users his have on the list and if match was found he will allow the connection for that client.</p>
+
+<p>For install the samba we need to run the foolowing:</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sudo apt install samba
+</code></pre></div></div>
+
+<p>This will download the package and install it, the configuration file are locate as <code class="highlighter-rouge">/etc/samba</code>, the main configuration file is the <code class="highlighter-rouge">smb.conf</code> file.</p>
+
+<p>In that file you can find the workgroup for the server, in my case is WORKGROUP as we saw earlier, the server string is just the description, you can see that <code class="highlighter-rouge">%h</code> which is the local host name of the machine.</p>
+
+<p>These two are in the <code class="highlighter-rouge">[global]</code> section, which sort of share point configuration.</p>
+
+<p><img src="/assets/images/lpic2/smbglobal.png" alt="LPIC2 Post" />
+<strong>Figure 91</strong> You can see the global configuration for smb.</p>
+
+<p>If we want that windows client will be able to see our samba server we nned to uncomment the <code class="highlighter-rouge">win support = yes</code>, this line will allow them to see the name of that samba server and interact with.</p>
+
+<p>You can see down below the path for the log file and the max log size configuration.</p>
+
+<p><img src="/assets/images/lpic2/smblogfile.png" alt="LPIC2 Post" />
+<strong>Figure 92</strong> The smb log file location.</p>
+
+<p>For setting the share definition we need to add new section and we do that bellow <strong>Share Definitions</strong> part on that configuration file.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[public]
+  path = /public
+  guest ok = yes
+  read only = no
+</code></pre></div></div>
+
+<p>This section mean that this is public point with going to contain the public folder that going to be share on the local network, the guest mean that it not requires any authentication at all, and also it not read only.</p>
+
+<p>After that we need to create that folder and make it accessible for any one.</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sudo mkdir /public
+sudo chmod 777 /public/
+sudo service smbd restart
+</code></pre></div></div>
+
+<p>After that, if we search it on the local network we should be able to find it.</p>
+
+<p><img src="/assets/images/lpic2/smbshare.png" alt="LPIC2 Post" />
+<strong>Figure 93</strong> The smb share public folder.</p>
+
+<p>We can connect to that folder and create file and subfolders, this is without authentication, we can run <code class="highlighter-rouge">nmbstatus</code> to see the clients that connect to our machine.</p>
+
+<p><img src="/assets/images/lpic2/smbstatus.png" alt="LPIC2 Post" />
+<strong>Figure 94</strong> The smbstatus command.</p>
+
+<p>Please note that you see some client that connect with IP that not on my subnet, this is because I connect my machine to other network so my IP was change of curse.</p>
+
+<p>So you can see there is no username and no group name, we can also run <code class="highlighter-rouge">net</code> command for see that clients connections.</p>
+
+<p><img src="/assets/images/lpic2/nmbnet.png" alt="LPIC2 Post" />
+<strong>Figure 95</strong> The net command.</p>
+
+<p>Again, the IP address is the windows client you saw on figure 93, if you have some issue and the service not bring up you can run the <code class="highlighter-rouge">testparam</code> that can test the configuration file for you and display it on the cli.</p>
+
+<p><img src="/assets/images/lpic2/testparm.png" alt="LPIC2 Post" />
+<strong>Figure 96</strong> The testparam.</p>
+
+<p>By pressing enter it dump all the configuration out and tell you if the configuration file that are correct syntax.</p>
+
+<p>You need to know that windows and Linux use different algorithm to store password, so if we try to connect to windows machine the machine will not allow that connection because although the password are correct it send out encrypted and the string check against the passwords store strings that are different from the string on Linux machine, so for solving it Linux store two different password strings.</p>
+
+<p>On the conf file we going to setup the following:</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>netbios name = PINGO
+</code></pre></div></div>
+
+<p>This for see the changing the name for our machine, if you look on the authentication part of that conf file there is several thing that we need to know.</p>
+
+<p><strong>passdb backend</strong>, this is the method for encription we going to use, in my case is <code class="highlighter-rouge">tdbsam</code>.</p>
+
+<p><strong>obey pam restrictions</strong>, the pam stand for pluggable authentication module, this line say that when the password change use the same requirement that the Linux does, In my case it set on <code class="highlighter-rouge">yes</code> because we want to save them sync, which will bring us to the line below.</p>
+
+<p><strong>unix password sync</strong>, this line mean that if the SMB change password on the local machine do we want to change also the unix password which is the samba password, so in my case it’s yes, because every time password for SMB change I need it to also change the samba password, down below we can find the opposite.</p>
+
+<p><strong>pam password change</strong>, this is mean when the pluggable authentication module are change do we want to change the samba password as well, so In my case is yes.</p>
+
+<p>So all of that configuration will make two type of password, one for samba database and one for system Linux database.</p>
+
+<p>We need to create use for using in our last share.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[data]
+  path = /data
+  valid users = guyz
+  read only = no
+  create mask = 0777
+  directory mask = 0777
+</code></pre></div></div>
+
+<p>Now we need to create that folder and create that user and password.</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sudo mkdir /data
+sudo chmod 777 /data/
+sudo service smbd restart
+sudo smbpasswd -a guyz
+</code></pre></div></div>
+
+<p>By using <code class="highlighter-rouge">smbpasswd -a</code> it adding new user, you can see that he ask for password, this is the password the client need to type for connect this share folder.</p>
+
+<p><img src="/assets/images/lpic2/smbpassword.png" alt="LPIC2 Post" />
+<strong>Figure 97</strong> Asking for password.</p>
+
+<p>Please remember that with samba we just share some file or folder and that can be with security level or not, depending out configuration.</p>
+
+<p>There is more tool that you can use which is <strong>smbcontrol</strong>, in case you need to run some script to manipulate the smbd or nmbd you can use this tool in your script, with smbcontrol you can send messages to smbd, nmbd or winbindd processes, also you can use samba-tool which is the main samba administration tool, with this tool we can do stuff like we saw earlier.</p>
+
+<p>There is more way to share files, we can done that by NFS, but unlike samba, NFS is the way we share chank of filesystem instead just files or folders, we saw more or less about NFS in my other post LPIC2 201, the security level on NFS is base only the client itself if he have permition or not to mount the filesystem, it look like iSCSI, that can be use to share SCSI base on the system security.</p>
+
+<p>The presager is working as follow, we setup filesystem to be mount by using NFS, we also setup the client that can have access to that filesystem, the next step is that on the client side we need to mount that NFS filesystem, the network communication is done over rpc bind or port mapper.</p>
+
+<p>By using rpc bind or port mapper we can use additional level of security by using TCP wrappers to allow or deny hosts.</p>
+
+<p>Please remember that we talk about NFS v3, with NFS v4 the RPC bind or port mapper is not needed, with version 4 we use only TCP connections, it also have native file locking, and it doesn’t depend on mount daemon.</p>
+
+<p>On ubuntu we just need to run the following:</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sudo apt install nfs-kernel-server
+</code></pre></div></div>
+
+<p>What we need to do after the installation is to setup the exports, we can find that file on <code class="highlighter-rouge">/etc/exports</code>, on that file we setup the filesystem we want to be exported in a way that clients be able to mount the exported filesystem.</p>
+
+<p><img src="/assets/images/lpic2/nfsexports.png" alt="LPIC2 Post" />
+<strong>Figure 98</strong> The exports file.</p>
+
+<p>The line I am going to add to that file is as follow:</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/temp/share  192.168.43.145(rw,sync)
+</code></pre></div></div>
+
+<p>In this line I export the share folder and allow only to 192.168.43.145 address read and write permissions with sync style which mean that on every changes done on that file system it sync it out to every one who is connected, you can specefied <code class="highlighter-rouge">*(rw,sync)</code>, this mean that every one can have access to this NFS.</p>
+
+<p>After you finish you can just restart the service, but it will hit every one who connected to this NFS, so instead we can just run <code class="highlighter-rouge">sudo exportfs -r</code> for reread the exported file.</p>
+
+<p><img src="/assets/images/lpic2/nfsexportfs.png" alt="LPIC2 Post" />
+<strong>Figure 99</strong> The exports folder for 192.168.43.145.</p>
+
+<p>To check that is export we can run <code class="highlighter-rouge">showmount -e localhost</code> on our local machine, it should print the exported folder on the screen.</p>
+
+<p><img src="/assets/images/lpic2/showmount.png" alt="LPIC2 Post" />
+<strong>Figure 100</strong> Using showmount to view the exported folders.</p>
+
+<p>I can also use that command on the 192.168.43.145 itself with the following command.</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>showmount -e 192.168.43.14
+</code></pre></div></div>
+
+<p>Please note that 192.168.43.14 is the NFS server.</p>
+
+<p><img src="/assets/images/lpic2/showmount2.png" alt="LPIC2 Post" />
+<strong>Figure 101</strong> Using showmount to view the exported folders on remote server.</p>
+
+<p>Now I change the local IP on my machine to be 192.168.43.50 by running <code class="highlighter-rouge">sudo ifconfig wlp2s0  192.168.43.50</code>, if I try again to view the exported we can see that it working, so let’s try to mount that.</p>
+
+<p><img src="/assets/images/lpic2/mountNFS.png" alt="LPIC2 Post" />
+<strong>Figure 102</strong> Running mount and it access deny.</p>
+
+<p>So you can see that it deny base on my IP address, but remember that we can view the exported filesystem, on the server we can use TCP wrapper to deny it also.</p>
+
+<p>Ther is more issue that related to security regarding NFS, let’s mount that filesystem again and view that issue.</p>
+
+<p>I just change my machine IP to 192.168.43.145 and tried to mount it again, also please note that the username on that machine is zwerd, that zwerd user is also setup on the NFS machine.</p>
+
+<p><img src="/assets/images/lpic2/mountagain.png" alt="LPIC2 Post" />
+<strong>Figure 103</strong> Mount the NFS again.</p>
+
+<p>If my zwerd user on the NFS server contain userid like 2000 and the zwerd userid on my machine is 1000 this going to be a problem, because although it is the same name, each system contain different database, so zwerd user on system 1 can’t manipulate the files that was created by user zwerd on system 2, you can see the userid on the <code class="highlighter-rouge">/etc/passwd</code> file.</p>
+
+<p><img src="/assets/images/lpic2/zwerduser.png" alt="LPIC2 Post" />
+<strong>Figure 104</strong> My zwerd user.</p>
+
+<p>The security issue came with that userid, if someone change some user to contain the same id of my user, he may get full access to my file, so prevent that can be done by allow only machine that I know for sure that can get access to my files, ot using other security mechanism to prevent that issues.</p>
+
+<h2 id="chapter-3">Chapter 3</h2>
+<h2 id="topic-210-network-client-management">Topic 210: Network Client Management</h2>
+
+<p>When we talking about networking in the point of view of clients there is several technologies that you must know on order that the client can work and adding some security level on it.</p>
+
+<p>DHCP is the way to lease IP to the client for he be able to communicate over the network, setup DHCP server on Linux is not so complicated then Windows, so if you familiar with this it should be easy for you.</p>
+
+<p>So, if client connect to the network the first thing he must do in order to comunicate is to try get some IP address, so broadcast packet are send to the DHCP for lease some IP address, the DHCP will replay with the IP that can be use on that host base on the subnet.</p>
+
+<p>To install DHCP server on the Ubuntu machine we need to install the following pkg:</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sudo apt install isc-dhcp-server
+</code></pre></div></div>
+
+<p>Now we need to make some changes on the follow file <code class="highlighter-rouge">/etc/default/isc-dhcp-server</code>, this file contain the configuration for our server, you can see that by default you don’t contain any configuration for distribute addresses to clients, this is to prevent rogue dhcp server that distribute addresses on network that contain other main DHCP server, so the setup we need to add on that file are as follow:</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>INTERFACES="eth0"
+</code></pre></div></div>
+
+<p>In that case you make the DHCP service to listen request that come on <code class="highlighter-rouge">eth0</code> interface, now you need to setup the actual DHCP lease, that can be found on the <code class="highlighter-rouge">/etc/dhcp/dhcpd.conf</code> file which contain the configuration for offering the clients some IP addresses regards to their network.</p>
+
+<p><img src="/assets/images/lpic2/dhcpconf.png" alt="LPIC2 Post" />
+<strong>Figure 105</strong> My zwerd user.</p>
+
+<p>The <code class="highlighter-rouge">option domain-name</code> option can contain the local domain for the network of that DHCP, it is not really matter, what it really matter is the <code class="highlighter-rouge">option domain-name-server</code> which should contain the NS server of your organization or at least some DNS server that can be use on your network, you can see that I am using google public DNS server.</p>
+
+<p>You also can thee that the lease time in my case is 600 second which is 10 minutes, and the <code class="highlighter-rouge">max-lease-time</code> used for the maximum time in second that the IP is leased for host, all of that mean that after 10 minutes the host will try to request that IP address again, in case he didn’t renew his request, after 7200 second which is 2 hours, the IP is relase in the server side point of view, which mean that it can give other hosts that IP address.</p>
+
+<p>Please remember that the DHCP server also can bring the client details about the kernel to download by using <code class="highlighter-rouge">host passacagila {}</code>, in that section we can specefied that file to download via tftp and give the client the tftp server name, all of that used to help clients boot to some kernel that we want to have every one that kernel, in that case it use protocol like bootP.</p>
+
+<p>The section we nned to set for that DHCP will manage the subnets addresses is as follow:</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>subnet 10.10.10.0 netmask 255.255.255.0 {
+  range 10.10.10.100 10.10.10.150;
+  option routers 10.10.10.1;
+}
+</code></pre></div></div>
+
+<p>In that section we setup the subnet which is in my case 10.10.10.0/24, the range for address lease is 10.10.10.100-10.10.10.150, which mean 151 address, the router is the default gateway for that subnet.</p>
+
+<p>After you done all you need to restart the service, you also can check the <code class="highlighter-rouge">/var/log/syslog</code> file with contain the logs for the system, in that file we can find that the DHCP is up and running and also what is the count for leases address, if none are lease you will se the following line:</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>dhcp: Wrote 0 leases to leases file.
+</code></pre></div></div>
+<p>If you what to see the leases address you can check the <code class="highlighter-rouge">/var/lib/dhcp/dhcpd.leases</code> file, that file will be empty antil you one of the client on that subnet try to request some IP address from our server.</p>
+
+<p>You can run on Linux host the following command for trying to lease some address <code class="highlighter-rouge">sudo dhclient eth0</code>, this command will request address for <code class="highlighter-rouge">eth0</code> interface, you can release that address by using the <code class="highlighter-rouge">-r</code> option.</p>
+
+<p>Please remember that after you change the configuration file you need to restart the service isc-dhcp-server, in case it failed you may see the reason down bellow.</p>
+
+<p><img src="/assets/images/lpic2/dhcpstatus.png" alt="LPIC2 Post" />
+<strong>Figure 106</strong> My service status failed.</p>
+
+<p>In my case you can see that it specified that <code class="highlighter-rouge">Not configured to listen on any inter</code> this is mean that we need to setup the <code class="highlighter-rouge">/etc/default/isc-dhcp-server</code> file for listen an interface.</p>
+
+<p><img src="/assets/images/lpic2/dhcpservicework.png" alt="LPIC2 Post" />
+<strong>Figure 107</strong> After all is setup the service will run.</p>
+
+<p>So on the client I run the <code class="highlighter-rouge">dhclient</code> for get some IP address, after that if we check the leases file we will find that he listed in it.</p>
+
+<p><img src="/assets/images/lpic2/dhcpleases.png" alt="LPIC2 Post" />
+<strong>Figure 108</strong> Leases addresses.</p>
+
+<p>You can see that the client hostname is zwerd, the time he request for new address and also the MAC address of that zwerd client.</p>
+
+<p>Please remeber that I done all of that in my LAB, with virtual machine over my physical computer, so I setup subinterface on my physical PC and on my virtual machine for make it work.</p>
+
+<p>Let’s say that we want to setup a static address for an client, we can do that on the <code class="highlighter-rouge">/etc/dhcp/dhcpd.conf</code> file, we need to add new section for that as follow:</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>host client-static {
+  hardware ethernet 10:0b:a9:c9:4e:04;
+  fixed-address 10.10.10.200;
+}
+</code></pre></div></div>
+
+<p>You can see that I specified that MAC address for that client and bring him fixed address which mean if that client will generate request for new address he will get that 10.10.10.200 address.</p>
+
+<p>So now I restrat the service and run dhclient on my client to get that new IP address.</p>
+
+<p><img src="/assets/images/lpic2/dhcprenew.png" alt="LPIC2 Post" />
+<strong>Figure 109</strong> The subinterface with the new IP address.</p>
+
+<p>You can see that the address new is 10.10.10.200 which is what I setup over my dhcp server.</p>
+
+<p>Like on cisco routers we can setup on our Linux to by hdcp relay for some subnet that not contain DHCP server, the role of dhcp relay is just to listen to some new leases request and transfer them to the DHCP.</p>
+
+<p>So on the dhcp relay server we need to install it by running <code class="highlighter-rouge">sudo apt install isc-dhcp-relay</code>, after that the installation is finish a popup screen will rise asking for dhcp server address.</p>
+
+<p><img src="/assets/images/lpic2/dhcprelay.png" alt="LPIC2 Post" />
+<strong>Figure 110</strong> Setup relay for the DHCP address.</p>
+
+<p>You can also use the <code class="highlighter-rouge">/etc/default/isc-dhcp-relay</code> file to setup that dhcp relay.</p>
+
+<p>Onthe DHCP server we need to add a route to the sparated subnet and also setup new section on <code class="highlighter-rouge">/etc/dhcp/dhcpd.conf</code> file that contain the range for the new subnet:</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>subnet 172.16.0.0 network 255.255.255.0 {
+  range 172.16.0.100 172.16.0.150;
+  option routes 172.16.0.1;
+}
+</code></pre></div></div>
+
+<p>After that every lease request on that subnet will get to the dhcp relay server that transfer that request to the DHCP server, the DHCP server then replay with the IP address that can be lease to the client, the relay will transfer to the DHCP relay server and the DHCP relay server transfer that to the client.</p>
+
+<p>Hosts using IPv6 are actually capable of assigning themselves link-local IP addresses using stateless autoconfiguration. DHCPv6 or NDP which is Network Discovery Protocol may be used to assign additional globally unique addresses and other configuration parameters, in Linux, this protocol is handled by the
+“Router Advertisement” (radvd) daemon.</p>
+
+<p>The radvd daemon is configured by /etc/radvd.conf, which has to contain at least the interface the daemon should listen on and the prefix it has to serve. Additionally, radvd can periodically re-advertise its prefixes to hosts on the same network. If you wish, you can also configure the lifetime of the IPv6 addresses that hosts configure for themselves.</p>
+
+<p>A typical <code class="highlighter-rouge">radvd.conf</code> would look similar to the following:</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>interface eth0 {
+  AdvSendAdvert on;
+  MinRtrAdvInterval 3;
+  MaxRtrAdvInterval 10;
+  prefix 2001:0db8:0100:f101::/64 {
+    AdvOnLink on;
+    AdvAutonomous on;
+    AdvRouterAddr on;
+  };
+};
+</code></pre></div></div>
+
+<p>We looked at PAM before that it regard authentication, let’s dive in that PAM and see what it really is. PAM is Pluggable Authentication Modules, this PAM design in the way the we can use it and it’s functionality.</p>
+
+<p><strong>Please note</strong>: before you going to do changes like I display here about PAM, please use virtual machine, it so easy to look your self out because of some changes you done in PAM, so please note that you done that on virtual machine and you have some snapshot in case you locked your self out.</p>
+
+<p>PAM is only provides you as way to do several thing that on your program you didn’t need to set, like authentication, there is several program like SSH or telnet or FTP or GNPME, all of then need a way to check the user authentication for knowing if the password is correct or that user allow to use that program and login, instead of develops suck things, they use PAM that provide exactly that.</p>
+
+<p>These program use PAM system to check the authentication and PAM says rather or not that user can login to that computer.</p>
+
+<p>We can find the PAM configuration file in the following path <code class="highlighter-rouge">/etc/pam.conf</code>, that file contain several columns.</p>
+
+<p><img src="/assets/images/lpic2/pam.conf.png" alt="LPIC2 Post" />
+<strong>Figure 111</strong> PAM general configuration file.</p>
+
+<p><strong>Service Name</strong> - contain the service name, like ssh or telnet or other program that need a way for authentication checking, this is basically say that the following line going to refer that service name.</p>
+
+<p><strong>Module Type</strong> - PAM have several module, each give other service and condition to check as follow:</p>
+
+<p><code class="highlighter-rouge">account</code> - this type is use to check if the user is allowed to login or not.</p>
+
+<p><code class="highlighter-rouge">authentication</code> - this type is for checking the password of that user, so knowing if that user is really is what it claim to be.</p>
+
+<p><code class="highlighter-rouge">password</code> - this module type use for mechanism for changing the user password, in that way the devolper like we say doesn’t need to worry about that, he just can use this type of module.</p>
+
+<p><code class="highlighter-rouge">session</code> - this type is for check if the path that the user try to mount is really exist, if it not exist we can setup control level for allow that user login or not.</p>
+
+<p><strong>Control Flag</strong> - this is the control level, just remember on the type we set up the checking mechanism, but type didn’t refer to deny that user or block the session, it just check the parameters of the user that try to login, in the control we setup the control action, and like type it have several methods.</p>
+
+<p><code class="highlighter-rouge">requisite</code> - this is mean that if the user failed on the type section we going to stop the checking, so let’s say that the user failed on the <code class="highlighter-rouge">account</code> check (which mean that user is not allow to log in the system), we stop the session and don’t even check the <code class="highlighter-rouge">authentication</code>, now please note that on security level like in blind injection, the attacker then can see that the use he type didn’t go by the checking password, it just disconnected right away, so blindly this is mean that user is not allow, the attacker can use other users and if one of them continue to the password check then the attacker now that use is allow to log in, so this bring us to the next Control Flag.</p>
+
+<p><code class="highlighter-rouge">required</code> - this control action is say although the type is fails, continue checking the other types but stop in the afterword, so if the user failed on the <code class="highlighter-rouge">account</code> type it will continue to checking against the other types and failed in the end, i this way the attacker can’t know what is the type that the user failed for.</p>
+
+<p><code class="highlighter-rouge">sufficient</code> - this is mean if the type success then stop checking, so for example we can set that for <code class="highlighter-rouge">authentication</code> type so if the authentication is success it don’t check the user against the other types, this is good to use in the case of LDAP, let’s say that the user is allow on LDAP level but not on the system password level, so as son it type the correct password, he doesn’t need to check against the local system password database.</p>
+
+<p><code class="highlighter-rouge">optional</code> - this is only matters if associated  with another module like <code class="highlighter-rouge">session</code> so if the user try to mount some directory and the user <code class="highlighter-rouge">account</code> is allow, the <code class="highlighter-rouge">authentication</code> is correct but the directory doesn’t exist in the <code class="highlighter-rouge">session</code> part, so it continue checking the stuck.</p>
+
+<p>There is more several control flag but all we saw here are the main flags that we going to see on the configurations.</p>
+
+<p><strong>Module Path</strong> - this is the path for the module to use for that line, so if the line is refer to authentication we may see that path to pam_unix.so module that use for checking the authentication mechanism.</p>
+
+<p><strong>Module Args</strong> - this is the argument for the module, for example if we going to check the LDAP password so what is the LDAP server to connect to.</p>
+
+<p>What we need to know is that most of the time this pam.conf file will not contain the configuration, instead we can find on the <code class="highlighter-rouge">/etc/pam.d/</code> folder that contain the PAM configuration for each service or program, and each file contain what we saw so far.</p>
+
+<p>More thing we need to know that the path for the module doesn’t need to contain the full path if the module is on the <code class="highlighter-rouge">/lib/x86_64-linux-gnu/security/</code> directory.</p>
+
+<p>Let’s look on the pam.d directory, you can see several familiar service like sshd, samba, sudo, all of these are using the PAM mechanism for authentication, now, for each file you didn’t going to see the service name because each file contain it’s own service name so it unnecessary to specified the service name inside of it.</p>
+
+<p>So for example in the sshd file we can find several interesting stuff.</p>
+
+<p><img src="/assets/images/lpic2/pamsshd.png" alt="LPIC2 Post" />
+<strong>Figure 112</strong> The sshd file in PAM.</p>
+
+<p>You can see that you have line that specified the <code class="highlighter-rouge">account</code> and required with pam_nologin.so module, so that line say that need to check is the user account is allow to login by using the <code class="highlighter-rouge">pam_nologin.so</code> module, please note that the control on that line is <code class="highlighter-rouge">required</code> which mean that although if that user is not allowed, continue the next checks if any, search down below and you will find the session which is the next check.</p>
+
+<p>Please note that the <code class="highlighter-rouge">@include common-auth</code> line which say to check the user session against the <code class="highlighter-rouge">common-auth</code> file.</p>
+
+<p><img src="/assets/images/lpic2/pamcommon-auth.png" alt="LPIC2 Post" />
+<strong>Figure 113</strong> The common-auth file in PAM.</p>
+
+<p>You can see that the <code class="highlighter-rouge">auth</code> lines, so the first line say check authentication by using <code class="highlighter-rouge">pam_unix.so</code> module with arge of nullok_secure, if the authentication are success it equal to 1, else it ignored.</p>
+
+<p>This is how these line are working on these files, it check every line against the user session to check if he can do what he want to do.</p>
+
+<p>Please note that after you done several changes you not need to restart any service for the configuration will take a effect.</p>
+
+<p>Now let’s look about PAM modules and how they work, we going to see several modules that are most used but there is more several modules that you can use in PAM.</p>
+
+<p><strong>pam_listfile</strong> - we using this module to deny or allow services based on an arbitrary file, this module can get several flag set the option you need, as example let’s look the following line that I can add on the common-auth and see what does it mean:</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>auth required pam_listfile.so onerr=fail item=user sense=deny file=/path/to/file
+</code></pre></div></div>
+
+<p>So on that line I setup the following flags:</p>
+
+<p><code class="highlighter-rouge">onerr=fail</code> mean that if error occur the process will fail.</p>
+
+<p><code class="highlighter-rouge">item=user</code> this is mean that the value that will going to be check is the username.</p>
+
+<p><code class="highlighter-rouge">sense=deny</code> this is mean that the action is deny please remember that the item is user so this deny is base on the username.</p>
+
+<p><code class="highlighter-rouge">file=/path/to/file</code> this is the path to the file for the item value, so in my case that file should contain the value of the usernames.</p>
+
+<p>So in my case the file path is to <code class="highlighter-rouge">/temp/usernames</code>, this file contain the usernames that I want to deny, so if I will add that line on the <code class="highlighter-rouge">common-auth</code> and try to connect that machine locally with the username that are specified on that <code class="highlighter-rouge">usernames</code> file, then the action will be deny, on the usernames file I specified the <code class="highlighter-rouge">zwerd</code> user.</p>
+
+<p><img src="/assets/images/lpic2/pam_listfile.gif" alt="LPIC2 Post" />
+<strong>Figure 114</strong> Using the pam_listfile module.</p>
+
+<p>You can see that at the first I use required, I tried to connect to local machine via ssh with zwerd user and it take a moment to give me the popup message of “Permission denied”, but when I use requisite it immediately deny me, so please note the different between them.</p>
+
+<p><strong>pam_cracklib</strong> - This module is check the password against dictionary words, the action of this module is to prompt the user for a password and check its strength against a system dictionary and a set of rules for identifying poor choices.</p>
+
+<p><strong>pam_unix</strong> - this module is for traditional password authentication, it uses standard calls from the system’s libraries to retrieve and set account information as well as authentication. Usually this is obtained from the /etc/passwd and the /etc/shadow file as well if shadow is enabled.</p>
+
+<p><strong>pam_limits</strong> - this module is to limit resources which mean it’s limits the permission that the user is going to have. By default limits are taken from the /etc/security/limits.conf config file. Then individual .conf files from the /etc/security/limits.d/ directory are read.</p>
+
+<p><strong>pam_sss</strong> - this module is used for SSSD which is System Security Service Daemon, which is our way to communicate with LDAP server, we will see how LDAP is work as we progress, just remember that the configuration for SSSD is the <code class="highlighter-rouge">sssd.conf</code>, you can find more information in the following <a href="https://docs.pagure.org/SSSD.sssd/">link</a></p>
+
+<p>So for password store the pam can use LDAP or local passwd file, but how we know the order?</p>
+
+<p>For that case we have <code class="highlighter-rouge">nsswitch.conf</code> file, this file contain the order of reading stuff from the system, for example, if we tring to get to some service or web on the internet, we can search it on the host file or using DNS, the first on who specified will be the first one to be checked.</p>
+
+<p><img src="/assets/images/lpic2/nsswitch.png" alt="LPIC2 Post" />
+<strong>Figure 115</strong> The nsswitch file.</p>
+
+<p>You can see on the hosts, the file is the first to check for some service or webpage we want to get, the next one is mdns4_minimal and the last is dns, if we change it and the dns will be first it will force to search it over the DNS server, the same principle is with the passwd, group and shadow files, we can specefied the file first and the LDAP or nis at last or change the order, in my case it is compat which mean to look on the file, if some user have the “+” sign then include the specified user from the NIS passwd map, as example let’s look on the passwd file.</p>
+
+<p><img src="/assets/images/lpic2/passwduser.png" alt="LPIC2 Post" />
+<strong>Figure 116</strong> The zwerd user in passwd file.</p>
+
+<p>So, if the user zwerd was with plus sign like <code class="highlighter-rouge">+zwerd</code> then it was check it against NIS passwd map.</p>
+
+<p><strong>Please note</strong>: if you run that example on your physical machine and locked your self out, you can bring some bootable device and load it, after it load up successfully, mount the disk of your linux machine operation, then go to the file you change and change it back and you should be ready to go.</p>
+
+<p>We talk about LDAP in PAM, so let’s talk about LDAP itself, this is Lightweight Directory Access Protocol, the Directory Access is actually server that contain massive database about the users on the organization, you can find in that database the domain name of the organization, the user name’s like first name and last name, also the users information like phone number, email address, location address, responsibilities on the organization, department details and more information about the user.</p>
+
+<p>Please note that this is LDAP is actually the protocol to connect the Directory Access server and view the database and pull out users information, this is little bit confusing that they call the server LDAP server that it just the Directory Access server.</p>
+
+<p>In Linux we use OpenLDAP but there is other LDAP servers like Microsoft Active Directory that also use LDAP, on linux the LDAP deamon is slapd and in the past it was configure in <code class="highlighter-rouge">slapd.conf</code> which is the old way to setup Directory Access, the new way is to load configuration directly to the databases.</p>
+
+<p>We need to know the LDAP structure because as we progress we will see that how to use that structure to get information from the Directory Access database.</p>
+
+<p>The Directory Access server is setup in architecture way that contain <strong>directory container</strong> which is <code class="highlighter-rouge">dc</code>, <strong>organizational Unit</strong> which is <code class="highlighter-rouge">ou</code>, <strong>distinguished name</strong> which is <code class="highlighter-rouge">dn</code>.</p>
+
+<p>The <code class="highlighter-rouge">dc</code> contain the organization database directory name and it’s usually the domain name and subdomain name for example let’s say that our organization domain name is example.dom so that dom is the first <code class="highlighter-rouge">dc</code> which is the root domain and the example is the second <code class="highlighter-rouge">dc</code> which is the subdomain, this details are write in backorder way as follow:</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>dc=example,dc=dom
+</code></pre></div></div>
+
+<p>We will see as we progress how we write the queries to the Directory Access for getting information.</p>
+
+<p>The <code class="highlighter-rouge">ou</code> contain the units names which is can be users or groups or admin or what ever we want, so it can look like as follow:</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ou=users,dc=example,dc=dom
+</code></pre></div></div>
+
+<p>So you can see that every information in that chain going to backorder, this is how we do the query as we going to see as we progress.</p>
+
+<p>Now, the <code class="highlighter-rouge">dn</code> which is the distinguished name may contain the username (in case we query the <code class="highlighter-rouge">ou</code> of users) and more details about the user like <code class="highlighter-rouge">uid</code> which is the user ID, <code class="highlighter-rouge">cn</code> which is the common name and also path for this user directory, you can find list of information like I specified before, just look how it’s the chain look like as follow:</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>uid=guy,ou=users,dc=example,dc=dom
+</code></pre></div></div>
+
+<p>As I said the old way to setup Directory Access database was throght <code class="highlighter-rouge">/etc/slapd.cond</code> that was contain the directory container and distinguished name of the organization, now days the information is written directly to the database in the Directory Access form, so we won’t find such a file anymore.</p>
+
+<p>I am going to install it all on Ubuntu, if you run it on other distro you may what to search for proper package on that distro.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sudo apt install slapd ldap-utils
+</code></pre></div></div>
+<p>Then it will ask you for directory administrator password.</p>
+
+<p><img src="/assets/images/lpic2/ldapadminpass.png" alt="LPIC2 Post" />
+<strong>Figure 117</strong> Set the admin password for my server.</p>
+
+<p>So the default configuration will be ready for use, but on the most cases you may want to change it, so you can run the following:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>dpkg-reconfigure slapd
+</code></pre></div></div>
+<p><img src="/assets/images/lpic2/slapdconfig.png" alt="LPIC2 Post" />
+<strong>Figure 118</strong> Start over the configuration process.</p>
+
+<p>So in my case I setup the domain name as example.dom, the organization name as example, then it will ask for password and the format of the database, I set MDB as recommended, also it may ask for remove the old database and if we want to use LDAPv2, so I press no for it to support LDAPv3.</p>
+
+<p><img src="/assets/images/lpic2/ldap2.png" alt="LPIC2 Post" />
+<strong>Figure 119</strong> Allow using ldap2? no.</p>
+
+<p>After I done all my <code class="highlighter-rouge">dn</code> is going to be as follow:</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>dn=example,dn=dom
+</code></pre></div></div>
+
+<p>Now if I want to view the entire database I can use the <code class="highlighter-rouge">slapcat</code> command, but let’s look on the <code class="highlighter-rouge">config</code> database using following command for display it on the screen.</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>slapcat -b cn=config
+</code></pre></div></div>
+
+<p>This command will print on the terminal the database, the <code class="highlighter-rouge">-b</code> is based use which in my case I use the <code class="highlighter-rouge">config</code> as the <code class="highlighter-rouge">cn</code> which is the distinguished name of the database.</p>
+
+<p><img src="/assets/images/lpic2/slapcat.png" alt="LPIC2 Post" />
+<strong>Figure 120</strong> The slapcat command display the config database.</p>
+
+<p>This database contain schemas that is just like templet for how it’s store data, if you scroll down little bit you will find the RootDN we just created as example.com, but if you want just see the domain you can type <code class="highlighter-rouge">slapcat</code> command.</p>
+
+<p><img src="/assets/images/lpic2/slapcat2.png" alt="LPIC2 Post" />
+<strong>Figure 121</strong> The slapcat for display our database.</p>
+
+<p>So you can see the distinguished name which contain the example.dom and the <code class="highlighter-rouge">cn</code> which is the admin, also note the password which is type of HASH and the time this was modify.</p>
+
+<p>Now, we can use <code class="highlighter-rouge">slapdadd</code> to add more information to the database, please note that this <code class="highlighter-rouge">slapdadd</code> is adding information directly to the database and not using LDAP, so you can run it as a query from client machine to the Directory Access Server, you just use it locally.</p>
+
+<p>So my file (add.ldif) that I am going to use with the <code class="highlighter-rouge">slapdadd</code> command is as follow:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>dn: ou=users,dc=example,dc=dom
+objectClass: organizationalUnit
+ou: users
+
+dn:uid=guy,ou=users,dc=example,dc=dom
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+uid: guy
+sn: zwerd
+givenName: guy
+cn: guy
+uidNumber: 3000
+gidNumber: 3000
+userPassword: Log2it
+loginShell: /bin/bash
+homeDirectory: /home/guy
+</code></pre></div></div>
+
+<p>For adding that to the database I need to run as follow:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sudo service slapd stop
+slapadd -l add.ldif
+sudo service slapd start
+</code></pre></div></div>
+
+<p>Please remember that I must to stop the service before I adding that entry information in my add.ldif to the database using slapadd.</p>
+
+<p><img src="/assets/images/lpic2/slapdadd.png" alt="LPIC2 Post" />
+<strong>Figure 122</strong> The slapdadd for adding entry to the database.</p>
+
+<p>So it work well without an error, so now we can just run <code class="highlighter-rouge">slapcat</code> and view the new entry in the database.</p>
+
+<p>So you can see that I created new distinguished name called users, also created user named guy and place it in users, so the full distinguished name for that guy user is <code class="highlighter-rouge">uid=guy,ou=users,dc=example,dc=dom</code>, now if we type the <code class="highlighter-rouge">slapcat</code> again, it will show us the new entry we set.</p>
+
+<p><img src="/assets/images/lpic2/newentry.png" alt="LPIC2 Post" />
+<strong>Figure 123</strong> My new entry.</p>
+
+<p>You can see that the password for guy user are encrypted, and that the admin user create and modify that user, the database file are store int the <code class="highlighter-rouge">/var/lib/ldap/</code> directory, you can see that this is not just normal file and please remember that this file format in my case is <strong>MDB</strong>.</p>
+
+<p><img src="/assets/images/lpic2/ldapdatabase.png" alt="LPIC2 Post" />
+<strong>Figure 124</strong> The database files.</p>
+
+<p>You can find the schema we view earlier and the config file in the <code class="highlighter-rouge">/etc/ldap/slapd.d/</code> directory.</p>
+
+<p><img src="/assets/images/lpic2/slapd.d.png" alt="LPIC2 Post" />
+<strong>Figure 125</strong> The slapd.d directory.</p>
+
+<p>We can also reindex the database entries by using <code class="highlighter-rouge">slapindex</code> command, for example to regenerate the index for only a specific attribute, e.g. “uid”, give the command:</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>slapindex uid
+</code></pre></div></div>
+
+<p>Let’s look on the query we can use on the client to the server, first of all we can search some entry and grep out information by specified the distinguished name as follow:</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ldapsearch -h 192.168.43.14 -x -b dc=example,dc=dom
+</code></pre></div></div>
+
+<p>You can run the query locally, but I run it from the client side, so in that query I use <code class="highlighter-rouge">-h</code> for hostname, <code class="highlighter-rouge">-x</code> for simple authentication so what we going to view is public entry, <code class="highlighter-rouge">-b</code> is base on the following distinguished name and then I specified that distinguished name.</p>
+
+<p><img src="/assets/images/lpic2/ldapsearch.png" alt="LPIC2 Post" />
+<strong>Figure 126</strong> My ldapsearch on my client side.</p>
+
+<p>You can see the domain name, the admin and users ou, and also the user guy with its <code class="highlighter-rouge">dn</code> value, please note that the hash password for guy user didn’t display on the output, this is because this are just public entry, if we want to get more information we need to authenticate.</p>
+
+<p>For authentication I am going to use the user admin and for that I need to user <code class="highlighter-rouge">-D</code> option and specified the full <code class="highlighter-rouge">dn</code> of my admin, for force it to prompt password I need to use <code class="highlighter-rouge">-W</code> option.</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ldapsearch -h 192.168.43.14 -x -D cn=admin,dc=example,dc=dom -W -b dc=example,dc=dom
+</code></pre></div></div>
+
+<p><img src="/assets/images/lpic2/ldapsearchadmin.png" alt="LPIC2 Post" />
+<strong>Figure 127</strong> My ldapsearch with the admin user on my client side.</p>
+
+<p>You can see the password of the administrator and also the guy user, if you use <code class="highlighter-rouge">-w</code> insead of <code class="highlighter-rouge">-W</code> then you must type your password on the command line.</p>
+
+<p>We can add new information to the database like new user, what we need to do is to user <code class="highlighter-rouge">ldapadd</code>, now the way it work is the same like the <code class="highlighter-rouge">ldapsearch</code> command which mean we need to specified the full distinguished name of the admin user for add new user but also we need to create new file that contain all the details we want to add the database and then we need to specified at the line <code class="highlighter-rouge">-f</code> option for the file path that contain the information.</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ldapadd -h 192.168.43.14 -x -D cn=admin,dc=example,dc=dom -W -f newuser.ldif
+</code></pre></div></div>
+
+<p>This file contain the same information I specified before, so for the test let’s create new user:</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>dn: uid=ben,ou=users,dc=example,dc=dom
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+uid: ben
+sn: or-zion
+givenName: ben
+cn: ben
+uidNumber: 3001
+gidNumber: 3000
+userPassword: Log2it
+loginShell: /bin/bash
+homeDirectory: /home/ben
+</code></pre></div></div>
+
+<p>Now let’s query only the ben user by using the following command:</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ldapsearch -h 192.168.43.14 -x -D cn=admin,dc=example,dc=dom -W -b uid=ben,ou=users,dc=example,dc=dom
+</code></pre></div></div>
+
+<p>So that command give me the following information from the database.</p>
+
+<p><img src="/assets/images/lpic2/kdapuserquery.png" alt="LPIC2 Post" />
+<strong>Figure 128</strong> Query only ben user.</p>
+
+<p>So as you understand so far, for every query you do to that Directory Access server via LDAP you must specified the distinguished name for the information you trying to get because this is how LDAP work.</p>
+
+<p>We also can run query for greping out specific information like the <code class="highlighter-rouge">dn</code> line as follow:</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ldapsearch -h 192.168.43.14 -x -b dc=example,dc=dom  dn:
+</code></pre></div></div>
+
+<p>If we want to change one of our user password we can use <code class="highlighter-rouge">ldappasswd</code> command which work on the same bases.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ldappasswd -h 192.168.43.14 -x -D  cn=admin,dc=example,dc=dom  -W -S uid=ben,ou=users,dc=example,dc=dom
+</code></pre></div></div>
+
+<p>This command will change ben’s password.
+<img src="/assets/images/lpic2/ldappasswd.png" alt="LPIC2 Post" />
+<strong>Figure 129</strong> Please note that the LDAP password come as the end.</p>
+
+<p>For delete some user we can use <code class="highlighter-rouge">ldapdelete</code>, this will delete the user from the database, again we just need to specified the full distinguished name for the user we like to delete.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ldapdelete -h 192.168.43.14 -x -D  cn=admin,dc=example,dc=dom -W uid=ben,ou=users,dc=example,dc=dom
+</code></pre></div></div>
+
+<p>Now, please remember that if on you organization want that the user will authenticate via LDAP to the network, you need to use <strong>sssd</strong> which is the System Security Service Daemon, this daemon is point out to the LDAP database for the user account authentication through LDAP, so on the PAM <code class="highlighter-rouge">/etc/nsswitch.conf</code> file we need to specified that <code class="highlighter-rouge">sssd</code> before the <code class="highlighter-rouge">compat</code> that look on the local passwd file.</p>
+
+<p>Let’s say that we have some issue regarding to slapd, we can use loglevel, the loglevel numbers we can use are as follow:</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>1      trace function calls
+2      debug packet handling
+4      heavy trace debugging
+8      connection management
+16     print out packets sent and received
+32     search filter processing
+64     configuration file processing
+128    access control list processing
+256    stats log connections/operations/results
+512    stats log entries sent
+1024   print communication with shell backends
+2048   entry parsing
+</code></pre></div></div>
+
+<p>for example start slapd with the -d option like in the next command:</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>slapd -d 256 -d 128
+</code></pre></div></div>
+<p>this command will send logs on “stderr” and redirect it to a file as needed.</p>
 
     
 

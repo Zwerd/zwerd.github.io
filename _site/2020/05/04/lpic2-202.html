@@ -2047,7 +2047,7 @@ homeDirectory: /home/ben
 
 <p>So that command give me the following information from the database.</p>
 
-<p><img src="/assets/images/lpic2/kdapuserquery.png" alt="LPIC2 Post" />
+<p><img src="/assets/images/lpic2/ldapuserquery.png" alt="LPIC2 Post" />
 <strong>Figure 128</strong> Query only ben user.</p>
 
 <p>So as you understand so far, for every query you do to that Directory Access server via LDAP you must specified the distinguished name for the information you trying to get because this is how LDAP work.</p>
@@ -2091,6 +2091,63 @@ homeDirectory: /home/ben
 <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>slapd -d 256 -d 128
 </code></pre></div></div>
 <p>this command will send logs on “stderr” and redirect it to a file as needed.</p>
+
+<h2 id="chapter-4">Chapter 4</h2>
+<h2 id="topic-211-e-mail-services">Topic 211: E-Mail Services.</h2>
+
+<p>In this chapter we going to look how so setup and use email server, we also look at two type of email servers we can use in linux and also two type of protocols in that field.</p>
+
+<p>So let’s talk about <strong>postfix</strong> which is mail server that started life at IBM research as an alternative to the widely-used Sendmail program, Sendmailis really vulnerable mail server so this is why it is not in use any more.</p>
+
+<p>The postfix mail server is just a program that allow us to received and send an emails, it is use some configuration file and save all the mails under one folder or in some text file, to install it and install some utilities that can help us checking emails just run the following command:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sudo apt install postfix mailutils
+</code></pre></div></div>
+
+<p>In the process of the postfix installation it will bring to use several menu to setup the server, so at first just stay with the default which mean the general type of mail configuration will be for internet site, which is the type to send and received an emails over the internet.</p>
+
+<p><img src="/assets/images/lpic2/postfixconfig.png" alt="LPIC2 Post" />
+<strong>Figure 130</strong> The postfix configuration menu.</p>
+
+<p>The next menu is the system mail name, I am going to use <code class="highlighter-rouge">zwerd.com</code> just for that example.</p>
+
+<p><img src="/assets/images/lpic2/postfixconfig2.png" alt="LPIC2 Post" />
+<strong>Figure 131</strong> My system name for that mail server.</p>
+
+<p>Then after it finish to do it’s magic we will find several file related to the configuration we done, so inside <code class="highlighter-rouge">/ectc/postfix/</code> folder you can see the the <code class="highlighter-rouge">master.cf</code> that contain the protocols that this server use, also the <code class="highlighter-rouge">mail.cf</code> which is the main configuration, these configuration are related to the smtpd configuration like TLS parametes for security and down you will find more interesting parametes.</p>
+
+<p><img src="/assets/images/lpic2/mailparam.png" alt="LPIC2 Post" />
+<strong>Figure 132</strong> The mail server parameters.</p>
+
+<p>So you can see the <code class="highlighter-rouge">myhostname</code> which is the name of the local machine, this will specefied the email cam <strong>from</strong>, so it I change it and send and email this value will display as “from”</p>
+
+<p>the <code class="highlighter-rouge">alias_map</code> contain the path to aliases for other users which is local redirect.</p>
+
+<p><code class="highlighter-rouge">mydestination</code> is for the destination, this is mean that if email send to zwerd.com or to zwerd-VirtualBox or to localhost then it going to keep it for the local users.</p>
+
+<p><code class="highlighter-rouge">relayhost</code> is empty, so no one can use our serveer as realy server for sending mail and this is way upper you have the smtpd_relay_restrictions to prevent the relay server action.</p>
+
+<p><code class="highlighter-rouge">mynetwork</code> should contain the local network that can use this server, to in my case is local, so no one but myself can use this mail server</p>
+
+<p>If we make some changes on that <code class="highlighter-rouge">mail.cf</code> file we must then restart the service, but there is also program called <code class="highlighter-rouge">postconf</code> that we can use for changing the configuration on the fly without restart the service.</p>
+
+<p>This <code class="highlighter-rouge">postconf</code> will show us all the running configuration and settings for postfix include the default which may not be display on the <code class="highlighter-rouge">main.cf</code> file, so to edit some param for example “mailbox_command=procmail”, we just need to run as follow:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>postconf -e "mailbox_command=procmail"
+</code></pre></div></div>
+
+<p>This will add new line in the <code class="highlighter-rouge">mail.cf</code> file, so after we done with the configuration we can test it by using <code class="highlighter-rouge">mail</code> command.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>mail -s "this is a test mail from my postfix" guy@zwerd.com
+</code></pre></div></div>
+
+<p><img src="/assets/images/lpic2/mailpostfix.png" alt="LPIC2 Post" />
+<strong>Figure 133</strong> Sending mail to my public mail address.</p>
+
+<p>So after I check my mail box I find that mail on the spams, this is because it’s not came from public register domain.</p>
+
+<p><img src="/assets/images/lpic2/spammail.png" alt="LPIC2 Post" />
+<strong>Figure 134</strong> In the spam box.</p>
 
     
 

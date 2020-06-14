@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.5">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2020-06-09T20:37:04+03:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Zwerd</title><subtitle>A stunning blog of freaking PT warrior</subtitle><author><name>Guy Zwerdling</name></author><entry><title type="html">Linux from Novice to Professional Part 2 - Application Level.</title><link href="http://localhost:4000/2020/05/04/lpic2-202.html" rel="alternate" type="text/html" title="Linux from Novice to Professional &lt;br&gt; Part 2 - Application Level." /><published>2020-05-04T00:00:00+03:00</published><updated>2020-05-04T00:00:00+03:00</updated><id>http://localhost:4000/2020/05/04/lpic2-202</id><content type="html" xml:base="http://localhost:4000/2020/05/04/lpic2-202.html">&lt;p&gt;After I finish the learning for my LPIC2 201 objective, The COVID-19 epidemic came to my country and test centers were closed so I couldn’t take the test, at least I got a refund as scheduled for the test date. What is happening right now is that I cannot take the first LPIC2 exam, and because I am very energized to learn to Linux and get to know all the cyber and hacking issues associated with it, I am writing this post. In the current post unlike its predecessor, I am going to write about every components, tools and knowledge, for inform you what you need to know for exam 202, in addition to focusing on the hacking issues that are hiding in the same tools that we are going to note here. This is how this article will be much more interesting and attractive for OSCP studies that I will do later. You can of course send me a message if there is a question or comment.&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.5">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2020-06-11T12:16:30+03:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Zwerd</title><subtitle>A stunning blog of freaking PT warrior</subtitle><author><name>Guy Zwerdling</name></author><entry><title type="html">Linux from Novice to Professional Part 2 - Application Level.</title><link href="http://localhost:4000/2020/05/04/lpic2-202.html" rel="alternate" type="text/html" title="Linux from Novice to Professional &lt;br&gt; Part 2 - Application Level." /><published>2020-05-04T00:00:00+03:00</published><updated>2020-05-04T00:00:00+03:00</updated><id>http://localhost:4000/2020/05/04/lpic2-202</id><content type="html" xml:base="http://localhost:4000/2020/05/04/lpic2-202.html">&lt;p&gt;After I finish the learning for my LPIC2 201 objective, The COVID-19 epidemic came to my country and test centers were closed so I couldn’t take the test, at least I got a refund as scheduled for the test date. What is happening right now is that I cannot take the first LPIC2 exam, and because I am very energized to learn to Linux and get to know all the cyber and hacking issues associated with it, I am writing this post. In the current post unlike its predecessor, I am going to write about every components, tools and knowledge, for inform you what you need to know for exam 202, in addition to focusing on the hacking issues that are hiding in the same tools that we are going to note here. This is how this article will be much more interesting and attractive for OSCP studies that I will do later. You can of course send me a message if there is a question or comment.&lt;/p&gt;
 
 &lt;ul&gt;
   &lt;li&gt;&lt;a href=&quot;#chapter-0&quot;&gt;Chapter 0&lt;/a&gt;&lt;/li&gt;
@@ -1657,7 +1657,7 @@ homeDirectory: /home/ben
 
 &lt;p&gt;So that command give me the following information from the database.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;/assets/images/lpic2/kdapuserquery.png&quot; alt=&quot;LPIC2 Post&quot; /&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/images/lpic2/ldapuserquery.png&quot; alt=&quot;LPIC2 Post&quot; /&gt;
 &lt;strong&gt;Figure 128&lt;/strong&gt; Query only ben user.&lt;/p&gt;
 
 &lt;p&gt;So as you understand so far, for every query you do to that Directory Access server via LDAP you must specified the distinguished name for the information you trying to get because this is how LDAP work.&lt;/p&gt;
@@ -1700,7 +1700,64 @@ homeDirectory: /home/ben
 &lt;p&gt;for example start slapd with the -d option like in the next command:&lt;/p&gt;
 &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;slapd -d 256 -d 128
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-&lt;p&gt;this command will send logs on “stderr” and redirect it to a file as needed.&lt;/p&gt;</content><author><name>Guy Zwerdling</name></author><category term="Linux" /><summary type="html">After I finish the learning for my LPIC2 201 objective, The COVID-19 epidemic came to my country and test centers were closed so I couldn't take the test, at least I got a refund as scheduled for the test date. What is happening right now is that I cannot take the first LPIC2 exam, and because I am very energized to learn to Linux and get to know all the cyber and hacking issues associated with it, I am writing this post. In the current post unlike its predecessor, I am going to write about every components, tools and knowledge, for inform you what you need to know for exam 202, in addition to focusing on the hacking issues that are hiding in the same tools that we are going to note here. This is how this article will be much more interesting and attractive for OSCP studies that I will do later. You can of course send me a message if there is a question or comment.</summary></entry><entry><title type="html">Linux from Novice to Professional Part 1 - System Level.</title><link href="http://localhost:4000/2019/11/19/lpic2_certificate.html" rel="alternate" type="text/html" title="Linux from Novice to Professional &lt;br&gt; Part 1 - System Level." /><published>2019-11-19T00:00:00+02:00</published><updated>2019-11-19T00:00:00+02:00</updated><id>http://localhost:4000/2019/11/19/lpic2_certificate</id><content type="html" xml:base="http://localhost:4000/2019/11/19/lpic2_certificate.html">&lt;p&gt;Today morning I received a message from LPI that my certificate will expire in 9 months and so it is time to start studying for the second Linux certification, this will advance me to the third Linux information security certification that I will search for, this certification is divided into two and the two parts are marked by two different codes: 201-450, 202-450&lt;/p&gt;
+&lt;p&gt;this command will send logs on “stderr” and redirect it to a file as needed.&lt;/p&gt;
+
+&lt;h2 id=&quot;chapter-4&quot;&gt;Chapter 4&lt;/h2&gt;
+&lt;h2 id=&quot;topic-211-e-mail-services&quot;&gt;Topic 211: E-Mail Services.&lt;/h2&gt;
+
+&lt;p&gt;In this chapter we going to look how so setup and use email server, we also look at two type of email servers we can use in linux and also two type of protocols in that field.&lt;/p&gt;
+
+&lt;p&gt;So let’s talk about &lt;strong&gt;postfix&lt;/strong&gt; which is mail server that started life at IBM research as an alternative to the widely-used Sendmail program, Sendmailis really vulnerable mail server so this is why it is not in use any more.&lt;/p&gt;
+
+&lt;p&gt;The postfix mail server is just a program that allow us to received and send an emails, it is use some configuration file and save all the mails under one folder or in some text file, to install it and install some utilities that can help us checking emails just run the following command:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;sudo apt install postfix mailutils
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;In the process of the postfix installation it will bring to use several menu to setup the server, so at first just stay with the default which mean the general type of mail configuration will be for internet site, which is the type to send and received an emails over the internet.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/lpic2/postfixconfig.png&quot; alt=&quot;LPIC2 Post&quot; /&gt;
+&lt;strong&gt;Figure 130&lt;/strong&gt; The postfix configuration menu.&lt;/p&gt;
+
+&lt;p&gt;The next menu is the system mail name, I am going to use &lt;code class=&quot;highlighter-rouge&quot;&gt;zwerd.com&lt;/code&gt; just for that example.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/lpic2/postfixconfig2.png&quot; alt=&quot;LPIC2 Post&quot; /&gt;
+&lt;strong&gt;Figure 131&lt;/strong&gt; My system name for that mail server.&lt;/p&gt;
+
+&lt;p&gt;Then after it finish to do it’s magic we will find several file related to the configuration we done, so inside &lt;code class=&quot;highlighter-rouge&quot;&gt;/ectc/postfix/&lt;/code&gt; folder you can see the the &lt;code class=&quot;highlighter-rouge&quot;&gt;master.cf&lt;/code&gt; that contain the protocols that this server use, also the &lt;code class=&quot;highlighter-rouge&quot;&gt;mail.cf&lt;/code&gt; which is the main configuration, these configuration are related to the smtpd configuration like TLS parametes for security and down you will find more interesting parametes.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/lpic2/mailparam.png&quot; alt=&quot;LPIC2 Post&quot; /&gt;
+&lt;strong&gt;Figure 132&lt;/strong&gt; The mail server parameters.&lt;/p&gt;
+
+&lt;p&gt;So you can see the &lt;code class=&quot;highlighter-rouge&quot;&gt;myhostname&lt;/code&gt; which is the name of the local machine, this will specefied the email cam &lt;strong&gt;from&lt;/strong&gt;, so it I change it and send and email this value will display as “from”&lt;/p&gt;
+
+&lt;p&gt;the &lt;code class=&quot;highlighter-rouge&quot;&gt;alias_map&lt;/code&gt; contain the path to aliases for other users which is local redirect.&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;mydestination&lt;/code&gt; is for the destination, this is mean that if email send to zwerd.com or to zwerd-VirtualBox or to localhost then it going to keep it for the local users.&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;relayhost&lt;/code&gt; is empty, so no one can use our serveer as realy server for sending mail and this is way upper you have the smtpd_relay_restrictions to prevent the relay server action.&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;mynetwork&lt;/code&gt; should contain the local network that can use this server, to in my case is local, so no one but myself can use this mail server&lt;/p&gt;
+
+&lt;p&gt;If we make some changes on that &lt;code class=&quot;highlighter-rouge&quot;&gt;mail.cf&lt;/code&gt; file we must then restart the service, but there is also program called &lt;code class=&quot;highlighter-rouge&quot;&gt;postconf&lt;/code&gt; that we can use for changing the configuration on the fly without restart the service.&lt;/p&gt;
+
+&lt;p&gt;This &lt;code class=&quot;highlighter-rouge&quot;&gt;postconf&lt;/code&gt; will show us all the running configuration and settings for postfix include the default which may not be display on the &lt;code class=&quot;highlighter-rouge&quot;&gt;main.cf&lt;/code&gt; file, so to edit some param for example “mailbox_command=procmail”, we just need to run as follow:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;postconf -e &quot;mailbox_command=procmail&quot;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;This will add new line in the &lt;code class=&quot;highlighter-rouge&quot;&gt;mail.cf&lt;/code&gt; file, so after we done with the configuration we can test it by using &lt;code class=&quot;highlighter-rouge&quot;&gt;mail&lt;/code&gt; command.&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;mail -s &quot;this is a test mail from my postfix&quot; guy@zwerd.com
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/lpic2/mailpostfix.png&quot; alt=&quot;LPIC2 Post&quot; /&gt;
+&lt;strong&gt;Figure 133&lt;/strong&gt; Sending mail to my public mail address.&lt;/p&gt;
+
+&lt;p&gt;So after I check my mail box I find that mail on the spams, this is because it’s not came from public register domain.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/lpic2/spammail.png&quot; alt=&quot;LPIC2 Post&quot; /&gt;
+&lt;strong&gt;Figure 134&lt;/strong&gt; In the spam box.&lt;/p&gt;</content><author><name>Guy Zwerdling</name></author><category term="Linux" /><summary type="html">After I finish the learning for my LPIC2 201 objective, The COVID-19 epidemic came to my country and test centers were closed so I couldn't take the test, at least I got a refund as scheduled for the test date. What is happening right now is that I cannot take the first LPIC2 exam, and because I am very energized to learn to Linux and get to know all the cyber and hacking issues associated with it, I am writing this post. In the current post unlike its predecessor, I am going to write about every components, tools and knowledge, for inform you what you need to know for exam 202, in addition to focusing on the hacking issues that are hiding in the same tools that we are going to note here. This is how this article will be much more interesting and attractive for OSCP studies that I will do later. You can of course send me a message if there is a question or comment.</summary></entry><entry><title type="html">Linux from Novice to Professional Part 1 - System Level.</title><link href="http://localhost:4000/2019/11/19/lpic2_certificate.html" rel="alternate" type="text/html" title="Linux from Novice to Professional &lt;br&gt; Part 1 - System Level." /><published>2019-11-19T00:00:00+02:00</published><updated>2019-11-19T00:00:00+02:00</updated><id>http://localhost:4000/2019/11/19/lpic2_certificate</id><content type="html" xml:base="http://localhost:4000/2019/11/19/lpic2_certificate.html">&lt;p&gt;Today morning I received a message from LPI that my certificate will expire in 9 months and so it is time to start studying for the second Linux certification, this will advance me to the third Linux information security certification that I will search for, this certification is divided into two and the two parts are marked by two different codes: 201-450, 202-450&lt;/p&gt;
 
 &lt;p&gt;In this post I am going to go over each topic as listed on the LPI website, which means I will go over each tool and present it here, in each chapter I will show how to use these tools to get the same information that the subject of the test should deal with, at the end of each chapter I will present a challenge From most of the commands we learned and challenged you and me how to get the information to succeed.&lt;/p&gt;
 

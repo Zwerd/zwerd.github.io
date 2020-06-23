@@ -2121,7 +2121,7 @@ homeDirectory: /home/ben
 
 <p>So you can see the <code class="highlighter-rouge">myhostname</code> which is the name of the local machine, this will specefied the email cam <strong>from</strong>, so it I change it and send and email this value will display as “from”</p>
 
-<p>the <code class="highlighter-rouge">alias_map</code> contain the path to aliases for other users which is local redirect.</p>
+<p>the <code class="highlighter-rouge">alias_map</code> contain the path to aliases for other users which is local redirect, please note that this is hash values and we look about that later.</p>
 
 <p><code class="highlighter-rouge">mydestination</code> is for the destination, this is mean that if email send to zwerd.com or to zwerd-VirtualBox or to localhost then it going to keep it for the local users.</p>
 
@@ -2148,6 +2148,166 @@ homeDirectory: /home/ben
 
 <p><img src="/assets/images/lpic2/spammail.png" alt="LPIC2 Post" />
 <strong>Figure 134</strong> In the spam box.</p>
+
+<p>You can see the diffrent between emails that cam to your local users, let’s look how it done for root user, I sent mail to the root and specified the localhost for it.</p>
+
+<p><img src="/assets/images/lpic2/mailtoroot.png" alt="LPIC2 Post" />
+<strong>Figure 135</strong> In the spam box.</p>
+
+<p>So now let’s send mail to our local users, just run <code class="highlighter-rouge">users</code> to see the active users, so in my case I user the following command to send mail locally.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>mail -s "mail to zwerd user" zwerd@localhost
+</code></pre></div></div>
+
+<p><img src="/assets/images/lpic2/mailtozwerd.png" alt="LPIC2 Post" />
+<strong>Figure 136</strong> Sending may to the local zwerd user.</p>
+
+<p>So now if we run <code class="highlighter-rouge">mail</code> command we will see that the mail is found on the localbox of zwerd user.</p>
+
+<p><img src="/assets/images/lpic2/localmail.png" alt="LPIC2 Post" />
+<strong>Figure 137</strong> The mail in the local box of zwerd.</p>
+
+<p>Now let’s talk about the aliases we saw earlier in the <code class="highlighter-rouge">mail.cf</code> file, we can change the aliases on the <code class="highlighter-rouge">/etc/aliases</code> file which contain the redirection for users.</p>
+
+<p><img src="/assets/images/lpic2/aliases.png" alt="LPIC2 Post" />
+<strong>Figure 138</strong> The postmaster redirect to root.</p>
+
+<p>So in my case every mail we will send to postmaster it will sending to the root, so let’s check it out.</p>
+
+<p><img src="/assets/images/lpic2/mailtopostmaster.png" alt="LPIC2 Post" />
+<strong>Figure 139</strong> Sending mail to post master.</p>
+
+<p>So now if I check it I will find that mail on the root box.</p>
+
+<p><img src="/assets/images/lpic2/maildetails.png" alt="LPIC2 Post" />
+<strong>Figure 140</strong> The mail details.</p>
+
+<p>So you can see that we on the root user and that this mailbox contain the postmaster’s mail, so you can setup aliases for any propose to redirect emails from one mailbox to other mailbox.</p>
+
+<p>Just remember that if you change the <code class="highlighter-rouge">/etc/aliases</code> file you need to run <code class="highlighter-rouge">newaliases</code> command for hash it again.</p>
+
+<p>If we have some issue with that postfix, we can view the <code class="highlighter-rouge">/var/log/mail.log</code> file which contain logs that related to the mail server,</p>
+
+<p><img src="/assets/images/lpic2/maillog.png" alt="LPIC2 Post" />
+<strong>Figure 141</strong> The logs of our server.</p>
+
+<p>You can see for example that we sent mail to postmaster and it redirect to root user, also you can see in the end the “removed” word, which is mean that this mail was remove from the queue.</p>
+
+<p>for seeing what going on the queue we can use <code class="highlighter-rouge">sendmail</code> command, this command is sort of compatibility interface to the postfix.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sendmail -bp
+</code></pre></div></div>
+
+<p>So if I disconnect the local machine from the internet and try to send mail out it will list in the queue until it will be able to send the mail out.</p>
+
+<p><img src="/assets/images/lpic2/mailqueue.png" alt="LPIC2 Post" />
+<strong>Figure 142</strong> The queued mail.</p>
+
+<p>So now we can see the mail in the queue, you can also see that list in the log file.</p>
+
+<p><img src="/assets/images/lpic2/maillog2.png" alt="LPIC2 Post" />
+<strong>Figure 143</strong> The error on the log file.</p>
+
+<p>The queue messages are store in the <code class="highlighter-rouge">/var/spool/postfix/</code>,  you can find many folder in that directory but this is where the queue messages are store and they remove from that when the mail are send out.</p>
+
+<p>So far we saw how the postfix work, it install to the mail server and have the abilities to send and received emails, but there is no exception to the ordering stuff, if we want to have mail order is some way we can use <strong>procmail</strong> that can order the mails for us, please remember that the postfix service must be active, for the procmail there is no service so changing files that related to it are update by fly.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sudo apt install procmail
+</code></pre></div></div>
+
+<p>For procmail we have the <code class="highlighter-rouge">/etc/procmailrc</code> which is not found by default, we have to create it, this file should contain several command as follow:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>MAILDIR=$HOME/mail
+DEFAULT=$HOME/mail/inbox
+</code></pre></div></div>
+
+<p>The maildir is just the mail directory we what to store our mail in it.</p>
+
+<p>For the default you should know that there is two format to save an mail, <strong>mbox</strong> format which is just one file that going to contain the mails that are coming, also in the <code class="highlighter-rouge">procmailrc</code> file we need to specified the default as follow:</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>DEFAULT=$HOME/mail/inbox
+</code></pre></div></div>
+
+<p>The <strong>maildir</strong> format is the way we can save mail in the <code class="highlighter-rouge">inbox</code> folder, all we just need to do is to add forward slesh at the end of the line.</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>DEFAULT=$HOME/mail/inbox/
+</code></pre></div></div>
+
+<p>So if we going to use mbox, we can use the following message to see the mail more clearly.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>mail -f /home/zwerd/mail/inbox
+</code></pre></div></div>
+
+<p>This command will show us the sender name, subject and the time the mail was arrived, please remember that the line <code class="highlighter-rouge">mailbox_command=procmail</code> must be specified in the <code class="highlighter-rouge">main.cf</code> file for the mbox or maildir will work.</p>
+
+<p><img src="/assets/images/lpic2/mbox.png" alt="LPIC2 Post" />
+<strong>Figure 144</strong> My mbox file is the <code class="highlighter-rouge">inbox</code> file under mail folder.</p>
+
+<p>So you can see that this is just a text file that contain the mails that was saved, so let’s now change it to use maildir instead of mbox.</p>
+
+<p><img src="/assets/images/lpic2/maildir.png" alt="LPIC2 Post" />
+<strong>Figure 145</strong> The maildir in use.</p>
+
+<p>You can see that under inbox directory I have three new folder:</p>
+<ol>
+  <li>cur</li>
+  <li>new</li>
+  <li>tmp</li>
+</ol>
+
+<p>So the new mail was found under new folder, if you try to use <code class="highlighter-rouge">mail</code> command for see new mail it will not work for you because the mails are save in the new folder.</p>
+
+<p>Now let’s say That we want to send mail with specific match to be save on specific folder, for that we need to setup the <code class="highlighter-rouge">.procmailrc</code> file.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>:0:
+* ^Subject:.zwerd
+zwerdbox
+</code></pre></div></div>
+
+<p>The line number 2 is for the match, the asterisk tell it that every mail that are coming will match the follow which is the Subject and here we have the regular expression which is mean that every subject that contain the zwerd in the end will be save at the folder that I specified at line number 3 which is the zwerdbox.</p>
+
+<p><img src="/assets/images/lpic2/zwerdbox.png" alt="LPIC2 Post" />
+<strong>Figure 146</strong> The zwerdbox folder.</p>
+
+<p>You can see the zwerdbox folder that was created after I send a mail which contain subject of zwerd.</p>
+
+<p>If we talking about relay mail, this is the way to relay on some server, let’s say that the online service that we want to use is live.com which is the same Outlock service of microsoft, we have two ways to connect that service and view the emails locally.</p>
+
+<p><strong>pop3</strong> - in that way we connecting to the outlook service and download the all the mailbox to out machine, in that way we can view email from our local machine although we won’t have setup online service just relay on another.</p>
+
+<p><strong>imap</strong> - this protocol is allow us only to see the emails from the online service, this is mean that the emails stay on the server and we just read the emails remotly, this way is good in case we have several machine that we want them to be able to allow us to read email from the mail server that we relay on.</p>
+
+<p>There is two type of pkg that we used in Linux, the courier and the douecot, these two allow us to use pop3 or imap, the different is that on courier there is two services one for pop3 and one for imap, in douecot we have only one service which is very convenient.</p>
+
+<p>So for install courier we need to run the following:</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sudo apt install courier-pop courier-imap
+</code></pre></div></div>
+
+<p>The courier will be install, there is a GUI interface for installing and configure it but let’s look on the configuration file.</p>
+
+<p>So you can find file the the <code class="highlighter-rouge">/etc/courier/</code>, in that folder you will find two file, imapd and pop3d, Please remember that we on the server that we setup for client can relay with, so they can use pop3 or imap for there email box on our server.</p>
+
+<p>The file imapd contain the ADDRESS that our server going to listen for request so client can connect through to our server while using imap, also you can find in that file the PORT specification that allow new connection to be accepted, the default port number is 143, what we need to change in that file is the maildir path which is the user mail directory.</p>
+
+<p>The same thing is with the pop3d, we need to change the maildir for the user home directory. after you setup these two you need to restart courier-pop and courier-imap.</p>
+
+<p>So in my case the maildir for these two will be the <code class="highlighter-rouge">~/mail/inbox</code> which contain what we setup so far.</p>
+
+<p><img src="/assets/images/lpic2/maildirpath.png" alt="LPIC2 Post" />
+<strong>Figure 147</strong> The mail directory path for my user.</p>
+
+<p>So I restart the services.</p>
+
+<p><img src="/assets/images/lpic2/pop3imap.png" alt="LPIC2 Post" />
+<strong>Figure 148</strong> Restart the two services.</p>
+
+<p>Then all we need is to use mail GUI service that will connect to our server with imap or pop3, You can use thunderbird on your Ubuntu so set it up as follow.</p>
+
+<p><img src="/assets/images/lpic2/emailaccount.png" alt="LPIC2 Post" />
+<strong>Figure 149</strong> Setup the email account.</p>
+
+<p>Then you need to setup the hostname of your server which in my case is “zwerd-virtualbox” and choose the incoming service as follow:</p>
+
+<p><img src="/assets/images/lpic2/setimap.png" alt="LPIC2 Post" />
+<strong>Figure 150</strong> IMAP as incoming service.</p>
 
     
 

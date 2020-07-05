@@ -626,7 +626,7 @@ If we want the module back in, we need to use `insmod`, but for insert back from
 
 We now can use this path to insert that module back in. You can see that now I can find that floppy module in the active module list of `lsmod`
 
-![LPIC2 Post](/assets/images/lpic2/grepfloppy.png)
+![LPIC2 Post](/assets/images/lpic2/insmod.png)
 **Figure 55** Inserting the floppy.
 
 There is another way to remove module from the active list by using `modprobe`, in this command we can remove module and insert it back without specified the full path.

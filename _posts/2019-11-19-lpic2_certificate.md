@@ -981,11 +981,11 @@ Now this is time to reboot the system to see if it can boot up normally. In my c
 ![LPIC2 Post](/assets/images/lpic2/restartcentos.gif)
 **Figure 81-3** My system stack.
 
-So let's say that your frind can boot up the system and he knows that you are an expert in everything that related to Linux so he ask for help, in that case we can see the line that said:
+So let's say that your friend can't boot up the system and he knows that you are an expert in everything that related to Linux so he ask for help, in that case we can see the line that said:
 ```
 kernel panic ... can't mount root fs ...
 ```
-In that case we know that the kernel tried to load up the root filesystem and he tried to do so with the initrd, so it we get that error it may because he cannot find the initrd file.
+In that case we know that the kernel tried to load up the root filesystem and he tried to do so with the initrd, so if we get such an error it because he cannot find the initrd file.
 
 To solve that I boot up the system by using external device like bootable usb or optical disk and bring the system up for making change in the boot folder for that system.
 
@@ -1029,7 +1029,7 @@ So I use `vim` to edit the GRUB file and I add the initrd line which contain the
 initrd /boot/initrd-2.6.32-754.el6.x86_64.img
 ```
 
-After that I reboot the system to check if it working write.
+After that I reboot the system to check if it working right.
 
 ![LPIC2 Post](/assets/images/lpic2/bootit.gif)
 **Figure 81-10** Boot the CentOS.
@@ -1416,7 +1416,7 @@ Please note that in my case I donwload the version `5.1.38-122592` which is my V
 ![LPIC2 Post](/assets/images/lpic2/USBdrive.png)
 **Figure 106-6** Adding USB drive to the vm.
 
-Now there is more part we need to do, in normal computer we can chose over the BIOS which drive we what to be first booting up, in the vmbox we can choose to load the USB, but we can choose to using virtual optical disk, so we going to use **plop.iso** that this menu can help us to choose what device we what to load up, you can download if from that [link](https://www.plop.at/en/bootmanager/download.html), just download the zip file and you will find there the iso file you need.
+Now there is more part we need to do, in normal computer we can choose over the BIOS which drive we want to be first booting up, so we can choose to load the USB, but in vbox we can't choose USB as the first device to boot up, all we can do is to using floppy or hard drive or virtual optical disk or network boot device, so for that case we going to use **plop.iso** as virtual optical disk, this menu can help us to choose what device we want to load up, you can download if from that [link](https://www.plop.at/en/bootmanager/download.html), just download the zip file and you will find there the iso file you need.
 
 Now change the boot order on the vbox system menu for that the optical disk be the first boot before the hard disk.
 
@@ -1434,7 +1434,7 @@ If you done all right, after you choose and press on USB it load the syslinux me
 ![LPIC2 Post](/assets/images/lpic2/syslinuxmenu.png)
 **Figure 106-9** The SYSLINUX menu.
 
-You can see that I have the option to choose the Ubuntu or CentOS operation system, just remember that the other boot loaders are pritty much the same, you need to format drive, prepare it, copy the relevent file to is, setup the menu for that boot loader and you ready to go.
+You can see that I have the option to choose the Ubuntu or CentOS operation system, just remember that the other boot loaders are pritty much the same, you need to format drive, prepare it, copy the relevent file, setup the menu for that boot loader and you ready to go.
 
 If we talk about the PXE boot loader, have the option to boot from the network with the PXELINUX. This PXE work with protocols such as UDP/IP, DHCP and TFTP, on the server side we prepare the machine with the image file of our chosen distribution we want to install, setup the PXE and another files that related to the remote boot operation, on the client side we setup it to boot from the server and we specify that in the BIOS. [more information](https://www.tecmint.com/install-pxe-network-boot-server-in-centos-7/)
 
@@ -1446,7 +1446,7 @@ If we talk about the PXE boot loader, have the option to boot from the network w
 
 ### 1. Upload OS with GRUB legacy.
 
-I am going to use my virtual machine that I show you before, please remember that I have two OS on that machine, the first is Ubuntu 9 with contain the GRUB legacy and the second is Windows XP.
+I am going to use my virtual machine that I show you before, please remember that I have two OS on that machine, the first is Ubuntu 9 with GRUB legacy and the second is Windows XP.
 
 Right now that machine working fine and it load the GRUB and give me the option to choose what operation system I want to load up, so I load my Ubuntu and opened the terminal right after it load succesfully.
 
@@ -1503,7 +1503,7 @@ You can see that I comment out the **GRUB_DEFAULT** and **GRUB_TIMEOUT_STYLE**, 
 ![LPIC2 Post](/assets/images/lpic2/grub2.png)
 **Figure 113** GRUB2 file.
 
-Now all I need to do is run update-GRUB, and I may need to run it with sudo, now if I reboot the system it will bring me the GRUB menu.
+Now all I need to do is run update-GRUB, and I run it with sudo, now if I reboot the system it will bring me the GRUB menu.
 
 ![LPIC2 Post](/assets/images/lpic2/grub2menu.png)
 **Figure 113** GRUB2 menu.
@@ -1523,7 +1523,7 @@ To solve it we need to get in the kernel line in the GRUB and change it. I found
 ![LPIC2 Post](/assets/images/lpic2/grub2runlevel.png)
 **Figure 116** add runlevel5 in GRUB2.
 
-Now all I have to do is to type `systemctl set-default runlevel5.target` and that it, if I try to reboot the system it will reboot without any problem like we had before.
+Now all I have to do is to type `systemctl set-default runlevel5.target` and that's it, if I try to reboot the system it will reboot without any problem like we had before.
 
 ![LPIC2 Post](/assets/images/lpic2/systemctl-runlevel5.png)
 **Figure 117** Changing to runlevel5 using systemctl.
@@ -1536,16 +1536,16 @@ Please note that I am using Ubuntu which more like Debian, if you use centOS you
 ## Chapter 3
 ## Topic 203: Filesystem and Devices
 
-When the Linux system is boot up, there is several thing that going on in the background, one of them is what we called **mount**, every device or storage we have connected to our PC will be mounted, in that way we will be able to use this device and view it's content. In case we connect some USB device or other storage to our PC and we didn't see the device, this may be because our don't know how to mount or how to read the device, so we need to know how to look on it and how to solve such an issues.
+When the Linux system is boot up, there is several thing that going on in the background, one of them is what we called **mount**, every device or storage we have connected to our PC will be mounted, in that way we will be able to use this device and view it's content. In case we connect some USB device or other storage to our PC and we didn't see the device, this may be because our Linux don't know how to mount or how to read the device, so we need to know how to look on it and how to solve such an issues.
 
 Every device we have on our PC and the system can see it, will be likely to list in the **fstab** file, this file can be found on */etc/fstab*, in that file we will see every device that going to be mount.
 
 ![LPIC2 Post](/assets/images/lpic2/fstabfile.png)
 **Figure 118** fstab file.
 
-In that file we can find several things, first is the device drive, in my case the following drive */dev/mapper/vg_centos-lv_root* is mount on the root folder, the root folder as you should know is **/**, the type of that device filesystem is **ext4**. You should know that there is several type of filesystem, as example of ext2, ext3 and ext4, the different between those three is historically, basically on the ext2 filesystem there is no support of **journaling**, journaling is process that can help us to avoid errors in case there is a power outage, let's say we start to saved some document we write and the power goes off, if the saveing dosn't finish this is data that lost, the same is on our case, we write data to the disk and if the power goes off we may have some issue to read the data from that disk or alternatively we may be unavailable to read any data from the disk, there is several way to solved that issue (we will look on that as we foreword) but in the ext3 there is a **jounaling** that can solve that issue before it appear, the ext3 filesystem write some journal which is **metadata** that tracking down every access that done on the disk and in that way if the power outage was occur, he know exactly were it done and can repair that alone or by using fsck tool.
+In that file we can find several things, first is the device drive, in my case the following drive */dev/mapper/vg_centos-lv_root* is mount on the root folder, the root folder as you should know is **/**, the type of that device filesystem is **ext4**. You should know that there is several type of filesystem, as example of ext2, ext3 and ext4, the different between those three is historically, basically on the ext2 filesystem there is no support of **journaling**, journaling is process that can help us to avoid errors in case there is a power outage, let's say we start to saved some document we write and the power goes off, if the saveing dosn't finish that data will be lost, the same is on our case, we write data to the disk and if the power goes off we may have some issue to read the data from that disk or alternatively we may be unavailable to read any data from the disk, there is several way to solved that issue (we will look on that as we foreword) but in the ext3 there is a **jounaling** that can solve that issue before it appear, the ext3 filesystem write some journal which is **metadata** that tracking down every access that done on the disk and in that way if the power outage was occur, he know exactly were it done and can repair that alone or by using fsck tool.
 
-The ext4 filesystem is more advance then ext3, is support in really large file and there is more feature that we have on ext4, what we need to know is that we have more than one filesystem type, so in the figure 118 you can see that my root drive will use ext4 filesystem, the fourth entry can be use to allow the system run that drive on some group or some mode, in my case it is defaults which is mean according the man page of mount that it support of the rw, suid, dev, exec, auto, nouser, and async options.
+The ext4 filesystem is more advance then ext3, is support in really large file and there is more feature that we have on ext4, what we need to know is that we have more than one filesystem type, so in the figure 118 you can see that my root drive will use ext4 filesystem, the fourth entry can be use to allow the system run that drive on some group or some mode, in my case it is defaults which is mean according to mount man page that it's support of the rw, suid, dev, exec, auto, nouser, and async options.
 
 The fifth value mostly be zero, but I don't really know why in my case it's one, this stand for dump which mean to dump all the file on mounting process, but as much as I know this no used any more, the sixth entry
 is the mount max count, this is mean that if we unmount and mount again the disk up to the max value, on the next boot it will be check with the fsck for errors.
@@ -1573,7 +1573,7 @@ You need to knew that the same data that we can see with the mount command can b
 
 The first element on the line is the mounted device, the second element is the mount point, the third element is the file system type, the fourth element lists mount flags (credit [Fibrevillage](http://fibrevillage.com/sysadmin/278-understanding-the-difference-between-etc-mtab-and-proc-mounts-on-linux))and the two last flag are as I specified with the details about the **fstab** file.
 
-You can also see on the **fstab** that I have some UUID that point on the */boot* folder, the UUID stand for **Universally Unique IDentifier** and will be consist of numbers and letters arbitrarily. If we want to add to fstab file some device and let's say we want to add it be specify the UUID, so we can find that information be using the **blkid** command.
+You can also see on the **fstab** that I have some UUID that point on the */boot* folder, the UUID stand for **Universally Unique IDentifier** and will be consist of numbers and letters arbitrarily. If we want to add to fstab file some device and let's say we want to add it be specify the UUID, so we can find that information by using the **blkid** command.
 
 ![LPIC2 Post](/assets/images/lpic2/blkid.png)
 **Figure 121** The blkid command.
@@ -1585,7 +1585,7 @@ see that device but didn't mount it, we can use the **mount** command for mount 
 mount /dev/sdb1 /mnt/5M
 ```
 
-In that case I specified the device location and the mount point which is */mnt/5M*, of course, if you connect your USB you need to know what is the device location, in my case it's sdb and I created the sdb1 partition with **fdisk**, you may know that fdisk tool is lean in LPIC1 this is why I don't elaborate about that tool.
+In that case I specified the device location and the mount point which is */mnt/5M*, of course, if you connect your USB you need to know what is the device location, if you don't know you can use `dmesg` to see the last device you plug in, in my case it's sdb and I created the sdb1 partition with **fdisk**, you may know that fdisk tool is learned in LPIC1 this is why I don't elaborate about that tool.
 
 By default, the Linux kernel writes data to disk asynchronously, this is mean that every data that we write is buffered (cached) in memory, in the optimal time your Linux will write the data to the disk, by optimal I mean when he have free memory that he can use then it will write the data down to the disk, if we want to synchronize that data immediately we can use **sync** command that will force synchronization to the disk.
 

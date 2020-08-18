@@ -138,10 +138,14 @@ We also can check if the service is using port 22 as ssh do by using netstat. In
 ![OSCP Post](/assets/images/oscp/sshcheck.png)
 **Figure 12** SSH Service.
 
+I most of the time user `netstat -tuna` command which show on cleare way the network connections, or `netstat -panel` command which display also the process that run each connections.
+
 In many cases you, like many, will wanna to setup ssh for run at start time of your machine, to do so you will need to use **update-rc.d** which is script that allow you to enable services to run on start time. you also can check what service enable on update-rc by view rc<number>.d folder.
 
 ![OSCP Post](/assets/images/oscp/sshonrc.png)
-**Figure 13** SSH Service.
+**Figure 13** The services that killed at boot time.
+
+In that folder we can find several services, the principle work as follow, every service can have **K** or **S** at the start for the file word which mean **KILL** or **START** respectively. Also there is the ordering by number the lower one will take action first. As example you can see the **K01nginx** which is the local proxy service and is going to be kiiled after the **K01appache2** will killed down. If we want some service be running at boot we just need to change it fro **K** to **S**.
 
 ## HTTP
 
@@ -171,7 +175,7 @@ Most of the elements on which many sites are based in the Internet space are: HT
 
 Since I'm only at the beginning, we won't go into the depth of things, much of what you need to know right now if you don't know HTML is its structure. The HTML is made up of tags just like XML files, we can find inside <html> </html> when the first one opens the document and the last one closes it, all the difference is the small slash **/**. Information that should be hidden from the user's eyes such as a CSS style or a JS file that should be loaded while the page is running will all be written between the <head> </head> tags. Information that the user should see will appear mainly in the <body> </body> document.
 
-There are many other types of tags, such as <img> that we use to insert an image into the HTML page, or the `<a href="/some/url/path"> text <a>` used to create a link that, if clicked, will take us to the url we placed in href, there is the `<p> </p>` used by us to create a paragraph and many other types that can be used by us.
+There are many other types of tags, such as `<img>` that we use to insert an image into the HTML page, or the `<a href="/some/url/path"> text <a>` used to create a link that, if clicked, will take us to the url we placed in href, there is the `<p> </p>` used by us to create a paragraph and many other types that can be used by us.
 
 It is important to know that for each tag we want the CSS to handle we will use the example class
 ```

@@ -200,7 +200,7 @@ Before we move on, I recommend reading some of these topics a bit or seeing a vi
 1. You need to bring up some webpage on your local PC using apache2.
 2. The web page need to use other port that 80.
 3. The web page need to be simple and contain some link for ssh terminal.
-4. By click the link it will open terminal to our PC.
+4. By click the link it will open terminal to your PC.
 
 You can do the exercise alone and after that comeback to continue reading and see how I did it, or you can read all it through and do as I done. I encourage you to do this exercise alone, in this way you sharpen your ability to become familiar with the technological space at your disposal to do things that will help you with an penetration test.
 
@@ -351,7 +351,7 @@ After I finish all, it's the time to check if we can use the SSH link to bring u
 
 **Summary:** Knowing how to operate a computer is very important in the Offensive world, it is important to know many tech areas, like how Linux and Windows operate, how network protocols work, how to build a website, how to link direct from one app to another, and find a way to help us achieve what we want. Most importantly, if there is something that we do not know how to accomplish it, we have tools to find it, such as searching Google, reading articles or guides on the same topic and connecting all the things we need together, this is the logic of the Offensive world in my opinion, should be a little sophisticated, we will see this logic later, it requires us to be smart and think a few steps ahead to succeed in the penetration testing mission.
 
-![sql-injection-044.png](/assets/images/sql-injection-044.png)
+![sql-injection-044.png](/assets/assets/images/sql-injection-044.png)
 **Figure 44** GAME OVER.
 
 

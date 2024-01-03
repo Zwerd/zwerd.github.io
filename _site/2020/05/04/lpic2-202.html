@@ -346,7 +346,7 @@
 </nav>
 
   <p>
-  &copy; 2020.
+  &copy; 2024.
   <a href="/LICENSE.md">Zwerd Web Deisgn</a>
 </p>
 
@@ -485,7 +485,7 @@
 <p><img src="/assets/images/lpic2/diglocalhost.png" alt="LPIC2 Post" />
 <strong>Figure 7</strong> Using dig on localmachine to get google information.</p>
 
-<p>You can see that the query time was 936 ms and we also see that the cache time is ca seconds so in that case it caching up that query for 120 days, this is mean that if other machine on that network will query our server for google it will get the cache information that has beeing cache. If we will run <code class="highlighter-rouge">dig</code> again it will show us that the query time was very short because it cached.</p>
+<p>You can see that the query time was 936 ms and we also see that the cache time is 172800 seconds so in that case it caching up that query for 120 days, this is mean that if other machine on that network will query our server for google it will get the cache information that has beeing cache. If we will run <code class="highlighter-rouge">dig</code> again it will show us that the query time was very short because it cached.</p>
 
 <p><img src="/assets/images/lpic2/querytime.png" alt="LPIC2 Post" />
 <strong>Figure 8</strong> The query time.</p>
@@ -506,9 +506,9 @@ zone "1.168.192.in-addr.arpa" {
 };
 </code></pre></div></div>
 
-<p>The zone name for my case is zwerd, the type master mean to lookup for local database, this is mean the name for that domain can be found locally. The file say were the zone file will be located, please note that the file can be called what you like but I preffer to use the name conventions for that file.</p>
+<p>The zone name for my case is zwerd, the type master mean to lookup for local database, this is mean the name for that domain can be found locally. The file say were the zone file will be located, please note that the file can be called what you like but I prefer to use the name conventions for that file.</p>
 
-<p>the second list is for reves domain backup so I specefied the subnet for that domain in revers way, so this is 1.168.192.</p>
+<p>the second list is for reverse domain backup so I specified the subnet for that domain in reverse way, so this is 1.168.192.</p>
 
 <p>So now I need to create those two files, so I will run the following</p>
 <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sudo cp db.local db.zwerd
@@ -522,12 +522,12 @@ sudo cp db.127 db.1.168.192
 
 <p>On that file you can see the SOA which is sort for  Start of Authority record, this will contain the domain name and more information like the retry time and expire type, the serial number is used to make change, in our case the serial is 2 right now, after we done to change the file we must to increase that number for the changes take a place.</p>
 
-<p>We also can see the NS, A and AAAA records, the AAAA records used for IPv6 so we can ride of that, the A record contain the IP address for that domain host, so after we done to change that file it can by something like as follow:</p>
+<p>We also can see the NS, A and AAAA records, the AAAA records used for IPv6 so we can ride of that, the A record contain the IP address for that domain host, so after we done to change that file it can be something like as follow:</p>
 
 <p><img src="/assets/images/lpic2/zwerdfile.png" alt="LPIC2 Post" />
 <strong>Figure 10</strong> The db.zwerd file after changes.</p>
 
-<p><strong>Please remember</strong>: in this file we can specefied <code class="highlighter-rouge">www</code> as A record to the server wewant, in case the client try to dig www.zwerd. iformation it will get this <code class="highlighter-rouge">www</code> IP address, and this is how it work over the Internet.</p>
+<p><strong>Please remember</strong>: in this file we can specefied <code class="highlighter-rouge">www</code> as A record to the server we want, in case the client try to dig www.zwerd. iformation it will get this <code class="highlighter-rouge">www</code> IP address, and this is how it work over the Internet.</p>
 
 <p>You can see that I increase the serial number, I also change the SOA to contain the domain name, you can see the dot at the end which is must be specefied, if you dont understand that please watch the following.</p>
 
@@ -544,19 +544,21 @@ sudo cp db.127 db.1.168.192
 
 <p><strong>named-checkzone</strong> checks the syntax and integrity of a zone file. It performs the same checks as named does when loading a zone. This makes named-checkzone useful for checking zone files before configuring them into a name server.</p>
 
+<p>We can also use the <strong>named-checkconf</strong> for checking the configuration file at once, for example by running <code class="highlighter-rouge">named-checkconf -p</code>, it will print on the screen all of the configuration file you have in bind, also the command <code class="highlighter-rouge">named-checkconf -z</code> to perform a test load of all master zones found in named.conf.</p>
+
 <p>Now I need to create the revers file for that domain, so I need to change the db.1.168.192 file.</p>
 
 <p><img src="/assets/images/lpic2/reversefile.png" alt="LPIC2 Post" />
 <strong>Figure 11</strong> The db.1.168.192 file after changes.</p>
 
-<p>You can see that I also specified here the ns server which is local, so I used the <code class="highlighter-rouge">@</code> for it, also the host1 which is 10 on my case.</p>
+<p>You can see that I also specified here the ns server which is local, so I used the <code class="highlighter-rouge">@</code> for it, also the host10 which is 10 on my case.</p>
 
-<p>Now we need to reload the <strong>rndc</strong> which going to reload the BING configuration file which is recommended to do instead to restart the Bbing9 service, because in that way we will lose the cache we have no the server, so rndc is what we need.</p>
+<p>Now we need to reload the <strong>rndc</strong> which going to reload the BING configuration file which is recommended to do instead to restart the Bbing9 service, because in that way we will lose the cache we have on the server, so rndc is what we need.</p>
 
 <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sudo rndc reload
 </code></pre></div></div>
 
-<p>Now, if I run the <code class="highlighter-rouge">dig</code> against that zwerd domain it should work and show us that the zwerd address is 192.168.1.1</p>
+<p>Now, if I run the <code class="highlighter-rouge">dig</code> against that zwerd domain it should work and show us that the zwerd address is 192.168.1.1, just note to run dig with <code class="highlighter-rouge">@localhost</code> to query from local machine.</p>
 
 <p><img src="/assets/images/lpic2/digzwerd.png" alt="LPIC2 Post" />
 <strong>Figure 12</strong> Lookup for zwerd domain from local cache.</p>
@@ -571,7 +573,7 @@ sudo cp db.127 db.1.168.192
 <p><img src="/assets/images/lpic2/dighost10.png" alt="LPIC2 Post" />
 <strong>Figure 13</strong> Lookup for host10.</p>
 
-<p>You can see that the address is 192.168.1.10 which is the record for host10 on our local cache. We can run revers lookup to see if we setup that corectly, we just need to use the <code class="highlighter-rouge">-x</code> option for tell dig that it reverse query.</p>
+<p>You can see that the address is 192.168.1.10 which is the record for host10 on our local cache. We can run reverse lookup to see if we setup that corectly, we just need to use the <code class="highlighter-rouge">-x</code> option for tell dig that it reverse query.</p>
 
 <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>dig @localhost -x 192.168.1.10
 </code></pre></div></div>
@@ -579,23 +581,23 @@ sudo cp db.127 db.1.168.192
 <p><img src="/assets/images/lpic2/digreverse.png" alt="LPIC2 Post" />
 <strong>Figure 14</strong> Lookup for 192.168.1.10.</p>
 
-<p>You can see that this is PTR which mean pointer for host10. I also run it on nslookup and change the server to be localhost, you can see that it give me the revers address for it which is host10</p>
+<p>You can see that this is PTR which mean pointer for host10. I also run it on nslookup and change the server to be localhost, you can see that it give me the reverse address for it which is host10</p>
 
 <p><img src="/assets/images/lpic2/nslookuphost10.png" alt="LPIC2 Post" />
 <strong>Figure 15</strong> using nslookup for 192.168.1.10.</p>
 
-<p>Let’s talk about redundancy, if we have DNS server on out organization and that server failed we can setup another server to take a place in that case, on the bind we setup that as <strong>master</strong> and <strong>slave</strong> servers, on the master we specefied the slave address for transfer the records for it, on the slave we need to set it to cache the record localy, so if the master failed the clients on out organization can send query to our slave.</p>
+<p>Let’s talk about redundancy, if we have DNS server on our organization and that server failed we can setup another server to take a place in that case, on the bind we setup that as <strong>master</strong> and <strong>slave</strong> servers, on the master we specified the slave address for transfer the records for it, on the slave we need to set it to cache the record locally, so if the master failed the clients on our organization can send query to our slave.</p>
 
 <p>On the master server which is my Ubuntu we need to add more line on the named.conf.local and inside that we insert the follow under the zone “zwerd”:</p>
 
 <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>allow-transfer { 192.168.43.145; };
 </code></pre></div></div>
 
-<p>So in my case the slave server address is 192.168.1.200 and this line will make our master to transfer that zwerd zone to the slave (if you want you can set this like as <code class="highlighter-rouge">any</code> for anyone can pull the master information).</p>
+<p>So in my case the slave server address is 192.168.43.145 and this line will make our master to transfer that zwerd zone to the slave (if you want you can set this like as <code class="highlighter-rouge">any</code> for anyone can pull the master information), please remember that in my case the master address is 10.0.2.15.</p>
 
-<p>Another change I made is in the <code class="highlighter-rouge">db.zwerd</code> file, I add up the new ns server which going to be 192.168.43.145 and named it as <code class="highlighter-rouge">ns2.zwerd.</code>, also bot the local name server I change it from ns to <code class="highlighter-rouge">ns1.zwerd.</code>.</p>
+<p>Another change I made is in the <code class="highlighter-rouge">db.zwerd</code> file, I add up the new ns server which going to be 192.168.43.145 and named it as <code class="highlighter-rouge">ns2.zwerd.</code>, also on the local name server I change it from ns to <code class="highlighter-rouge">ns1.zwerd.</code>.</p>
 
-<p>Also I add new line for NS record and called it <code class="highlighter-rouge">ns2.zwerd.</code>, please remember that every change you made on this file, you must to update the serial number, after you done run the <code class="highlighter-rouge">rndc reload</code>.</p>
+<p>Also I add new line for NS record and called it <code class="highlighter-rouge">ns2.zwerd.</code>, please remember that every change you made on this file, you must to update the serial number, after you done, just run the <code class="highlighter-rouge">rndc reload</code>.</p>
 
 <p>Before you start to setup the slave it can be a good idea to check that you have communication allow trough the local firewall via port 53 which is used for DNS transformation.</p>
 
@@ -604,10 +606,12 @@ sudo cp db.127 db.1.168.192
 <p><img src="/assets/images/lpic2/newlines.png" alt="LPIC2 Post" />
 <strong>Figure 16</strong> Options file.</p>
 
+<p>This setting will allow our machine to listen port 53 for the query he will get, and allow any source to be answered with a query. If you didn’t set these the client query may never answered.</p>
+
 <p>On the <code class="highlighter-rouge">named.conf.local</code> file I setup the following:</p>
 <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>zone "zwerd" {
 	type slave;
-	masters { 192.168.43.145; };
+	masters { 10.0.2.15; };
 	file "db.zwerd";
 };
 </code></pre></div></div>
@@ -616,6 +620,10 @@ sudo cp db.127 db.1.168.192
 
 <p><img src="/assets/images/lpic2/bind9service.png" alt="LPIC2 Post" />
 <strong>Figure 17</strong> Checking the service status.</p>
+
+<p><strong>Please note</strong>: if you setup that on CentOS, you need make a changes on <code class="highlighter-rouge">/etc/named.conf</code>, also check that you not miss any default configuration like <code class="highlighter-rouge">listen-on port 53</code>. After you done, you must run the following command <code class="highlighter-rouge">setsebool -P named_write_master_zones true</code>, this command will create the following file <code class="highlighter-rouge">/etc/sysconfig/named</code> and enable out local machine to write zone database on our local machine, without that if you try to run <code class="highlighter-rouge">dig</code> or <code class="highlighter-rouge">nslookup</code>, you will never get the answer you expect.</p>
+
+<p><strong>Please note</strong>: for checking that it working correctly on CentOS we can find logs about the named service on the <code class="highlighter-rouge">/var/named/data/named.run</code> file.</p>
 
 <p>You can see that I get new 8 records, so now I can just run new query to check if it working for me.</p>
 
@@ -626,7 +634,7 @@ sudo cp db.127 db.1.168.192
 
 <p>This was save on my cache, this is mean that if I stop the bind on the master I still be able to to get the information with my query because the data is cache locally.</p>
 
-<p><strong>Please remember</strong>: on CentOS for install bind we need to run <code class="highlighter-rouge">yum install bind</code> and not bind9, also the configuration file is <code class="highlighter-rouge">/etc/named.conf</code> which contain all of the setup (not like ubuntu that all are sperated files, option, localconfig etc). We can find the <code class="highlighter-rouge">/var/named/</code> folder that contain more information regarding the bind process, like dump file, statistics-file, ans o on. Also remember that the service on CentOS called <strong>named</strong> instead of bind or bind9.</p>
+<p><strong>Please remember</strong>: on CentOS for install bind we need to run <code class="highlighter-rouge">yum install bind</code> and not bind9, also the configuration file is <code class="highlighter-rouge">/etc/named.conf</code> which contain all of the setup (not like ubuntu that all are sperated files, options, local and default-zones). We can find the <code class="highlighter-rouge">/var/named/</code> folder that contain more information regarding the bind process, like dump file, statistics-file, and so on. Also remember that the service on CentOS called <strong>named</strong> instead of bind or bind9.</p>
 
 <p>If for some reason you need to kill the bind process, you can check on the service status what is the PID, you can also search for <code class="highlighter-rouge">bind</code> on the <code class="highlighter-rouge">ps -aux</code> command:</p>
 
@@ -647,7 +655,7 @@ named-compilezone -f text -F raw -o example.net.raw example.net example.net.text
 
 <p>The <strong>-f</strong> stand for input file format, the <strong>-F</strong> stand for output formate file and <strong>-o</strong> stand for write the output to filename.</p>
 
-<p>You may ask yourself what is raw file and were is locate, the raw file it is data file formate, you can’t read that file, infect if you trying to read is by using <code class="highlighter-rouge">cat</code> you will see gibberish string which is in our case is binary zone format, this file will be cached most of the time on server that setup as slave for specific zone, you can find those file under <code class="highlighter-rouge">/var/cache/bind/</code>.</p>
+<p>You may ask yourself what is raw file and were is locate, the raw file it is data file formate, you can’t read that file, in fact if you trying to read is by using <code class="highlighter-rouge">cat</code> you will see gibberish string which is in our case is binary zone format, this file will be cached most of the time on server that setup as slave for specific zone, you can find those file under <code class="highlighter-rouge">/var/cache/bind/</code>.</p>
 
 <p><img src="/assets/images/lpic2/cacherawfile.png" alt="LPIC2 Post" />
 <strong>Figure 18-2</strong> You can see that this is raw file.</p>
@@ -662,7 +670,7 @@ named-compilezone -f text -F raw -o example.net.raw example.net example.net.text
 };
 </code></pre></div></div>
 
-<p>Let’s talk again about transfered zone, there is a way to make the transfered zone between master and slave by using DNSSEC or TSIG, which those two allow us to make encription on the zone transfered communication.</p>
+<p>Let’s talk again about transfered zone, there is a way to make the transfered zone between master and slave by using DNSSEC or TSIG, which those two allow us to make encryption on the zone transfered communication.</p>
 
 <p>The different between those two is that TSIG just help us to encrypted the that transfer from master to slave, only the slave who has the key can decrypt the data and cache the zone’s he got. The DNSSEC is allow us to use encryption and also bring up mechanism to know if we can trust the master zone server.</p>
 
@@ -677,7 +685,7 @@ named-compilezone -f text -F raw -o example.net.raw example.net example.net.text
 
 <p>In that command we using <code class="highlighter-rouge">-a</code> for algorithm which in my case I choose to use sha256, the <code class="highlighter-rouge">-b</code> option stand for bit size, so I set it to 128, the <code class="highlighter-rouge">-n</code> is the nametype which mean that we can choose to use DNSSEC or TSIG, if we set that for a KEY this mean that this is DNSSEC type, but by using HOST it use the shared key which is the TSIG, the <code class="highlighter-rouge">-r</code> option is for urandom this the location for saving random information, and then we specefied the name of the key which is zonekey in my case.</p>
 
-<p><strong>Please note</strong>: In order to generate SECURE keys, dnssec-keygen reads /dev/random, which will block until there’s enough entropy available on your system. Some systems have very little entropy and thus dnssec-keygen may take forever, to solve this I use -r /dev/urandom, which is “non-blocking” pseudo-random device (lower security). [credit Alex](https://bugs.launchpad.net/ubuntu/+source/bind9/+bug/963368.</p>
+<p><strong>Please note</strong>: In order to generate SECURE keys, dnssec-keygen reads /dev/random, which will block until there’s enough entropy available on your system. Some systems have very little entropy and thus dnssec-keygen may take forever, to solve this I use -r /dev/urandom, which is “non-blocking” pseudo-random device (lower security). <a href="https://bugs.launchpad.net/ubuntu/+source/bind9/+bug/963368">credit Alex</a>.</p>
 
 <p><img src="/assets/images/lpic2/tsigkey.png" alt="LPIC2 Post" />
 <strong>Figure 19</strong> The TSIG sign keys.</p>
@@ -694,7 +702,7 @@ named-compilezone -f text -F raw -o example.net.raw example.net example.net.text
 
 <p>You can see that it’s specified the algorithm and the key sting, this string is what we need, on the master we need to do one more thing, create the key file that contain the key we generated and specified that file and key to be use for zone transfer.</p>
 
-<p><img src="/assets/images/lpic2/tsigkey.png" alt="LPIC2 Post" />
+<p><img src="/assets/images/lpic2/conftsigkey.png" alt="LPIC2 Post" />
 <strong>Figure 22</strong> Create TSIG file.</p>
 
 <p>You can see that I specified the keyname and the algorithm and also the key itself, now I need to include that key inside the <code class="highlighter-rouge">named.conf</code> file.</p>
@@ -752,11 +760,11 @@ named-compilezone -f text -F raw -o example.net.raw example.net example.net.text
 
 <p><strong>Please note</strong>: on CentOS those two file configuration will be on the named.conf and each in saperated section.</p>
 
-<p>If we talk about DNSSEC that method, in that method we allow the other to verified that out master server is actually the trusted server, for doing so we need to create the Zone Sign Key (ZSK) and the Key Sign Key (KSK) you can read more about that on <a href="https://www.cloudflare.com/dns/dnssec/how-dnssec-works/">cloudflare</a>, After tou have those two keys (ZSK &amp; KSK) you can sign the zone by using <code class="highlighter-rouge">dnssec-signzone</code>, tou can read more about that on the following like <a href="https://blog.apnic.net/2019/05/23/how-to-deploying-dnssec-with-bind-and-ubuntu-server/">apnic</a>, you just need to know that for sign zone you need to use <code class="highlighter-rouge">dnssec-signzone</code> command.</p>
+<p>If we talk about DNSSEC that method, in that method we allow the other to verified that out master server is actually the trusted server, for doing so we need to create the Zone Sign Key (ZSK) and the Key Sign Key (KSK) you can read more about that on <a href="https://www.cloudflare.com/dns/dnssec/how-dnssec-works/">cloudflare</a>, After you have those two keys (ZSK &amp; KSK) you can sign the zone by using <code class="highlighter-rouge">dnssec-signzone</code>, you can read more about that on the following like <a href="https://blog.apnic.net/2019/05/23/how-to-deploying-dnssec-with-bind-and-ubuntu-server/">apnic</a>, you just need to know that for sign zone you need to use <code class="highlighter-rouge">dnssec-signzone</code> command.</p>
 
 <p>Let’s say that on our organization we want to force our client that if they trying to get the home page of the organization they going to hit the local home page server and not the public site on the internet, in that case we need to create some master zone file on the local DNS for this kind of queries for bring them other IP address that different from the public site.</p>
 
-<p>what will append when some query for this site will send up to the local DNS server, then the local DNS will bring this information from it’s local zone file and will not query the ISP DNS server for that information, this will force the clieant to connect the local site of out organization.</p>
+<p>What will append is that when some one query for this site will send up to the local DNS server, then the local DNS will bring this information from it’s local zone file and will not query the ISP DNS server for that information, this will force the clieant to connect the local site of out organization.</p>
 
 <p>For set this we need to add on the <code class="highlighter-rouge">named.conf.local</code> new zone section that set as type of master, this will declering that this server is the master server for our new zone, then we need to go and create new file named <code class="highlighter-rouge">db.&lt;zonename&gt;</code> and adding that zone information inside that site.</p>
 
@@ -903,7 +911,7 @@ col.subject syntax. The TLSA Resource Record always starts with an underscore �
 
 <p>If for some reason you can’t change the main configuration for file of apache2 you can use the <code class="highlighter-rouge">.htaccess</code> for making your changes, that file contain the subset for apache directives, there is referance in the apache2.conf file as example you can find the line <code class="highlighter-rouge">AccessFileName .htaccess</code> which is use for name of the file to look for in each directory for additional configuration directives.</p>
 
-<p>Let’s talk about apache modules processes, we have the way to install some module that can be for example SQL, PHP, PERL ect. every such module can bring us ability that we didn’t have before, just remeber that so far we saw that the apache render some HTML code to be more readable in user browser, but he didn’t know how to manage and read more languages, for example if we bring some PHP code, in the regular way apache don’t know how to render it so it will print out the code on the document, but it we install apache module that support PHP, then the apache will know how to render the PHP code and display it on out browser.</p>
+<p>Let’s talk about apache modules processes, we have the way to install some module that can be for example SQL, PHP, PERL ect. every such module can bring us ability that we didn’t have before, just remeber that so far we saw that the apache render some HTML code to be more readable in user browser, but he didn’t know how to manage and read more languages, for example if we bring some PHP code, in the regular way apache don’t know how to render it so it will print out the code on the document, but if we install apache module that support PHP, then the apache will know how to render the PHP code and display it on our browser.</p>
 
 <p>So, on Ubuntu just install the module you need, if it is PHP search for PHP mod and install it<br />
 <img src="/assets/images/lpic2/apachemodsearch.png" alt="LPIC2 Post" />
@@ -936,7 +944,7 @@ php7.0.load
 
 <p>In the apache world there a working method that called Multi-Processing Modules (MPMs), the way that work is that the apache server contain several processes to allow multiple clients to get information from the apache web server, every process that allow client to connect is a child process. The MPM divides into three main methods.</p>
 
-<p><strong>Prefork</strong>, this method is very comatible, which mean that you use it when you need it, for example if your using the PHP modules you will need to use prefrok because the way it working and allow PHP to work good without some buggy issues, this method uses a lots of RAM so you need to be sure that you set it right for your server will never become out of memory and crash.</p>
+<p><strong>Prefork</strong>, this method is very comatible, which mean that you use it when you need it, for example if you are using the PHP modules you will need to use prefrok because the way it working and allow PHP to work good without some buggy issues, this method uses a lots of RAM so you need to be sure that you set it right for your server will never become out of memory and crash.</p>
 
 <p><strong>Worker</strong>, this method is the most used method, this is use threads, this is mean that every child process have a threads that allow clients to connect the web server, the worker need more memory for use.</p>
 
@@ -976,6 +984,8 @@ php7.0.load
  &lt;/Directory&gt;
 </code></pre></div></div>
 
+<p><strong>Please note</strong>: this Directory section need to be place inside the VirtualHost of your web conf file.</p>
+
 <p>The AuthType is the type of the authentication we going to use which is basic, there is also digest which is implements HTTP Digest Authentication (RFC2617), and provides an alternative to mod_auth_basic where the password is not transmitted as cleartext.</p>
 
 <p>You can see all the mod in the following folder <code class="highlighter-rouge">/usr/lib/apache2/modules/</code>, this folder contain several modules for different method that we can use in the <code class="highlighter-rouge">000-default.conf</code>, another example is mod_authz_host that can allow only specific source client to connect our server, like required IP address, or hostnmae etc, also the mod_access_compat that allow us to group authrizations based on hostname or IP address.</p>
@@ -993,7 +1003,7 @@ php7.0.load
 <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sudo htpasswd -c /etc/apache2/userpass eliot
 </code></pre></div></div>
 
-<p>This will ask from us the password for eric user and in the end it create the <code class="highlighter-rouge">userpass</code> file on the apache2 folder that contain the password we typed.</p>
+<p>This will ask from us the password for eliot user and in the end it create the <code class="highlighter-rouge">userpass</code> file on the apache2 folder that contain the password we typed.</p>
 
 <p><img src="/assets/images/lpic2/userpass.png" alt="LPIC2 Post" />
 <strong>Figure 49</strong> the password .</p>
@@ -1037,9 +1047,9 @@ sudo vim index.html
 <p><img src="/assets/images/lpic2/apache2redirect.gif" alt="LPIC2 Post" />
 <strong>Figure 51</strong> Redirect.</p>
 
-<p>You can see that I type <strong>elior</strong> and it redirect me to <strong>mr.robot</strong> folder.</p>
+<p>You can see that I type <strong>eliot</strong> and it redirect me to <strong>mr.robot</strong> folder.</p>
 
-<p>We use that redirect in case we change som of the files location or our webserver, so because our users know some location and don’t know about the new location we just set it up and redirect them to the new location of the files.</p>
+<p>We use that redirect in case we change some of the files location or our webserver, so because our users know some location and don’t know about the new location we just set it up and redirect them to the new location of the files.</p>
 
 <p>Let’s say that we want our server to contain several websites, we can do so with apache, there is a several way to accomplish that, we can use virtual hosts, that virtual hosts divided to two options, IP Based and Name Based.</p>
 
@@ -1051,7 +1061,7 @@ sudo vim index.html
 <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sudo ifconfig eth0:0 172.16.60.250
 </code></pre></div></div>
 
-<p>This command will add to our local network interface the 172.16.60.250, please note that I use eth0 here, in my machine the network interface is wlp2s0 so I neet to set wlp2s0:0 for my case, you can add more IP address by given other number etc.</p>
+<p>This command will add to our local network interface the 172.16.60.250, please note that I use eth0 here, in my machine the network interface is wlp2s0 so I need to set wlp2s0:0 for my case, you can add more IP address by given other number etc.</p>
 
 <p><img src="/assets/images/lpic2/interfaceaddress.png" alt="LPIC2 Post" />
 <strong>Figure 52</strong> My interface wlp2s0:0.</p>
@@ -1083,13 +1093,13 @@ sudo mkdir /var/www/html/webpage2
 &lt;h1&gt;Welcome to WebPage2&lt;/h1&gt;
 </code></pre></div></div>
 
-<p>Now I need to create the file that specefied the IP and the file that specefied the Name, so I run the following on the apache2 directory.</p>
+<p>Now I need to create the file that specified the IP and the file that specified the Name, so I run the following on the apache2 directory.</p>
 
 <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sudo cp sites-available/000-default.conf sites-available/ip.conf
 sudo cp sites-available/000-default.conf sites-available/name.conf
 </code></pre></div></div>
 
-<p>So now I have the ip.conf file and name.conf file, let’s tart with the ip file, on the top of that file I specified that IP address of the section that have the configuration for direct client the root page that locate on webpage1 folder.</p>
+<p>So now I have the ip.conf file and name.conf file, let’s start with the ip file, on the top of that file I specified that IP address of the section that have the configuration for direct client the root page that locate on webpage1 folder.</p>
 
 <p><img src="/assets/images/lpic2/apache2ipbased.png" alt="LPIC2 Post" />
 <strong>Figure 54</strong> IP based option.</p>
@@ -1141,13 +1151,13 @@ sudo cp sites-available/000-default.conf sites-available/name.conf
 
 <p>If you have some issue with apache2 you can always check the service status and it may specified the error, if you need more details it a good idea that you check the logs itsef, you can find that on <code class="highlighter-rouge">/var/logs/apache2/</code>, that folder contain the <code class="highlighter-rouge">access.log</code> file which give you information about every connection that has done on this web server regarding to apache2, and <code class="highlighter-rouge">error.log</code> file which give you the error log about apache2 as example if you have some syntax mistyping it will be specified on that log.</p>
 
-<p>if you want to use <code class="highlighter-rouge">https</code> which option encription connection to the server using SSL, you can do so with apache2, but there is more thing that related to that like certificate and the encription session so let’s look how it work.</p>
+<p>If you want to use <code class="highlighter-rouge">https</code> which option encryption connection to the server using SSL, you can do so with apache2, but there is more thing that related to that like certificate and the encryption session so let’s look how it work.</p>
 
 <p>The client trying to connect web server by using https, it actually open SSL connection, at first there is the 3 way hand shake in TCP and then he try to connect using https, the server will give him his public key that sign by some root authority that browser on the client trust, then the server send traffic down the client that encrypted by the server privet key, the browser on the client decrypt that by using the public key, all of that is for deny Man In The Middle attack that act like he is the server and give the client some cert, because the client has the root authority that he trust so in that case we will continue the session only with server that have certificate that sign with the root authority.</p>
 
 <p>In our case we going to setup self-signed certificate and you will see on the client browser that he complain about that certificate, we also going to setup public and private key on our server.</p>
 
-<p>I am useing CentOS, so for install the ssl module we neet to run the following:</p>
+<p>I am useing CentOS, so for install the ssl module we need to run the following:</p>
 <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>yum search apache | grep ssl
 </code></pre></div></div>
 
@@ -1156,7 +1166,7 @@ sudo cp sites-available/000-default.conf sites-available/name.conf
 <p><img src="/assets/images/lpic2/apache2sslmodule.png" alt="LPIC2 Post" />
 <strong>Figure 61</strong> The mod_ssl is available for install.</p>
 
-<p>We nned to run the foolowing command for install ssl module on the server.</p>
+<p>We need to run the following command for install ssl module on the server.</p>
 <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>yum install mod_ssl
 </code></pre></div></div>
 
@@ -1172,14 +1182,14 @@ sudo cp sites-available/000-default.conf sites-available/name.conf
 <p><img src="/assets/images/lpic2/sslcertificatesettings.png" alt="LPIC2 Post" />
 <strong>Figure 63</strong> The certificate sections.</p>
 
-<p>So we going to create crt which is the certificate file and specify it’s location on the <code class="highlighter-rouge">SSLcertificateFile</code> line, also we going to create privet key and specify it on <code class="highlighter-rouge">SSLCertificateFile</code>, in the <code class="highlighter-rouge">SSLCertificateChainFile</code> we can specify the in intermediate CA certificate in case we realy want to sign our cert by CA, “intermediate certificate” mean that this is sign certificate by some trusted CA but note the root authority, it just intermediate CA that can sign on our cert, you can read more about that on the <a href="https://support.dnsimple.com/articles/what-is-ssl-certificate-chain/">dnsimple</a>.</p>
+<p>So we going to create crt which is the certificate file and specify it’s location on the <code class="highlighter-rouge">SSLcertificateFile</code> line, also we going to create privet key and specify it on <code class="highlighter-rouge">SSLCertificateKeyFile</code>, in the <code class="highlighter-rouge">SSLCertificateChainFile</code> we can specify the in intermediate CA certificate in case we realy want to sign our cert by CA, “intermediate certificate” mean that this is sign certificate by some trusted CA but not the root authority, it just intermediate CA that can sign on our cert, you can read more about that on the <a href="https://support.dnsimple.com/articles/what-is-ssl-certificate-chain/">dnsimple</a>.</p>
 
 <p><img src="/assets/images/lpic2/creatingcert.png" alt="LPIC2 Post" />
-<strong>Figure 64</strong> U.sing openssl for cert creation.</p>
+<strong>Figure 64</strong> Using openssl for cert creation.</p>
 
-<p>You can see the I run new request for X.r09 cent so this is way I am using <code class="highlighter-rouge">req</code> option cent, please remember that there are several types of certificates, the X509 certificate comes with a certain structure and that’s what we are going to get out of this command, the <code class="highlighter-rouge">-x509</code> is for the type of our certificate, The option -nodes is not the English word <code class="highlighter-rouge">-nodes</code>, but rather is “no DES”. When given as an argument, it means OpenSSL will not encrypt the private key in a PKCS#12 file, <a href="https://stackoverflow.com/questions/5051655/what-is-the-purpose-of-the-nodes-argument-in-openssl">credit indiv</a>.</p>
+<p>You can see the I run new request for X.509 cert so this is why I am using <code class="highlighter-rouge">req</code> option cent, please remember that there are several types of certificates, the X509 certificate comes with a certain structure and that’s what we are going to get out of this command, the <code class="highlighter-rouge">-x509</code> is for the type of our certificate, The option -nodes is not the English word <code class="highlighter-rouge">-nodes</code>, but rather is “no DES”. When given as an argument, it means OpenSSL will not encrypt the private key in a PKCS#12 file, <a href="https://stackoverflow.com/questions/5051655/what-is-the-purpose-of-the-nodes-argument-in-openssl">credit indiv</a>.</p>
 
-<p>We also setup the time for that cert will be vaild, in my case 365 days, this is new key so this is way <code class="highlighter-rouge">-newkehy</code>, the type of it encription is RSA 2048 bit, and we specify the key name and cert name, all we need now is to give information on the cert and we done.</p>
+<p>We also setup the time for that cert will be vaild, in my case 365 days, this is new key so this is way <code class="highlighter-rouge">-newkey</code>, the type of it encription is RSA 2048 bit, and we specify the key name and cert name, all we need now is to give information on the cert and we done.</p>
 
 <p>You can see that new files was created loclly.</p>
 
@@ -1242,7 +1252,7 @@ There is also the non-compliant setting extended which will allow message bodies
 This setting should only be used for debugging purposes. Despite what a security scan may say, the TRACE method is part
 of the HTTP/1.1 RFC 2616 specification and should therefore not be disabled without a specific reason.</p>
 
-<p>For the LPIC2 202 we need also know how proxy work, proxy server is some middle server between us and the internet, by using proxy server every connection that related to web, is going through the proxy server, there is several reasons way to use proxy, the first one is that proxy server can cache webpages on local memory, so it’s mean that if someone on the organization want to get zwerd.com web pages, the proxy server will save these pages on it’s local memory and disk, if other person want to get the same information we will get it more fast because there is that data cache on the proxy server, the second reason is security, when connecting to some site, that site can contain some JavaScript or PHP code that can harm your system, the proxy server can contain some smart implementation that check on the application level every code that will run on our clients can block if found any malicious file or code, on LPIC2 202 we just need to get know Squid proxy server which bring the first reason why to use proxy, but remember that there is more other proxies solutions our there that considered the security issue and trying to solve it.</p>
+<p>For the LPIC2 202 we need also know how proxy work, proxy server is some middle server between us and the internet, by using proxy server every connection that related to web, is going through the proxy server, there is several reasons why to use proxy, the first one is that proxy server can cache webpages on local memory, so it’s mean that if someone on the organization want to get zwerd.com web pages, the proxy server will save these pages on it’s local memory and disk, if other person want to get the same information we will get it more fast because there is that data cache on the proxy server, the second reason is security, when connecting to some site, that site can contain some JavaScript or PHP code that can harm your system, the proxy server can contain some smart implementation that check on the application level every code that will run on our clients can block if found any malicious file or code, on LPIC2 202 we just need to get know Squid proxy server which bring the first reason why to use proxy, but remember that there is more other proxies solutions our there that considered the security issue and trying to solve it.</p>
 
 <p>I am using ubuntu so for install Squid I just need to run the following:</p>
 <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sudo apt install squid
@@ -1274,7 +1284,7 @@ of the HTTP/1.1 RFC 2616 specification and should therefore not be disabled with
 <img src="/assets/images/lpic2/cache_dir.png" alt="LPIC2 Post" />
 <strong>Figure 70</strong> the max size for disk cache in squid settings.</p>
 
-<p>Please note that the default is not to store disk cache and stor it only on memory, so we want to uncomment that line, we also can see that uft stor type are in use, we stay it that way because it work, then the path to the store location, the first number is the maximum in MB to store on the disk, so in my case is 100MB, the next number is the how much folders can be created so it 16, and the last number is the sub-folders number which you can see is 256 folders, and all inside this one folder <code class="highlighter-rouge">/var/spool/squid3</code>.</p>
+<p>Please note that the default is not to store disk cache and store it only on memory, so we want to uncomment that line, we also can see that uft store type are in use, we stay it that way because it work, then the path to the store location, the first number is the maximum in MB to store on the disk, so in my case is 100MB, the next number is the how much folders can be created so it 16, and the last number is the sub-folders number which you can see is 256 folders, and all inside this one folder <code class="highlighter-rouge">/var/spool/squid3</code>.</p>
 
 <p>After you finish your changes you need to restart the squid service.</p>
 
@@ -1480,7 +1490,7 @@ http_access allow AUTHENTICATED
 
 <p>Please remember that this is not DNS lookup, it’s NetBIOS lookup that the nmb search on the network.</p>
 
-<p>When we talk about security in samba world there is two levels, the USER level and the SHARE level, with USER level the client need to supply the username and the password, with SHARE level the client need to supply only password, the server will check if the password is match to one of the users his have on the list and if match was found he will allow the connection for that client.</p>
+<p>When we talk about security in samba world there is two levels, the USER level and the SHARE level, with USER level the client need to supply the username and the password, with SHARE level the client need to supply only password, the server will check if the password is match to one of the users it’s have on the list and if match was found he will allow the connection for that client.</p>
 
 <p>For install the samba we need to run the foolowing:</p>
 <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sudo apt install samba
@@ -1550,7 +1560,7 @@ sudo service smbd restart
 
 <p>This for see the changing the name for our machine, if you look on the authentication part of that conf file there is several thing that we need to know.</p>
 
-<p><strong>passdb backend</strong>, this is the method for encription we going to use, in my case is <code class="highlighter-rouge">tdbsam</code>.</p>
+<p><strong>passdb backend</strong>, this is the method for encryption we going to use, in my case is <code class="highlighter-rouge">tdbsam</code>.</p>
 
 <p><strong>obey pam restrictions</strong>, the pam stand for pluggable authentication module, this line say that when the password change use the same requirement that the Linux does, In my case it set on <code class="highlighter-rouge">yes</code> because we want to save them sync, which will bring us to the line below.</p>
 
@@ -1582,13 +1592,13 @@ sudo smbpasswd -a guyz
 <p><img src="/assets/images/lpic2/smbpassword.png" alt="LPIC2 Post" />
 <strong>Figure 97</strong> Asking for password.</p>
 
-<p>Please remember that with samba we just share some file or folder and that can be with security level or not, depending out configuration.</p>
+<p>Please remember that with samba we just share some file or folder and that can be with security level or not, depending our configuration.</p>
 
 <p>There is more tool that you can use which is <strong>smbcontrol</strong>, in case you need to run some script to manipulate the smbd or nmbd you can use this tool in your script, with smbcontrol you can send messages to smbd, nmbd or winbindd processes, also you can use samba-tool which is the main samba administration tool, with this tool we can do stuff like we saw earlier.</p>
 
-<p>There is more way to share files, we can done that by NFS, but unlike samba, NFS is the way we share chank of filesystem instead just files or folders, we saw more or less about NFS in my other post LPIC2 201, the security level on NFS is base only the client itself if he have permition or not to mount the filesystem, it look like iSCSI, that can be use to share SCSI base on the system security.</p>
+<p>There is more way to share files, we can done that by NFS, but unlike samba, NFS is the way we share chank of filesystem instead just files or folders, we saw more or less about NFS in my other post LPIC2 201, the security level on NFS is based only on the client itself if, this is mean that we can give the client permission to mount the filesystem, it look like iSCSI, that can be use to share SCSI base on the system security.</p>
 
-<p>The presager is working as follow, we setup filesystem to be mount by using NFS, we also setup the client that can have access to that filesystem, the next step is that on the client side we need to mount that NFS filesystem, the network communication is done over rpc bind or port mapper.</p>
+<p>The procedure is working as follow, we setup filesystem to be mount by using NFS, we also configure who can have an access to that filesystem, the next step is on the client, side we need to mount that NFS filesystem, the network communication is done over rpc bind or port mapper.</p>
 
 <p>By using rpc bind or port mapper we can use additional level of security by using TCP wrappers to allow or deny hosts.</p>
 
@@ -1607,7 +1617,7 @@ sudo smbpasswd -a guyz
 <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/temp/share  192.168.43.145(rw,sync)
 </code></pre></div></div>
 
-<p>In this line I export the share folder and allow only to 192.168.43.145 address read and write permissions with sync style which mean that on every changes done on that file system it sync it out to every one who is connected, you can specefied <code class="highlighter-rouge">*(rw,sync)</code>, this mean that every one can have access to this NFS.</p>
+<p>In this line I export the share folder and allow only to 192.168.43.145 address read and write permissions with sync style which mean that on every changes done on that file system it sync it out to every one who is connected, you can specified <code class="highlighter-rouge">*(rw,sync)</code> (instead of specifying IP address), this mean that every one can have access to this NFS.</p>
 
 <p>After you finish you can just restart the service, but it will hit every one who connected to this NFS, so instead we can just run <code class="highlighter-rouge">sudo exportfs -r</code> for reread the exported file.</p>
 
@@ -1635,9 +1645,9 @@ sudo smbpasswd -a guyz
 
 <p>So you can see that it deny base on my IP address, but remember that we can view the exported filesystem, on the server we can use TCP wrapper to deny it also.</p>
 
-<p>Ther is more issue that related to security regarding NFS, let’s mount that filesystem again and view that issue.</p>
+<p>There is more issue that related to security regarding NFS, let’s mount that filesystem again and view that issue.</p>
 
-<p>I just change my machine IP to 192.168.43.145 and tried to mount it again, also please note that the username on that machine is zwerd, that zwerd user is also setup on the NFS machine.</p>
+<p>I just change my machine IP back again to 192.168.43.145 and tried to mount the NFS filesystem on the 192.168.43.14 server again, also please note that the username on that machine is zwerd, that zwerd user is also setup on the NFS machine.</p>
 
 <p><img src="/assets/images/lpic2/mountagain.png" alt="LPIC2 Post" />
 <strong>Figure 103</strong> Mount the NFS again.</p>
@@ -1647,7 +1657,7 @@ sudo smbpasswd -a guyz
 <p><img src="/assets/images/lpic2/zwerduser.png" alt="LPIC2 Post" />
 <strong>Figure 104</strong> My zwerd user.</p>
 
-<p>The security issue came with that userid, if someone change some user to contain the same id of my user, he may get full access to my file, so prevent that can be done by allow only machine that I know for sure that can get access to my files, ot using other security mechanism to prevent that issues.</p>
+<p>The security issue came with that userid, if someone change some user to contain the same id of my user, he may get full access to my file, so prevent that can be done by allow only machine that I know for sure that can get access to my files, or using other security mechanism to prevent that issues.</p>
 
 <h2 id="chapter-3">Chapter 3</h2>
 <h2 id="topic-210-network-client-management">Topic 210: Network Client Management</h2>
@@ -1673,11 +1683,11 @@ sudo smbpasswd -a guyz
 
 <p>The <code class="highlighter-rouge">option domain-name</code> option can contain the local domain for the network of that DHCP, it is not really matter, what it really matter is the <code class="highlighter-rouge">option domain-name-server</code> which should contain the NS server of your organization or at least some DNS server that can be use on your network, you can see that I am using google public DNS server.</p>
 
-<p>You also can thee that the lease time in my case is 600 second which is 10 minutes, and the <code class="highlighter-rouge">max-lease-time</code> used for the maximum time in second that the IP is leased for host, all of that mean that after 10 minutes the host will try to request that IP address again, in case he didn’t renew his request, after 7200 second which is 2 hours, the IP is relase in the server side point of view, which mean that it can give other hosts that IP address.</p>
+<p>You also can see that the lease time in my case is 600 second which is 10 minutes, and the <code class="highlighter-rouge">max-lease-time</code> used for the maximum time in second that the IP is leased for host, all of that mean that after 10 minutes the host will try to request that IP address again, in case he didn’t renew his request, after 7200 second which is 2 hours, the IP is relase in the server side point of view, which mean that it can give other hosts that IP address.</p>
 
-<p>Please remember that the DHCP server also can bring the client details about the kernel to download by using <code class="highlighter-rouge">host passacagila {}</code>, in that section we can specefied that file to download via tftp and give the client the tftp server name, all of that used to help clients boot to some kernel that we want to have every one that kernel, in that case it use protocol like bootP.</p>
+<p>Please remember that the DHCP server also can bring the client details about the kernel to download by using <code class="highlighter-rouge">host passacagila {}</code>, in that section we can specified that file to download via tftp and give the client the tftp server name, all of that used to help clients boot to some kernel that we want to have every one that kernel, in that case it use protocol like bootP.</p>
 
-<p>The section we nned to set for that DHCP will manage the subnets addresses is as follow:</p>
+<p>The section we need to set for that DHCP will manage the subnets addresses is as follow:</p>
 <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>subnet 10.10.10.0 netmask 255.255.255.0 {
   range 10.10.10.100 10.10.10.150;
   option routers 10.10.10.1;
@@ -1686,10 +1696,10 @@ sudo smbpasswd -a guyz
 
 <p>In that section we setup the subnet which is in my case 10.10.10.0/24, the range for address lease is 10.10.10.100-10.10.10.150, which mean 151 address, the router is the default gateway for that subnet.</p>
 
-<p>After you done all you need to restart the service, you also can check the <code class="highlighter-rouge">/var/log/syslog</code> file with contain the logs for the system, in that file we can find that the DHCP is up and running and also what is the count for leases address, if none are lease you will se the following line:</p>
+<p>After you done all you need to restart the service, you also can check the <code class="highlighter-rouge">/var/log/syslog</code> file with contain the logs for the system, in that file we can find that the DHCP is up and running and also what is the count for leases address, if none are lease you will see the following line:</p>
 <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>dhcp: Wrote 0 leases to leases file.
 </code></pre></div></div>
-<p>If you what to see the leases address you can check the <code class="highlighter-rouge">/var/lib/dhcp/dhcpd.leases</code> file, that file will be empty antil you one of the client on that subnet try to request some IP address from our server.</p>
+<p>If you what to see the leases address you can check the <code class="highlighter-rouge">/var/lib/dhcp/dhcpd.leases</code> file, that file will be empty antil one of the clients on that subnet try to request some IP address from our server.</p>
 
 <p>You can run on Linux host the following command for trying to lease some address <code class="highlighter-rouge">sudo dhclient eth0</code>, this command will request address for <code class="highlighter-rouge">eth0</code> interface, you can release that address by using the <code class="highlighter-rouge">-r</code> option.</p>
 
@@ -1728,7 +1738,7 @@ sudo smbpasswd -a guyz
 
 <p>You can see that the address new is 10.10.10.200 which is what I setup over my dhcp server.</p>
 
-<p>Like on cisco routers we can setup on our Linux to by hdcp relay for some subnet that not contain DHCP server, the role of dhcp relay is just to listen to some new leases request and transfer them to the DHCP.</p>
+<p>Like on cisco routers we can setup on our Linux to be dhcp relay for some subnet that not contain DHCP server, the role of dhcp relay is just to listen to some new leases request and transfer them to the DHCP.</p>
 
 <p>So on the dhcp relay server we need to install it by running <code class="highlighter-rouge">sudo apt install isc-dhcp-relay</code>, after that the installation is finish a popup screen will rise asking for dhcp server address.</p>
 
@@ -1737,7 +1747,7 @@ sudo smbpasswd -a guyz
 
 <p>You can also use the <code class="highlighter-rouge">/etc/default/isc-dhcp-relay</code> file to setup that dhcp relay.</p>
 
-<p>Onthe DHCP server we need to add a route to the sparated subnet and also setup new section on <code class="highlighter-rouge">/etc/dhcp/dhcpd.conf</code> file that contain the range for the new subnet:</p>
+<p>On the DHCP server we need to add a route to the sparated subnet and also setup new section on <code class="highlighter-rouge">/etc/dhcp/dhcpd.conf</code> file that contain the range for the new subnet:</p>
 <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>subnet 172.16.0.0 network 255.255.255.0 {
   range 172.16.0.100 172.16.0.150;
   option routes 172.16.0.1;
@@ -1768,7 +1778,7 @@ sudo smbpasswd -a guyz
 
 <p><strong>Please note</strong>: before you going to do changes like I display here about PAM, please use virtual machine, it so easy to look your self out because of some changes you done in PAM, so please note that you done that on virtual machine and you have some snapshot in case you locked your self out.</p>
 
-<p>PAM is only provides you as way to do several thing that on your program you didn’t need to set, like authentication, there is several program like SSH or telnet or FTP or GNPME, all of then need a way to check the user authentication for knowing if the password is correct or that user allow to use that program and login, instead of develops suck things, they use PAM that provide exactly that.</p>
+<p>PAM is only provides you a way to do several thing that on your program you didn’t need to set, like authentication, there is several program like SSH or telnet or FTP or GNOME, all of then need a way to check the user authentication for knowing if the password is correct or that user allow to use that program and login, instead of develops suck things, they use PAM that provide exactly that.</p>
 
 <p>These program use PAM system to check the authentication and PAM says rather or not that user can login to that computer.</p>
 
@@ -1795,7 +1805,7 @@ sudo smbpasswd -a guyz
 
 <p><code class="highlighter-rouge">required</code> - this control action is say although the type is fails, continue checking the other types but stop in the afterword, so if the user failed on the <code class="highlighter-rouge">account</code> type it will continue to checking against the other types and failed in the end, i this way the attacker can’t know what is the type that the user failed for.</p>
 
-<p><code class="highlighter-rouge">sufficient</code> - this is mean if the type success then stop checking, so for example we can set that for <code class="highlighter-rouge">authentication</code> type so if the authentication is success it don’t check the user against the other types, this is good to use in the case of LDAP, let’s say that the user is allow on LDAP level but not on the system password level, so as son it type the correct password, he doesn’t need to check against the local system password database.</p>
+<p><code class="highlighter-rouge">sufficient</code> - this is mean if the type success then stop checking, so for example we can set that for <code class="highlighter-rouge">authentication</code> type so if the authentication is success it don’t check the user against the other types, this is good to use in the case of LDAP, let’s say that the user is allow on LDAP level but not on the system password level, so as soon the user type the correct password, he doesn’t need to check against the local system password database.</p>
 
 <p><code class="highlighter-rouge">optional</code> - this is only matters if associated  with another module like <code class="highlighter-rouge">session</code> so if the user try to mount some directory and the user <code class="highlighter-rouge">account</code> is allow, the <code class="highlighter-rouge">authentication</code> is correct but the directory doesn’t exist in the <code class="highlighter-rouge">session</code> part, so it continue checking the stuck.</p>
 
@@ -1816,7 +1826,7 @@ sudo smbpasswd -a guyz
 <p><img src="/assets/images/lpic2/pamsshd.png" alt="LPIC2 Post" />
 <strong>Figure 112</strong> The sshd file in PAM.</p>
 
-<p>You can see that you have line that specified the <code class="highlighter-rouge">account</code> and required with pam_nologin.so module, so that line say that need to check is the user account is allow to login by using the <code class="highlighter-rouge">pam_nologin.so</code> module, please note that the control on that line is <code class="highlighter-rouge">required</code> which mean that although if that user is not allowed, continue the next checks if any, search down below and you will find the session which is the next check.</p>
+<p>You can see that you have line that specified the <code class="highlighter-rouge">account</code> and required with pam_nologin.so module, so that line say that need to check if the user account is allow to login by using the <code class="highlighter-rouge">pam_nologin.so</code> module, please note that the control on that line is <code class="highlighter-rouge">required</code> which mean that although if that user is not allowed, continue the next checks if any, search down below and you will find the session which is the next check.</p>
 
 <p>Please note that the <code class="highlighter-rouge">@include common-auth</code> line which say to check the user session against the <code class="highlighter-rouge">common-auth</code> file.</p>
 
@@ -1867,7 +1877,7 @@ sudo smbpasswd -a guyz
 <p><img src="/assets/images/lpic2/nsswitch.png" alt="LPIC2 Post" />
 <strong>Figure 115</strong> The nsswitch file.</p>
 
-<p>You can see on the hosts, the file is the first to check for some service or webpage we want to get, the next one is mdns4_minimal and the last is dns, if we change it and the dns will be first it will force to search it over the DNS server, the same principle is with the passwd, group and shadow files, we can specefied the file first and the LDAP or nis at last or change the order, in my case it is compat which mean to look on the file, if some user have the “+” sign then include the specified user from the NIS passwd map, as example let’s look on the passwd file.</p>
+<p>You can see on the hosts, the file is the first to check for some service or webpage we want to get, the next one is mdns4_minimal and the last is dns, if we change it and the dns will be first it will force to search it over the DNS server, the same principle is with the passwd, group and shadow files, we can specified the file first and the LDAP or nis at last or change the order, in my case it is compat which mean to look on the file, if some user have the “+” sign then include the specified user from the NIS passwd map, as example let’s look on the passwd file.</p>
 
 <p><img src="/assets/images/lpic2/passwduser.png" alt="LPIC2 Post" />
 <strong>Figure 116</strong> The zwerd user in passwd file.</p>
@@ -2019,7 +2029,7 @@ sudo service slapd start
 <p><img src="/assets/images/lpic2/ldapsearchadmin.png" alt="LPIC2 Post" />
 <strong>Figure 127</strong> My ldapsearch with the admin user on my client side.</p>
 
-<p>You can see the password of the administrator and also the guy user, if you use <code class="highlighter-rouge">-w</code> insead of <code class="highlighter-rouge">-W</code> then you must type your password on the command line.</p>
+<p>You can see the password of the administrator and also the guy user, if you use <code class="highlighter-rouge">-w</code> instead of <code class="highlighter-rouge">-W</code> then you must type your password on the command line.</p>
 
 <p>We can add new information to the database like new user, what we need to do is to user <code class="highlighter-rouge">ldapadd</code>, now the way it work is the same like the <code class="highlighter-rouge">ldapsearch</code> command which mean we need to specified the full distinguished name of the admin user for add new user but also we need to create new file that contain all the details we want to add the database and then we need to specified at the line <code class="highlighter-rouge">-f</code> option for the file path that contain the information.</p>
 <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ldapadd -h 192.168.43.14 -x -D cn=admin,dc=example,dc=dom -W -f newuser.ldif
@@ -2063,7 +2073,7 @@ homeDirectory: /home/ben
 
 <p>This command will change ben’s password.
 <img src="/assets/images/lpic2/ldappasswd.png" alt="LPIC2 Post" />
-<strong>Figure 129</strong> Please note that the LDAP password come as the end.</p>
+<strong>Figure 129</strong> Please note that the LDAP password come in the end.</p>
 
 <p>For delete some user we can use <code class="highlighter-rouge">ldapdelete</code>, this will delete the user from the database, again we just need to specified the full distinguished name for the user we like to delete.</p>
 
@@ -2095,9 +2105,9 @@ homeDirectory: /home/ben
 <h2 id="chapter-4">Chapter 4</h2>
 <h2 id="topic-211-e-mail-services">Topic 211: E-Mail Services.</h2>
 
-<p>In this chapter we going to look how so setup and use email server, we also look at two type of email servers we can use in linux and also two type of protocols in that field.</p>
+<p>In this chapter we going to look how to setup and use email server, we also look at two type of email servers we can use in linux and also two type of protocols in that field.</p>
 
-<p>So let’s talk about <strong>postfix</strong> which is mail server that started life at IBM research as an alternative to the widely-used Sendmail program, Sendmailis really vulnerable mail server so this is why it is not in use any more.</p>
+<p>So let’s talk about <strong>postfix</strong> which is mail server that started life at IBM research as an alternative to the widely-used Sendmail program, Sendmail is really vulnerable mail server so this is why it is not in use any more.</p>
 
 <p>The postfix mail server is just a program that allow us to received and send an emails, it is use some configuration file and save all the mails under one folder or in some text file, to install it and install some utilities that can help us checking emails just run the following command:</p>
 
@@ -2114,18 +2124,18 @@ homeDirectory: /home/ben
 <p><img src="/assets/images/lpic2/postfixconfig2.png" alt="LPIC2 Post" />
 <strong>Figure 131</strong> My system name for that mail server.</p>
 
-<p>Then after it finish to do it’s magic we will find several file related to the configuration we done, so inside <code class="highlighter-rouge">/ectc/postfix/</code> folder you can see the the <code class="highlighter-rouge">master.cf</code> that contain the protocols that this server use, also the <code class="highlighter-rouge">mail.cf</code> which is the main configuration, these configuration are related to the smtpd configuration like TLS parametes for security and down you will find more interesting parametes.</p>
+<p>Then after it finish to do it’s magic we will find several file related to the configuration we done, so inside <code class="highlighter-rouge">/ectc/postfix/</code> folder you can see the the <code class="highlighter-rouge">master.cf</code> that contain the protocols that this server use, also the <code class="highlighter-rouge">mail.cf</code> which is the main configuration, these configuration are related to the smtpd configuration like TLS parametes for security and down you will find more interesting parameters.</p>
 
 <p><img src="/assets/images/lpic2/mailparam.png" alt="LPIC2 Post" />
 <strong>Figure 132</strong> The mail server parameters.</p>
 
-<p>So you can see the <code class="highlighter-rouge">myhostname</code> which is the name of the local machine, this will specefied the email cam <strong>from</strong>, so it I change it and send and email this value will display as “from”</p>
+<p>So you can see the <code class="highlighter-rouge">myhostname</code> which is the name of the local machine, this will specified the email come <strong>from</strong>, so it I change it and send and email this value will display as “from”</p>
 
 <p>the <code class="highlighter-rouge">alias_map</code> contain the path to aliases for other users which is local redirect, please note that this is hash values and we look about that later.</p>
 
 <p><code class="highlighter-rouge">mydestination</code> is for the destination, this is mean that if email send to zwerd.com or to zwerd-VirtualBox or to localhost then it going to keep it for the local users.</p>
 
-<p><code class="highlighter-rouge">relayhost</code> is empty, so no one can use our serveer as realy server for sending mail and this is way upper you have the smtpd_relay_restrictions to prevent the relay server action.</p>
+<p><code class="highlighter-rouge">relayhost</code> is empty, so no one can use our server as relay server for sending mail and this is way upper you have the smtpd_relay_restrictions to prevent the relay server action.</p>
 
 <p><code class="highlighter-rouge">mynetwork</code> should contain the local network that can use this server, to in my case is local, so no one but myself can use this mail server</p>
 
@@ -2149,7 +2159,7 @@ homeDirectory: /home/ben
 <p><img src="/assets/images/lpic2/spammail.png" alt="LPIC2 Post" />
 <strong>Figure 134</strong> In the spam box.</p>
 
-<p>You can see the diffrent between emails that cam to your local users, let’s look how it done for root user, I sent mail to the root and specified the localhost for it.</p>
+<p>You can see the diffrent between emails that come to your local users, let’s look how it done for root user, I sent mail to the root and specified the localhost for it.</p>
 
 <p><img src="/assets/images/lpic2/mailtoroot.png" alt="LPIC2 Post" />
 <strong>Figure 135</strong> In the spam box.</p>
@@ -2273,7 +2283,7 @@ zwerdbox
 
 <p>If we talking about relay mail, this is the way to relay on some server, let’s say that the online service that we want to use is live.com which is the same Outlock service of microsoft, we have two ways to connect that service and view the emails locally.</p>
 
-<p><strong>pop3</strong> - in that way we connecting to the outlook service and download the all the mailbox to out machine, in that way we can view email from our local machine although we won’t have setup online service just relay on another.</p>
+<p><strong>pop3</strong> - in that way we connecting to the outlook service and download the all the mailbox to our machine, in that way we can view email from our local machine although we won’t have setup online service just relay on another.</p>
 
 <p><strong>imap</strong> - this protocol is allow us only to see the emails from the online service, this is mean that the emails stay on the server and we just read the emails remotly, this way is good in case we have several machine that we want them to be able to allow us to read email from the mail server that we relay on.</p>
 
@@ -2311,7 +2321,7 @@ zwerdbox
 <p><img src="/assets/images/lpic2/setimap.png" alt="LPIC2 Post" />
 <strong>Figure 150</strong> IMAP as incoming service.</p>
 
-<p>Aכter you approve the setting you should see the emails on the GUI, if you have some issue regrading the service you can check the <code class="highlighter-rouge">/var/log/mail.log</code> which contain the logs related to the email services like imap and pop3, also you can run <code class="highlighter-rouge">systemctl status courier-imap</code> which will show you the status of the service and if the issue is with the service you will get some error message about that.</p>
+<p>After you approve the setting you should see the emails on the GUI, if you have some issue regrading the service you can check the <code class="highlighter-rouge">/var/log/mail.log</code> which contain the logs related to the email services like imap and pop3, also you can run <code class="highlighter-rouge">systemctl status courier-imap</code> which will show you the status of the service and if the issue is with the service you will get some error message about that.</p>
 
 <p>The same principle is with the <code class="highlighter-rouge">courier-pop</code> which is the service for allow users to connect our mail server and download the mailbox and all what it contain.</p>
 
@@ -2331,7 +2341,7 @@ zwerdbox
 <p><img src="/assets/images/lpic2/mail_location.png" alt="LPIC2 Post" />
 <strong>Figure 151</strong> Our mail location for douecot.</p>
 
-<p>The we need to run the following:</p>
+<p>Then we need to run the following:</p>
 <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sudo restart douecot
 </code></pre></div></div>
 
@@ -2351,9 +2361,9 @@ zwerdbox
 
 <p><strong>prerouting</strong> - this chain is the first place that the packet go through the destination, this chain can contain policy like deny or allow and that policy is applied on every packets before it get to our machine, so for example if we deny all the packets, our machine system will never get any packet that go through that chain.</p>
 
-<p><strong>input</strong> - this chain are apply policy for packet that destinate to out machine, in this chain we can manipulate the packet or drop the packet etc.</p>
+<p><strong>input</strong> - this chain are apply policy for packet that destinate to our machine, in this chain we can manipulate the packet or drop the packet etc.</p>
 
-<p><strong>forwarding</strong> - if the packet are not destinate to out machine which mean that out machine need to make a route choice for that packet, in that case the packets are landed on the forwarding chain, and again we can applied policy on that chain to manipulate the decision it must make for route the packet.</p>
+<p><strong>forwarding</strong> - if the packet are not destinate to our machine which mean that our machine need to make a route choice for that packet, in that case the packets are landed on the forwarding chain, and again we can applied policy on that chain to manipulate the decision it must make for route the packet.</p>
 
 <p><strong>output</strong> - this chain is the output of our machine, like let’s say that our machine make some packet that need to be destinate out, so it go through the output, in that chain we can create policy to make a choice on the packets.</p>
 
@@ -2371,7 +2381,7 @@ zwerdbox
 
 <p><strong>ACCEPT</strong> - this policy allow packets to go through the chain, we can specefied what packets we need to allow base on the source or destination or even port number.</p>
 
-<p><strong>DROP</strong> - like ACCEPT this policy is also apply on the chain base on the packet detail, in the DROP the packet will block and the source we never know about that which mean that is just block with no reply to the source.</p>
+<p><strong>DROP</strong> - like ACCEPT this policy is also apply on the chain base on the packet detail, in the DROP the packet will block and the source will never know about that which mean that is just block with no reply to the source.</p>
 
 <p><strong>REJECT</strong> - unlike DROP, the REJECT policy will block the packet and reply to the source about that block, most of the time the DROP will be in action because of security consideration.</p>
 
@@ -2421,7 +2431,7 @@ iptables --append FORWARD --in-interface wlp2s0:1 -j ACCEPT
 
 <p>The last line is apply on the FORWARD chain in the eth1 interface and say that we want to apply the ACCEPT policy on the input of interface eth1 on the FORWARD chain, this we allow packets that go through out machine to be allow and ACCEPT.</p>
 
-<p>So in my case the ip_forword flag was set so this is way you saw it forwarded on the tcpdump, after I setup that and run tcpdump again with ping from the virtual Ubuntu I get the following results.</p>
+<p>So in my case the ip_forword flag was set so this is why you saw it forwarded on the tcpdump, after I setup that and run tcpdump again with ping from the virtual Ubuntu I get the following results.</p>
 
 <p><img src="/assets/images/lpic2/tcpdump8.8.8.8.png" alt="LPIC2 Post" />
 <strong>Figure 158</strong> Duplicate or not?</p>
@@ -2442,7 +2452,7 @@ iptables --append FORWARD --in-interface wlp2s0:1 -j ACCEPT
 <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sudo iptables -t nat -D POSTROUTING 1
 </code></pre></div></div>
 
-<p>You can see that I specified the chain and the number line and also the table of nat, without the table the default is filter so you will get the error <code class="highlighter-rouge">iptables: No chain/target/match by that name.</code> so please not that on PREROUTING you specified the nat table, we also can use <code class="highlighter-rouge">-f</code> to flash the entire table, now let’s say that I want to redirect every client on the local network that trying to connect my Web site that locate on my PC, the WEB site is run on port 80 but my clients didn’t know that and they use port 8080, so I need to setup policy rule on the PREROUTING chain to catch every packet that come in and redirect it to port 80, for that I need to setup the following:</p>
+<p>You can see that I specified the chain and the number line and also the table of nat, without the table the default is filter so you will get the error <code class="highlighter-rouge">iptables: No chain/target/match by that name.</code> so please note that on PREROUTING you specified the nat table, we also can use <code class="highlighter-rouge">-f</code> to flash the entire table, now let’s say that I want to redirect every client on the local network that trying to connect my Web site that locate on my PC, the WEB site is run on port 80 but my clients didn’t know that and they use port 8080, so I need to setup policy rule on the PREROUTING chain to catch every packet that come in and redirect it to port 80, for that I need to setup the following:</p>
 <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sudo iptables -A PREROUTING -t nat -i wlp2s0:1 -p tcp --dport 8080 -j REDIRECT --to-port 80
 </code></pre></div></div>
 
@@ -2603,7 +2613,7 @@ iptables --append FORWARD --in-interface wlp2s0:1 -j ACCEPT
 
 <p>For our system, we can do a check list to try and find some unwanted settings that may be used to exploit the system, as example open port, we may find on some server that we remove some old application but in some way the port that was open to that server are still open or the application is not remove completely so the server may still listen to that ports, in that case we can use <code class="highlighter-rouge">telnet</code> for example to find open port.</p>
 
-<p><img src="/assets/images/lpic2/scanporttelnet.png" alt="LPIC2 Post" />
+<p><img src="/assets/images/lpic2/scanposttelnet.png" alt="LPIC2 Post" />
 <strong>Figure 179</strong> Trying to scan port.</p>
 
 <p>You can see that by trying to connect with port 66 the connection refuse but on port 22 I goat some answer, so this is mean that port 22 is open, you can also use <code class="highlighter-rouge">nc</code> which is netcat tool and also can be use to search open ports.</p>
@@ -2619,14 +2629,14 @@ iptables --append FORWARD --in-interface wlp2s0:1 -j ACCEPT
 <p><img src="/assets/images/lpic2/nmapportscan.png" alt="LPIC2 Post" />
 <strong>Figure 181</strong> The nmap tool.</p>
 
-<p>You can see that I run that locally and it found several port that are open on my computer so I may be want to shut all of the port, so I need to check what process run and use that ports and disable or remove that process.</p>
+<p>You can see that I run that locally and it found several port that are open on my computer so I may be want to shutdown all of the port, so I need to check what process run and use that ports and disable or remove that process.</p>
 
 <p>So let’s talk about the action stuff, let’s say that some one try to do brute force to our system and trying to guess what is the user and password, for that case we can use <code class="highlighter-rouge">fail2ban</code> tool that sense that attack and lock out the user for amount of time, and mean awhile we can chack the logs and find the sources that are in “ban”.</p>
 
 <p><img src="/assets/images/lpic2/fail2ban.png" alt="LPIC2 Post" />
 <strong>Figure 182</strong> The jail.conf under <code class="highlighter-rouge">/etc/fail2ban/</code> folder.</p>
 
-<p>This is the configuration file, you can see that the source can retry to login 5 time only, after that he will banding for a 600 seconds which is 10 minutes, to if I try to login with incorrect password it will kick me out and any new connection from my source will be refuse</p>
+<p>This is the configuration file, you can see that the source can retry to login 5 time only, after that he will banding for a 600 seconds which is 10 minutes, so if I try to login with incorrect password it will kick me out and any new connection from my source will be refuse</p>
 
 <p><img src="/assets/images/lpic2/sshrefuse.png" alt="LPIC2 Post" />
 <strong>Figure 183</strong> My ssh connection refuse.</p>
@@ -2638,7 +2648,7 @@ iptables --append FORWARD --in-interface wlp2s0:1 -j ACCEPT
 
 <p>If we talk about IDS system which is intrusion detection system, we have the <strong>SNORT</strong> which is under GNU License, this system is open-source network-based intrusion detection/prevention system (IDS/IPS) has the ability to perform real-time traffic analysis and packet logging on Internet Protocol (IP) networks. Snort performs protocol analysis, content searching and matching.</p>
 
-<p>Also we have the <strong>OpenVAS</strong> (Open Vulnerability Assessment System, originally known as GNessUs) is a software framework of several services and tools offering vulnerability scanning and vulnerability management, OpenVAS was originally proposed by pentesters at SecuritySpace[3], discussed with pentesters at Portcullis Computer Security[4] and then announced[5] by Tim Brown on Slashdot and this day is under close source license.</p>
+<p>Also we have the <strong>OpenVAS</strong> (Open Vulnerability Assessment System, originally known as GNessUs) is a software framework of several services and tools offering vulnerability scanning and vulnerability management, OpenVAS was originally proposed by pentesters at SecuritySpace, discussed with pentesters at Portcullis Computer Security and then announced by Tim Brown on Slashdot and this day is under close source license.</p>
 
 <p>If you want to get more knowledge that related to penetration testing please check my other post about the <a href="http://zwerd.com/2019/09/20/oscp_certificate.html">OSCP</a> which is contain several stuff related to this field.</p>
 
@@ -2689,7 +2699,7 @@ iptables --append FORWARD --in-interface wlp2s0:1 -j ACCEPT
 <p><img src="/assets/images/lpic2/vpnworking.gif" alt="LPIC2 Post" />
 <strong>Figure 189</strong> My VPN is working.</p>
 
-<p>You also can the the tunnel interface which is contain the address I setup 40.4.4.2, now we can add route if we needed over the tunnel, let’s say that on my server I have network 30.3.3.0 with subnet of 255.255.255.0, then on my client I just need to add route over the tunnel and I should run ping to that network successfully, the route should be as follow:</p>
+<p>You also can see that the tunnel interface contain the address 40.4.4.2, now we can add route if we needed over the tunnel, let’s say that on my server I have network 30.3.3.0 with subnet of 255.255.255.0, then on my client I just need to add route over the tunnel and I should run ping to that network successfully, the route should be as follow:</p>
 <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>route add -net 30.3.3.0 netmask 255.255.255.0 gw 40.4.4.1 dev tun0
 </code></pre></div></div>
 <p><img src="/assets/images/lpic2/pingworking.gif" alt="LPIC2 Post" />
@@ -2769,6 +2779,15 @@ iptables --append FORWARD --in-interface wlp2s0:1 -j ACCEPT
     
       <li>
         <h3>
+          <a href="/2023/12/22/Unaturized_access.html">
+            Unauthorized Access on Shoppi site.
+            <small>22 Dec 2023</small>
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
           <a href="/2019/11/19/lpic2_certificate.html">
             Linux from Novice to Professional <br> Part 1 - System Level.
             <small>19 Nov 2019</small>
@@ -2778,18 +2797,9 @@ iptables --append FORWARD --in-interface wlp2s0:1 -j ACCEPT
     
       <li>
         <h3>
-          <a href="/2019/09/20/oscp_certificate.html">
-            OSCP Certification Journey
+          <a href="/2019/09/20/hackers_journey.html">
+            H@ck3rs Playpost - my journey in offensive cybersecurity field.
             <small>20 Sep 2019</small>
-          </a>
-        </h3>
-      </li>
-    
-      <li>
-        <h3>
-          <a href="/2019/02/17/new_open_source_app.html">
-            MyGmach - My New Open Source App (react native app)
-            <small>17 Feb 2019</small>
           </a>
         </h3>
       </li>

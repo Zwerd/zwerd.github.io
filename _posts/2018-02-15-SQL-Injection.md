@@ -5,7 +5,7 @@ excerpt: "If you look on top 10 of OWASP about Application Security Risks you ma
 The cool thing is that injection is the number one and it may sound weird but there is some website that using SQL (Structured Query Language) and you can attack these website in such type of attack that they really should not work anymore but still does. <br>
 Let's look on the SQL injection in details."
 tags:
-- Injection
+- Pentest
 
 ---
 SQL or Structured Query Language is a way to store and pullout data from database and it's fairly easy because it's like English actually, you can write things like `SELECT * FROM thistable` and every such command will bring up to you results from the database and this was the way to store things in websites and still does for many years.

@@ -3,7 +3,7 @@ layout: post
 title: Behind the scenes.
 excerpt: "It not so hard to be at home every day, but to be a job less it's pretty difficult, many time I ask myself what or where I went wrong, I have no clear answer about that, but after all what is really impotent is health, so here I am without job, but I am healthy and I  doing what I love which is working.."
 tags:
-- SQL injection
+- Pentest
 
 ---
 

@@ -1,0 +1,41 @@
+<p>As you may know, this site is build using Jekyll, that help me to done all the magic automatically which is great. In the passed week I reinstall Ubuntu on my laptop and that forced me to use git again and clone the project from my repository and after I install gem I tried to run Jekyll but goat some error, so I I wasted an hour on it and after I fund the fixing for that I decided to share is here.</p>
+
+<p>So, the first thing I done is to go throughout the Jekyll documentations and install it using the following commands:<br /></p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sudo apt-get install ruby ruby-dev build-essential
+</code></pre></div></div>
+<p>I’m using zshell, so in my case I’m using <code class="highlighter-rouge">/.zshrc</code> instead of <code class="highlighter-rouge">/.bashrc</code>:</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>echo '# Install Ruby Gems to ~/gems' &gt;&gt; ~/.zshrc\necho 'export GEM_HOME=$HOME/gems' &gt;&gt; ~/.zshrc\necho 'export PATH=$HOME/gems/bin:$PATH' &gt;&gt; ~/.zshrc\nsource ~/.zshrc
+</code></pre></div></div>
+<p>after that using the last command using gem:</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>gem install jekyll bundler
+</code></pre></div></div>
+<p>I was so happy that so far I doesn’t received any error, but it was too early to party, when I run the command <code class="highlighter-rouge">jekyll serve</code> the first error appear:</p>
+
+<p><img src="/assets/images/jekyll-error_error_jekyll-3.8.1.png" alt="jekyll-error_error_jekyll-3.8.1.png" />
+<strong>Figure 1</strong> tjekyll 3.8.1 is missing.</p>
+
+<p>Than of course I run the command:</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>gem install jekyll --version 3.8.1
+</code></pre></div></div>
+<p>After that I tried to run the <code class="highlighter-rouge">jekyll serve</code> again, but still received an error, little bit different, but still doesn’t get it to work right.</p>
+
+<p><img src="/assets/images/jekyll-error_error_jekyll-feed.png" alt="jekyll-error_error_jekyll-feed.png" />
+<strong>Figure 2</strong> jekyll-feed 0.9.3 is missing.</p>
+
+<p>I can right now to do the same and install <code class="highlighter-rouge">jekyll-feed 0.9.3</code> but I rather not to because I don’t want to go throughout every gem and install is manually, so I googled it and found that I need to run <code class="highlighter-rouge">bundle</code>:
+<img src="/assets/images/jekyll-error_bundle.png" alt="jekyll-error_bundle.png" />
+<strong>Figure 3</strong> Run the bundle command.</p>
+
+<p>Now I run again the <code class="highlighter-rouge">jekyll serve</code> but I received the another error:
+<img src="/assets/images/jekyll-error_check_for_activated_spec.png" alt="jekyll-error_check_for_activated_spec.png" />
+<strong>Figure 4</strong> check_for_activated_spec error.</p>
+
+<p>So I go through <code class="highlighter-rouge">bundle exec jekyll serve</code>:
+<img src="/assets/images/jekyll-error_bundle_exec.png" alt="jekyll-error_bundle_exec.png" />
+<strong>Figure 5</strong> bundle exec jekyll serve.</p>
+
+<p>And that it! working like charm.</p>
+
+<audio controls="controls">
+  <source src="https://docs.google.com/uc?export=download&amp;id=0B5Js_4pfB8j3TEhxTVhYTmhreWhZZFRUdTRZR1RNYkRHMXBj" />
+</audio>

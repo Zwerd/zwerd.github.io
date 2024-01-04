@@ -12,7 +12,7 @@ I am also going to setup virtual lab for everything in that article, it going to
 
 "
 tags:
-- pentest
+- Pentest
 
 ---
 

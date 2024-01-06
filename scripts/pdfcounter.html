@@ -47,6 +47,7 @@
       let letterCount = 0;
       textItems.forEach(function(item) {
         const letters = item.str.replace(/[^\p{L}]/gu, '').toLowerCase();
+        console.log(letters);  // Log the extracted text for debugging
         if ((includeLetters === '' || letters.includes(includeLetters)) && !letters.includes(excludeLetters)) {
           letterCount += letters.length;
         }

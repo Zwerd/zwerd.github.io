@@ -12,9 +12,6 @@
     pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://unpkg.com/pdfjs-dist@2.10.377/build/pdf.worker.js';
 
     function countLetters() {
-      const includeLetters = document.getElementById('includeLetters').value.toLowerCase();
-      const excludeLetters = document.getElementById('excludeLetters').value.toLowerCase();
-
       const fileInput = document.getElementById('pdfInput');
       const file = fileInput.files[0];
 
@@ -23,35 +20,33 @@
 
         reader.onload = function (e) {
           const arrayBuffer = e.target.result;
-          parsePDF(arrayBuffer, includeLetters, excludeLetters);
+          parsePDF(arrayBuffer);
         };
 
         reader.readAsArrayBuffer(file);
       }
     }
 
-    function parsePDF(data, includeLetters, excludeLetters) {
+    function parsePDF(data) {
       pdfjsLib.getDocument({ data: data }).promise.then(function(pdf) {
         return pdf.getPage(1);
       }).then(function(page) {
         return page.getTextContent();
       }).then(function(textContent) {
-        const letterCount = countLettersWithOptions(textContent.items, includeLetters, excludeLetters);
+        const letterCount = countLettersWithoutOptions(textContent.items);
         displayResult(letterCount);
       }).catch(function(error) {
         console.error('Error:', error);
       });
     }
 
-    function countLettersWithOptions(textItems, includeLetters, excludeLetters) {
+    function countLettersWithoutOptions(textItems) {
       let letterCount = 0;
       textItems.forEach(function(item) {
         const letters = item.str.replace(/[^\p{L}]/gu, '').toLowerCase();
-        
-        if ((includeLetters === '' || letters.includes(includeLetters)) && 
-            (excludeLetters === '' || !letters.includes(excludeLetters))) {
-          letterCount += letters.length;
-        }
+        // Exclude specific characters
+        const filteredLetters = letters.replace(/[-,.]/g, '');
+        letterCount += filteredLetters.length;
       });
       return letterCount;
     }
@@ -62,14 +57,6 @@
   </script>
 
   <h1>PDF Letter Counter</h1>
-
-  <label for="includeLetters">Include only specific letters:</label>
-  <input type="text" id="includeLetters" placeholder="Enter letters to include">
-
-  <label for="excludeLetters">Exclude specific letters:</label>
-  <input type="text" id="excludeLetters" placeholder="Enter letters to exclude">
-
-  <br>
 
   <input type="file" id="pdfInput" accept=".pdf">
   <button onclick="countLetters()">Count Letters</button>

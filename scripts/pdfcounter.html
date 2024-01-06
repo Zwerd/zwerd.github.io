@@ -48,9 +48,8 @@
       textItems.forEach(function(item) {
         const letters = item.str.replace(/[^\p{L}]/gu, '').toLowerCase();
         
-        if ((includeLetters !== '' && letters.includes(includeLetters)) || 
-            (excludeLetters !== '' && !letters.includes(excludeLetters)) ||
-            (includeLetters === '' && excludeLetters === '')) {
+        if ((includeLetters !== '' && letters.includes(includeLetters)) && 
+            (excludeLetters === '' || !letters.includes(excludeLetters))) {
           letterCount += letters.length;
         }
       });

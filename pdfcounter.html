@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PDF Letter Counter</title>
+  <script src="https://mozilla.github.io/pdf.js/build/pdf.js"></script>
+</head>
+<body>
+  <h1>PDF Letter Counter</h1>
+
+  <label for="includeLetters">Include only specific letters:</label>
+  <input type="text" id="includeLetters" placeholder="Enter letters to include">
+
+  <label for="excludeLetters">Exclude specific letters:</label>
+  <input type="text" id="excludeLetters" placeholder="Enter letters to exclude">
+
+  <br>
+
+  <input type="file" id="pdfInput" accept=".pdf">
+  <button onclick="countLetters()">Count Letters</button>
+
+  <div id="resultBox"></div>
+
+  <script>
+    function countLetters() {
+      const includeLetters = document.getElementById('includeLetters').value.toLowerCase();
+      const excludeLetters = document.getElementById('excludeLetters').value.toLowerCase();
+
+      const fileInput = document.getElementById('pdfInput');
+      const file = fileInput.files[0];
+
+      if (file) {
+        const reader = new FileReader();
+
+        reader.onload = function (e) {
+          const arrayBuffer = e.target.result;
+          parsePDF(arrayBuffer, includeLetters, excludeLetters);
+        };
+
+        reader.readAsArrayBuffer(file);
+      }
+    }
+
+    function parsePDF(data, includeLetters, excludeLetters) {
+      pdfjsLib.getDocument({ data: data }).promise.then(function(pdf) {
+        return pdf.getPage(1);
+      }).then(function(page) {
+        return page.getTextContent();
+      }).then(function(textContent) {
+        const letterCount = countLettersWithOptions(textContent.items, includeLetters, excludeLetters);
+        displayResult(letterCount);
+      }).catch(function(error) {
+        console.error('Error:', error);
+      });
+    }
+
+    function countLettersWithOptions(textItems, includeLetters, excludeLetters) {
+      let letterCount = 0;
+      textItems.forEach(function(item) {
+        const letters = item.str.replace(/[^\p{L}]/gu, '').toLowerCase();
+        if ((includeLetters === '' || letters.includes(includeLetters)) && !letters.includes(excludeLetters)) {
+          letterCount += letters.length;
+        }
+      });
+      return letterCount;
+    }
+
+    function displayResult(count) {
+      document.getElementById('resultBox').innerText = `Letter count: ${count}`;
+    }
+  </script>
+</body>
+</html>

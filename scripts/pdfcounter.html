@@ -7,22 +7,10 @@
   <script src="https://unpkg.com/pdfjs-dist@2.10.377/build/pdf.js"></script>
 </head>
 <body>
-  <h1>PDF Letter Counter</h1>
-
-  <label for="includeLetters">Include only specific letters:</label>
-  <input type="text" id="includeLetters" placeholder="Enter letters to include">
-
-  <label for="excludeLetters">Exclude specific letters:</label>
-  <input type="text" id="excludeLetters" placeholder="Enter letters to exclude">
-
-  <br>
-
-  <input type="file" id="pdfInput" accept=".pdf">
-  <button onclick="countLetters()">Count Letters</button>
-
-  <div id="resultBox"></div>
-
   <script>
+    // Explicitly specify the worker source
+    pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://unpkg.com/pdfjs-dist@2.10.377/build/pdf.worker.js';
+
     function countLetters() {
       const includeLetters = document.getElementById('includeLetters').value.toLowerCase();
       const excludeLetters = document.getElementById('excludeLetters').value.toLowerCase();
@@ -70,5 +58,20 @@
       document.getElementById('resultBox').innerText = `Letter count: ${count}`;
     }
   </script>
+
+  <h1>PDF Letter Counter</h1>
+
+  <label for="includeLetters">Include only specific letters:</label>
+  <input type="text" id="includeLetters" placeholder="Enter letters to include">
+
+  <label for="excludeLetters">Exclude specific letters:</label>
+  <input type="text" id="excludeLetters" placeholder="Enter letters to exclude">
+
+  <br>
+
+  <input type="file" id="pdfInput" accept=".pdf">
+  <button onclick="countLetters()">Count Letters</button>
+
+  <div id="resultBox"></div>
 </body>
 </html>

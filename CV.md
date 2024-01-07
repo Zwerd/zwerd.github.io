@@ -10,7 +10,7 @@ sidebar_link: true
 
 ### Experience
 
-**2022 - Present · Cyber Threat Hunting & ResearchCyber Threat Hunting & Research.**
+**2022 - Present · Cyber Threat Hunting & Research.**
 - Investigation and **hunting** for **cyber threat** over the OU events, analysis the data, discovering threat and report them to the local **SOC/GSOC teams**, and running for active responding like blocking, updating rules & policy, also updating SOC automation code and scripts.
 - Performing, as a part of studies, pentesting over more then 100 box's, coding in PowerShell/Python/Bash and attacking web apps using techniques like **LFI**, RFI, **RCE** and **PE** with **Metasploits**, JTR, Hydra base on **Linux Kali** and buffer overflow using known exploit code from exploit-db/**github** and reverse engineering with **Immunity Debugger** and **GDB**/IDE atop Linux.
 

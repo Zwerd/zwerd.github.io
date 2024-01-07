@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PDF Letter Counter</title>
+  <script src="https://unpkg.com/pdfjs-dist@2.10.377/build/pdf.js"></script>
+</head>
+<body>
+  <script>
+    // Explicitly specify the worker source
+    pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://unpkg.com/pdfjs-dist@2.10.377/build/pdf.worker.js';
+
+    function countLetters() {
+      const fileInput = document.getElementById('pdfInput');
+      const file = fileInput.files[0];
+
+      if (file) {
+        const reader = new FileReader();
+
+        reader.onload = function (e) {
+          const arrayBuffer = e.target.result;
+          parsePDF(arrayBuffer);
+        };
+
+        reader.readAsArrayBuffer(file);
+      }
+    }
+
+    function parsePDF(data) {
+      pdfjsLib.getDocument({ data: data }).promise.then(function(pdf) {
+        return pdf.getPage(1);
+      }).then(function(page) {
+        return page.getTextContent();
+      }).then(function(textContent) {
+        const letterCount = countLettersWithoutOptions(textContent.items);
+        displayResult(letterCount);
+      }).catch(function(error) {
+        console.error('Error:', error);
+      });
+    }
+
+    function countLettersWithoutOptions(textItems) {
+      let letterCount = 0;
+      textItems.forEach(function(item) {
+        const letters = item.str.replace(/[^\p{L}]/gu, '').toLowerCase();
+        // Exclude specific characters
+        const filteredLetters = letters.replace(/[-,.]/g, '');
+        letterCount += filteredLetters.length;
+      });
+      return letterCount;
+    }
+
+    function displayResult(count) {
+      document.getElementById('resultBox').innerText = `Letter count: ${count}`;
+    }
+  </script>
+
+  <h1>PDF Letter Counter</h1>
+
+  <input type="file" id="pdfInput" accept=".pdf">
+  <button onclick="countLetters()">Count Letters</button>
+
+  <div id="resultBox"></div>
+</body>
+</html>

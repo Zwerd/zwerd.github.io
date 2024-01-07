@@ -6,115 +6,63 @@ sidebar_link: true
 
 ### Summary
 
-<b>CCIP, CCNP and LPIC1 certified. Love everything that related to Cyb3rSecurity stuff, Currently focused on develop my first WEB Game using JS, I am self-learner, with high motivation and lot of curiosity.
-Looking for a job where I can improve my development skills with JS/Python.</b>
-
+**LPIC1/2**, CCSA, CCNP R&S, CCIP, **CCNA Security**, CCNA R&S **certified**. Currently preparing to the **OSCP** exam. Coding using **Python**/PowerShell/**Bash**,pentesting using Pentera automation or Kali manualy including malware research studing with Immunity Debugger and GDB, Using metasploit, burpsuite, sqlmap, JTR, hydra, web enumerating like Feroxbuster/DirBuster/DirSearch and much more. Have deep knowledge in the TCP/IP world include DNS, HTTP, SMB, and also written technical guides about Linux and Cyber Security.
 
 ### Experience
 
-**2017 - Today Freelance application and website development.**
+**2022 - Present · Cyber Threat Hunting & ResearchCyber Threat Hunting & Research.**
+- Investigation and **hunting** for **cyber threat** over the OU events, analysis the data, discovering threat and report them to the local SOC/GSOC teams, and running for active responding like blocking, updating rules & policy, also updating SOC automation code and scripts.
+- Performing as a part of studies pentesting over more then 100 box's, coding in PowerShell/Python/Bash and attacking web apps including techniques like LFI, RFI, RCE and PE and using tools like Metasploits, JTR, Hydra base on Linux Kali and buffer overflow using known exploit code from exploit-db/github and reverse engineering with **Immunity Debugger** and **GDB**/IDE atop Linux.
+
+**2018 - Present · Cyber Security Engineer.**
+- Implementation rules and policies on variety devices like Cisco **IronPort**, Fourscout NAC, CheckPoint & PaloAlto Fw's, PulseSecure VPN's, Trellix ePO, Cisco R&S, BackBox, Tufin, **FireEye EX/NX**.
+- Routed events over **Trellix SIEM** (Formerly McAfee) and parsing them, setting aggregation and create correlation, alarm and dashboards for SOC team.
+- Conducting research based cyber incidents, applying protection points and performing follow-up logging and implement exclusive scripts in PowerShell, Python.
+- Experience with Linux based devices like Debian, RedHat and implementation bash scripts for SOC monitoring solution.
+
+**2017 - 2018 · Freelance application and website development.**
 - Application development with React-Native and Android-Studio atop Linux enviroment, by using npm, node.js, whatchman, and Python/JavaScriptXML.
 - Website development using HTM5,CSS3 and JavaScript.
 - Open source information sharing on Github.
 
-<b>2016 - 2017 Network and Security Analist at the BrightSource.</b>
-<ul>
-<li>Full migration from CheckPoint devices to PaloAlto FWs.</li>
-<li>Managment and manipulated security devices and software such as Cisco IronPort, Websense of Forcepoint, Symantec Endpoint Protection Managment, NAC device of ForeScout,
-Cisco Miraki, 2FA Symantec VIP, Bit Locker, CA+RADIUS, Microsoft Intune MDM, PulseSecure VPN.</li>
-<li>Network managment base on Cisco devices, IBM PureFlex Switch’s, Dell PowerFlex
-Switch’s.</li>
-</ul>
+**2016 - 2017 · Cyber Security Specialist at the BrightSource.**
+- Full migration from CheckPoint devices to PaloAlto FWs. Managment Cisco based network, support IronPort, Websense of Forcepoint, Symantec EPM, ForeScout NAC.
 
+**2012 - 2016 · Network and Security Engineer at the Ministry of Health.**
+- Operating a wide range of network and security monitoring software, such as IBM Tivoli, WhatsUp Gold, Cisco ASE, HP Switchs, Juniper Pulse Secure VPN, CheckPoint SmartDashboard/Tracker/Log, Tufin SecureTrack, Wise-Mon
+NAC, ODI-x servers, Linux devices and supplement automation tasks in Bash, Shell and Python.
 
-<b>2012 - 2016 Member of Networking and Security team at the Ministry of
-Health.</b>
+**2009 - 2012 · Technician in Networking Team at IAF Ofek unit.**
+- Shift management in a team of 20 technicians, and certifying new technicians for network & security. Designing large and small networking topologies LAN and WAN network architecture.</li>
+- Troubleshooting and solving networking issues with a use of sniffer software such as: Wireshark, tcpdump, and Scanner.
 
-<ul>
-<li>Operating a wide range of network and security monitoring software, such
-as : IBM Tivoli, WhatsUp Gold, Cisco ASE, Juniper Pulse Secure VPN,
-CheckPoint SmartDashboard/Tracker/Log, Tufin SecureTrack, Wise-Mon
-NAC.</li>
-<li>Managing the network infrastructure, which is based mainly on Cisco, HP
-and CheckPoint hardware, and has about 50,000 endpoint devices.</li>
-<li>Performing troubleshooting of LAN and WAN problems, such as load and
-infrastructure issues, and also of unique business-critical applications and
-services.</li>
-<li>Management of CyberArk Vault safes and Linux-based ODI-x servers. </li>
-<li>Building supplement solutions and automation tasks in Bash, Shell and Python
-to fulfill special organization needs.</li>
-</ul>
+**Certifications**
 
+- Cisco Certified Networking Professional (CCNP).
+- Cisco Certified Internetwork Professional (CCIP).
+- Cisco Certified Networking Associate Security (CCNA Security).
+- Cisco Certified Networking Associate (CCNA).
+- Linux Professional Institute Certificate Level 1 (LPIC-1).
+- SUSE Certified Linux Administrator.
+- Check Point Certified Security Administrator (CCSA).
 
-<b>2009 - 2012 Technician in Networking Team at OFEK unit.</b>
+**Courses**
 
-<ul>
-<li>Shift management in a team of 20 technicians, and certifying new technicians
-to work with networking and security equipment in the Air Force.</li>
-<li>Designing large and small networking topologies, testing and operating a
-network and security equipment, configuring various protocols for various
-LAN and WAN network architecture.</li>
-<li>Maintaining the core network based on Cisco, Avaya, and CheckPoint equipment
-and has about 30,000 customers. Troubleshooting and solving networking
-issues with a use of sniffer software such as: Wireshark, tcpdump, and
-Scanner.</li>
-</ul>
+- HP Advanced Enterprise Networking - HP Education.
+- Check Point Security Administration CCSA, at john bryce.
+- Avnet course - Network Communication and Telephony at Air Force.
+- Implementing Cisco Multicast - NetBryce.
+- CA Education – CA Spectrum.
+- Configuring BIG-IP LTM v11 F5 at Ness college.
+- Certifies Information Systems Security Professional at Ness College.
+- CSE1309x Introduction to Programming Using Python online edx coucse by The University of Texas System.
 
+**Languages**
 
-<b>Computer skills</b>
+- **Hebrew** · Native.
+- **English** · Good.
 
+**Recommendations**
 
-<ul>
-<li> <b>Networking</b> Avaya, Cisco, HP</li>
-<li> <b>Security</b> CheckPoint FW, Cisco ASA, Cisco ISE</li>
-<li> <b>OS</b> Linux, Windows</li>
-<li> <b>Scripting</b> Python, Shell, Batch</li>
-<li> <b>Virtualization</b> GNS3, VMware, VirtualBOX</li>
-<li> <b>Sniffers</b> TCPdump, Wireshark</li>
-</ul>
+- Recommendations will be provided upon request.
 
-
-
-<b>Certifications</b>
-
-<ul>
-<li>Cisco Certified Networking Professional (CCNP).</li>
-<li>Cisco Certified Internetwork Professional (CCIP).</li>
-<li>Cisco Certified Networking Associate Security (CCNA Security).</li>
-<li>Cisco Certified Networking Associate (CCNA).</li>
-<li>Linux Professional Institute Certificate Level 1 (LPIC-1).</li>
-<li>SUSE Certified Linux Administrator.</li>
-<li>Check Point Certified Security Administrator (CCSA).</li>
-</ul>
-
-
-<b>Courses</b>
-
-
-<ul>
-<li>HP Advanced Enterprise Networking - HP Education.</li>
-<li>Check Point Security Administration CCSA, at john bryce.</li>
-<li>Avnet course - Network Communication and Telephony at Air Force.</li>
-<li>Implementing Cisco Multicast - NetBryce.</li>
-<li>CA Education – CA Spectrum.</li>
-<li>Configuring BIG-IP LTM v11 F5 at Ness college.</li>
-<li>Certifies Information Systems Security Professional at Ness College.</li>
-<li>CSE1309x Introduction to Programming Using Python online edx coucse by The University of Texas System.</li>
-</ul>
-
-
-
-<b>Languages</b>
-
-<ul>
-<li><b>Hebrew</b> Native</li>
-<li><b>English</b> Good</li>
-</ul>
-
-
-
-<b>Recommendations</b>
-
-<ul>
-<li>Recommendations will be provided upon request.</li>
-</ul>

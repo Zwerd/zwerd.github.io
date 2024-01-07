@@ -6,13 +6,13 @@ sidebar_link: true
 
 ### Summary
 
-**LPIC1/2**, CCSA, CCNP R&S, CCIP, **CCNA Security**, CCNA R&S **certified**. Currently preparing to the **OSCP** exam. Coding using **Python**/PowerShell/**Bash**,pentesting using Pentera automation or Kali manualy including malware research studing with Immunity Debugger and GDB, Using metasploit, burpsuite, sqlmap, JTR, hydra, web enumerating like Feroxbuster/DirBuster/DirSearch and much more. Have deep knowledge in the TCP/IP world include DNS, HTTP, SMB, and also written technical guides about Linux and Cyber Security.
+**LPIC1/2**, CCSA, CCNP R&S, CCIP, **CCNA Security**, CCNA R&S **certified**. Currently preparing to the **OSCP** exam. Coding using **Python**/PowerShell/**Bash**,pentesting using Pentera automation or Kali manualy including **malware research studing** with Immunity Debugger and GDB, Using metasploit, burpsuite, sqlmap, JTR, hydra, web enumerating like Feroxbuster/DirBuster/DirSearch and much more. Have deep knowledge in the TCP/IP world include DNS, HTTP, SMB, and also written technical guides about Linux and Cyber Security.
 
 ### Experience
 
 **2022 - Present · Cyber Threat Hunting & ResearchCyber Threat Hunting & Research.**
-- Investigation and **hunting** for **cyber threat** over the OU events, analysis the data, discovering threat and report them to the local SOC/GSOC teams, and running for active responding like blocking, updating rules & policy, also updating SOC automation code and scripts.
-- Performing as a part of studies pentesting over more then 100 box's, coding in PowerShell/Python/Bash and attacking web apps including techniques like LFI, RFI, RCE and PE and using tools like Metasploits, JTR, Hydra base on Linux Kali and buffer overflow using known exploit code from exploit-db/github and reverse engineering with **Immunity Debugger** and **GDB**/IDE atop Linux.
+- Investigation and **hunting** for **cyber threat** over the OU events, analysis the data, discovering threat and report them to the local **SOC/GSOC teams**, and running for active responding like blocking, updating rules & policy, also updating SOC automation code and scripts.
+- Performing, as a part of studies, pentesting over more then 100 box's, coding in PowerShell/Python/Bash and attacking web apps using techniques like **LFI**, RFI, **RCE** and **PE** with **Metasploits**, JTR, Hydra base on **Linux Kali** and buffer overflow using known exploit code from exploit-db/**github** and reverse engineering with **Immunity Debugger** and **GDB**/IDE atop Linux.
 
 **2018 - Present · Cyber Security Engineer.**
 - Implementation rules and policies on variety devices like Cisco **IronPort**, Fourscout NAC, CheckPoint & PaloAlto Fw's, PulseSecure VPN's, Trellix ePO, Cisco R&S, BackBox, Tufin, **FireEye EX/NX**.

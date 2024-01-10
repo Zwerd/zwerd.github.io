@@ -1,0 +1,720 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+  <head>
+  <link href="http://gmpg.org/xfn/11" rel="profile" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+  <meta itemprop="name"            content="Zwerd.com">
+  <meta itemprop="description"     content="A stunning blog of freaking PT warrior; you will find here cool stuff about networks, security and massive attacks!">
+  <meta itemprop="image"           content="https://zwerd.com/favicon.gif">
+  <!-- Enable responsiveness on mobile devices-->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1" />
+
+  <title>
+    
+      The First Path to Malware Research - Buffer Overflow Analysis. &middot; Zwerd
+    
+  </title>
+
+  
+
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="/assets/css/main.css" />
+  
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Abril+Fatface" />
+
+  <!-- Icons -->
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/favicon.ico" />
+<link rel="shortcut icon" href="/favicon.ico" />
+
+
+  <!-- RSS -->
+  <link rel="alternate" type="application/rss+xml" title="RSS" href="/feed.xml" />
+
+  <!-- Additional head bits without overriding original head -->
+<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+
+
+</head>
+
+
+  <body class="post">
+
+    <div id="sidebar">
+  <div class="sidebar-mugshot">
+      <img src="/assets/images/logo.gif" alt="Guy Zwerdling">
+  </div>
+  <header>
+    <div class="site-title">
+      <a href="/">
+        
+          <span class="back-arrow icon"><svg fill="#000000" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+  <path d="M0 0h24v24H0z" fill="none"/>
+  <path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/>
+</svg></span>
+        
+        Zwerd
+      </a>
+    </div>
+    <p class="lead">A stunning blog of freaking PT warrior</p>
+  </header>
+
+
+  <nav id="sidebar-nav-links">
+  
+    <a class="home-link "
+        href="/">Home</a>
+  
+  
+
+  
+
+  
+
+
+  
+    
+  
+
+  
+    
+  
+
+  
+    
+      <a class="page-link "
+          href="/category/Applications.html">Applications</a>
+    
+  
+
+  
+    
+      <a class="page-link "
+          href="/CV.html">Guy Zwerdling - Resume</a>
+    
+  
+
+  
+    
+      <a class="page-link "
+          href="/category/Games.html">Games</a>
+    
+  
+
+  
+    
+      <a class="page-link "
+          href="/about.html">About</a>
+    
+  
+
+  
+    
+  
+
+  
+
+  
+    
+      <a class="page-link "
+          href="/category/recomendations.html">Recommendations</a>
+    
+  
+
+  
+    
+  
+
+  
+    
+  
+
+  
+
+  
+    
+  
+
+  
+    
+  
+
+  
+    
+  
+
+  
+    
+  
+
+
+  
+
+
+  
+    
+  
+
+  
+    
+  
+
+  
+    
+  
+
+  
+    
+  
+
+  
+    
+  
+
+  
+    
+  
+
+  
+    
+  
+
+  
+
+  
+    
+  
+
+  
+    
+  
+
+  
+    
+  
+
+  
+
+  
+    
+  
+
+  
+    
+  
+
+  
+    
+  
+
+  
+    
+  
+
+
+  <!-- Optional additional links to insert in sidebar nav -->
+</nav>
+
+
+  
+
+  <form action="https://getsimpleform.com/messages?form_api_token=fb07df529fbad6b6caabb9352ad2108c" method="post">
+  <!-- the redirect_to is optional, the form will redirect to the referrer on submission -->
+  <input type='hidden' name='redirect_to' value='https://zwerd.com' />
+  <!-- all your input fields here.... -->
+  <input type='text' name='test' placeholder="Type your email..."/>
+  <input type='submit' value='Subscribe' />
+</form>
+
+  <nav id="sidebar-icon-links">
+  
+    <a id="github-link"
+       class="icon" title="Github Project" aria-label="Github Project"
+       href="https://github.com/zwerd">
+      <?xml version="1.0"?>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Capa_1" x="0px" y="0px" width="512px" height="512px" viewBox="0 0 438.536 438.536" style="enable-background:new 0 0 438.536 438.536;" xml:space="preserve" class=""><g><g>
+	<g>
+		<path d="M158.173,352.599c-3.049,0.568-4.381,1.999-3.999,4.281c0.38,2.283,2.093,3.046,5.138,2.283    c3.049-0.76,4.38-2.095,3.997-3.997C162.931,353.074,161.218,352.216,158.173,352.599z" data-original="#000000" class="active-path" data-old_color="#ffffff" fill="#ffffff"/>
+		<path d="M141.898,354.885c-3.046,0-4.568,1.041-4.568,3.139c0,2.474,1.619,3.518,4.853,3.138c3.046,0,4.57-1.047,4.57-3.138    C146.753,355.553,145.134,354.502,141.898,354.885z" data-original="#000000" class="active-path" data-old_color="#ffffff" fill="#ffffff"/>
+		<path d="M119.629,354.022c-0.76,2.095,0.478,3.519,3.711,4.284c2.855,1.137,4.664,0.568,5.424-1.714    c0.572-2.091-0.666-3.61-3.711-4.568C122.197,351.265,120.39,351.922,119.629,354.022z" data-original="#000000" class="active-path" data-old_color="#ffffff" fill="#ffffff"/>
+		<path d="M414.41,24.123C398.326,8.042,378.964,0,356.309,0H82.225C59.577,0,40.208,8.042,24.123,24.123    C8.042,40.207,0,59.576,0,82.225v274.088c0,22.65,8.042,42.017,24.123,58.098c16.084,16.084,35.454,24.126,58.102,24.126h63.953    c4.184,0,7.327-0.144,9.42-0.424c2.092-0.288,4.184-1.526,6.279-3.717c2.096-2.187,3.14-5.376,3.14-9.562    c0-0.568-0.05-7.046-0.144-19.417c-0.097-12.375-0.144-22.176-0.144-29.41l-6.567,1.143c-4.187,0.76-9.469,1.095-15.846,0.999    c-6.374-0.096-12.99-0.76-19.841-1.998c-6.855-1.239-13.229-4.093-19.13-8.562c-5.898-4.477-10.085-10.328-12.56-17.559    l-2.856-6.571c-1.903-4.373-4.899-9.229-8.992-14.554c-4.093-5.332-8.232-8.949-12.419-10.852l-1.999-1.428    c-1.331-0.951-2.568-2.098-3.711-3.429c-1.141-1.335-1.997-2.669-2.568-3.997c-0.571-1.335-0.097-2.43,1.427-3.289    c1.524-0.855,4.281-1.279,8.28-1.279l5.708,0.855c3.808,0.76,8.516,3.042,14.134,6.851c5.614,3.806,10.229,8.754,13.846,14.843    c4.38,7.806,9.657,13.75,15.846,17.843c6.184,4.097,12.419,6.143,18.699,6.143s11.704-0.476,16.274-1.424    c4.565-0.954,8.848-2.385,12.847-4.288c1.713-12.751,6.377-22.559,13.988-29.41c-10.848-1.143-20.602-2.854-29.265-5.14    c-8.658-2.286-17.605-5.995-26.835-11.136c-9.234-5.14-16.894-11.512-22.985-19.13c-6.09-7.618-11.088-17.61-14.987-29.978    c-3.901-12.375-5.852-26.652-5.852-42.829c0-23.029,7.521-42.637,22.557-58.814c-7.044-17.32-6.379-36.732,1.997-58.242    c5.52-1.714,13.706-0.428,24.554,3.855c10.85,4.286,18.794,7.951,23.84,10.992c5.046,3.042,9.089,5.614,12.135,7.71    c17.705-4.949,35.976-7.423,54.818-7.423c18.841,0,37.115,2.474,54.821,7.423l10.849-6.852c7.426-4.57,16.18-8.757,26.269-12.562    c10.088-3.806,17.795-4.854,23.127-3.14c8.562,21.51,9.328,40.922,2.279,58.241c15.036,16.179,22.559,35.786,22.559,58.815    c0,16.18-1.951,30.505-5.852,42.969c-3.898,12.467-8.939,22.463-15.13,29.981c-6.184,7.519-13.894,13.843-23.124,18.986    c-9.232,5.137-18.178,8.853-26.84,11.132c-8.661,2.286-18.414,4.004-29.263,5.147c9.891,8.562,14.839,22.072,14.839,40.538v68.238    c0,3.237,0.472,5.852,1.424,7.851c0.958,1.998,2.478,3.374,4.571,4.141c2.102,0.76,3.949,1.235,5.571,1.424    c1.622,0.191,3.949,0.287,6.995,0.287h63.953c22.648,0,42.018-8.042,58.095-24.126c16.084-16.084,24.126-35.454,24.126-58.102    V82.225C438.533,59.576,430.491,40.204,414.41,24.123z" data-original="#000000" class="active-path" data-old_color="#ffffff" fill="#ffffff"/>
+		<path d="M86.793,319.195c-1.331,0.948-1.141,2.471,0.572,4.565c1.906,1.902,3.427,2.189,4.57,0.855    c1.331-0.948,1.141-2.471-0.575-4.569C89.458,318.336,87.936,318.049,86.793,319.195z" data-original="#000000" class="active-path" data-old_color="#ffffff" fill="#ffffff"/>
+		<path d="M77.374,312.057c-0.57,1.335,0.096,2.478,1.999,3.426c1.521,0.955,2.762,0.767,3.711-0.568    c0.57-1.335-0.096-2.478-1.999-3.433C79.182,310.91,77.945,311.102,77.374,312.057z" data-original="#000000" class="active-path" data-old_color="#ffffff" fill="#ffffff"/>
+		<path d="M95.646,330.331c-1.715,0.948-1.715,2.666,0,5.137c1.713,2.478,3.328,3.142,4.853,1.998c1.714-1.334,1.714-3.142,0-5.427    C98.978,329.571,97.359,328.993,95.646,330.331z" data-original="#000000" class="active-path" data-old_color="#ffffff" fill="#ffffff"/>
+		<path d="M105.641,343.174c-1.714,1.526-1.336,3.327,1.142,5.428c2.281,2.279,4.185,2.566,5.708,0.849    c1.524-1.519,1.143-3.326-1.142-5.42C109.068,341.751,107.164,341.463,105.641,343.174z" data-original="#000000" class="active-path" data-old_color="#ffffff" fill="#ffffff"/>
+	</g>
+</g></g> </svg>
+
+    </a>
+    <a id="twitter"
+       class="icon" title="twitter" aria-label="Guy twitter"
+       href="https://twitter.com/guyzwerdling">
+      <?xml version="1.0"?>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Capa_1" x="0px" y="0px" viewBox="0 0 486.392 486.392" style="enable-background:new 0 0 486.392 486.392;" xml:space="preserve" width="512px" height="512px" class=""><g><g>
+	<g>
+		<g>
+			<path d="M395.193,0H91.198C40.826,0,0,40.826,0,91.198v303.995c0,50.372,40.826,91.198,91.198,91.198     h303.995c50.372,0,91.198-40.827,91.198-91.198V91.198C486.392,40.826,445.565,0,395.193,0z M364.186,188.598l0.182,7.752     c0,79.16-60.221,170.359-170.359,170.359c-33.804,0-65.268-9.91-91.776-26.904c4.682,0.547,9.454,0.851,14.288,0.851     c28.059,0,53.868-9.576,74.357-25.627c-26.204-0.486-48.305-17.814-55.935-41.586c3.678,0.669,7.387,1.034,11.278,1.034     c5.472,0,10.761-0.699,15.777-2.067c-27.39-5.533-48.031-29.7-48.031-58.701v-0.76c8.086,4.499,17.297,7.174,27.116,7.509     c-16.051-10.731-26.63-29.062-26.63-49.825c0-10.974,2.949-21.249,8.086-30.095c29.518,36.236,73.658,60.069,123.422,62.562     c-1.034-4.378-1.55-8.968-1.55-13.649c0-33.044,26.812-59.857,59.887-59.857c17.206,0,32.771,7.265,43.714,18.908     c13.619-2.706,26.448-7.691,38.03-14.531c-4.469,13.984-13.953,25.718-26.326,33.135c12.069-1.429,23.651-4.682,34.382-9.424     C386.073,169.659,375.889,180.208,364.186,188.598z" data-original="#010002" class="active-path" data-old_color="#ffffff" fill="#ffffff"/>
+		</g>
+	</g>
+	<g>
+	</g>
+	<g>
+	</g>
+	<g>
+	</g>
+	<g>
+	</g>
+	<g>
+	</g>
+	<g>
+	</g>
+	<g>
+	</g>
+	<g>
+	</g>
+	<g>
+	</g>
+	<g>
+	</g>
+	<g>
+	</g>
+	<g>
+	</g>
+	<g>
+	</g>
+	<g>
+	</g>
+	<g>
+	</g>
+</g></g> </svg>
+
+    </a>
+    <a id="linkedin"
+       class="icon" title="linkedin" aria-label="Guy linkedin"
+       href="https://www.linkedin.com/in/guy-zwerdling/">
+      <?xml version="1.0"?>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Capa_1" x="0px" y="0px" width="512px" height="512px" viewBox="0 0 438.536 438.536" style="enable-background:new 0 0 438.536 438.536;" xml:space="preserve"><g><g>
+	<path d="M414.41,24.123C398.333,8.042,378.963,0,356.315,0H82.228C59.58,0,40.21,8.042,24.126,24.123   C8.045,40.207,0.003,59.576,0.003,82.225v274.084c0,22.647,8.042,42.018,24.123,58.102c16.084,16.084,35.454,24.126,58.102,24.126   h274.084c22.648,0,42.018-8.042,58.095-24.126c16.084-16.084,24.126-35.454,24.126-58.102V82.225   C438.532,59.576,430.49,40.204,414.41,24.123z M133.618,367.157H67.666V169.016h65.952V367.157z M127.626,132.332   c-6.851,6.567-15.893,9.851-27.124,9.851h-0.288c-10.848,0-19.648-3.284-26.407-9.851c-6.76-6.567-10.138-14.703-10.138-24.41   c0-9.897,3.476-18.083,10.421-24.556c6.95-6.471,15.942-9.708,26.98-9.708c11.039,0,19.89,3.237,26.553,9.708   c6.661,6.473,10.088,14.659,10.277,24.556C137.899,117.625,134.477,125.761,127.626,132.332z M370.873,367.157h-65.952v-105.92   c0-29.879-11.036-44.823-33.116-44.823c-8.374,0-15.42,2.331-21.128,6.995c-5.715,4.661-9.996,10.324-12.847,16.991   c-1.335,3.422-1.999,8.75-1.999,15.981v110.775h-65.952c0.571-119.529,0.571-185.579,0-198.142h65.952v27.974   c13.867-21.681,33.558-32.544,59.101-32.544c22.84,0,41.21,7.52,55.104,22.554c13.895,15.037,20.841,37.214,20.841,66.519v113.64   H370.873z" data-original="#000000" class="active-path" data-old_color="#ffffff" fill="#ffffff"/>
+</g></g> </svg>
+
+    </a>
+    <a id="github-download-link"
+       class="icon" title="Downloads" aria-label="Downloads"
+       href="/Downloads/">
+      <svg fill="#000000" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+    <path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/>
+    <path d="M0 0h24v24H0z" fill="none"/>
+</svg>
+    </a>
+  
+
+  <a id="subscribe-link"
+     class="icon" title="Subscribe" aria-label="Subscribe"
+     href="/feed.xml">
+    <svg fill="#000000" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+    <path d="M0 0h24v24H0z" fill="none"/>
+    <circle cx="6.18" cy="17.82" r="2.18"/>
+    <path d="M4 4.44v2.83c7.03 0 12.73 5.7 12.73 12.73h2.83c0-8.59-6.97-15.56-15.56-15.56zm0 5.66v2.83c3.9 0 7.07 3.17 7.07 7.07h2.83c0-5.47-4.43-9.9-9.9-9.9z"/>
+</svg>
+  </a>
+
+  
+  
+  
+  
+
+  
+    <a id="tags-link"
+       class="icon"
+       title="Tags" aria-label="Tags"
+       href="/tags.html">
+      <svg fill="#000000" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+    <path d="M0 0h24v24H0z" fill="none"/>
+    <path d="M17.63 5.84C17.27 5.33 16.67 5 16 5L5 5.01C3.9 5.01 3 5.9 3 7v10c0 1.1.9 1.99 2 1.99L16 19c.67 0 1.27-.33 1.63-.84L22 12l-4.37-6.16z"/>
+</svg>
+    </a>
+  
+
+  
+    <a id="search-link"
+       class="icon"
+       title="Search" aria-label="Search"
+       href="/search.html">
+      <svg fill="#000000" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+    <path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/>
+    <path d="M0 0h24v24H0z" fill="none"/>
+</svg>
+    </a>
+  
+
+  <!-- Optional additional links to insert for icons links -->
+</nav>
+
+  <p>
+  &copy; 2024.
+  <a href="/LICENSE.md">Zwerd Web Deisgn</a>
+</p>
+
+  <!-- Auto Ads -->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+
+<!-- test ads -->
+<ins class="adsbygoogle"
+     style="display:block"
+     data-ad-client="ca-pub-7581310427771507"
+     data-ad-slot="2682688292"
+     data-ad-format="auto"
+     data-full-width-responsive="true"></ins>
+
+</div>
+
+
+
+    <main class="container">
+      <header>
+  <h1 class="post-title">The First Path to Malware Research - Buffer Overflow Analysis.</h1>
+</header>
+<div class="content">
+  <div class="post-meta">
+  <span class="post-date">07 Jan 2024</span>
+  <span class="post-categories">
+    
+  </span>
+</div>
+  <!-- Auto Ads -->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+
+<!-- test ads -->
+<ins class="adsbygoogle"
+     style="display:block"
+     data-ad-client="ca-pub-7581310427771507"
+     data-ad-slot="2682688292"
+     data-ad-format="auto"
+     data-full-width-responsive="true"></ins>
+
+  <div class="post-body">
+    <p>If you follow up my lastest post, you can see that it’s being long time since I upload my latest post here, and you may know that I am working and learning for the <strong>OSCP</strong> exam, which is the ultimate certification in my case. One of the attacks that I have learn on that path and exciting me much, so much so that it gives me chills, is <strong>buffer overflow</strong> attack. I have seeing many attacks, from the application level to the low level, which is called also the infrastructure level, in my case I have found my self more enjoyable by learning buffer overflow, and after I finish my first attack on that low memory, I finally recognized what I really what to do on the cyber security field, which is to be cyber security researcher, which mean, among to the others, to know how to analysis malware and viruses, how to track their actions, and understand what they design to do.</p>
+
+<p>If you ask my Mentor, Sagi Kedmi, about that, I am sure that he will be say “you need to be the developer yourself, let the other read you garbage logs”. I can say that I undestand that, but after I develop my last two React-Native apps, I was many time frastrated, then the path I have done untill I have brack my first program in low memory level, the path was so much fun and I learn a lot, so I guess that is better for me to go to that field, the malware researcher.</p>
+
+<p>Let’s brack it done, this post agenda are:</p>
+<ul>
+  <li><a href="#understand-the-theoretical">Understand the theoretical</a></li>
+  <li><a href="#debugging-tools-and-how-to-use-them">Debugging tools and how to use them</a></li>
+  <li><a href="#performing-the-attack">Performing the attack</a></li>
+</ul>
+
+<h2 id="understand-the-theoretical">Understand the theoretical</h2>
+
+<p>Buffer overflow is much like other app attack, like, we enumerate the app and search for brack point which can be use later to bring some reverse shell or do other thing to gain sort of access to the server side if you will. In buffer overflow is much the same, we enumerate the program in low memory and search for injection point, is more complicated then just find the point and inject the code, but the way to find it include the two steps as in the application injection point:</p>
+
+<ol>
+  <li>Full Enumeration.</li>
+  <li>Pre-Exploit Injection.</li>
+  <li>Explotation.</li>
+</ol>
+
+<p>First let’s understand in the eazy way how it work, it much like a bucket, if you have a bucket you shorly know how much water you can insert to it, if you insert more than the bucket can contains, the water will flow out the bucket, and that what happens on buffer overflow. We have a memory space that contain data, and we insert more data than the <strong>memory segment</strong> can contain.</p>
+
+<p><img src="/assets/images/bo-001.jpg" alt="bo-001.png" />
+<strong>Figure 1</strong> Flow the bucket.</p>
+
+<p>The problem that the buffer overflow made is not just flow out the memory segment, it flow out with new instruction which in some way make the program do fllow them and execute the new instruction like they are part of the program it self, you can think of it like someone give some laboratory guy instuction to do X and Y and Z, and he does, but in some point the instuction was change by another person without the laboratory guy notice and after he have ran them he get’s other reactions that he expected to see.</p>
+
+<p><img src="/assets/images/bo-002.jpg" alt="bo-002.png" />
+<strong>Figure 2</strong> laboratory explosion.</p>
+
+<p>So, to understand it deeply, on the computer we have what called RAM (Random Access Memory), that RAM hold a portion of virtual memory (the complete <strong>virtual memory space</strong> includes both RAM and potentially disk space), and when some code are executable the initial data of the program are loaded into the virtual memory space, this often includes instructions, libraries, and static data.</p>
+
+<p>Then the operating system maps virtual addresses used by the program to physical addresses in RAM. This mapping allows the program to interact with memory using virtual addresses, while the operating system manages the actual locations in physical memory.</p>
+
+<p>The <strong>memory segments</strong>, are defined within the <strong>virtual address space</strong> of a program. Each segment is associated with a range of <strong>virtual addresses</strong> that the program uses to access and manage different types of data and instructions.</p>
+
+<p>There is several memory segments, heap, stack, data, text and more. on our case we’re going to be looking primarily at the stack segment which we going to abuse on the examples over that post.</p>
+
+<p>In the case of the stack, it contains virtual addresses that represent the memory locations for function calls, local variables, and the return addresses for the program’s execution flow. These virtual addresses are used by the program, and the operating system manages the mapping of these virtual addresses to actual physical addresses in RAM or on disk.</p>
+
+<p>So, when a program runs, it works with virtual addresses within its various memory segments, and the operating system takes care of translating these virtual addresses to the appropriate physical addresses in the underlying hardware. This abstraction helps in efficient memory management and allows for flexibility in handling memory resources.</p>
+
+<p>A virtual address is typically represented as a numerical value that serves as an identifier for a location within a program’s virtual address space. The format and length of virtual addresses depend on the architecture and operating system in use. The size of a virtual address is determined by the architecture. Common sizes include 32-bit and 64-bit virtual addresses. Virtual addresses are often represented in hexadecimal for readability. For example:</p>
+<ul>
+  <li>In a 32-bit system: 0x00000000 to 0xFFFFFFFF</li>
+  <li>In a 64-bit system: 0x0000000000000000 to 0xFFFFFFFFFFFFFFFF</li>
+</ul>
+
+<p>Just remember that each virtual addresses are used as references to locations in the program’s memory, including code, data, and other segments. The stack segment in a program’s virtual address space does, in a sense, point directly to the addresses that are involved in the program’s execution flow. The stack is a Last In, First Out (LIFO) data structure that is used for managing function calls, local variables, and the program’s execution flow.</p>
+
+<p>And this is the point on our case that we must to understand, since we aim to overflow the memory, overwriting the stack and gaining control, we can manipulate it by overwriting it with a virtual address pointing to our malicious code, allowing us to execute it.</p>
+
+<p>Note that the small pieces of data found in each memory segment are utilized by the CPU. These data, commonly referred to as <strong>registers</strong> such as EAX and EBX, serve as temporary <strong>storage for calculations</strong>. The CPU processes instructions from the memory segment, determining how to manipulate and operate on the stored data.</p>
+
+<p>Let’s break down the process of executing code step by step, simplifying the explanation.</p>
+
+<p><strong>Loading Code:</strong> When you run a program, the operating system loads the executable code from the disk into the computer’s memory.</p>
+
+<p><strong>Memory Segments:</strong> The memory is divided into segments like the code segment (for executable instructions), data segment (for global variables), heap (for dynamic memory), and stack (for managing function calls and local variables).</p>
+
+<p><strong>CPU Registers:</strong> The CPU, the brain of the computer, has special storage locations called registers.
+General-purpose registers like EAX, EBX are used for quick data storage and manipulation.</p>
+
+<p><strong>Instruction Fetch:</strong> The CPU fetches instructions from the code segment in memory, and the program counter (a special register, the <em>Instruction Pointer</em>) keeps track of the next instruction to be executed.</p>
+
+<p><strong>Instruction Decode and Execute:</strong> The CPU decodes the fetched instruction and performs the corresponding operation. This could be arithmetic, logic, or control-flow operations.</p>
+
+<p><strong>Memory Access:</strong> Data may be read from or written to memory during instruction execution. This involves using memory addresses.</p>
+
+<p><strong>Registers in Action:</strong> General-purpose registers (like EAX) store temporary data during calculations.</p>
+
+<p><strong>Function Calls:</strong> When a function is called, the stack is used to manage information like return addresses, local variables, and parameters.</p>
+
+<p><strong>Return from Functions:</strong> When a function returns, the stack is used to retrieve the return address and resume execution from that point.</p>
+
+<p><strong>CPU Control Flow:</strong> The CPU’s control unit manages the flow of instructions, ensuring they are executed in the correct order.</p>
+
+<p><strong>Exception Handling:</strong> If an error occurs or a special condition arises, the CPU may trigger an exception, leading to specific actions or interrupting the normal flow.</p>
+
+<p>In summary, when you run code, the CPU fetches and executes instructions stored in memory. Registers help with quick data storage, and different memory segments organize data and code. The stack is crucial for managing function calls, while the CPU’s control unit oversees the flow of instructions. It’s a complex dance orchestrated by the CPU to make your program run.</p>
+
+<p><img src="/assets/images/bo-003.png" alt="bo-003.png" />
+<strong>Figure 3</strong> The operation when code are executed.</p>
+
+<h2 id="debugging-tools-and-how-to-use-them">Debugging tools and how to use them.</h2>
+
+<p>If we have some program and we want to make research to analysis if we can perform buffer overflow on it, we must run some debugging tool that help us for understand how the program work and identified if we can overflow it, also after we have found that program is vulnerable, the full operation to make code the abuse the program for buffer overflow are done side by side with that debugging tool.</p>
+
+<p>We can find several debugging tool, since we talk about linux, we going to check the debugging tool that fit for linux. In our case we going to use GDB (GNU Debugger), but also you can use another tools, for example, Valgrind, strace, ltrace, gdbserver, perf, rr (Mozilla’s Record and Replay), Various strace and ltrace GUIs (Graphical User Interfaces).</p>
+
+<p>First, let’s look on our first code, the following code is the vulnerable for buffer overflow since the buffer size have no boundaries.</p>
+
+<figure class="highlight"><pre><code class="language-c" data-lang="c"><span class="cp">#include &lt;stdio.h&gt;
+#include &lt;string.h&gt;
+</span>
+<span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span><span class="o">**</span> <span class="n">argv</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// Declare a character array 'buffer' with a size of 500 bytes</span>
+    <span class="kt">char</span> <span class="n">buffer</span><span class="p">[</span><span class="mi">500</span><span class="p">];</span>
+
+    <span class="c1">// Copy the string from the command line argument argv[1] into the 'buffer'</span>
+    <span class="n">strcpy</span><span class="p">(</span><span class="n">buffer</span><span class="p">,</span> <span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">]);</span>
+
+    <span class="c1">// Return 0, indicating successful execution</span>
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span></code></pre></figure>
+
+<p>Let’s break it down, the line <code class="highlighter-rouge">int main(int argc, char** argv)</code> is the declaration of the main function in a C program.</p>
+
+<p><code class="highlighter-rouge">int</code> this specifies that the return type of the main function is an integer. The main function typically returns an integer value to the operating system, indicating the exit status of the program. A return value of 0 usually indicates successful execution, while a non-zero value often indicates an error or abnormal termination.</p>
+
+<p><code class="highlighter-rouge">main</code> this is the name of the function. In C, every program must have a main function, and execution of the program starts from the main function.</p>
+
+<p><code class="highlighter-rouge">(int argc, char** argv)</code> these are the parameters of the main function:</p>
+
+<p><code class="highlighter-rouge">int argc</code> stands for “argument count” and represents the number of command-line arguments passed to the program. It includes the name of the program itself as the first argument.</p>
+
+<p><code class="highlighter-rouge">char** argv</code> stands for “argument vector” and is an array of strings representing the command-line arguments. Each element (argv[i]) is a string (character array) containing one of the arguments. The first argument (argv[0]) is the name of the program. Also please note that on that case we can insert even more then four arguments.</p>
+
+<p>The line <code class="highlighter-rouge">char buffer[500];</code> declares a character array named buffer with a size of 500 bytes. The line <code class="highlighter-rouge">strcpy(buffer, argv[1]);</code> are used to take the user input on argv[1] and store it on the buffer that was create earlier . In the  end of the code  it return 0, which mean no output should appear on the screen.</p>
+
+<p>This code are vulnerable for buffer overflow because, althou There is size for the buffer, there is no checking how much data what insert on argv[1], so, if there is more then 500 characters on argv[1] it insert it to buffer which should contain only 500, which mean the pieces of data that was inserted are overwrite other field with can overwrite the instructions and take doen the program or the binary file on our case.</p>
+
+<p>so now, let’s look on that closely, we run gdb for debug that code using:</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&gt;gdb ./vuln1
+</code></pre></div></div>
+<p>After run that code we can run <code class="highlighter-rouge">list</code> command for see the lines of code, please note, if the code was compile without debugging flag, we aren’t be able to see the full lines  of code, to run flag for debugging in <code class="highlighter-rouge">gcc</code> we can use <code class="highlighter-rouge">-g</code> on the compile process.</p>
+
+<p><img src="/assets/images/bo-004.png" alt="bo-004.png" />
+<strong>Figure 4</strong> List command on gdb.</p>
+
+<p>If we run <code class="highlighter-rouge">disassemble main</code> we will be able to see the assembly version of our code, these list may seen odd to a new student on that reverse engineer field, but it not so difficult to understand, so let’s break it down column after column.</p>
+
+<p><img src="/assets/images/bo-005.png" alt="bo-005.png" />
+<strong>Figure 5</strong> disassemble main.</p>
+
+<p>On the first column we can see the odd number, <code class="highlighter-rouge">0x00001139</code>, this number represent the address location for the following line of code, next to it we can see <code class="highlighter-rouge">&lt;+0&gt;</code> which is indicates that the assembly instruction locate on 0 byte which mean that this is the start location of the code, you can see that this number goes up, on the third  line we can see 4, which represent that the assembly instruction is 4 bytes away from the previous instruction.</p>
+
+<p><code class="highlighter-rouge">push %ebp</code> is instructing the processor to push the value currently stored in the %ebp register onto the stack. The base pointer register is commonly used to point to the base of the current stack frame in function calls.</p>
+
+<p>Now, let’s break down the assembly code line by line for getting good understanding how it work and what the CPU have done on each.</p>
+
+<p><code class="highlighter-rouge">push %ebp</code>: the %ebp is register that operate by the CPU, the operator on that case is push which push %ebp to the stack, since the %ebp is the base pointer register, by doing that operation the stack shpuld contain the RBP value.</p>
+
+<p><code class="highlighter-rouge">mov %esp, %ebp</code>: in that case the operator is mov, which use to move data from one location to another, the source register in our case is RSP which is the stack pointer, and the operation is moving the value on that RSP to the RBP which is the base pointer for the stack frame.</p>
+
+<p><code class="highlighter-rouge">sub $0x210, %esp</code>: on that case the operator are subtracts one value from another. so the value $0x210 are subtracted from %esp, which mean the stack pointer is adjusted by subtracting 528 bytes (0x210 in hexadecimal).</p>
+
+<p><code class="highlighter-rouge">mov %edi, -0x204(%ebp)</code>: on that case the operation is move again, so %edi, which holds the first function argument, are stored at an offset from the base pointer (0x204 are represent 516 bytes).</p>
+
+<p><code class="highlighter-rouge">mov %esi, -0x210(%ebp)</code>: move the %esi value to the %ebp, this is the second function argument is stored at an offset from the base pointer.</p>
+
+<p><code class="highlighter-rouge">mov -0x210(%ebp), %eax</code>: again, move the %ebp value to the register RAX. Which mean the second function argument is loaded into %eax.</p>
+
+<p><code class="highlighter-rouge">add $0x8, %eax</code>: on that line, the operation is to add one value to another, so the value $0x8 are added to RAX, which mean the value in %eax is incremented by 8.</p>
+
+<p><code class="highlighter-rouge">mov (%eax), %edx</code>: again, moe operator, the value pointed to by %eax is loaded into %edx.</p>
+
+<p><code class="highlighter-rouge">lea -0x200(%ebp), %eax</code>: The lea are stand for Load Effective Address which computes the address and loads it into a register, so the effective address is calculated and loaded into %eax.</p>
+
+<p><code class="highlighter-rouge">mov %edx, %esi</code>: move the value from RDX register to RSI which is used as an argument for the strcpy function.</p>
+
+<p><code class="highlighter-rouge">mov %eax, %edi</code>: move the holds the calculated address on RAX register to RDI which is used as an argument for the strcpy function.</p>
+
+<p><code class="highlighter-rouge">call 0x1030 &lt;strcpy@plt&gt;</code>: the operator here are performs a function call, you can see immediate value. It’s the address of the strcpy function in the procedure linkage table (PLT).</p>
+
+<p><code class="highlighter-rouge">mov $0x0, %eax</code>: which in that case make EAX register with value of 0, meaning it reset that register.</p>
+
+<p><code class="highlighter-rouge">leave</code>: operator that is often used in function epilogue to restore the stack frame.</p>
+
+<p><code class="highlighter-rouge">ret</code>: this operator performs a function return, which mean on our case return value to the teminal, since it have no value to return (so design on the code), this operator return nothing.</p>
+
+<h2 id="performing-the-attack">Performing the attack.</h2>
+
+<p>So now let’s perform the attack, first we going the execute the code, we will see that it get some error.</p>
+
+<p><img src="/assets/images/bo-006.png" alt="bo-006.png" />
+<strong>Figure 6</strong> Segmentation fault.</p>
+
+<p>We getting this error, because the function should get at least one argument, so we must insert one argument, by doing so we can see that nothing goes back, we have no output as it should be.</p>
+
+<p><img src="/assets/images/bo-007.png" alt="bo-007.png" />
+<strong>Figure 7</strong> Nothing back.</p>
+
+<p>So now, back again to gdb, we will run command inside of that to execute the code with one argument that are far more longer then 500 characters, just remember, the code design in such way that the buffer can only contain 500 characters but there is no function ot operator that boundaries the argument1 value and there is no check what is the length of that value, and this is the case of making buffer overflow, so we going to use the command <code class="highlighter-rouge">run</code> with line of python code to make the argument 1 as input to that small program, we insert A char which is <code class="highlighter-rouge">\x41</code> on hexadecimal.</p>
+
+<p>Please note, if your gdb are run on base x64 arch, then for see what I display here you need to make sure that the code are compiled with the following command <code class="highlighter-rouge">gcc -g -m32 -o ./output_code ./input_code.c</code></p>
+
+<p><code class="highlighter-rouge">run $(python2 -c 'print "\x41" * 500')</code></p>
+
+    
+
+
+
+<div class="post-tags">
+  
+    
+    <a href="/tags.html#pentest">
+    
+      <span class="icon">
+        <svg fill="#000000" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+    <path d="M0 0h24v24H0z" fill="none"/>
+    <path d="M17.63 5.84C17.27 5.33 16.67 5 16 5L5 5.01C3.9 5.01 3 5.9 3 7v10c0 1.1.9 1.99 2 1.99L16 19c.67 0 1.27-.33 1.63-.84L22 12l-4.37-6.16z"/>
+</svg>
+      </span>&nbsp;<span class="tag-name">Pentest</span>
+    </a>
+  
+    
+    <a href="/tags.html#buffer-overflow">
+    
+      <span class="icon">
+        <svg fill="#000000" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+    <path d="M0 0h24v24H0z" fill="none"/>
+    <path d="M17.63 5.84C17.27 5.33 16.67 5 16 5L5 5.01C3.9 5.01 3 5.9 3 7v10c0 1.1.9 1.99 2 1.99L16 19c.67 0 1.27-.33 1.63-.84L22 12l-4.37-6.16z"/>
+</svg>
+      </span>&nbsp;<span class="tag-name">Buffer Overflow</span>
+    </a>
+  
+    
+    <a href="/tags.html#malware-analysis">
+    
+      <span class="icon">
+        <svg fill="#000000" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+    <path d="M0 0h24v24H0z" fill="none"/>
+    <path d="M17.63 5.84C17.27 5.33 16.67 5 16 5L5 5.01C3.9 5.01 3 5.9 3 7v10c0 1.1.9 1.99 2 1.99L16 19c.67 0 1.27-.33 1.63-.84L22 12l-4.37-6.16z"/>
+</svg>
+      </span>&nbsp;<span class="tag-name">Malware Analysis</span>
+    </a>
+  
+</div>
+  </div>
+
+  
+  <section class="comments">
+    <h2>Comments</h2>
+    
+  <div id="disqus_thread">
+    <button class="disqus-load" onClick="loadDisqusComments()">
+      Load Comments
+    </button>
+  </div>
+  <script>
+
+  /**
+  *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW
+  *  TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+  *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT:s
+  *  https://disqus.com/admin/universalcode/#configuration-variables
+  */
+  var disqus_config = function () {
+    this.page.url = "http://localhost:4000/2024/01/07/buffer_overflow_01.html";
+    this.page.identifier = "" ||
+                           "http://localhost:4000/2024/01/07/buffer_overflow_01.html";
+  }
+  function loadDisqusComments() { // DON'T EDIT BELOW THIS LINE
+    var d = document, s = d.createElement('script');
+    s.src = 'https://zwerd-com.disqus.com/embed.js';
+    s.setAttribute('data-timestamp', +new Date());
+    (d.head || d.body).appendChild(s);
+  }
+  </script>
+  <noscript>
+    Please enable JavaScript to view the
+    <a href="https://disqus.com/?ref_noscript">comments powered by Disqus</a>.
+  </noscript>
+
+
+  </section>
+
+
+  <section class="related">
+  <h2>Related Posts</h2>
+  <ul class="posts-list">
+    
+      <li>
+        <h3>
+          <a href="/2023/12/22/data_exposure.html">
+            Data exposure due to misconfiguration on Shoppi site.
+            <small>22 Dec 2023</small>
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
+          <a href="/2020/05/04/lpic2-202.html">
+            Linux from Novice to Professional <br> Part 2 - Application Level.
+            <small>04 May 2020</small>
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
+          <a href="/2019/11/19/lpic2_certificate.html">
+            Linux from Novice to Professional <br> Part 1 - System Level.
+            <small>19 Nov 2019</small>
+          </a>
+        </h3>
+      </li>
+    
+  </ul>
+</section>
+
+</div>
+
+    </main>
+    <!-- Auto Ads -->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+
+<!-- test ads -->
+<ins class="adsbygoogle"
+     style="display:block"
+     data-ad-client="ca-pub-7581310427771507"
+     data-ad-slot="2682688292"
+     data-ad-format="auto"
+     data-full-width-responsive="true"></ins>
+
+    <!-- Optional footer content -->
+
+  </body>
+</html>

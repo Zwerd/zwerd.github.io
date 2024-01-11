@@ -192,6 +192,63 @@ We getting this error, because the function should get at least one argument, so
 
 So now, back again to gdb, we will run command inside of that to execute the code with one argument that are far more longer then 500 characters, just remember, the code design in such way that the buffer can only contain 500 characters but there is no function ot operator that boundaries the argument1 value and there is no check what is the length of that value, and this is the case of making buffer overflow, so we going to use the command `run` with line of python code to make the argument 1 as input to that small program, we insert A char which is `\x41` on hexadecimal.
 
-Please note, if your gdb are run on base x64 arch, then for see what I display here you need to make sure that the code are compiled with the following command `gcc -g -m32 -o ./output_code ./input_code.c`
+Please note,on this post I display compiled code with base 32, if you want to follow my instruction you can do the same and compile the original code with the following command: `gcc -g -m32 -o ./output_code ./input_code.c`.
 
-`run $(python2 -c 'print "\x41" * 500')`
+The python code I used (which is python2 in my case) make 500 of A's and insert it as an argument into the running program which is our vuln1. then after running it we should get segmentation fault.
+
+```
+└─$ gdb ./vuln1
+GNU gdb (Debian 13.2-1) 13.2
+Copyright (C) 2023 Free Software Foundation, Inc.
+License GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>
+This is free software: you are free to change and redistribute it.
+There is NO WARRANTY, to the extent permitted by law.
+Type "show copying" and "show warranty" for details.
+This GDB was configured as "x86_64-linux-gnu".
+Type "show configuration" for configuration details.
+For bug reporting instructions, please see:
+<https://www.gnu.org/software/gdb/bugs/>.
+Find the GDB manual and other documentation resources online at:
+    <http://www.gnu.org/software/gdb/documentation/>.
+
+For help, type "help".
+Type "apropos word" to search for commands related to "word"...
+Reading symbols from ./vuln1...
+(gdb) run $(python2 -c 'print "\x41" * 500')
+Starting program: /home/kali/Desktop/BO/binaries/vuln1 $(python2 -c 'print "\x41" * 500')
+[Thread debugging using libthread_db enabled]
+Using host libthread_db library "/lib/x86_64-linux-gnu/libthread_db.so.1".
+
+Program received signal SIGSEGV, Segmentation fault.
+0x41414141 in ?? ()
+(gdb)
+```
+
+![bo-008.png](/assets/images/bo-008.png)
+**Figure 8** Segmentation fault after insert 500 of  A's.
+
+If we check the registers we will see that the eip register was fill up with `\x41`, so the system doesn't know how to operate with that value, so this is why we get that error, in fact on this case we overwrite the eip. we also can check the memory address to see the full vules that got in the stuck, the register esp is setup on the start of the stuck, so we can floow it and see all the characters we insert to the buffer. On our case ESP is point to the address `0xffffcd00`, so this is the start point we what to display the memory address table from the buffer.
+
+`x/500 0xffffcd00`
+
+Then if we scroll down, we will able to see the values of `\x41` we insert which cause the segmentation fault. On assembly the EBP (base pointer) are used to point to the next line of code that should be executed, every step that ebp value are change and the CPU execute each line base on the address location that are specified on that EBP.
+
+![bo-009.png](/assets/images/bo-009.png)
+**Figure 9** Addresses table.
+
+That is mean we want to overwrite that EBP so we have control on the base pointer to point back to our code, also called return address, if we have the return address that is the location of our code, this is the address we should insert to EBP.
+
+So let's fill that code again with 508 characters of A's and check if that overwrite the EBP.
+
+![bo-010.png](/assets/images/bo-010.png)
+**Figure 10** Registers overwriting.
+
+We can see that now the ESP is overwritten, so let's try to make that input bigger.
+
+![bo-011.png](/assets/images/bo-011.png)
+**Figure 11** EBP is partly overwritten.
+
+Now we can see that EBP is only partly overwrite with our `\x41`, which mean for fill it up we need to use 512 characters on our input and that's it, we can control the EBP now.
+
+![bo-012.png](/assets/images/bo-012.png)
+**Figure 12** Control the EBP.

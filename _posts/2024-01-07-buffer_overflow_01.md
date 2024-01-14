@@ -251,4 +251,4 @@ We can see that now the ESP is overwritten, so let's try to make that input bigg
 Now we can see that EBP is only partly overwrite with our `\x41`, which mean for fill it up we need to use 512 characters on our input and that's it, we can control the EBP now.
 
 ![bo-012.png](/assets/images/bo-012.png)
-**Figure 12** Control the EBP.
+**Figure 12** Control the EBP..

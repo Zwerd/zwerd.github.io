@@ -589,6 +589,8 @@ _start:
 <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>gcc -fno-stack-protector -z execstack -m32 -no-pie vuln1.c -o vuln1
 </code></pre></div></div>
 
+<p>This command compiles the C source file vuln1.c into a 32-bit executable named vuln1 with specific security features disabled or modified to facilitate certain types of low-level programming, security research, or exploitation scenarios.</p>
+
 <p>so now, let’s look on that closely, we run gdb for debug that code using:</p>
 <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&gt;gdb ./vuln1
 </code></pre></div></div>

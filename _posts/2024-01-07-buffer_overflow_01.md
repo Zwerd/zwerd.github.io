@@ -208,6 +208,8 @@ Now, lets compile that code:
 gcc -fno-stack-protector -z execstack -m32 -no-pie vuln1.c -o vuln1
 ```
 
+This command compiles the C source file vuln1.c into a 32-bit executable named vuln1 with specific security features disabled or modified to facilitate certain types of low-level programming, security research, or exploitation scenarios.
+
 so now, let's look on that closely, we run gdb for debug that code using:
 ```
 >gdb ./vuln1

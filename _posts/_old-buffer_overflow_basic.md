@@ -203,11 +203,6 @@ The line `char buffer[500];` declares a character array named buffer with a size
 
 This code are vulnerable for buffer overflow because, although there is size for the buffer, there is no checking how much data was insert on argv[1], so, if there is more then 500 characters on argv[1] it insert it to buffer which should contain only 500, which mean the pieces of data that was inserted are overwrite other field which can overwrite the instructions and take down the program or the binary file on our case.
 
-Now, lets compile that code:
-```
-gcc -fno-stack-protector -z execstack -m32 -no-pie vuln1.c -o vuln1
-```
-
 so now, let's look on that closely, we run gdb for debug that code using:
 ```
 >gdb ./vuln1

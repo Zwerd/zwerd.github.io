@@ -314,7 +314,7 @@ To see the registers location we can run `info registers`, this will display the
 ![bo-012.png](/assets/images/bo-012.png)
 **Figure 9** Registers information.
 
-On our case ESP is point to the address `0xffffcd00`, so this is the start point we what to display the memory address table from the buffer. Since we know that the buffer size is 500, we will run the following that should dispay the first 500 bytes on that stuch, we can use the address like as follow:
+On our case ESP is point to the address `0xffffcd00`, so this is the start point we want to display the memory address table from the buffer. Since we know that the buffer size is 500, we will run the following that should display the first 500 bytes on that stack, we can use the address like as follow:
 
 `x/500 0xffffcd00`
 
@@ -340,7 +340,7 @@ On that case, we going to load 500 chars to the buffer (arg1), we load 496 chars
 
 That is mean we want to overwrite that EIP so we have control on the instruction pointer to point back to our code location, also called return address, if we have the return address that is the location of our code, this is the address we should insert to EIP.
 
-So now we can filled the stack with our shellcode, since we know that the crash occurewhen the stack are filled with 500 chars and we also know that our code is 28 bytes long and the last 4 are used for EIP overwriting, we can came up with the following:
+So now we can filled the stack with our shellcode, since we know that the crash occur when the stack are filled up with 500 chars and we also know that our code is 28 bytes long and the last 4 are used for EIP overwriting, we can came up with the following:
 ```
 run $(python2 -c "print 'A'*468+<shellcode>+'B'*4")
 ```
@@ -366,13 +366,18 @@ x/4 0xffffcfd0
 ![bo-011.png](/assets/images/bo-011.jpg)
 **Figure 11** Finding the exact location of our inserted data.
 
-So, we can use the exact location of the starting code for our shell, meaning, that location address will be the return address we write over the EIP, in that way we can execute the code since the EIP is the pointer that responsible on the instruction way, so it point to some address that locate the code and execute it. But there is more option that we can do, on assembly there is NOP byte, which is `\x90` and it use as SLAD, becouse if the system get such byte `\x90` it just jump to the next byte, which mean that if there is chains of `\x90` it will go to the next, and next, and next, until it will be find some code for execution.
+So, we can use the exact location of the starting code for our shell, meaning, that location address will be the return address we write over the EIP, in that way we can execute the code since the EIP is the pointer that responsible on the instruction way, so it point to some address that locate the code and execute it. But there is more option that we can do, on assembly there is NOP byte, which is `\x90` and it use as sled (slide), because if the system get such byte `\x90` it just jump to the next byte, which mean that if there is chains of `\x90` it will go to the next, and next, and next, until it will be find some code for execution.
 
-If we chose to use that way of execution, we can use the return address that we saw erlier `0xffffcfe0`, that return address not point to the first byte of our code, insead it point to several bytes next to if, so in our case, if we use that and instead of `A` we using NOP byte, it will go next and next until it will get to our shellcode.
+If we chose to use that way of execution, we can use the return address that we saw earlier ( on figure 10) `0xffffcfe0`, that return address not point to the first byte of our code, instead it point to several bytes next to it, so in our case, if we use that and instead of `A` we using NOP byte, it will go next and next until it will get to our shellcode.
 
 So the new line of code should look like the following:
 ```
-(gdb) run $(python2 -c "print '\x90'*468+'\x31\xdb\x8d\x43\x17\x99\xcd\x80\x31\xc9\x51\x68\x6e\x2f\x73\x68\x68\x2f\x2f\x62\x69\x8d\x41\x0b\x89\xe3\xcd\x80'+'\xe0\xfc\xff\xff'")
+(gdb) run $(python2 -c "print '\x90'*468+'\x31\xdb\x8d\x43\x17\x99\xcd\x80\x31\xc9\x51\x68\x6e\x2f\x73\x68\x68\x2f\x2f\x62\x69\x8d\x41\x0b\x89\xe3\xcd\x80'+'\xe0\xcf\xff\xff'")
 ````
 
-the last four bytes is our return address which we write doen way.
+The last four bytes is our return address which we write done way, so the return address was: ffffcfe0. We write it backwards e0cfffff. With our shellcode we can run it and get shell directly from gdb.
+
+![bo-013.png](/assets/images/bo-013.png)
+**Figure 13** Our shell from vuln1 file on GDB.
+
+So, let's summaries that, there is a path we can use to achieve our goal by manipulation the binary file it self

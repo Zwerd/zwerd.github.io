@@ -693,7 +693,7 @@ Program received signal SIGSEGV, Segmentation fault.
 <p><img src="/assets/images/bo-012.png" alt="bo-012.png" />
 <strong>Figure 9</strong> Registers information.</p>
 
-<p>On our case ESP is point to the address <code class="highlighter-rouge">0xffffcd00</code>, so this is the start point we what to display the memory address table from the buffer. Since we know that the buffer size is 500, we will run the following that should dispay the first 500 bytes on that stuch, we can use the address like as follow:</p>
+<p>On our case ESP is point to the address <code class="highlighter-rouge">0xffffcd00</code>, so this is the start point we want to display the memory address table from the buffer. Since we know that the buffer size is 500, we will run the following that should display the first 500 bytes on that stack, we can use the address like as follow:</p>
 
 <p><code class="highlighter-rouge">x/500 0xffffcd00</code></p>
 
@@ -717,7 +717,7 @@ Program received signal SIGSEGV, Segmentation fault.
 
 <p>That is mean we want to overwrite that EIP so we have control on the instruction pointer to point back to our code location, also called return address, if we have the return address that is the location of our code, this is the address we should insert to EIP.</p>
 
-<p>So now we can filled the stack with our shellcode, since we know that the crash occurewhen the stack are filled with 500 chars and we also know that our code is 28 bytes long and the last 4 are used for EIP overwriting, we can came up with the following:</p>
+<p>So now we can filled the stack with our shellcode, since we know that the crash occur when the stack are filled up with 500 chars and we also know that our code is 28 bytes long and the last 4 are used for EIP overwriting, we can came up with the following:</p>
 <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>run $(python2 -c "print 'A'*468+&lt;shellcode&gt;+'B'*4")
 </code></pre></div></div>
 
@@ -739,15 +739,20 @@ Program received signal SIGSEGV, Segmentation fault.
 <p><img src="/assets/images/bo-011.jpg" alt="bo-011.png" />
 <strong>Figure 11</strong> Finding the exact location of our inserted data.</p>
 
-<p>So, we can use the exact location of the starting code for our shell, meaning, that location address will be the return address we write over the EIP, in that way we can execute the code since the EIP is the pointer that responsible on the instruction way, so it point to some address that locate the code and execute it. But there is more option that we can do, on assembly there is NOP byte, which is <code class="highlighter-rouge">\x90</code> and it use as SLAD, becouse if the system get such byte <code class="highlighter-rouge">\x90</code> it just jump to the next byte, which mean that if there is chains of <code class="highlighter-rouge">\x90</code> it will go to the next, and next, and next, until it will be find some code for execution.</p>
+<p>So, we can use the exact location of the starting code for our shell, meaning, that location address will be the return address we write over the EIP, in that way we can execute the code since the EIP is the pointer that responsible on the instruction way, so it point to some address that locate the code and execute it. But there is more option that we can do, on assembly there is NOP byte, which is <code class="highlighter-rouge">\x90</code> and it use as sled (slide), because if the system get such byte <code class="highlighter-rouge">\x90</code> it just jump to the next byte, which mean that if there is chains of <code class="highlighter-rouge">\x90</code> it will go to the next, and next, and next, until it will be find some code for execution.</p>
 
-<p>If we chose to use that way of execution, we can use the return address that we saw erlier <code class="highlighter-rouge">0xffffcfe0</code>, that return address not point to the first byte of our code, insead it point to several bytes next to if, so in our case, if we use that and instead of <code class="highlighter-rouge">A</code> we using NOP byte, it will go next and next until it will get to our shellcode.</p>
+<p>If we chose to use that way of execution, we can use the return address that we saw earlier ( on figure 10) <code class="highlighter-rouge">0xffffcfe0</code>, that return address not point to the first byte of our code, instead it point to several bytes next to it, so in our case, if we use that and instead of <code class="highlighter-rouge">A</code> we using NOP byte, it will go next and next until it will get to our shellcode.</p>
 
 <p>So the new line of code should look like the following:</p>
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>(gdb) run $(python2 -c "print '\x90'*468+'\x31\xdb\x8d\x43\x17\x99\xcd\x80\x31\xc9\x51\x68\x6e\x2f\x73\x68\x68\x2f\x2f\x62\x69\x8d\x41\x0b\x89\xe3\xcd\x80'+'\xe0\xfc\xff\xff'")
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>(gdb) run $(python2 -c "print '\x90'*468+'\x31\xdb\x8d\x43\x17\x99\xcd\x80\x31\xc9\x51\x68\x6e\x2f\x73\x68\x68\x2f\x2f\x62\x69\x8d\x41\x0b\x89\xe3\xcd\x80'+'\xe0\xcf\xff\xff'")
 </code></pre></div></div>
 
-<p>the last four bytes is our return address which we write doen way.</p>
+<p>The last four bytes is our return address which we write done way, so the return address was: ffffcfe0. We write it backwards e0cfffff. With our shellcode we can run it and get shell directly from gdb.</p>
+
+<p><img src="/assets/images/bo-013.png" alt="bo-013.png" />
+<strong>Figure 13</strong> Our shell from vuln1 file on GDB.</p>
+
+<p>So, let’s summaries that, there is a path we can use to achieve our goal by manipulation the binary file it self</p>
 
     
 

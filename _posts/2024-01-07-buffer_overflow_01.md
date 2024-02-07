@@ -415,3 +415,50 @@ So, let's summaries that, there is a path we can use to achieve our goal by mani
 **5.** Right module - that is an step that we look at it later on, on that step if we have some of `.dll` or module the app using we will search one that not compiled with memory protection, the location of the module is important because we may use it on the EIP.
 
 **7.** Generate shellcode - after we have done all, we can make reverse shell and use EIP to point it, the shell code can be done by using `msfvenom`, or we can use some nasm shell code and compile it in such way that we will be able to insert it to the execution for our buffer overflow.
+
+So now let's do the same on another binary file, but now let's make it more interesting, the source code is as follow:
+
+```
+#include <stdio.h>
+#include <string.h>
+
+void convertToUppercase(char *str) {
+    int length = strlen(str);
+
+    for (int i = 0; i < length; ++i) {
+        // This line introduces a vulnerability by not checking the bounds of the array
+        str[i] = str[i] + ('A' - 'a');
+    }
+}
+
+int main (int argc, char** argv)
+{
+	char inputString[500];
+	strcpy(inputString, argv[1]);
+	convertToUppercase(inputString);
+	printf("Uppercase string: %s\n", inputString);
+
+	return 0;
+}
+```
+
+This code was compiled with the following flags:
+```
+gcc -fno-stack-protector -z execstack -no-pie  -m32 -o ../binaries/vuln2 ./vuln2.c
+```
+By running it with args, you should get the Uppercase of each char, so if your input is `a` the Uppercase should be `A`, if your input is `b`, the output should be `B` and so on.
+
+![bo-016.png](/assets/images/bo-016.png)
+**Figure 16** Output of vuln2 file.
+
+So now we run `GDB` with that file, and test it, since the function that convert the chars to Uppercase, we need to debug the binary before the convertToUppercase function was running, but before it we can get segmentation fault by running 500 chars of `a`.
+
+![bo-017.png](/assets/images/bo-017.png)
+**Figure 17** Output of vuln2 file.
+
+You can see and understand that I am using `a` and not `A` since we have here the **convertToUppercase** function, and since I want to see that the EIP was overwrite with bunch of `A`, I am using `a` instead.
+
+So now we need to find the location of the EIP, in my guess it's the last 4 chars, so run 496 chars of `a` and 4 chars of `b`.
+
+![bo-018.png](/assets/images/bo-018.png)
+**Figure 18** Overwrite the EIP with `B`.

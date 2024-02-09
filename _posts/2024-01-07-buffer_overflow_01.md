@@ -513,3 +513,14 @@ Then BOIA!!!! we have a shell!
 
 ![bo-024.png](/assets/images/bo-024.png)
 **Figure 24** Shell from GDB.
+
+So, far we work on GDB for local buffer overflow example, I think that after we understand the way and the path we take to bring down the binary and execute shell code directly from it, we can move forwared to see how buffer overflow occur for binary that used for server side and use socket between the client to the server, in such case it's more interesting how that overflow occur.
+
+In my case I am using vulnserver for linux, that you can find [here](https://raw.githubusercontent.com/ins1gn1a/VulnServer-Linux/master/vuln.c), first we download that c code file and compile it.
+
+```bash
+wget https://raw.githubusercontent.com/ins1gn1a/VulnServer-Linux/master/vuln.c
+gcc -fno-stack-protector -z execstack -no-pie  -m32 -o ./vulnserver ./vuln.c
+```
+
+So now, we going to run that vulnserver and debug it using EDB, so we can track down the socket and understand how it manage data, also we now will view on the EDB which is another way for debugging binary file on linux.

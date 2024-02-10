@@ -524,3 +524,5 @@ gcc -fno-stack-protector -z execstack -no-pie  -m32 -o ./vulnserver ./vuln.c
 ```
 
 So now, we going to run that vulnserver and debug it using EDB, so we can track down the socket and understand how it manage data, also we now will view on the EDB which is another way for debugging binary file on linux.
+
+The EDB are look like Immunity Debugger that we will use on windows for debugging binaries files like EXE, MSI and such. EDB have GUI windows that can help us while we debug the file, it contain registers info window, disassemble window, stack windows and data dump window, we will find the same on immunity debbuger later.

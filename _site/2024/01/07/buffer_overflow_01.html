@@ -890,6 +890,75 @@ gcc <span class="nt">-fno-stack-protector</span> <span class="nt">-z</span> exec
 
 <p>The EDB are look like Immunity Debugger that we will use on windows for debugging binaries files like EXE, MSI and such. EDB have GUI windows that can help us while we debug the file, it contain registers info window, disassemble window, stack windows and data dump window, we will find the same on immunity debbuger later.</p>
 
+<p>You should open EDB and open vulnserver file right from it.</p>
+
+<p><img src="/assets/images/bo-025.png" alt="bo-025.png" />
+<strong>Figure 25</strong> Select vulnserver file.</p>
+
+<p>Then we need to know what command we can insert the server, after we have the all list of command we can start run the first step which is spiking, which mean to check which command are vulnerable for overflow. If the overflow will occur we should see the app crash on the server side.</p>
+
+<p><img src="/assets/images/bo-026.png" alt="bo-026.png" />
+<strong>Figure 26</strong> Vulnserver commands.</p>
+
+<p>We can see several command, first by connecting to that target we get welcome message that tell us to run <strong>HELP</strong> command, by running that command we can see another two, <strong>TIME</strong> which use to get the time value, and <strong>EXIT</strong> for exit the server, in spiking step we trying to buffered each command like as follow:</p>
+
+<p>HELP AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA</p>
+
+<p>TIME AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA</p>
+
+<p>EXIT AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA</p>
+
+<p>We can make the input to be longer with more <code class="highlighter-rouge">A</code>, but none of the above command work, so I cam up with the following:</p>
+
+<p>HELPAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA</p>
+
+<p>This command crashed the app, we can use the following bash command for execute the test directly:</p>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">echo</span> <span class="k">$(</span>python2 <span class="nt">-c</span> <span class="s2">"print 'HELP'+'A'*70"</span><span class="k">)</span>|nc 192.168.126.36 8080
+</code></pre></div></div>
+<p><img src="/assets/images/bo-027.png" alt="bo-027.png" />
+<strong>Figure 27</strong> Crash the app.</p>
+
+<p>Please note after each crash you should start the vulnserver directly from the EDB. After the crash we can see the register and find that the EIP was found on some value which is not <code class="highlighter-rouge">A</code> values.</p>
+
+<p><img src="/assets/images/bo-028.png" alt="bo-028.png" />
+<strong>Figure 28</strong> EIP on the point of segmentation fault.</p>
+
+<p>But at the same time you can see EBP with <code class="highlighter-rouge">41</code> value and also the EBX, so now we going to make the query with more bytes of <code class="highlighter-rouge">A</code> and check if we can control the EIP and overwrite it.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">echo</span> <span class="k">$(</span>python2 <span class="nt">-c</span> <span class="s2">"print 'HELP'+'A'*100"</span><span class="k">)</span>|nc 192.168.126.36 8080
+</code></pre></div></div>
+
+<p>So now I am run the HELP command with bunch of <code class="highlighter-rouge">A</code> (100 for that case), then by checking the EDB I can see that the crash occur and the EIP was overwrite.</p>
+
+<p><img src="/assets/images/bo-029.png" alt="bo-029.png" />
+<strong>Figure 29</strong> Control the EIP.</p>
+
+<p>So now we need to find the exect location of the EIP, for that case we need to run <code class="highlighter-rouge">msf-pattern_create</code> and make string of 100 chars:</p>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>└─<span class="nv">$ </span>msf-pattern_create <span class="nt">-l</span> 100            
+Aa0Aa1Aa2Aa3Aa4Aa5Aa6Aa7Aa8Aa9Ab0Ab1Ab2Ab3Ab4Ab5Ab6Ab7Ab8Ab9Ac0Ac1Ac2Ac3Ac4Ac5Ac6Ac7Ac8Ac9Ad0Ad1Ad2A
+</code></pre></div></div>
+
+<p>That string should insert to our command again for crashing the app and finding the EIP location on case the input is equal 104 (100 of <code class="highlighter-rouge">A</code> and <code class="highlighter-rouge">HELP</code>). So the full command is:</p>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">echo</span> <span class="k">$(</span>python2 <span class="nt">-c</span> <span class="s2">"print 'HELP'+'Aa0Aa1Aa2Aa3Aa4Aa5Aa6Aa7Aa8Aa9Ab0Ab1Ab2Ab3Ab4Ab5Ab6Ab7Ab8Ab9Ac0Ac1Ac2Ac3Ac4Ac5Ac6Ac7Ac8Ac9Ad0Ad1Ad2A'"</span><span class="k">)</span>|nc 192.168.126.36 8080
+</code></pre></div></div>
+
+<p><img src="/assets/images/bo-030.png" alt="bo-030.png" />
+<strong>Figure 30</strong> Crash with the EIP value location.</p>
+
+<p>So now the value of the EIP is <code class="highlighter-rouge">33634132</code>, then by checking is against the command <code class="highlighter-rouge">msf-pattern_offset</code>, we can see what is the location of the EIP and used that location on our attack. Please remember that the overflow must be 100 chars for the overflow contain the EIP controlling.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>└─<span class="nv">$ </span>msf-pattern_offset <span class="nt">-l</span> 100 <span class="nt">-q</span> 33634132                              
+<span class="o">[</span><span class="k">*</span><span class="o">]</span> Exact match at offset 68
+
+</code></pre></div></div>
+
+<p>So the location is 68, which mean after 68 chars we overwrite the EIP in case we insert input that in size of 100 chars. So now we need to check how much more bytes we can insert so the location of the EIP will not change.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">echo</span> <span class="k">$(</span>python2 <span class="nt">-c</span> <span class="s2">"print 'HELP'+'A'*68+'B'*4+'C'*32"</span><span class="k">)</span>|nc 192.168.126.36 8080
+</code></pre></div></div>
+
+<p>You can see the <code class="highlighter-rouge">B</code> value which is <code class="highlighter-rouge">\x42</code> that overwrite the EIP, which is excellent! so now we need to check how much data we can insert that the EIP will remain on the same location.</p>
+
     
 
 

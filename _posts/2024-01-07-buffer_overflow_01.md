@@ -526,3 +526,78 @@ gcc -fno-stack-protector -z execstack -no-pie  -m32 -o ./vulnserver ./vuln.c
 So now, we going to run that vulnserver and debug it using EDB, so we can track down the socket and understand how it manage data, also we now will view on the EDB which is another way for debugging binary file on linux.
 
 The EDB are look like Immunity Debugger that we will use on windows for debugging binaries files like EXE, MSI and such. EDB have GUI windows that can help us while we debug the file, it contain registers info window, disassemble window, stack windows and data dump window, we will find the same on immunity debbuger later.
+
+You should open EDB and open vulnserver file right from it.
+
+![bo-025.png](/assets/images/bo-025.png)
+**Figure 25** Select vulnserver file.
+
+Then we need to know what command we can insert the server, after we have the all list of command we can start run the first step which is spiking, which mean to check which command are vulnerable for overflow. If the overflow will occur we should see the app crash on the server side.
+
+![bo-026.png](/assets/images/bo-026.png)
+**Figure 26** Vulnserver commands.
+
+We can see several command, first by connecting to that target we get welcome message that tell us to run **HELP** command, by running that command we can see another two, **TIME** which use to get the time value, and **EXIT** for exit the server, in spiking step we trying to buffered each command like as follow:
+
+HELP AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+
+TIME AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+
+EXIT AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+
+We can make the input to be longer with more `A`, but none of the above command work, so I cam up with the following:
+
+HELPAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+
+This command crashed the app, we can use the following bash command for execute the test directly:
+```bash
+echo $(python2 -c "print 'HELP'+'A'*70")|nc 192.168.126.36 8080
+```
+![bo-027.png](/assets/images/bo-027.png)
+**Figure 27** Crash the app.
+
+Please note after each crash you should start the vulnserver directly from the EDB. After the crash we can see the register and find that the EIP was found on some value which is not `A` values.
+
+![bo-028.png](/assets/images/bo-028.png)
+**Figure 28** EIP on the point of segmentation fault.
+
+But at the same time you can see EBP with `41` value and also the EBX, so now we going to make the query with more bytes of `A` and check if we can control the EIP and overwrite it.
+
+```bash
+echo $(python2 -c "print 'HELP'+'A'*100")|nc 192.168.126.36 8080
+```
+
+So now I am run the HELP command with bunch of `A` (100 for that case), then by checking the EDB I can see that the crash occur and the EIP was overwrite.
+
+![bo-029.png](/assets/images/bo-029.png)
+**Figure 29** Control the EIP.
+
+So now we need to find the exect location of the EIP, for that case we need to run `msf-pattern_create` and make string of 100 chars:
+```bash
+└─$ msf-pattern_create -l 100            
+Aa0Aa1Aa2Aa3Aa4Aa5Aa6Aa7Aa8Aa9Ab0Ab1Ab2Ab3Ab4Ab5Ab6Ab7Ab8Ab9Ac0Ac1Ac2Ac3Ac4Ac5Ac6Ac7Ac8Ac9Ad0Ad1Ad2A
+```
+
+That string should insert to our command again for crashing the app and finding the EIP location on case the input is equal 104 (100 of `A` and `HELP`). So the full command is:
+```bash
+echo $(python2 -c "print 'HELP'+'Aa0Aa1Aa2Aa3Aa4Aa5Aa6Aa7Aa8Aa9Ab0Ab1Ab2Ab3Ab4Ab5Ab6Ab7Ab8Ab9Ac0Ac1Ac2Ac3Ac4Ac5Ac6Ac7Ac8Ac9Ad0Ad1Ad2A'")|nc 192.168.126.36 8080
+```
+
+![bo-030.png](/assets/images/bo-030.png)
+**Figure 30** Crash with the EIP value location.
+
+So now the value of the EIP is `33634132`, then by checking is against the command `msf-pattern_offset`, we can see what is the location of the EIP and used that location on our attack. Please remember that the overflow must be 100 chars for the overflow contain the EIP controlling.
+
+```bash
+└─$ msf-pattern_offset -l 100 -q 33634132                              
+[*] Exact match at offset 68
+
+```
+
+So the location is 68, which mean after 68 chars we overwrite the EIP in case we insert input that in size of 100 chars. So now we need to check how much more bytes we can insert so the location of the EIP will not change.
+
+```bash
+echo $(python2 -c "print 'HELP'+'A'*68+'B'*4+'C'*32")|nc 192.168.126.36 8080
+```
+
+You can see the `B` value which is `\x42` that overwrite the EIP, which is excellent! so now we need to check how much data we can insert that the EIP will remain on the same location.

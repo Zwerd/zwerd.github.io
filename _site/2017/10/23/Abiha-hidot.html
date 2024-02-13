@@ -410,56 +410,56 @@
 </ul>
 
 <p>I haven’t used Readex yet but I will, some of the code is presented here:</p>
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>render() {
-  let width = Dimensions.get('window').width;
-  let font = width / 10;
-  console.log(font)
-  return (
-    &lt;ScrollView&gt;
-    &lt;View style={styles.container}&gt;
-      &lt;Image
-        style={styles.imageStyle}
-        source={require('../img/opening-img2.jpg')}
-      &gt;
-        &lt;View style={styles.backdropView}&gt;
-          &lt;Text style=&gt;אביעה חידות מני קדם&lt;/Text&gt;
+<div class="language-jsx highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">render</span><span class="p">()</span> <span class="p">{</span>
+  <span class="kd">let</span> <span class="nx">width</span> <span class="o">=</span> <span class="nx">Dimensions</span><span class="p">.</span><span class="kd">get</span><span class="p">(</span><span class="s1">'window'</span><span class="p">).</span><span class="nx">width</span><span class="p">;</span>
+  <span class="kd">let</span> <span class="nx">font</span> <span class="o">=</span> <span class="nx">width</span> <span class="o">/</span> <span class="mi">10</span><span class="p">;</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">font</span><span class="p">)</span>
+  <span class="k">return</span> <span class="p">(</span>
+    <span class="p">&lt;</span><span class="nc">ScrollView</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nc">View</span> <span class="na">style=</span><span class="si">{</span><span class="nx">styles</span><span class="p">.</span><span class="nx">container</span><span class="si">}</span><span class="p">&gt;</span>
+      <span class="p">&lt;</span><span class="nc">Image</span>
+        <span class="na">style=</span><span class="si">{</span><span class="nx">styles</span><span class="p">.</span><span class="nx">imageStyle</span><span class="si">}</span>
+        <span class="na">source=</span><span class="si">{</span><span class="nx">require</span><span class="p">(</span><span class="s1">'../img/opening-img2.jpg'</span><span class="p">)</span><span class="si">}</span>
+      <span class="p">&gt;</span>
+        <span class="p">&lt;</span><span class="nc">View</span> <span class="na">style=</span><span class="si">{</span><span class="nx">styles</span><span class="p">.</span><span class="nx">backdropView</span><span class="si">}</span><span class="p">&gt;</span>
+          <span class="p">&lt;</span><span class="nc">Text</span> <span class="na">style=</span><span class="err">&gt;אביעה חידות מני קדם&lt;/Text&gt;
           &lt;Image
             style=
-            source={require('../img/Book.png')}
-          /&gt;
-            &lt;Text style={styles.lineText}&gt;1188 חידות על הנביא&lt;/Text&gt;
-            &lt;View style={styles.buttonView}&gt;
-              &lt;TouchableOpacity
-                onPress={() =&gt; this.props.navigation.navigate('Riddles', { home: this.onChangeCount.bind(this)})}
-              &gt;
-                &lt;View style={styles.button}&gt;
-                  &lt;Text style={styles.buttonText}&gt;{this.checkBeginning()}&lt;/Text&gt;
-                &lt;/View&gt;
-              &lt;/TouchableOpacity&gt;
-            &lt;/View&gt;
-            &lt;View style={styles.buttonView}&gt;
-              &lt;TouchableOpacity
-                onPress={() =&gt; this.props.navigation.navigate('Introduction')}
-              &gt;
-                &lt;View style={styles.button}&gt;
-                  &lt;Text style={styles.buttonText}&gt;הוראות&lt;/Text&gt;
-                &lt;/View&gt;
-              &lt;/TouchableOpacity&gt;
-            &lt;/View&gt;
-            &lt;View style={styles.buttonView}&gt;
-              &lt;TouchableOpacity
-                onPress={() =&gt; this.props.navigation.navigate('About')}
-              &gt;
-                &lt;View style={styles.button}&gt;
-                  &lt;Text style={styles.buttonText}&gt;אודות&lt;/Text&gt;
-                &lt;/View&gt;
-              &lt;/TouchableOpacity&gt;
-            &lt;/View&gt;
-        &lt;/View&gt;
-      &lt;/Image&gt;
-    &lt;/View&gt;
-    &lt;/ScrollView&gt;
-  )
+            source=</span><span class="si">{</span><span class="nx">require</span><span class="p">(</span><span class="s1">'../img/Book.png'</span><span class="p">)</span><span class="si">}</span>
+          <span class="p">/&gt;</span>
+            <span class="p">&lt;</span><span class="nc">Text</span> <span class="na">style=</span><span class="si">{</span><span class="nx">styles</span><span class="p">.</span><span class="nx">lineText</span><span class="si">}</span><span class="p">&gt;</span>1188 חידות על הנביא<span class="p">&lt;/</span><span class="nc">Text</span><span class="p">&gt;</span>
+            <span class="p">&lt;</span><span class="nc">View</span> <span class="na">style=</span><span class="si">{</span><span class="nx">styles</span><span class="p">.</span><span class="nx">buttonView</span><span class="si">}</span><span class="p">&gt;</span>
+              <span class="p">&lt;</span><span class="nc">TouchableOpacity</span>
+                <span class="na">onPress=</span><span class="si">{</span><span class="p">()</span> <span class="o">=&gt;</span> <span class="k">this</span><span class="p">.</span><span class="nx">props</span><span class="p">.</span><span class="nx">navigation</span><span class="p">.</span><span class="nx">navigate</span><span class="p">(</span><span class="s1">'Riddles'</span><span class="p">,</span> <span class="p">{</span> <span class="na">home</span><span class="p">:</span> <span class="k">this</span><span class="p">.</span><span class="nx">onChangeCount</span><span class="p">.</span><span class="nx">bind</span><span class="p">(</span><span class="k">this</span><span class="p">)})</span><span class="si">}</span>
+              <span class="p">&gt;</span>
+                <span class="p">&lt;</span><span class="nc">View</span> <span class="na">style=</span><span class="si">{</span><span class="nx">styles</span><span class="p">.</span><span class="nx">button</span><span class="si">}</span><span class="p">&gt;</span>
+                  <span class="p">&lt;</span><span class="nc">Text</span> <span class="na">style=</span><span class="si">{</span><span class="nx">styles</span><span class="p">.</span><span class="nx">buttonText</span><span class="si">}</span><span class="p">&gt;</span><span class="si">{</span><span class="k">this</span><span class="p">.</span><span class="nx">checkBeginning</span><span class="p">()</span><span class="si">}</span><span class="p">&lt;/</span><span class="nc">Text</span><span class="p">&gt;</span>
+                <span class="p">&lt;/</span><span class="nc">View</span><span class="p">&gt;</span>
+              <span class="p">&lt;/</span><span class="nc">TouchableOpacity</span><span class="p">&gt;</span>
+            <span class="p">&lt;/</span><span class="nc">View</span><span class="p">&gt;</span>
+            <span class="p">&lt;</span><span class="nc">View</span> <span class="na">style=</span><span class="si">{</span><span class="nx">styles</span><span class="p">.</span><span class="nx">buttonView</span><span class="si">}</span><span class="p">&gt;</span>
+              <span class="p">&lt;</span><span class="nc">TouchableOpacity</span>
+                <span class="na">onPress=</span><span class="si">{</span><span class="p">()</span> <span class="o">=&gt;</span> <span class="k">this</span><span class="p">.</span><span class="nx">props</span><span class="p">.</span><span class="nx">navigation</span><span class="p">.</span><span class="nx">navigate</span><span class="p">(</span><span class="s1">'Introduction'</span><span class="p">)</span><span class="si">}</span>
+              <span class="p">&gt;</span>
+                <span class="p">&lt;</span><span class="nc">View</span> <span class="na">style=</span><span class="si">{</span><span class="nx">styles</span><span class="p">.</span><span class="nx">button</span><span class="si">}</span><span class="p">&gt;</span>
+                  <span class="p">&lt;</span><span class="nc">Text</span> <span class="na">style=</span><span class="si">{</span><span class="nx">styles</span><span class="p">.</span><span class="nx">buttonText</span><span class="si">}</span><span class="p">&gt;</span>הוראות<span class="p">&lt;/</span><span class="nc">Text</span><span class="p">&gt;</span>
+                <span class="p">&lt;/</span><span class="nc">View</span><span class="p">&gt;</span>
+              <span class="p">&lt;/</span><span class="nc">TouchableOpacity</span><span class="p">&gt;</span>
+            <span class="p">&lt;/</span><span class="nc">View</span><span class="p">&gt;</span>
+            <span class="p">&lt;</span><span class="nc">View</span> <span class="na">style=</span><span class="si">{</span><span class="nx">styles</span><span class="p">.</span><span class="nx">buttonView</span><span class="si">}</span><span class="p">&gt;</span>
+              <span class="p">&lt;</span><span class="nc">TouchableOpacity</span>
+                <span class="na">onPress=</span><span class="si">{</span><span class="p">()</span> <span class="o">=&gt;</span> <span class="k">this</span><span class="p">.</span><span class="nx">props</span><span class="p">.</span><span class="nx">navigation</span><span class="p">.</span><span class="nx">navigate</span><span class="p">(</span><span class="s1">'About'</span><span class="p">)</span><span class="si">}</span>
+              <span class="p">&gt;</span>
+                <span class="p">&lt;</span><span class="nc">View</span> <span class="na">style=</span><span class="si">{</span><span class="nx">styles</span><span class="p">.</span><span class="nx">button</span><span class="si">}</span><span class="p">&gt;</span>
+                  <span class="p">&lt;</span><span class="nc">Text</span> <span class="na">style=</span><span class="si">{</span><span class="nx">styles</span><span class="p">.</span><span class="nx">buttonText</span><span class="si">}</span><span class="p">&gt;</span>אודות<span class="p">&lt;/</span><span class="nc">Text</span><span class="p">&gt;</span>
+                <span class="p">&lt;/</span><span class="nc">View</span><span class="p">&gt;</span>
+              <span class="p">&lt;/</span><span class="nc">TouchableOpacity</span><span class="p">&gt;</span>
+            <span class="p">&lt;/</span><span class="nc">View</span><span class="p">&gt;</span>
+        <span class="p">&lt;/</span><span class="nc">View</span><span class="p">&gt;</span>
+      <span class="p">&lt;/</span><span class="nc">Image</span><span class="p">&gt;</span>
+    <span class="p">&lt;/</span><span class="nc">View</span><span class="p">&gt;</span>
+    <span class="p">&lt;/</span><span class="nc">ScrollView</span><span class="p">&gt;</span>
+  <span class="p">)</span>
 </code></pre></div></div>
 
 <p><br />&lt;/p&gt;

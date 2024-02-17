@@ -1,7 +1,7 @@
 ---
 layout: post
 title: The First Path to Malware Research - Buffer Overflow Analysis.
-excerpt: If you follow up my latest post, you can see that it's being long time since I upload my latest post here, and you may know that I am working on and preparing to the **OSCP** exam, which is the ultimate certification in my case. One of the attacks that I have learn on that path and exciting me much, so much so that it gives me chills, is **buffer overflow** attack.
+excerpt: If you follow up my latest post, you can see that it's being long time since I upload my latest post here, and you may know that I am working on and preparing to the OSCP exam, which is the ultimate certification in my case. One of the attacks that I have learn on that path and exciting me much, so much so that it gives me chills, is buffer overflow attack.
 tags:
 - Pentest
 - Buffer Overflow

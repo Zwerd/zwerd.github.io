@@ -371,7 +371,7 @@
 </header>
 <div class="content">
   <div class="post-meta">
-  <span class="post-date">17 Feb 2024</span>
+  <span class="post-date">18 Feb 2024</span>
   <span class="post-categories">
     
   </span>
@@ -400,14 +400,68 @@
 
 <p>So yes, I think I’m professional enough to advance in any organization, but what was said about me still left me in doubt. I remembered at that point that I hadn’t finished the OSCP yet, and then it hit me, a voice in my head said to me: “You want to prove to yourself that you are a professional, finish the certification.” After everything I went through in these years I tried to understand what my problem was in passing this test. I came to the conclusion that this is a systematic methodology. If I manage to build myself an orderly methodology I will probably be able to pass this test.</p>
 
-<p>And here I am going to write in this post about this methodology, in fact in order to pass the test you need to hack 6 machines, 3 are part of the windows domain and another 3 individuals, one of which is a buffer overflow, my problem is the methodology, I know the commands, the actions that need to be performed, and I know Looking for good information and learning while doing it, my problem is the connection between all the pieces of the puzzle, most of the machines where I broke down and went looking for clues are machines that I just didn’t look at the full picture and therefore I dug into what there is no need to dig into.</p>
+<p>And here I am going to write in this post about this methodology, in fact in order to pass the exam you need to hack 6 machines, 3 are part of the windows domain and another 3 individuals, one of which is a buffer overflow, my problem is the methodology, I know the commands, the actions that need to be performed, and I know Looking for good information and learning while doing it, my problem is the connection between all the pieces of the puzzle, most of the machines where I broke down and went looking for clues are machines that I just didn’t look at the full picture and therefore I dug into what there is no need to dig into.</p>
 
 <p>Since the way to prepare for the test is by hacking as many machines as possible, I will do it on the PG, and speaking of that there are 5 types of machines, 5 point, 8 point, 10 point, 20 point and 25 point machines.</p>
 
 <p>For each type of orientation I will present an orderly methodology to order these issues. Note, in fact, the more difficult the machine is, the broader the methodology becomes. In order to build these patterns I had to hack everything in PG and the work before them is the result of that.</p>
 
-<p>So hold on tight, we’re starting.
-​</p>
+<p>So hold on tight, we’re starting. This is 18 February, so we have time till 18 May to finish this all and passing the exam.</p>
+
+<p>Let’s track it done, this post agenda are:</p>
+<ul>
+  <li><a href="#5-points-box-methodology">5 points box methodology</a></li>
+  <li><a href="#8-points-box-methodology">8 points box methodology</a></li>
+  <li><a href="#10-points-box-methodology">10 points box methodology</a></li>
+  <li><a href="#20-points-box-methodology">20 points box methodology</a></li>
+  <li><a href="#25-points-box-methodology">25 points box methodology</a></li>
+</ul>
+
+<h2 id="5-points-box-methodology">5 points box methodology</h2>
+
+<p>For boxs that have only 5 points, I have done more then 40 boxs, so I came up with the following table.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Stage</th>
+      <th>Enumeration</th>
+      <th>Exploitation</th>
+      <th>Initiation</th>
+      <th>Escalation</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Information Gathering</td>
+      <td>Port scanning using tools like nmap,rustscan, naabu, autorecon.</td>
+      <td>Web application scanning using automated tools like Burp Suite or OWASP ZAP to discover web applications and their technologies.</td>
+      <td>Researching known vulnerabilities associated with discovered services and applications.</td>
+      <td>Determining the potential impact and severity of identified vulnerabilities.</td>
+    </tr>
+    <tr>
+      <td>App/Prog/Code Assessment</td>
+      <td>Conducting a detailed review of web application source code for security flaws.</td>
+      <td>Manual testing of application endpoints for common vulnerabilities such as SQL injection, XSS, and CSRF.</td>
+      <td>Analyzing third-party components and libraries for known vulnerabilities using tools like Retire.js or Dependency-Check.</td>
+      <td>Assessing the configuration of servers and applications for security best practices and misconfigurations.</td>
+    </tr>
+    <tr>
+      <td>Action Taking</td>
+      <td>Exploiting discovered vulnerabilities using proof-of-concept (POC) exploit code or Metasploit modules.</td>
+      <td>Gaining initial access to the target system through successful exploitation.</td>
+      <td>Establishing a foothold on the compromised system by creating backdoors or user accounts.</td>
+      <td>Escalating privileges to gain higher levels of access or control over the target environment.</td>
+    </tr>
+    <tr>
+      <td>Results Examination</td>
+      <td>Documenting all findings including vulnerabilities, exploited systems, and compromised data.</td>
+      <td>Analyzing logs and artifacts to reconstruct the attack timeline and identify any additional security risks.</td>
+      <td>Assessing the effectiveness of security controls and incident response procedures during the penetration test.</td>
+      <td>Providing recommendations for remediation and improving overall security posture based on the findings.</td>
+    </tr>
+  </tbody>
+</table>
 
     
 
@@ -458,9 +512,9 @@
   *  https://disqus.com/admin/universalcode/#configuration-variables
   */
   var disqus_config = function () {
-    this.page.url = "http://localhost:4000/2024/02/17/oscp-path.html";
+    this.page.url = "http://localhost:4000/2024/02/18/oscp_path.html";
     this.page.identifier = "" ||
-                           "http://localhost:4000/2024/02/17/oscp-path.html";
+                           "http://localhost:4000/2024/02/18/oscp_path.html";
   }
   function loadDisqusComments() { // DON'T EDIT BELOW THIS LINE
     var d = document, s = d.createElement('script');

@@ -1069,3 +1069,73 @@ Then running that exploit against the target give use reverse shell to that wind
 **Figure 60** Reverse shell on windows server.
 
 So now, we can end up that post, the first path to malware analysis is start on that buffer overflow, now you can also move forwarded for other attacks and get ready for the OSCP exam.
+
+## Bonus machine from Proving Ground.
+
+On PG, if you search you will find the following retire machine named "Covfefe" which is 5 points box. That box contain challenge of buffer overflow that contain the following code:
+```
+#include <stdio.h>
+#include <stdlib.h>
+#include <unistd.h>
+#include <string.h>
+
+// You're getting close! Here's another flag:
+// flag2{use_the_source_luke}
+
+int main(int argc, char *argv[]) {
+    char program[] = "/usr/local/sbin/message";
+    char buf[20];
+    char authorized[] = "Simon";
+
+    printf("What is your name?\n");
+    gets(buf);
+
+    // Only compare first five chars to save precious cycles:
+    if (!strncmp(authorized, buf, 5)) {
+        printf("Hello %s! Here is your message:\n\n", buf);
+        // This is safe as the user can't mess with the binary location:
+        execve(program, NULL, NULL);
+    } else {
+        printf("Sorry %s, you're not %s! The Internet Police have been informed of this violation.\n", buf, authorized);
+        exit(EXIT_FAILURE);
+    }
+
+}
+
+```
+
+For compile that code we need to run gcc for debug it.
+```
+gcc -g -o read_message ./read_message.c -m32
+```
+
+then by running it we can see the following question which is true if the input from the user is Simon which lead to execute `program` which are variable that contain the following /usr/local/sbin/message binary file path.
+
+![bo-061.png](/assets/images/bo-061.png)
+**Figure 61** Message output.
+
+The buffer size of that code is 20,which mean that if we run longer string then the buffer, we may received segmentation fault:
+```
+SimonAAAAAAAAAAAAAAAAAAA
+```
+
+By testing that binary on gdb I found that the ESP contain the the A's:
+
+![bo-062.png](/assets/images/bo-062.png)
+**Figure 62** GDB running the code.
+
+So you can see on GDB that I have use break main then I used next command to go step by step to the point needed to find the location of the input 'SimonAAAAAAAAAAAAAAAAAAA'. So now if we check the ESP we can see the following.
+
+![bo-063.png](/assets/images/bo-063.png)
+**Figure 63** ESP checking.
+
+Now you see the hexadecimal value that came after the `41` bits, so we can convert it to ascii and see what is the actual value.
+
+
+![bo-064.png](/assets/images/bo-064.png)
+**Figure 64** ESP checking.
+
+```
+└─$ echo -n "007573722f6c6f63616c2f7362696e2f6d65737361676500"|xxd -r -p | tr -d '\n'
+usr/local/sbin/message
+```

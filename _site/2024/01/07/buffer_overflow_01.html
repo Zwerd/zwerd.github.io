@@ -1388,6 +1388,71 @@ nasm &gt;
 
 <p>So now, we can end up that post, the first path to malware analysis is start on that buffer overflow, now you can also move forwarded for other attacks and get ready for the OSCP exam.</p>
 
+<h2 id="bonus-machine-from-proving-ground">Bonus machine from Proving Ground.</h2>
+
+<p>On PG, if you search you will find the following retire machine named “Covfefe” which is 5 points box. That box contain challenge of buffer overflow that contain the following code:</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>#include &lt;stdio.h&gt;
+#include &lt;stdlib.h&gt;
+#include &lt;unistd.h&gt;
+#include &lt;string.h&gt;
+
+// You're getting close! Here's another flag:
+// flag2{use_the_source_luke}
+
+int main(int argc, char *argv[]) {
+    char program[] = "/usr/local/sbin/message";
+    char buf[20];
+    char authorized[] = "Simon";
+
+    printf("What is your name?\n");
+    gets(buf);
+
+    // Only compare first five chars to save precious cycles:
+    if (!strncmp(authorized, buf, 5)) {
+        printf("Hello %s! Here is your message:\n\n", buf);
+        // This is safe as the user can't mess with the binary location:
+        execve(program, NULL, NULL);
+    } else {
+        printf("Sorry %s, you're not %s! The Internet Police have been informed of this violation.\n", buf, authorized);
+        exit(EXIT_FAILURE);
+    }
+
+}
+
+</code></pre></div></div>
+
+<p>For compile that code we need to run gcc for debug it.</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>gcc -g -o read_message ./read_message.c -m32
+</code></pre></div></div>
+
+<p>then by running it we can see the following question which is true if the input from the user is Simon which lead to execute <code class="highlighter-rouge">program</code> which are variable that contain the following /usr/local/sbin/message binary file path.</p>
+
+<p><img src="/assets/images/bo-061.png" alt="bo-061.png" />
+<strong>Figure 61</strong> Message output.</p>
+
+<p>The buffer size of that code is 20,which mean that if we run longer string then the buffer, we may received segmentation fault:</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>SimonAAAAAAAAAAAAAAAAAAA
+</code></pre></div></div>
+
+<p>By testing that binary on gdb I found that the ESP contain the the A’s:</p>
+
+<p><img src="/assets/images/bo-062.png" alt="bo-062.png" />
+<strong>Figure 62</strong> GDB running the code.</p>
+
+<p>So you can see on GDB that I have use break main then I used next command to go step by step to the point needed to find the location of the input ‘SimonAAAAAAAAAAAAAAAAAAA’. So now if we check the ESP we can see the following.</p>
+
+<p><img src="/assets/images/bo-063.png" alt="bo-063.png" />
+<strong>Figure 63</strong> ESP checking.</p>
+
+<p>Now you see the hexadecimal value that came after the <code class="highlighter-rouge">41</code> bits, so we can convert it to ascii and see what is the actual value.</p>
+
+<p><img src="/assets/images/bo-064.png" alt="bo-064.png" />
+<strong>Figure 64</strong> ESP checking.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>└─$ echo -n "007573722f6c6f63616c2f7362696e2f6d65737361676500"|xxd -r -p | tr -d '\n'
+usr/local/sbin/message
+</code></pre></div></div>
+
     
 
 

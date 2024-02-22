@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.5">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2024-02-21T21:37:49+02:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Zwerd</title><subtitle>A stunning blog of freaking PT warrior</subtitle><author><name>Guy Zwerdling</name></author><entry><title type="html">The Full Methodology for OSCP Passing.</title><link href="http://localhost:4000/2024/02/18/oscp_path.html" rel="alternate" type="text/html" title="The Full Methodology for OSCP Passing." /><published>2024-02-18T00:00:00+02:00</published><updated>2024-02-18T00:00:00+02:00</updated><id>http://localhost:4000/2024/02/18/oscp_path</id><content type="html" xml:base="http://localhost:4000/2024/02/18/oscp_path.html">&lt;p&gt;In the last three weeks I have been wondering a few things, I was in a job interview at a very respectable place in my area, I was in my first interview which was technical, I was asked questions about WIRESHARK, understanding protocols such as TCP, LDAP, SMB2, how the MR system works, understanding Linux processes and how to identify SOCKETS , acquaintances with PS and even presented before a command that was very similar to what we have in OSCP, a kind of reverse shell.&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.5">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2024-02-22T18:06:44+02:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Zwerd</title><subtitle>A stunning blog of freaking PT warrior</subtitle><author><name>Guy Zwerdling</name></author><entry><title type="html">The Full Methodology for OSCP Passing.</title><link href="http://localhost:4000/2024/02/18/oscp_path.html" rel="alternate" type="text/html" title="The Full Methodology for OSCP Passing." /><published>2024-02-18T00:00:00+02:00</published><updated>2024-02-18T00:00:00+02:00</updated><id>http://localhost:4000/2024/02/18/oscp_path</id><content type="html" xml:base="http://localhost:4000/2024/02/18/oscp_path.html">&lt;p&gt;In the last three weeks I have been wondering a few things, I was in a job interview at a very respectable place in my area, I was in my first interview which was technical, I was asked questions about WIRESHARK, understanding protocols such as TCP, LDAP, SMB2, how the MR system works, understanding Linux processes and how to identify SOCKETS , acquaintances with PS and even presented before a command that was very similar to what we have in OSCP, a kind of reverse shell.&lt;/p&gt;
 
 &lt;p&gt;The conversation was very fluid, the interview was virtual through Zoom, and two representatives came to the interview, one of whom is a team leader and the other a cyber team member, the conversation was good and ended well in which they explained to me what the process and the next step was, which is another interview with the organization’s IT manager.&lt;/p&gt;
 
@@ -1035,7 +1035,72 @@ nasm &amp;gt;
 &lt;p&gt;&lt;img src=&quot;/assets/images/bo-060.gif&quot; alt=&quot;bo-060.gif&quot; /&gt;
 &lt;strong&gt;Figure 60&lt;/strong&gt; Reverse shell on windows server.&lt;/p&gt;
 
-&lt;p&gt;So now, we can end up that post, the first path to malware analysis is start on that buffer overflow, now you can also move forwarded for other attacks and get ready for the OSCP exam.&lt;/p&gt;</content><author><name>Guy Zwerdling</name></author><category term="Pentest" /><category term="Buffer Overflow" /><category term="Malware Analysis" /><summary type="html">If you follow up my latest post, you can see that it's being long time since I upload my latest post here, and you may know that I am working on and preparing to the OSCP exam, which is the ultimate certification in my case. One of the attacks that I have learn on that path and exciting me much, so much so that it gives me chills, is buffer overflow attack.</summary></entry><entry><title type="html">Data exposure due to misconfiguration on Shoppi site.</title><link href="http://localhost:4000/2023/12/22/data_exposure.html" rel="alternate" type="text/html" title="Data exposure due to misconfiguration on Shoppi site." /><published>2023-12-22T00:00:00+02:00</published><updated>2023-12-22T00:00:00+02:00</updated><id>http://localhost:4000/2023/12/22/data_exposure</id><content type="html" xml:base="http://localhost:4000/2023/12/22/data_exposure.html">&lt;p&gt;It’s been a long time since I last wrote, during this time I’m really studying in depth to finish the OSCP certification, in between I’m doing things that are more related to research in the Israeli internet space. I found a website that sells tickets and due to a mistake by the developer, there was an access as a guest to all the details of the buyers, I will show you here what I found and what the problem actually is, by the way, I have already contacted the company itself and the developer sorted out the issue.&lt;/p&gt;
+&lt;p&gt;So now, we can end up that post, the first path to malware analysis is start on that buffer overflow, now you can also move forwarded for other attacks and get ready for the OSCP exam.&lt;/p&gt;
+
+&lt;h2 id=&quot;bonus-machine-from-proving-ground&quot;&gt;Bonus machine from Proving Ground.&lt;/h2&gt;
+
+&lt;p&gt;On PG, if you search you will find the following retire machine named “Covfefe” which is 5 points box. That box contain challenge of buffer overflow that contain the following code:&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;#include &amp;lt;stdio.h&amp;gt;
+#include &amp;lt;stdlib.h&amp;gt;
+#include &amp;lt;unistd.h&amp;gt;
+#include &amp;lt;string.h&amp;gt;
+
+// You're getting close! Here's another flag:
+// flag2{use_the_source_luke}
+
+int main(int argc, char *argv[]) {
+    char program[] = &quot;/usr/local/sbin/message&quot;;
+    char buf[20];
+    char authorized[] = &quot;Simon&quot;;
+
+    printf(&quot;What is your name?\n&quot;);
+    gets(buf);
+
+    // Only compare first five chars to save precious cycles:
+    if (!strncmp(authorized, buf, 5)) {
+        printf(&quot;Hello %s! Here is your message:\n\n&quot;, buf);
+        // This is safe as the user can't mess with the binary location:
+        execve(program, NULL, NULL);
+    } else {
+        printf(&quot;Sorry %s, you're not %s! The Internet Police have been informed of this violation.\n&quot;, buf, authorized);
+        exit(EXIT_FAILURE);
+    }
+
+}
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;For compile that code we need to run gcc for debug it.&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;gcc -g -o read_message ./read_message.c -m32
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;then by running it we can see the following question which is true if the input from the user is Simon which lead to execute &lt;code class=&quot;highlighter-rouge&quot;&gt;program&lt;/code&gt; which are variable that contain the following /usr/local/sbin/message binary file path.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/bo-061.png&quot; alt=&quot;bo-061.png&quot; /&gt;
+&lt;strong&gt;Figure 61&lt;/strong&gt; Message output.&lt;/p&gt;
+
+&lt;p&gt;The buffer size of that code is 20,which mean that if we run longer string then the buffer, we may received segmentation fault:&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;SimonAAAAAAAAAAAAAAAAAAA
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;By testing that binary on gdb I found that the ESP contain the the A’s:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/bo-062.png&quot; alt=&quot;bo-062.png&quot; /&gt;
+&lt;strong&gt;Figure 62&lt;/strong&gt; GDB running the code.&lt;/p&gt;
+
+&lt;p&gt;So you can see on GDB that I have use break main then I used next command to go step by step to the point needed to find the location of the input ‘SimonAAAAAAAAAAAAAAAAAAA’. So now if we check the ESP we can see the following.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/bo-063.png&quot; alt=&quot;bo-063.png&quot; /&gt;
+&lt;strong&gt;Figure 63&lt;/strong&gt; ESP checking.&lt;/p&gt;
+
+&lt;p&gt;Now you see the hexadecimal value that came after the &lt;code class=&quot;highlighter-rouge&quot;&gt;41&lt;/code&gt; bits, so we can convert it to ascii and see what is the actual value.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/bo-064.png&quot; alt=&quot;bo-064.png&quot; /&gt;
+&lt;strong&gt;Figure 64&lt;/strong&gt; ESP checking.&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;└─$ echo -n &quot;007573722f6c6f63616c2f7362696e2f6d65737361676500&quot;|xxd -r -p | tr -d '\n'
+usr/local/sbin/message
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;</content><author><name>Guy Zwerdling</name></author><category term="Pentest" /><category term="Buffer Overflow" /><category term="Malware Analysis" /><summary type="html">If you follow up my latest post, you can see that it's being long time since I upload my latest post here, and you may know that I am working on and preparing to the OSCP exam, which is the ultimate certification in my case. One of the attacks that I have learn on that path and exciting me much, so much so that it gives me chills, is buffer overflow attack.</summary></entry><entry><title type="html">Data exposure due to misconfiguration on Shoppi site.</title><link href="http://localhost:4000/2023/12/22/data_exposure.html" rel="alternate" type="text/html" title="Data exposure due to misconfiguration on Shoppi site." /><published>2023-12-22T00:00:00+02:00</published><updated>2023-12-22T00:00:00+02:00</updated><id>http://localhost:4000/2023/12/22/data_exposure</id><content type="html" xml:base="http://localhost:4000/2023/12/22/data_exposure.html">&lt;p&gt;It’s been a long time since I last wrote, during this time I’m really studying in depth to finish the OSCP certification, in between I’m doing things that are more related to research in the Israeli internet space. I found a website that sells tickets and due to a mistake by the developer, there was an access as a guest to all the details of the buyers, I will show you here what I found and what the problem actually is, by the way, I have already contacted the company itself and the developer sorted out the issue.&lt;/p&gt;
 
 &lt;h2 id=&quot;how-did-i-get-to-know-this-site&quot;&gt;How did I get to know this site.&lt;/h2&gt;
 &lt;p&gt;It was about five or four months ago, my wife asked me to buy tickets for some show in the center of the country, we were looking for how to make the purchase online and found this website that sells tickets for that very uniq show we search for: &lt;code class=&quot;highlighter-rouge&quot;&gt;https://shoppi.co.il/&lt;/code&gt;

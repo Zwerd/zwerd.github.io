@@ -1453,6 +1453,11 @@ int main(int argc, char *argv[]) {
 usr/local/sbin/message
 </code></pre></div></div>
 
+<p>Thats is mean when we insert the <code class="highlighter-rouge">SimonAAAAAAAAAAAAAAAAAAA</code> which is 20 size of buffer, after that came the program, so we can just overwrite it with <code class="highlighter-rouge">/bin/sh</code> and we will have shell with that case. So the following can give us shell without the needed to control the EIP and use return address, if we just know the way the program is operate innnnn assembly level, we just can use it to change the oprate itself, since on that case the execve are execure the program, by change the program itself we made the injection point that lead to root shell in that case.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>SimonAAAAAAAAAAAAAAAAAAA/bin/sh
+</code></pre></div></div>
+
     
 
 

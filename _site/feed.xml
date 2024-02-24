@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.5">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2024-02-23T13:10:58+02:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Zwerd</title><subtitle>A stunning blog of freaking PT warrior</subtitle><author><name>Guy Zwerdling</name></author><entry><title type="html">The Full Methodology for OSCP Passing.</title><link href="http://localhost:4000/2024/02/18/oscp_path.html" rel="alternate" type="text/html" title="The Full Methodology for OSCP Passing." /><published>2024-02-18T00:00:00+02:00</published><updated>2024-02-18T00:00:00+02:00</updated><id>http://localhost:4000/2024/02/18/oscp_path</id><content type="html" xml:base="http://localhost:4000/2024/02/18/oscp_path.html">&lt;p&gt;In the last three weeks I have been wondering a few things, I was in a job interview at a very respectable place in my area, I was in my first interview which was technical, I was asked questions about WIRESHARK, understanding protocols such as TCP, LDAP, SMB2, how the MR system works, understanding Linux processes and how to identify SOCKETS , acquaintances with PS and even presented before a command that was very similar to what we have in OSCP, a kind of reverse shell.&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.5">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2024-02-24T20:03:43+02:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Zwerd</title><subtitle>A stunning blog of freaking PT warrior</subtitle><author><name>Guy Zwerdling</name></author><entry><title type="html">The Full Methodology for OSCP Passing.</title><link href="http://localhost:4000/2024/02/18/oscp_path.html" rel="alternate" type="text/html" title="The Full Methodology for OSCP Passing." /><published>2024-02-18T00:00:00+02:00</published><updated>2024-02-18T00:00:00+02:00</updated><id>http://localhost:4000/2024/02/18/oscp_path</id><content type="html" xml:base="http://localhost:4000/2024/02/18/oscp_path.html">&lt;p&gt;In the last three weeks I have been wondering a few things, I was in a job interview at a very respectable place in my area, I was in my first interview which was technical, I was asked questions about WIRESHARK, understanding protocols such as TCP, LDAP, SMB2, how the MR system works, understanding Linux processes and how to identify SOCKETS , acquaintances with PS and even presented before a command that was very similar to what we have in OSCP, a kind of reverse shell.&lt;/p&gt;
 
 &lt;p&gt;The conversation was very fluid, the interview was virtual through Zoom, and two representatives came to the interview, one of whom is a team leader and the other a cyber team member, the conversation was good and ended well in which they explained to me what the process and the next step was, which is another interview with the organization’s IT manager.&lt;/p&gt;
 
@@ -29,7 +29,21 @@
 
 &lt;h2 id=&quot;5-points-box-methodology&quot;&gt;5 points box methodology&lt;/h2&gt;
 
-&lt;p&gt;For boxs that have only 5 points, I have done more then 40 boxs, so I came up with the following table.&lt;/p&gt;
+&lt;p&gt;For boxs that have only 5 points, I have done more then 40 boxs, so first we need to develop the table methodology for that case of easy machines. Let’s look on 5 machines that are easy for hack for just 5 points.&lt;/p&gt;
+
+&lt;h3 id=&quot;bossplayersctf&quot;&gt;BossPlayersCTF&lt;/h3&gt;
+
+&lt;h3 id=&quot;covfefe&quot;&gt;Covfefe&lt;/h3&gt;
+
+&lt;h3 id=&quot;fowsniff&quot;&gt;Fowsniff&lt;/h3&gt;
+
+&lt;h3 id=&quot;geisha&quot;&gt;Geisha&lt;/h3&gt;
+
+&lt;h3 id=&quot;jisctf&quot;&gt;JISCTF&lt;/h3&gt;
+
+&lt;h3 id=&quot;final-table-methodology&quot;&gt;Final table methodology&lt;/h3&gt;
+
+&lt;p&gt;After finish them all, I came up with the following table.&lt;/p&gt;
 
 &lt;p&gt;| Stage | Enumeration | Exploitation | Initiation | Escalation |
 |——-|————-|————–|————|————|

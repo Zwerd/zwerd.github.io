@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.5">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2024-02-26T21:29:36+02:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Zwerd</title><subtitle>A stunning blog of freaking Cyber warrior</subtitle><author><name>Guy Zwerdling</name></author><entry><title type="html">The Full Methodology for OSCP Passing.</title><link href="http://localhost:4000/2024/02/18/oscp_path.html" rel="alternate" type="text/html" title="The Full Methodology for OSCP Passing." /><published>2024-02-18T00:00:00+02:00</published><updated>2024-02-18T00:00:00+02:00</updated><id>http://localhost:4000/2024/02/18/oscp_path</id><content type="html" xml:base="http://localhost:4000/2024/02/18/oscp_path.html">&lt;p&gt;Lately, I’ve been thinking a lot about some job interviews I had recently, especially one at a really good organization near to my aria. The interviews were interesting and kind of tough, and they got me thinking about my work and where I’m headed.&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.5">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2024-03-01T09:52:06+02:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Zwerd</title><subtitle>A stunning blog of freaking Cyber warrior</subtitle><author><name>Guy Zwerdling</name></author><entry><title type="html">The Full Methodology for OSCP Passing.</title><link href="http://localhost:4000/2024/02/18/oscp_path.html" rel="alternate" type="text/html" title="The Full Methodology for OSCP Passing." /><published>2024-02-18T00:00:00+02:00</published><updated>2024-02-18T00:00:00+02:00</updated><id>http://localhost:4000/2024/02/18/oscp_path</id><content type="html" xml:base="http://localhost:4000/2024/02/18/oscp_path.html">&lt;p&gt;Lately, I’ve been thinking a lot about some job interviews I had recently, especially one at a really good organization near to my aria. The interviews were interesting and kind of tough, and they got me thinking about my work and where I’m headed.&lt;/p&gt;
 
 &lt;p&gt;The first interview was on Zoom and was all about technical stuff. They asked me about Wireshark, which is a tool for analyzing network traffic, and about different protocols like TCP, LDAP, and SMB2. They also asked about things like Linux processes and sockets, which are like communication channels between computers. It was a good chat, and I felt like I could talk to them easily. They even explained what comes next in their hiring process.&lt;/p&gt;
 
@@ -147,18 +147,27 @@ contain more then 20 chars and after that overwrite the program value with anoth
 
 &lt;ol&gt;
   &lt;li&gt;Privalge Escalation: running the program with the values more then 20 chars and insert /bin/sh to gain shell as root:
-simon@covfefe:~$ read_message
+    &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;simon@covfefe:~$ read_message
 What is your name?
 Simonnnnnnnnnnnnnnnn/bin/sh
 Hello Simonnnnnnnnnnnnnnnn/bin/sh! Here is your message:
-    &lt;h1 id=&quot;id&quot;&gt;id&lt;/h1&gt;
-    &lt;p&gt;uid=1000(simon) gid=1000(simon) euid=0(root) groups=1000(simon),24(cdrom),25(floppy
-),29(audio),30(dip),44(video),46(plugdev),108(netdev)&lt;/p&gt;
+# id
+uid=1000(simon) gid=1000(simon) euid=0(root) groups=1000(simon),24(cdrom),25(floppy
+),29(audio),30(dip),44(video),46(plugdev),108(netdev)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
   &lt;/li&gt;
 &lt;/ol&gt;
 
 &lt;h3 id=&quot;fowsniff&quot;&gt;Fowsniff&lt;/h3&gt;
 
+&lt;ol&gt;
+  &lt;li&gt;Enumeration: running full port scan with &lt;code class=&quot;highlighter-rouge&quot;&gt;rustscan&lt;/code&gt; found that only 22,80,110,143 are open, so run &lt;code class=&quot;highlighter-rouge&quot;&gt;nmap&lt;/code&gt; and found that none of the port look like interesting, so go against the web with &lt;code class=&quot;highlighter-rouge&quot;&gt;webenum&lt;/code&gt; found nothing but on the index.html page found the following which give clue what to do next:
+    &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;Fowsniff's internal system suffered a data breach that resulted in the exposure of employee usernames and passwords.
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
+  &lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;This lead us to run google search for &lt;code class=&quot;highlighter-rouge&quot;&gt;Fowsniff&lt;/code&gt; since it tell us that thiis system are exposure data&lt;/p&gt;
 &lt;h3 id=&quot;geisha&quot;&gt;Geisha&lt;/h3&gt;
 
 &lt;h3 id=&quot;jisctf&quot;&gt;JISCTF&lt;/h3&gt;

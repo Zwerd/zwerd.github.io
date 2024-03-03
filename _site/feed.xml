@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.5">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2024-03-03T12:27:18+02:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Zwerd</title><subtitle>A stunning blog of freaking Cyber warrior</subtitle><author><name>Guy Zwerdling</name></author><entry><title type="html">The Full Methodology for OSCP Passing.</title><link href="http://localhost:4000/2024/02/18/oscp_path.html" rel="alternate" type="text/html" title="The Full Methodology for OSCP Passing." /><published>2024-02-18T00:00:00+02:00</published><updated>2024-02-18T00:00:00+02:00</updated><id>http://localhost:4000/2024/02/18/oscp_path</id><content type="html" xml:base="http://localhost:4000/2024/02/18/oscp_path.html">&lt;p&gt;Lately, I’ve been thinking a lot about some job interviews I had recently, especially one at a really good organization near to my aria. The interviews were interesting and kind of tough, and they got me thinking about my work and where I’m headed.&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.5">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2024-03-03T22:17:56+02:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Zwerd</title><subtitle>A stunning blog of freaking Cyber warrior</subtitle><author><name>Guy Zwerdling</name></author><entry><title type="html">The Full Methodology for OSCP Passing.</title><link href="http://localhost:4000/2024/02/18/oscp_path.html" rel="alternate" type="text/html" title="The Full Methodology for OSCP Passing." /><published>2024-02-18T00:00:00+02:00</published><updated>2024-02-18T00:00:00+02:00</updated><id>http://localhost:4000/2024/02/18/oscp_path</id><content type="html" xml:base="http://localhost:4000/2024/02/18/oscp_path.html">&lt;p&gt;Lately, I’ve been thinking a lot about some job interviews I had recently, especially one at a really good organization near to my aria. The interviews were interesting and kind of tough, and they got me thinking about my work and where I’m headed.&lt;/p&gt;
 
 &lt;p&gt;The first interview was on Zoom and was all about technical stuff. They asked me about Wireshark, which is a tool for analyzing network traffic, and about different protocols like TCP, LDAP, and SMB2. They also asked about things like Linux processes and sockets, which are like communication channels between computers. It was a good chat, and I felt like I could talk to them easily. They even explained what comes next in their hiring process.&lt;/p&gt;
 
@@ -424,12 +424,95 @@ root@Jordaninfosec-CTF01:/home/technawi#
 
 &lt;h4 id=&quot;final-table-methodology&quot;&gt;Final table methodology&lt;/h4&gt;
 
-&lt;p&gt;After finish them all, I came up with the following table.&lt;/p&gt;
+&lt;p&gt;After finish all of that machine, now we can create table that show the steps for each, and what was done for each:&lt;/p&gt;
 
 &lt;table&gt;
   &lt;thead&gt;
     &lt;tr&gt;
-      &lt;th&gt;Stage&lt;/th&gt;
+      &lt;th&gt;Box&lt;/th&gt;
+      &lt;th&gt;Enumeration&lt;/th&gt;
+      &lt;th&gt;Web Enumeration&lt;/th&gt;
+      &lt;th&gt;Hash Cracking&lt;/th&gt;
+      &lt;th&gt;Brute Forcing&lt;/th&gt;
+      &lt;th&gt;Initiation&lt;/th&gt;
+      &lt;th&gt;Maintaining access&lt;/th&gt;
+      &lt;th&gt;System Enumeration&lt;/th&gt;
+      &lt;th&gt;Buffer Overflow&lt;/th&gt;
+      &lt;th&gt;Privilege Escalation&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;BossPlayersCTF&lt;/td&gt;
+      &lt;td&gt;V&lt;/td&gt;
+      &lt;td&gt;V&lt;/td&gt;
+      &lt;td&gt;-&lt;/td&gt;
+      &lt;td&gt;-&lt;/td&gt;
+      &lt;td&gt;V&lt;/td&gt;
+      &lt;td&gt;-&lt;/td&gt;
+      &lt;td&gt;V&lt;/td&gt;
+      &lt;td&gt;-&lt;/td&gt;
+      &lt;td&gt;V&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Covfefe&lt;/td&gt;
+      &lt;td&gt;V&lt;/td&gt;
+      &lt;td&gt;V&lt;/td&gt;
+      &lt;td&gt;V&lt;/td&gt;
+      &lt;td&gt;-&lt;/td&gt;
+      &lt;td&gt;V&lt;/td&gt;
+      &lt;td&gt;-&lt;/td&gt;
+      &lt;td&gt;V&lt;/td&gt;
+      &lt;td&gt;V&lt;/td&gt;
+      &lt;td&gt;V&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Fowsniff&lt;/td&gt;
+      &lt;td&gt;V&lt;/td&gt;
+      &lt;td&gt;-&lt;/td&gt;
+      &lt;td&gt;V&lt;/td&gt;
+      &lt;td&gt;V&lt;/td&gt;
+      &lt;td&gt;V&lt;/td&gt;
+      &lt;td&gt;-&lt;/td&gt;
+      &lt;td&gt;V&lt;/td&gt;
+      &lt;td&gt;-&lt;/td&gt;
+      &lt;td&gt;V&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Geisha&lt;/td&gt;
+      &lt;td&gt;V&lt;/td&gt;
+      &lt;td&gt;V&lt;/td&gt;
+      &lt;td&gt;-&lt;/td&gt;
+      &lt;td&gt;V&lt;/td&gt;
+      &lt;td&gt;V&lt;/td&gt;
+      &lt;td&gt;-&lt;/td&gt;
+      &lt;td&gt;V&lt;/td&gt;
+      &lt;td&gt;-&lt;/td&gt;
+      &lt;td&gt;V&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;JISCTF&lt;/td&gt;
+      &lt;td&gt;V&lt;/td&gt;
+      &lt;td&gt;V&lt;/td&gt;
+      &lt;td&gt;-&lt;/td&gt;
+      &lt;td&gt;-&lt;/td&gt;
+      &lt;td&gt;V&lt;/td&gt;
+      &lt;td&gt;V&lt;/td&gt;
+      &lt;td&gt;V&lt;/td&gt;
+      &lt;td&gt;-&lt;/td&gt;
+      &lt;td&gt;V&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;p&gt;From that table we learn that there steps that are must, like the first enumeration, access initiation, system enumeration and privilege escalation. In addition, if we look closely, some of the steps are actual action while others are just the result of the action. For example, performing an enumeration is an active action, we use various tools such as rustscan or nmap, when we manage to gain access to the machine in the initiation phase, it is actually the result of an action that preceded it, for example exploitation.&lt;/p&gt;
+
+&lt;p&gt;The following table is what came in my mind as the right way to look at each step, also that been done I can now make some tool that help me to find what command can I used for each step.&lt;/p&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;Stage/Phase&lt;/th&gt;
       &lt;th&gt;Enumeration&lt;/th&gt;
       &lt;th&gt;Exploitation&lt;/th&gt;
       &lt;th&gt;Initiation&lt;/th&gt;

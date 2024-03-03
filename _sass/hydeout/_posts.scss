@@ -15,6 +15,7 @@ article + *, .post-body ~ section {
 
 .post, .page {
   .content {
+    width: 100%; // Set width to 100% to fill up the entire width of the page
     li + li {
       margin-top: .25rem;
     }

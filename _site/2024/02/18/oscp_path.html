@@ -814,12 +814,95 @@ root@Jordaninfosec-CTF01:/home/technawi#
 
 <h4 id="final-table-methodology">Final table methodology</h4>
 
-<p>After finish them all, I came up with the following table.</p>
+<p>After finish all of that machine, now we can create table that show the steps for each, and what was done for each:</p>
 
 <table>
   <thead>
     <tr>
-      <th>Stage</th>
+      <th>Box</th>
+      <th>Enumeration</th>
+      <th>Web Enumeration</th>
+      <th>Hash Cracking</th>
+      <th>Brute Forcing</th>
+      <th>Initiation</th>
+      <th>Maintaining access</th>
+      <th>System Enumeration</th>
+      <th>Buffer Overflow</th>
+      <th>Privilege Escalation</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>BossPlayersCTF</td>
+      <td>V</td>
+      <td>V</td>
+      <td>-</td>
+      <td>-</td>
+      <td>V</td>
+      <td>-</td>
+      <td>V</td>
+      <td>-</td>
+      <td>V</td>
+    </tr>
+    <tr>
+      <td>Covfefe</td>
+      <td>V</td>
+      <td>V</td>
+      <td>V</td>
+      <td>-</td>
+      <td>V</td>
+      <td>-</td>
+      <td>V</td>
+      <td>V</td>
+      <td>V</td>
+    </tr>
+    <tr>
+      <td>Fowsniff</td>
+      <td>V</td>
+      <td>-</td>
+      <td>V</td>
+      <td>V</td>
+      <td>V</td>
+      <td>-</td>
+      <td>V</td>
+      <td>-</td>
+      <td>V</td>
+    </tr>
+    <tr>
+      <td>Geisha</td>
+      <td>V</td>
+      <td>V</td>
+      <td>-</td>
+      <td>V</td>
+      <td>V</td>
+      <td>-</td>
+      <td>V</td>
+      <td>-</td>
+      <td>V</td>
+    </tr>
+    <tr>
+      <td>JISCTF</td>
+      <td>V</td>
+      <td>V</td>
+      <td>-</td>
+      <td>-</td>
+      <td>V</td>
+      <td>V</td>
+      <td>V</td>
+      <td>-</td>
+      <td>V</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>From that table we learn that there steps that are must, like the first enumeration, access initiation, system enumeration and privilege escalation. In addition, if we look closely, some of the steps are actual action while others are just the result of the action. For example, performing an enumeration is an active action, we use various tools such as rustscan or nmap, when we manage to gain access to the machine in the initiation phase, it is actually the result of an action that preceded it, for example exploitation.</p>
+
+<p>The following table is what came in my mind as the right way to look at each step, also that been done I can now make some tool that help me to find what command can I used for each step.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Stage/Phase</th>
       <th>Enumeration</th>
       <th>Exploitation</th>
       <th>Initiation</th>

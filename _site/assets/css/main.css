@@ -681,8 +681,10 @@ article + *, .post-body ~ section {
   article + * > h2:first-child, article + * > h3:first-child, .post-body ~ section > h2:first-child, .post-body ~ section > h3:first-child {
     margin-top: 0; }
 
-.post .content li + li, .page .content li + li {
-  margin-top: .25rem; }
+.post .content, .page .content {
+  width: 100%; }
+  .post .content li + li, .page .content li + li {
+    margin-top: .25rem; }
 
 .page-title,
 .post-title,

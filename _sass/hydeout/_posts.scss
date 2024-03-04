@@ -7,7 +7,6 @@ article + *, .post-body ~ section {
   padding-top: $section-spacing;
   border-top: 1px solid $border-color;
   margin-top: $section-spacing;
-  width: 100%;
 
   > h2:first-child, > h3:first-child {
     margin-top: 0;
@@ -15,7 +14,6 @@ article + *, .post-body ~ section {
 }
 
 .post, .page {
-  width: 100%;
   .content {
     li + li {
       margin-top: .25rem;

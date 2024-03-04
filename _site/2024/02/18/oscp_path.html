@@ -941,6 +941,71 @@ root@Jordaninfosec-CTF01:/home/technawi#
   </tbody>
 </table>
 
+<p>So now it’s time to 8 points machine, the level is hard, and I think that this is 8 point only because that boxs can found over the Internet with clue or actual path how to hack them.</p>
+
+<h2 id="8-points-box-methodology">8 points box methodology</h2>
+
+<h3 id="born2root">Born2Root</h3>
+
+<ol>
+  <li>
+    <p>Enumeration: first of all running port scan with rustscan or nmap, after that found that following are open, 22,80,111,54994, run nmap with them found that ssh are on version 6.7p1, we can enumerate users on that version using <code class="highlighter-rouge">ssh-username-enum</code> script, or using meterpreter (<code class="highlighter-rouge">msfconsol</code>) with <code class="highlighter-rouge">scanner/ssh/ssh_enumusers</code> module. But since there is web port open we will start with it.</p>
+  </li>
+  <li>Web Enumeration: run webscanner like feroxbuster or gobuster or webenum, found nothing but the index.html that contain several info about users:
+    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>About Us
+Martin N
+Hadi M
+Jimmy S
+Contact Us
+martin@secretsec.com
+</code></pre></div>    </div>
+    <p>Also on icon folder found one file that contain some rsa key, so download that key using wget:</p>
+    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>└─$ wget http://192.168.170.49/icons/VDSoyuAXiO.txt
+....
+2024-03-04 14:01:07 (71.5 MB/s) - ‘VDSoyuAXiO.txt’ saved [1677/1677]
+</code></pre></div>    </div>
+  </li>
+  <li>Initiation: change the mode for that file using <code class="highlighter-rouge">chmod 600 VDSoyuAXiO.txt</code> and run <code class="highlighter-rouge">ssh</code> with that key to the target give some error:
+    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>└─$ ssh -i ./VDSoyuAXiO.txt 192.168.170.49 -p 22
+sign_and_send_pubkey: no mutual signature supported
+kali@192.168.170.49's password:
+</code></pre></div>    </div>
+    <p>Running <code class="highlighter-rouge">googler</code> tool with that output found some page that talk about the same issue and give some solution:
+```
+─$ googler “sign_and_send_pubkey: no mutual signature supported”</p>
+  </li>
+  <li>
+    <p>Sign_and_send_pubkey: no mutual signature supported
+https://stackoverflow.com/questions/73795935/sign-and-send-pubkey-no-mutual-signature-supported</p>
+  </li>
+  <li>SSH-RSA key rejected with message “no mutual signature …
+https://confluence.atlassian.com/bitbucketserverkb/ssh-rsa-key-rejected-with-message-no-mutual-signature-algorithm-1026057701.html</li>
+</ol>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>I have use the following command to get shell with martin user:
+</code></pre></div></div>
+<p>└─$ ssh -i ./VDSoyuAXiO.txt martin@192.168.170.49 -p 22 -o PubkeyAcceptedKeyTypes=ssh-rsa</p>
+
+<p>The programs included with the Debian GNU/Linux system are free software;
+the exact distribution terms for each program are described in the
+individual files in /usr/share/doc/*/copyright.</p>
+
+<p>Debian GNU/Linux comes with ABSOLUTELY NO WARRANTY, to the extent
+permitted by applicable law.
+Last login: Mon Mar  4 20:16:35 2024 from 192.168.45.196</p>
+
+<p>READY TO ACCESS THE SECRET LAB ?</p>
+
+<p>secret password :
+WELCOME !
+martin@debian:~$
+```</p>
+
+<p>Bottleneck
+BrokenGallery
+Dawn2
+Dawn3</p>
+
     
 
 

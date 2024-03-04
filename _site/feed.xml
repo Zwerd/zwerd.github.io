@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.5">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2024-03-03T22:17:56+02:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Zwerd</title><subtitle>A stunning blog of freaking Cyber warrior</subtitle><author><name>Guy Zwerdling</name></author><entry><title type="html">The Full Methodology for OSCP Passing.</title><link href="http://localhost:4000/2024/02/18/oscp_path.html" rel="alternate" type="text/html" title="The Full Methodology for OSCP Passing." /><published>2024-02-18T00:00:00+02:00</published><updated>2024-02-18T00:00:00+02:00</updated><id>http://localhost:4000/2024/02/18/oscp_path</id><content type="html" xml:base="http://localhost:4000/2024/02/18/oscp_path.html">&lt;p&gt;Lately, I’ve been thinking a lot about some job interviews I had recently, especially one at a really good organization near to my aria. The interviews were interesting and kind of tough, and they got me thinking about my work and where I’m headed.&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.5">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2024-03-04T21:17:19+02:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Zwerd</title><subtitle>A stunning blog of freaking Cyber warrior</subtitle><author><name>Guy Zwerdling</name></author><entry><title type="html">The Full Methodology for OSCP Passing.</title><link href="http://localhost:4000/2024/02/18/oscp_path.html" rel="alternate" type="text/html" title="The Full Methodology for OSCP Passing." /><published>2024-02-18T00:00:00+02:00</published><updated>2024-02-18T00:00:00+02:00</updated><id>http://localhost:4000/2024/02/18/oscp_path</id><content type="html" xml:base="http://localhost:4000/2024/02/18/oscp_path.html">&lt;p&gt;Lately, I’ve been thinking a lot about some job interviews I had recently, especially one at a really good organization near to my aria. The interviews were interesting and kind of tough, and they got me thinking about my work and where I’m headed.&lt;/p&gt;
 
 &lt;p&gt;The first interview was on Zoom and was all about technical stuff. They asked me about Wireshark, which is a tool for analyzing network traffic, and about different protocols like TCP, LDAP, and SMB2. They also asked about things like Linux processes and sockets, which are like communication channels between computers. It was a good chat, and I felt like I could talk to them easily. They even explained what comes next in their hiring process.&lt;/p&gt;
 
@@ -549,7 +549,72 @@ root@Jordaninfosec-CTF01:/home/technawi#
       &lt;td&gt;Providing recommendations for remediation and improving overall security posture based on the findings.&lt;/td&gt;
     &lt;/tr&gt;
   &lt;/tbody&gt;
-&lt;/table&gt;</content><author><name>Guy Zwerdling</name></author><category term="Pentest" /><category term="OSCP" /><summary type="html">Lately, I've been thinking a lot about some job interviews I had recently, especially one at a really good company near me. The interviews were interesting and kind of tough, and they got me thinking about my work...</summary></entry><entry><title type="html">The First Path to Malware Research - Buffer Overflow Analysis.</title><link href="http://localhost:4000/2024/01/07/buffer_overflow_01.html" rel="alternate" type="text/html" title="The First Path to Malware Research - Buffer Overflow Analysis." /><published>2024-01-07T00:00:00+02:00</published><updated>2024-01-07T00:00:00+02:00</updated><id>http://localhost:4000/2024/01/07/buffer_overflow_01</id><content type="html" xml:base="http://localhost:4000/2024/01/07/buffer_overflow_01.html">&lt;p&gt;If you follow up my latest post, you can see that it’s being long time since I upload my latest post here, and you may know that I am working on and preparing to the &lt;strong&gt;OSCP&lt;/strong&gt; exam, which is the ultimate certification in my case. One of the attacks that I have learn on that path and exciting me much, so much so that it gives me chills, is &lt;strong&gt;buffer overflow&lt;/strong&gt; attack. I have seeing many attacks, from the application level to the low level, which is called also the infrastructure level, in my case I have found my self more enjoyable by learning buffer overflow, and after I finish my first attack on that low memory, I finally recognized what I really what to do on the cyber security field is to be cyber security researcher, which mean, among to the others, to know how to analysis malware and viruses, how to track their actions, and understand what they design to do, if you search about that on linkedin, you should find research type of jobs that include reverse engineering.&lt;/p&gt;
+&lt;/table&gt;
+
+&lt;p&gt;So now it’s time to 8 points machine, the level is hard, and I think that this is 8 point only because that boxs can found over the Internet with clue or actual path how to hack them.&lt;/p&gt;
+
+&lt;h2 id=&quot;8-points-box-methodology&quot;&gt;8 points box methodology&lt;/h2&gt;
+
+&lt;h3 id=&quot;born2root&quot;&gt;Born2Root&lt;/h3&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;
+    &lt;p&gt;Enumeration: first of all running port scan with rustscan or nmap, after that found that following are open, 22,80,111,54994, run nmap with them found that ssh are on version 6.7p1, we can enumerate users on that version using &lt;code class=&quot;highlighter-rouge&quot;&gt;ssh-username-enum&lt;/code&gt; script, or using meterpreter (&lt;code class=&quot;highlighter-rouge&quot;&gt;msfconsol&lt;/code&gt;) with &lt;code class=&quot;highlighter-rouge&quot;&gt;scanner/ssh/ssh_enumusers&lt;/code&gt; module. But since there is web port open we will start with it.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;Web Enumeration: run webscanner like feroxbuster or gobuster or webenum, found nothing but the index.html that contain several info about users:
+    &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;About Us
+Martin N
+Hadi M
+Jimmy S
+Contact Us
+martin@secretsec.com
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
+    &lt;p&gt;Also on icon folder found one file that contain some rsa key, so download that key using wget:&lt;/p&gt;
+    &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;└─$ wget http://192.168.170.49/icons/VDSoyuAXiO.txt
+....
+2024-03-04 14:01:07 (71.5 MB/s) - ‘VDSoyuAXiO.txt’ saved [1677/1677]
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
+  &lt;/li&gt;
+  &lt;li&gt;Initiation: change the mode for that file using &lt;code class=&quot;highlighter-rouge&quot;&gt;chmod 600 VDSoyuAXiO.txt&lt;/code&gt; and run &lt;code class=&quot;highlighter-rouge&quot;&gt;ssh&lt;/code&gt; with that key to the target give some error:
+    &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;└─$ ssh -i ./VDSoyuAXiO.txt 192.168.170.49 -p 22
+sign_and_send_pubkey: no mutual signature supported
+kali@192.168.170.49's password:
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
+    &lt;p&gt;Running &lt;code class=&quot;highlighter-rouge&quot;&gt;googler&lt;/code&gt; tool with that output found some page that talk about the same issue and give some solution:
+```
+─$ googler “sign_and_send_pubkey: no mutual signature supported”&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Sign_and_send_pubkey: no mutual signature supported
+https://stackoverflow.com/questions/73795935/sign-and-send-pubkey-no-mutual-signature-supported&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;SSH-RSA key rejected with message “no mutual signature …
+https://confluence.atlassian.com/bitbucketserverkb/ssh-rsa-key-rejected-with-message-no-mutual-signature-algorithm-1026057701.html&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;I have use the following command to get shell with martin user:
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;└─$ ssh -i ./VDSoyuAXiO.txt martin@192.168.170.49 -p 22 -o PubkeyAcceptedKeyTypes=ssh-rsa&lt;/p&gt;
+
+&lt;p&gt;The programs included with the Debian GNU/Linux system are free software;
+the exact distribution terms for each program are described in the
+individual files in /usr/share/doc/*/copyright.&lt;/p&gt;
+
+&lt;p&gt;Debian GNU/Linux comes with ABSOLUTELY NO WARRANTY, to the extent
+permitted by applicable law.
+Last login: Mon Mar  4 20:16:35 2024 from 192.168.45.196&lt;/p&gt;
+
+&lt;p&gt;READY TO ACCESS THE SECRET LAB ?&lt;/p&gt;
+
+&lt;p&gt;secret password :
+WELCOME !
+martin@debian:~$
+```&lt;/p&gt;
+
+&lt;p&gt;Bottleneck
+BrokenGallery
+Dawn2
+Dawn3&lt;/p&gt;</content><author><name>Guy Zwerdling</name></author><category term="Pentest" /><category term="OSCP" /><summary type="html">Lately, I've been thinking a lot about some job interviews I had recently, especially one at a really good company near me. The interviews were interesting and kind of tough, and they got me thinking about my work...</summary></entry><entry><title type="html">The First Path to Malware Research - Buffer Overflow Analysis.</title><link href="http://localhost:4000/2024/01/07/buffer_overflow_01.html" rel="alternate" type="text/html" title="The First Path to Malware Research - Buffer Overflow Analysis." /><published>2024-01-07T00:00:00+02:00</published><updated>2024-01-07T00:00:00+02:00</updated><id>http://localhost:4000/2024/01/07/buffer_overflow_01</id><content type="html" xml:base="http://localhost:4000/2024/01/07/buffer_overflow_01.html">&lt;p&gt;If you follow up my latest post, you can see that it’s being long time since I upload my latest post here, and you may know that I am working on and preparing to the &lt;strong&gt;OSCP&lt;/strong&gt; exam, which is the ultimate certification in my case. One of the attacks that I have learn on that path and exciting me much, so much so that it gives me chills, is &lt;strong&gt;buffer overflow&lt;/strong&gt; attack. I have seeing many attacks, from the application level to the low level, which is called also the infrastructure level, in my case I have found my self more enjoyable by learning buffer overflow, and after I finish my first attack on that low memory, I finally recognized what I really what to do on the cyber security field is to be cyber security researcher, which mean, among to the others, to know how to analysis malware and viruses, how to track their actions, and understand what they design to do, if you search about that on linkedin, you should find research type of jobs that include reverse engineering.&lt;/p&gt;
 
 &lt;p&gt;If you ask my Mentor, Sagi Kedmi, about that, I am sure that he will be say “you need to be the developer yourself, let the other read you garbage logs”. I can say that I understand that, but after I develop my last two React-Native Apps, I was many time frustrated. On the other hand the path I have done until I have break my first program in low memory level, was so much fun and I learn a lot, so I guess that is better for me to go to that field, the malware researcher and reverse engineer.&lt;/p&gt;
 

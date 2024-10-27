@@ -514,7 +514,8 @@ This is it guys!
 
 You can find this app on Google Play for now, in the future I will upload this app to Apple App Store.
 To install it on android refer to the following link:
-[<img src="https://play.google.com/intl/en_us/badges/images/generic/en_badge_web_generic.png">](https://play.google.com/store/apps/details?id=com.mygemach)
+[![Get it on Google Play](https://play.google.com/intl/en_us/badges/images/generic/en_badge_web_generic.png)](https://play.google.com/store/apps/details?id=com.mygemach)
+
 
 
 Please write comment here for question and I will be in touch with you shortly.

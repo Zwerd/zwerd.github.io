@@ -34,14 +34,6 @@ In short, this year it is time to do this certification and not give up until I 
 - [Chapter 2](#chapter-2)
 - [Chapter 3](#chapter-3)
 - [Chapter 4](#chapter-4)
-- [Chapter 5](#chapter-5)
-- [Chapter 6](#chapter-6)
-- [Chapter 7](#chapter-7)
-- [Chapter 8](#chapter-8)
-- [Chapter 9](#chapter-9)
-- [Chapter 10](#chapter-10)
-- [Chapter 11](#chapter-11)
-- [Chapter 12](#chapter-12)
 
 
 
@@ -1026,7 +1018,7 @@ theharvester -d cisco.com -b google
 
 the following is what thehavester was sent:
 ```
-http://search?num=100&start=0&hl=en&meta=&q=%40%22cisco.com%22&User-Agent=Opera%2F9.80+%28X11%3B+Linux+i686%3B+U%3B+es-ES%29+Presto%2F2.8.131+Version%2F11.11
+https://search?num=100&start=0&hl=en&meta=&q=%40%22cisco.com%22&User-Agent=Opera%2F9.80+%28X11%3B+Linux+i686%3B+U%3B+es-ES%29+Presto%2F2.8.131+Version%2F11.11
 ```
 
 if you will try this like on your browser you will get some search page for cisco email that look like that:
@@ -1061,7 +1053,7 @@ At the end I got number of relevant address that theharvester found by using bin
 
 ### whois
 
-That tool can be use to find out which is the service provider of site, when you run this command on your Kali this whois start TCP session to whois database with port 43 which is the standart tcp port for whois, the details you get you can also get on [www.whois.com](www.whois.com) which is the same database. The information whois can give you can contain address and email address for the organization you search for and phone number and street location, also ISP for that domain and date of update/created and so on.
+That tool can be use to find out which is the service provider of site, when you run this command on your Kali this whois start TCP session to whois database with port 43 which is the standart tcp port for whois, the details you get you can also get on [www.whois.com](https://www.whois.com) which is the same database. The information whois can give you can contain address and email address for the organization you search for and phone number and street location, also ISP for that domain and date of update/created and so on.
 
 
 ![PENTEST Post](/assets/images/PENTEST/whois.png)
@@ -1293,7 +1285,7 @@ The second tool that we can use is **DNSEnum**, this tool check the domain we en
 
 Another Information Gathering that you can perform is port scan, this action can give you a clue about service that are open and so they are in used, please remember that on the port scanning field you on the active phase like the author of the offensive security book like to call it, it's mean that every scan you may done will create network noises, so be very very careful or some one will detecting you and stop the attack you were about to make.
 
-As you already know TCP connection came up after tree way handshake was done, you can read more about that in my other [TCP connection](http://zwerd.com/2017/11/24/TCP-connection.html#basic-tcp-functionality-and-basic-flags-like-syn-ack-fin) post, baisicly if the three way handshake end successfully it's mean that this port we tried to connect to are open, in some cases we can know what services that port gives and that can be handy to know what is the purpose of the server at least what connection meant to be.
+As you already know TCP connection came up after tree way handshake was done, you can read more about that in my other [TCP connection](https://zwerd.github.io/2017/11/24/TCP-connection.html#basic-tcp-functionality-and-basic-flags-like-syn-ack-fin) post, baisicly if the three way handshake end successfully it's mean that this port we tried to connect to are open, in some cases we can know what services that port gives and that can be handy to know what is the purpose of the server at least what connection meant to be.
 
 We can use **nc** command to check the connectivity by running the following command.
 ```

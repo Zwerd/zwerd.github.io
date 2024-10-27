@@ -311,7 +311,7 @@ Let's check what really going on in the realty with some real session.
 
 In this section I'll demonstrate how things are really going on, I have two endpoint so let's called theme John and Bob. I'm going to use Wireshark and we going to open FTP connection between the two, just remember that FTP session works with two ports, 21 for control session and 20 for data session.
 
-If you want you can downloads the session [here](/assets/downloads/FTP session with ports 21 and 20.pcapng).
+If you want you can downloads the session [here](./files/FTP session with ports 21 and 20.pcapng).
 
 So John IP address is 10.0.0.8 and Bob IP address is 10.0.0.5, John want to connect Bob and copy from Bob to his machine some file named test.zip (you can actualy download that file from the sniffer captured file LOL).
 

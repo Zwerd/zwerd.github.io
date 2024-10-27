@@ -9,7 +9,7 @@ Today morning I received a message from LPI that my certificate will expire in 9
 
 In this post I am going to go over each topic as listed on the LPI website, which means I will go over each tool and present it here, in each chapter I will show how to use these tools to get the same information that the subject of the test should deal with, at the end of each chapter I will present a challenge From most of the commands we learned and challenged you and me how to get the information to succeed.
 
-If you want a brochure that deals with the topic extensively regardless of this post I recommend the booklet by Snow B.V. Her name: [The LPIC-2 Exam Prep 6th edition, for version 4.5](/assets/download/lpic2.pdf). This booklet helps me a lot and I recommend going through it at the same time, and yet I will try to elaborate as much as possible in the post here to be ready for the test.
+If you want a brochure that deals with the topic extensively regardless of this post I recommend the booklet by Snow B.V. Her name: [The LPIC-2 Exam Prep 6th edition, for version 4.5](/files/lpic2.pdf). This booklet helps me a lot and I recommend going through it at the same time, and yet I will try to elaborate as much as possible in the post here to be ready for the test.
 
 
 - [Chapter 0](#chapter-0)
@@ -483,7 +483,7 @@ Let's say you work at the IT position on some organization and you got some call
 
 One of that tools are the `iperf`, this command can check the bandwidth between two point over the network, this is mean that we can use it to check if the local network have the slowness issue or not, the other tool you can use is **speed test**, you can find one on online website that can check the bandwidth between you and the internet, in that case you will be able to see if the slowness are appear over the internet.
 
- Let's start with speed test that I found [speedtest.net](speedtest.net), you just need to click the button and this site will give you the details.
+ Let's start with speed test that I found [speedtest.net](https://speedtest.net), you just need to click the button and this site will give you the details.
 
  ![OSCP Post](/assets/images/lpic2/speedtest.png)
  **Figure 39** Speed Test.
@@ -883,11 +883,11 @@ For making initrd file we can use `mkinitrd` command (on RedHet and CentOS distr
 2. Run the file on virtual machine and check if it working correctly.
 3. check if you have network activity, if you haven't, try to solved it and check connectivity on your local lab.
 
-To solve this issue I will go with you step by step how to make new minimal linux kernel, I am going to use the minimal linux live project that was written by davidov.i@gmail.com, you can find the minimal linux document at the following URL:[Minimal Linux Tutorial](http://minimal.linux-bg.org/the_dao_of_minimal_linux_live.txt).
+To solve this issue I will go with you step by step how to make new minimal linux kernel, I am going to use the minimal linux live project that was written by davidov.i@gmail.com, you can find the minimal linux document at the following URL:[Minimal Linux Tutorial](https://minimal.linux-bg.org/the_dao_of_minimal_linux_live.txt).
 
 ### 1. Create minimal linux kernel.
 
-So first of all I login to the following URL:http://minimal.linux-bg.org/, I download the file **minimal_linux_live_15-Dec-2019_src.tar.xz**, I extract the file by using `tar -Jxvf` and folder with the same name was created on the local directory which are contain the script file for making new ios image, the name of that file is **build_minimal_linux_live.sh** which is executable file.
+So first of all I login to the following URL:https://minimal.linux-bg.org/, I download the file **minimal_linux_live_15-Dec-2019_src.tar.xz**, I extract the file by using `tar -Jxvf` and folder with the same name was created on the local directory which are contain the script file for making new ios image, the name of that file is **build_minimal_linux_live.sh** which is executable file.
 
 By running this file we run all of the script that exist in that folder, like **02_build_kernel.sh** and **05_prepare_sysroot.sh**.
 
@@ -1237,7 +1237,7 @@ You must also be familiar with the different between those two, GRUB legacy is t
 You can see that in my case the GRUB menu doesn't contain any other option except centOS 6, I want to show you how this is done, so for that case I download Ubuntu 9 which contain GRUB legacy, I also will install Windows XP on my virtual machine and I will create two partition which one of them will contain the Linux and the other will be Windows, please note that windows contain some different boot loader but this is beyond the scope of our LPIC2 exam.
 
 If you want to do this exercies on you virtual machine you can download Ubuntu 9 from the following URL:
-http://old-releases.ubuntu.com/releases/9.04/ubuntu-9.04-desktop-i386.iso
+https://old-releases.ubuntu.com/releases/9.04/ubuntu-9.04-desktop-i386.iso
 
 You can also find the Windows XP on the following link:
 https://ia802908.us.archive.org/26/items/WinXPProSP3x86/en_windows_xp_professional_with_service_pack_3_x86_cd_vl_x14-73974.iso
@@ -1569,7 +1569,7 @@ You need to knew that the same data that we can see with the mount command can b
 ![LPIC2 Post](/assets/images/lpic2/mounts.png)
 **Figure 120** The mounts file on the proc folder.
 
-The first element on the line is the mounted device, the second element is the mount point, the third element is the file system type, the fourth element lists mount flags (credit [Fibrevillage](http://fibrevillage.com/sysadmin/278-understanding-the-difference-between-etc-mtab-and-proc-mounts-on-linux))and the two last flag are as I specified with the details about the **fstab** file.
+The first element on the line is the mounted device, the second element is the mount point, the third element is the file system type, the fourth element lists mount flags (credit [Fibrevillage](https://fibrevillage.com/sysadmin/278-understanding-the-difference-between-etc-mtab-and-proc-mounts-on-linux))and the two last flag are as I specified with the details about the **fstab** file.
 
 You can also see on the **fstab** that I have some UUID that point on the */boot* folder, the UUID stand for **Universally Unique IDentifier** and will be consist of numbers and letters arbitrarily. If we want to add to fstab file some device and let's say we want to add it be specify the UUID, so we can find that information by using the **blkid** command.
 
@@ -2811,7 +2811,7 @@ You can see that I am using **-XX** option for HEX output and **-vvv** option fo
 
 **Please note**: in the tcpdump we use the direction for monitor packets, we can use `host` as you can see in the figure 178, but also we can specify the source by `src` or destination by `dst` option in the command line.
 
-For that section we need also to learn about **nc** which is **netcat** command that we can use to run remote executable commands or transfer files, and also get to know the **nmap** tools, you can read more about this two in my [OSCP](http://zwerd.com/2019/09/20/oscp_certificate.html#chapter-3) post but I also write little about them here.
+For that section we need also to learn about **nc** which is **netcat** command that we can use to run remote executable commands or transfer files, and also get to know the **nmap** tools, you can read more about this two in my [OSCP](https://zwerd.com/2019/09/20/oscp_certificate.html#chapter-3) post but I also write little about them here.
 
 
 The command for **Netcat** is nc and according to man page that tool is used for checking TCP/UDP port that are open or listen to them. This is mean that I am able to use it to connect to some email server with pop3 like I used in telnet before.
@@ -3014,7 +3014,7 @@ We can find more related logs in the **/var/log/syslog** file that contain more 
 
 The TinyCore is minimal linux that can run live, we can use that for this task, you can find the iso image on the following link from the TinyCore site.
 
-[TinyCore](http://tinycorelinux.net/11.x/x86/release/TinyCore-current.iso)
+[TinyCore](https://tinycorelinux.net/11.x/x86/release/TinyCore-current.iso)
 
 After we have the iso file we can run it on virtual box and bring up the cli.
 

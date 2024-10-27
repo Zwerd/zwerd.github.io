@@ -29,7 +29,7 @@ I think that before you five in to SQL you need basic understanding how it works
 ```
 
 
- The last command will show you what is the status of your sql service, if you have some issue related to that service please search the error you got in [stackoverflow](stackoverflow.com) it is a grate way to solve issues with the community.
+ The last command will show you what is the status of your sql service, if you have some issue related to that service please search the error you got in [stackoverflow](https://stackoverflow.com/) it is a grate way to solve issues with the community.
 
  ![sql-injection-001.png](/assets/images/sql-injection-001.png)
  **Figure 1** MySQL server.
@@ -145,7 +145,7 @@ The command will work and because it is a SQL it will delete everything that in 
 The way to migrate this issue is called escaping and it's something like the programmer will setup in the code that every time we have quotation marks just put backslash before it, in that way the quotation marks in the filed will be handled as a character and not as quotation marks in the SQL so it may help to migrate the problem with command in SQL in the user input.
 
 For that article I'm going to use DVWA which is great way to learn about vulnerability related to websites, the usual Linux Kali will be used to attack those websites and I hope you will enjoy it.
-You can download DVWA from [here](http://www.dvwa.co.uk/), in this web you can find the source code which contain the REDAME.md file that can help you to install the DVWA on your operation system. We going to look on only the SQL injection in that article, I hope you enjoy it! I sure that I will!:]
+You can download DVWA from [here](https://www.dvwa.co.uk/), in this web you can find the source code which contain the REDAME.md file that can help you to install the DVWA on your operation system. We going to look on only the SQL injection in that article, I hope you enjoy it! I sure that I will!:]
 
 
 There is a three type of SQL injection:

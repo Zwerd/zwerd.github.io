@@ -487,7 +487,7 @@ So in the source code you can see that we have some `if` statement that treat ID
 ![sql-injection-051.png](/assets/images/sql-injection-051.png)
 **Figure 51** Blind base.
 
-To work around that case we going to use sqlmap, first of all I want you to read about [sqlmap]()
+To work around that case we going to use sqlmap, first of all I want you to read about [sqlmap](https://sqlmap.org/)
 
 ### How to migrate that vulnerability.
 **coming soon**

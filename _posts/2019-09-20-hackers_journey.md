@@ -729,7 +729,7 @@ If we want to execute some program with that command we will need to run **--exe
 
 If you don't read my old post, you may not know that I start my journey on the networking world or be more precisely Cisco networking world, I done everything I can to troubleshot some issue or problems that related to networking several years ago with Wireshark, this tool can help you see every ession that doesn't encrypted over the interface that through him you grab the information, with Wirshark we can look at the session closely and trying to use the information for troubleshot and solve problems. In my case I used a lot to troubleshot TCP connection that was filed, in other case I look at connection to some site that will display correctly on one PC but not on the other, in third case I and my firnd treid to figure out way some VPN tunnel does note going up and so on.
 
-If you want to see an example you can view my old [TCP post](http://zwerd.com/2017/11/24/TCP-connection.html#history-of-tcp-in-rfcs-793-3168-3540) that demonstrate the TCP connection by using Whireshark.
+If you want to see an example you can view my old [TCP post](https://zwerd.github.io/2017/11/24/TCP-connection.html#history-of-tcp-in-rfcs-793-3168-3540) that demonstrate the TCP connection by using Whireshark.
 
 As a pentester you will want to use Wireshark or other tools that can sniff the network for learning about the network you going to test, so there is a several thing that can help if Wireshark are new to you, Wireshark is build Capture Engine level, and the level are done as follow:
 

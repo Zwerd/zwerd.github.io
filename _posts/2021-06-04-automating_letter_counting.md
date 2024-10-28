@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Automating Letter Counting for Tombstone Engravings: A Meaningful Project.
+title: Automating Letter Counting for Tombstone Engravings, A Meaningful Project.
 categories: [Development, JavaScript]
 tag: [JavaScript] 
 ---

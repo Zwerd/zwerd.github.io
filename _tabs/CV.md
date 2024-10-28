@@ -6,7 +6,7 @@ order: 4
 
 ### Summary
 
-**LPIC1/2**, CCSA, CCNP R&S, CCIP, **CCNA Security**, CCNA R&S **certified**. Currently preparing to the **OSCP** exam. Coding using **Python**/PowerShell/**Bash**, pentesting using Pentera automation or Kali manualy including **malware research studing** with Immunity Debugger and GDB, Using metasploit, burpsuite, sqlmap, JTR, hydra, web enumerating like Feroxbuster/DirBuster/DirSearch and much more. Have deep knowledge in the TCP/IP world include DNS, HTTP, SMB, and also written technical guides about Linux and Cyber Security.
+**LPIC1/2**, **PJPT**, **WCNA**, CCSA, CCNA R&S, CCNP R&S, CCIP and CCNA Security certified. Currently preparing to the **OSCP** exam. Coding using **Python**/PowerShell/**Bash**, pentesting using Pentera automation or Kali manually including **malware research** with Immunity Debugger and GDB, Using metasploit, burpsuite, sqlmap, JTR, hydra, web enumerating like Feroxbuster/DirBuster/DirSearch and much more. Have deep knowledge in the TCP/IP world include DNS, HTTP, SMB, and also written technical guides about Linux and Cyber Security.
 
 ### Experience
 
@@ -38,13 +38,12 @@ NAC, ODI-x servers, Linux devices and supplement automation tasks in Bash, Shell
 
 **Certifications**
 
-- Cisco Certified Networking Professional (CCNP).
-- Cisco Certified Internetwork Professional (CCIP).
-- Cisco Certified Networking Associate Security (CCNA Security).
-- Cisco Certified Networking Associate (CCNA).
-- Linux Professional Institute Certificate Level 1 (LPIC-1).
-- SUSE Certified Linux Administrator.
-- Check Point Certified Security Administrator (CCSA).
+- Cisco certified: CCNA R&S, CCNP R&S, CCIP and CCNA Security.
+- Check Point Certified: CCSA.
+- Open SUSE Certified: SCLA.
+- Linux Professional Institute certified: LPIC1, LPIC2.
+- The Cyber Mentor Certified: PJPT.
+
 
 **Courses**
 
@@ -56,6 +55,8 @@ NAC, ODI-x servers, Linux devices and supplement automation tasks in Bash, Shell
 - Configuring BIG-IP LTM v11 F5 at Ness college.
 - Certifies Information Systems Security Professional at Ness College.
 - CSE1309x Introduction to Programming Using Python online edx coucse by The University of Texas System.
+- OffSec PEN-200 (PWK) the foundational pen-testing course.
+- The Cyber Mentor: Practical Ethical Hacking, Windows Privilege Escalation for Begginners, Linux Privilege Escalation for Begginners, Open Source Intelligence (OSINT) Fundamentals, External Pentest Playbook.
 
 **Languages**
 

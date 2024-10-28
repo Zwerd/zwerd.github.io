@@ -48,7 +48,7 @@ After several iterations, testing, and refinements, I finally completed the lett
 
 ## The Final Product
 
-The result of our collaboration can be found here: PDF Letter Counter. With this tool, the rabbi can easily upload a PDF and receive an instant letter count, which will significantly enhance his workflow. No longer burdened by the tedious task of manual counting, he can focus more on the artistry of his work and the meaningful connections he builds with his clients.
+The result of our collaboration can be found here: [PDF Letter Counter](https://zwerd.github.io/scripts/pdfcounter.html). With this tool, the rabbi can easily upload a PDF and receive an instant letter count, which will significantly enhance his workflow. No longer burdened by the tedious task of manual counting, he can focus more on the artistry of his work and the meaningful connections he builds with his clients.
 
 ## Reflecting on the Experience
 

@@ -6,8 +6,6 @@ tag: [JavaScript]
 ---
 
 
-# Automating Letter Counting for Tombstone Engravings: A Meaningful Project 
-
 ## A Unique Connection
 
 In my journey of learning about Judaism, I have been fortunate to spend time in the synagogue, where I prayed and engaged in discussions with my rabbi. His deep understanding of the faith and life experiences have profoundly influenced me. What particularly struck me was his unique background as a former grave digger who now crafts tombstones. His current work is not just a job; it is a calling that honors the memories of those who have passed.

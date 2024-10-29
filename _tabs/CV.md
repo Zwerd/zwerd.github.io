@@ -44,7 +44,6 @@ NAC, ODI-x servers, Linux devices and supplement automation tasks in Bash, Shell
 - Linux Professional Institute certified: LPIC1, LPIC2.
 - The Cyber Mentor Certified: PJPT.
 
-
 **Courses**
 
 - HP Advanced Enterprise Networking - HP Education.
@@ -56,7 +55,7 @@ NAC, ODI-x servers, Linux devices and supplement automation tasks in Bash, Shell
 - Certifies Information Systems Security Professional at Ness College.
 - CSE1309x Introduction to Programming Using Python online edx coucse by The University of Texas System.
 - OffSec PEN-200 (PWK) the foundational pen-testing course.
-- The Cyber Mentor: Practical Ethical Hacking, Windows Privilege Escalation for Begginners, Linux Privilege Escalation for Begginners, Open Source Intelligence (OSINT) Fundamentals, External Pentest Playbook.
+- The Cyber Mentor: Practical Ethical Hacking, Windows Privilege Escalation for Beginners, Linux Privilege Escalation for Beginners, Open Source Intelligence (OSINT) Fundamentals, External Pentest Playbook.
 
 **Languages**
 

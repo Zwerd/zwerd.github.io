@@ -386,8 +386,8 @@ So now we could make some YARA rule for detect that IOC’s, since we have sever
 This YARA rule, called WannaCry\_Correlated\_IOCs, is built to help find the WannaCry ransomware by looking for several known signs of the malware. These signs (called IOCs) are split into five groups: file names, special strings inside the malware, commands it runs, extra programs it uses, and the well-known kill switch website. By checking for different types of signs together, the rule makes it easier to spot WannaCry and avoid false alarms. 
 
 The condition says the rule will match if it finds at least one sign from each group (except the file name, where it can match that or a string inside the file). That means it needs to find one string inside the file, one command, one extra program, and the kill switch website to trigger. This makes sure the rule only matches files that really act like WannaCry, not just files that have one or two random things in common. 
-
-**rule WannaCry\_Correlated\_IOCs { ![](/assets/images/malware-analysis/Aspose.Words.e39fe440-01ef-47b9-8fa2-5ff88860777d.073.png)**
+![](/assets/images/malware-analysis/Aspose.Words.e39fe440-01ef-47b9-8fa2-5ff88860777d.073.png)
+**rule WannaCry\_Correlated\_IOCs { **
 
 **meta:** 
 

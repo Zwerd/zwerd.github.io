@@ -1,3 +1,11 @@
+---
+layout: post
+title: MR01 WannaCry Kill Switch Report.
+categories: [Tutorials, Reports]
+tag: [Malware Analysis , Network Traffic Analysis, Malware Research] 
+---
+
+# General 
 
 ![003.jpeg](/assets/images/malware-analysis/Aspose.Words.e39fe440-01ef-47b9-8fa2-5ff88860777d.003.jpeg)
 

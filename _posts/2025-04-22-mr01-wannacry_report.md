@@ -24,7 +24,9 @@ At start we can export the hash values of that sample, the original file sample 
 
 **Filename**: Ransomware.wannacry.exe.malz 
 
-**MD5**: db349b97c37d22f5ea1d1841e3c89eb4  **SHA1**: e889544aff85ffaf8b0d0da705105dee7c97fe26  
+**MD5**: db349b97c37d22f5ea1d1841e3c89eb4  
+
+**SHA1**: e889544aff85ffaf8b0d0da705105dee7c97fe26  
 
 **SHA256**: 24d004a104d4d54034dbcffc2a4b19a11f39008a575aa614ea04703480b1022c  
 

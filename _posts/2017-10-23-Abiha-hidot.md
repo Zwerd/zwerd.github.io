@@ -20,6 +20,7 @@ I think to change some stuff in the app, maybe it will be good:
 I haven't used Readex yet but I will, some of the code is presented here:
 
 ```html
+{% raw %}
 render() {
   let width = Dimensions.get('window').width;
   let font = width / 10;
@@ -70,6 +71,7 @@ render() {
     </View>
     </ScrollView>
   )
+{% endraw %}
 ```
 
 <br></p>

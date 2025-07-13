@@ -18,6 +18,7 @@ I think to change some stuff in the app, maybe it will be good:
 
 
 I haven't used Readex yet but I will, some of the code is presented here:
+{% raw %}
 ```jsx
 render() {
   let width = Dimensions.get('window').width;
@@ -105,3 +106,4 @@ render() {
 
 
 ![diamonds2](/assets/images/app1.jpg "diamonds2"){:class="img-responsive"}{:height="500px" width="400px"}
+{% endraw %}

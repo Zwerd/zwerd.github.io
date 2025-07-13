@@ -19,7 +19,6 @@ I think to change some stuff in the app, maybe it will be good:
 
 I haven't used Readex yet but I will, some of the code is presented here:
 
-```html
 {% raw %}
 render() {
   let width = Dimensions.get('window').width;
@@ -72,7 +71,7 @@ render() {
     </ScrollView>
   )
 {% endraw %}
-```
+
 
 <br></p>
 ![HomeScreen](/assets/images/app2.jpg "HomeScreen"){:class="img-responsive"}{:height="500px" width="400px"}

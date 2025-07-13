@@ -108,4 +108,3 @@ render() {
 
 
 ![diamonds2](/assets/images/app1.jpg "diamonds2"){:class="img-responsive"}{:height="500px" width="400px"}
-{% endraw %}

@@ -1,9 +1,11 @@
-﻿---
+---
 layout: post
 title: MR02 FickerStealer Malware Report.
 categories: [Tutorials, Reports]
 tag: [Malware Analysis , Network Traffic Analysis] 
 ---
+
+# General 
 
 ![](/assets/images/malware-analysis/Aspose.Words.2a7e8871-0ebc-4845-970e-0c16a027bac6.003.jpeg)
 

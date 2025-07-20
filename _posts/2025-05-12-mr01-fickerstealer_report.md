@@ -458,25 +458,3 @@ So now we could make some YARA rule for detect that IOC’s, since we have sever
 
 **rule FickerStealer\_Generic![](/assets/images/malware-analysis/Aspose.Words.2a7e8871-0ebc-4845-970e-0c16a027bac6.104.png)**
 
-**{** 
-
-**meta:** 
-
-**description = "Detects FickerStealer sample based on mutex, filename, and known indicators" author = "Zw3rd"** 
-
-**hash\_sha256 = "b3cfbb058c0ecbd7da7f5bdd740fa729f7b0d9cf61f93b32750ce06745abc24c" malware\_family = "FickerStealer"**
-
-**date = "2025-06-08"** 
-
-**strings:** 
-
-**$mutex = "ktykftykftyktfyk" $domain1 = "fatfarts.com" $domain2 = "api.ipify.org" $filename = "datasss.png"**
-
-**condition:** 
-
-**uint32(0) == 0x5A4D and** 
-
-**(all of ($mutex, $domain1, $domain2, $filename))**
-
-**}** 
-`  `24![](/assets/images/malware-analysis/Aspose.Words.2a7e8871-0ebc-4845-970e-0c16a027bac6.105.png)

@@ -5,11 +5,9 @@ categories: [Tutorials, Reports]
 tag: [Malware Analysis , Network Traffic Analysis] 
 ---
 
-# General 
+# MR02: FickerStealer   
 
-![](/assets/images/malware-analysis/Aspose.Words.2a7e8871-0ebc-4845-970e-0c16a027bac6.003.jpeg)
-
-**MR02: FickerStealer**   
+[Click Here for PDF version](https://raw.githubusercontent.com/Zwerd/zwerd.github.io/refs/heads/main/docs/Guy%20Zwerdling%20-%20Malware%20Reasearch%20Report%20for%20FickerStealer.pdf)
 
 **Executive Summary** 
 

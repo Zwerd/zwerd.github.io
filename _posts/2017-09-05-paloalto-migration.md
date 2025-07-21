@@ -17,7 +17,7 @@ Good luck!
 Guy.zwerdling@gmail.com
 
 
-[Click Here for PDF version](https://zwerd.github.io/docs/PaloAlto%20-%20Basic%20Migration%20from%20Check%20Point%20to%20Palo%20Alto%20Network.pdf)
+[Click Here for PDF version](https://raw.githubusercontent.com/Zwerd/zwerd.github.io/refs/heads/main/docs/PaloAlto%20-%20Basic%20Migration%20from%20Check%20Point%20to%20Palo%20Alto%20Network.pdf)
 
 ## Concepts
 

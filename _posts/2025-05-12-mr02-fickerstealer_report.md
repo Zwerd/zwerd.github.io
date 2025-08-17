@@ -9,13 +9,13 @@ tag: [Malware Analysis , Network Traffic Analysis]
 
 [Click Here for PDF version](https://raw.githubusercontent.com/Zwerd/zwerd.github.io/refs/heads/main/docs/Guy%20Zwerdling%20-%20Malware%20Reasearch%20Report%20for%20FickerStealer.pdf)
 
-**Executive Summary** 
+# Executive Summary 
 
 The analyzed sample of the **FickerStealer** malware exhibits preliminary reconnaissance behavior without  progressing  to  full-scale  data  theft.  Upon  execution,  the  malware  performs  basic environment  enumeration,  such  as  retrieving  the  system  locale  and  querying  **api.ipify.org**  to determine the machine's external IP address. This IP is saved to a file named **datasss.png** in the **C:\ProgramData\** directory. Shortly afterward, the malware attempts to establish a connection to its command-and-control  (C2)  server  at  **fatfarts.com**,  indicating  preparation  for  potential  data exfiltration. However, the network interaction does not include any outbound transfer of sensitive data. 
 
 No evidence was found of deeper data harvesting activity. Specifically, the malware does not access known data storage locations such as browser credential databases (Login Data), password vaults (e.g., KeePass), or cryptocurrency wallets. Furthermore, it does not invoke decryption APIs like CryptUnprotectData or engage with SQLite databases, both of which are typically associated with information theft. These findings suggest that the malware either relies on a remote configuration (which was not provided in this environment), or employs conditional logic to avoid executing its payload in sandboxed or offline conditions. As such, this sample demonstrates only its initial stages, and further behavioral analysis may be required in a fully connected environment to observe its complete functionality. 
 
-**High-Level Technical Summary (with diagram)** 
+# High-Level Technical Summary (with diagram) 
 
 The analyzed FickerStealer sample demonstrates initial reconnaissance and network activity but does not proceed to steal or exfiltrate sensitive information. The following key actions were observed during execution: 
 
@@ -29,7 +29,7 @@ The analyzed FickerStealer sample demonstrates initial reconnaissance and networ
 
 No Further Malicious Activity Observed: No file system access to browser credentials, password vaults,  or  crypto  wallets  was  detected.  No  calls  to  sensitive  Windows  APIs  such  as CryptUnprotectData or sqlite3\_open were made. No data exfiltration or module activation occurred following the C2 connection. 
 
-**Basic Static Analysis** 
+# Basic Static Analysis
 
 By checking that malware hash on viruses total to check and get more information about that sample as a first stage. 
 
@@ -174,7 +174,7 @@ So, if Mingw-w64 have being used for compile that file, is an indication that th
 
 So, we can be sure that this malware was written in C and was compiled with MinGW. 
 
-**Basic Dynamic Analysis** 
+# Basic Dynamic Analysis
 
 I have ran that malware under CMD that run as administrator, then with several tools check it’s activities, on the procexp I was able to see the following which tell us that this malware indeed have being run from cmd process. 
 
@@ -350,7 +350,7 @@ From that all, we can assume that the malware captures a screenshot of the victi
 
 ![](/assets/images/malware-analysis/Aspose.Words.2a7e8871-0ebc-4845-970e-0c16a027bac6.070.png)
 
-**Advance Dynamic Analysis** 
+# Advance Dynamic Analysis  
 
 In that step we can run debugger and see the point where the query about the domain farfart or even the API call was done, in my case I am using x32dbe, the malware start at JMP point, so we go through the flow while Wireshark are open on the background. 
 
@@ -434,7 +434,7 @@ By trying to read that datasss.png, I was able to see that it contain the defaul
 
 Based on the observed behavior, the analyzed FickerStealer sample performs only **initial setup actions** and does not appear to reach the stage of **collecting sensitive information** from the system. The malware loads necessary libraries, gathers basic environment data (such as the system locale), and makes an HTTP request to **api.ipify.org to obtain the external IP address**, which is **saved to a file named datasss.png**. It then initiates a connection to the command-and- control (C2) server at **fatfarts.com**. However, there is no evidence of attempts to access files containing credentials (such as browser Login Data, password vaults, or cryptocurrency wallets), nor any calls to system functions like CryptUnprotectData or sqlite3\_open. These findings suggest that the information-stealing phase is not triggered in this execution, potentially due to a missing response from the C2 server or reliance on external configuration data to activate the data exfiltration logic. 
 
-**Indicators of Compromise (IOC’s table)** 
+# Indicators of Compromise (IOC’s table) 
 
 From what we have found so far we have several indication for detect that malware, so I came up with the following table. 
 
@@ -457,4 +457,5 @@ From what we have found so far we have several indication for detect that malwar
 So now we could make some YARA rule for detect that IOC’s, since we have several indicators, we can used them together. 
 
 **rule FickerStealer\_Generic![](/assets/images/malware-analysis/Aspose.Words.2a7e8871-0ebc-4845-970e-0c16a027bac6.104.png)**
+
 

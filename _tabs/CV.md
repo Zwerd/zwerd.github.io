@@ -11,8 +11,9 @@ order: 4
 ### Experience
 
 **2022 - Present · Cyber Threat Hunting & Research.**
-- Investigation and **hunting** for **cyber threat** over the OU events, analysis the data, discovering threat and report them to the local **SOC/GSOC teams**, and running for active responding like blocking, updating rules & policy, also updating SOC automation code and scripts.
-- Performing, as a part of studies, pentesting over more then 100 box's, coding in PowerShell/Python/Bash and attacking web apps using techniques like **LFI**, RFI, **RCE** and **PE** with **Metasploits**, JTR, Hydra base on **Linux Kali** and buffer overflow using known exploit code from exploit-db/**github** and reverse engineering with **Immunity Debugger** and **GDB**/IDE atop Linux.
+- Conduct threat hunting and malware research using SIEM platforms (Google SecOps, Trellix, Splunk), combined with network traffic analysis and automation. Extract IOCs, write detection rules, and perform in-depth malware reverse engineering.
+- Utilize a wide range of tools including **Sysinternals** Suite, Ghidra, **Cutter**, EDB, GDB, **Wireshark**, tcpdump to analyze malware behavior, debug binaries, and investigate network traffic.
+- Discovered and responsibly disclosed **vulnerabilities** in production web applications, including **stored XSS** and sensitive **data exposure** issues, strengthening the overall security posture of the affected systems.
 
 **2018 - Present · Cyber Security Engineer.**
 - Implementation rules and policies on variety devices like Cisco **IronPort**, Fourscout NAC, CheckPoint & PaloAlto Fw's, PulseSecure VPN's, Trellix ePO, Cisco R&S, BackBox, Tufin, **FireEye EX/NX**.

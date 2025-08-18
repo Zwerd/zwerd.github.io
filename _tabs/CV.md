@@ -6,7 +6,7 @@ order: 4
 
 ### Summary
 
-**LPIC1/2**, **PJPT**, **WCNA**, CCSA, CCNA R&S, CCNP R&S, CCIP and CCNA Security certified. Currently preparing to the **OSCP** exam. Coding using **Python**/PowerShell/**Bash**, pentesting using Pentera automation or Kali manually including **malware research** with Immunity Debugger and GDB, Using metasploit, burpsuite, sqlmap, JTR, hydra, web enumerating like Feroxbuster/DirBuster/DirSearch and much more. Have deep knowledge in the TCP/IP world include DNS, HTTP, SMB, and also written technical guides about Linux and Cyber Security.
+**LPIC1/2**, **PJPT**, **PNPT**, **WCNA**, **PMRP**, CCSA, CCNA R&S, CCNP R&S, CCIP and CCNA Security certified. Currently preparing to the **OSCP** exam. Coding using **Python**/PowerShell/**Bash**, pentesting using Pentera automation or Kali manually including **malware research** on Flarevm/REMnux with Immunity Debugger and GDB, Using metasploit, burpsuite, sqlmap, JTR, hydra, web enumerating like Feroxbuster/DirBuster/DirSearch and much more. Have deep knowledge in the TCP/IP world include DNS, HTTP, SMB, and also written technical guides about Linux and Cyber Security.
 
 ### Experience
 
@@ -39,15 +39,16 @@ NAC, ODI-x servers, Linux devices and supplement automation tasks in Bash, Shell
 
 **Certifications**
 
-- Cisco certified: CCNA R&S, CCNP R&S, CCIP and CCNA Security.
-- Check Point Certified: CCSA.
+- TCM Security Certified: PJPT, PNPT, **PMRP**.
+- Linux Professional Institute certified: LPIC1, **LPIC2**.
 - Open SUSE Certified: SCLA.
-- Linux Professional Institute certified: LPIC1, LPIC2.
-- The Cyber Mentor Certified: PJPT.
+- Check Point Certified: CCSA.
+- Cisco certified: CCNA R&S, CCNP R&S, CCIP and CCNA Security.
 
 **Courses**
 
-- HP Advanced Enterprise Networking - HP Education.
+- TCM Security: Practical **Ethical Hacking**, Windows Privilege Escalation for Beginners, Linux Privilege Escalation for Beginners, Open Source Intelligence (OSINT) Fundamentals, External Pentest Playbook, **Practical Malware Analysis & Triage**.
+- OffSec PEN-200 (PWK) the **foundational pen-testing** course.
 - Check Point Security Administration CCSA, at john bryce.
 - Avnet course - Network Communication and Telephony at Air Force.
 - Implementing Cisco Multicast - NetBryce.
@@ -56,7 +57,6 @@ NAC, ODI-x servers, Linux devices and supplement automation tasks in Bash, Shell
 - Certifies Information Systems Security Professional at Ness College.
 - CSE1309x Introduction to Programming Using Python online edx coucse by The University of Texas System.
 - OffSec PEN-200 (PWK) the foundational pen-testing course.
-- The Cyber Mentor: Practical Ethical Hacking, Windows Privilege Escalation for Beginners, Linux Privilege Escalation for Beginners, Open Source Intelligence (OSINT) Fundamentals, External Pentest Playbook.
 
 **Languages**
 

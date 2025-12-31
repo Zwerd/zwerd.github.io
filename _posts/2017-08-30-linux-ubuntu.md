@@ -45,3 +45,6 @@ Fuer Elise:
 ```
 GRUB_INIT_TUNE="480 420 1 400 1 420 1 400 1 420 1 315 1 370 1 335 1 282 3 180 1 215 1 282 1 315 3 213 1 262 1 315 1 335 3 213 1 420 1 400 1 420 1 400 1 420 1 315 1 370 1 335 1 282 3 180 1 215 1 282 1 315 3 213 1 330 1 315 1 282 3"
 ```
+
+So, from this lines you can setup the favorit song you like, and another things you should be knowing about that GRUB2, that only after the song is finish to sing, only then the GRUB2 menu will showed up, befor it, you may see just black screen, so this is meaningness that if you setup long bip song, it wait on blck screen untile the song is came to the end.
+another thing you can set is the background of the GRUB2 menu, in my case it just green picture that I liket to set on that menu, but you can run search on google to get know for more butifall images

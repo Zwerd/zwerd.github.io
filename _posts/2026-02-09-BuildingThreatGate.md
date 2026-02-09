@@ -47,7 +47,7 @@ The goal was simple: create something that analysts would actually *want* to use
 
 And you know what? It worked! The modern UI, smooth animations, and intuitive workflow actually made IOC management... dare I say it... *fun*? Well, at least less painful! 😄
 
-![ThreatGate Dashboard](docs/images/live_stats_intel_3col.png)
+![ThreatGate Dashboard](/images/threatgate/live_stats_intel_3col.png)
 
 ---
 
@@ -103,7 +103,7 @@ The system generates **20+ different feed endpoints**:
 **Checkpoint Feeds:**
 - `/feed/cp/*` - CSV format with observe numbers
 
-![Campaign Graph](docs/images/campaign_graph.png)
+![Campaign Graph](_assert/images/campaign_graph.png)
 
 ---
 

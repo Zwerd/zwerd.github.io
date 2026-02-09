@@ -47,7 +47,7 @@ The goal was simple: create something that analysts would actually *want* to use
 
 And you know what? It worked! The modern UI, smooth animations, and intuitive workflow actually made IOC management... dare I say it... *fun*? Well, at least less painful! 😄
 
-![ThreatGate Dashboard](/images/threatgate/live_stats_intel_3col.png)
+![ThreatGate Dashboard](/assets/images/threatgate/live_stats_intel_3col.png)
 
 ---
 
@@ -103,7 +103,7 @@ The system generates **20+ different feed endpoints**:
 **Checkpoint Feeds:**
 - `/feed/cp/*` - CSV format with observe numbers
 
-![Campaign Graph](_assert/images/campaign_graph.png)
+![Campaign Graph](/assets/images/threatgate/campaign_graph.png)
 
 ---
 
@@ -133,7 +133,7 @@ The Campaign Graph feature provides an interactive visualization of campaigns an
 - Country flags for IP addresses
 - Export campaign data to CSV
 
-![Campaign Graph Visualization](docs/images/campaign_graph.png)
+![Campaign Graph Visualization](/assets/images/threatgate/campaign_graph.png)
 
 ### 4. YARA Rule Management
 
@@ -151,7 +151,7 @@ The Campaign Graph feature provides an interactive visualization of campaigns an
 - Edit IOC metadata inline
 - View country information for IP addresses
 
-![Search & Investigate](docs/images/search_investigate.png)
+![Search & Investigate](/assets/images/threatgate/search_investigate.png)
 
 ### 6. Statistics & Analytics
 
@@ -169,7 +169,7 @@ The Campaign Graph feature provides an interactive visualization of campaigns an
 - Analyst leaderboard with weighted scores
 - YARA uploads count as 5x points
 
-![Champs Analysis](docs/images/champs_analysis_team_performance.png)
+![Champs Analysis](/assets/images/threatgate/champs_analysis_team_performance.png)
 
 ---
 

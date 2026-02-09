@@ -1,10 +1,8 @@
 ---
 layout: post
 title: "Building ThreatGate - From IIS Text Files to a Modern IOC Management Platform"
-date: 2026-02-09
 categories: [cybersecurity, development, python]
 tags: [ioc, threat-intelligence, flask, soc]
-author: Zwerd
 ---
 
 ## The Story Behind ThreatGate 🚀

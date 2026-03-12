@@ -1,15 +1,15 @@
 ---
 layout: post
-title: "Building ThreatGate - From IIS Text Files to a Modern IOC Management Platform"
+title: "Building IOC&YARA MGMT → ZIoCHub - From IIS Text Files to a Modern IOC Management Platform"
 categories: [cybersecurity, development, python]
-tags: [ioc, threat-intelligence, flask, soc]
+tags: [ioc, threat-intelligence, flask, soc, ziochub]
 ---
 
 ## The Story Behind ThreatGate 🚀
 
 So, here's the thing... 😅
 
-Anyone who's been following my work knows that about a year ago, I built a system based on IIS that had one simple goal: to serve IOC feeds from the SOC team to various security systems in the network. I didn't overthink it - just made something super simple based on TXT files. 
+Anyone who's been following my work knows that about a year ago, I built a system based on IIS that had one simple goal: to serve IOC feeds from the SOC team to various security systems in the network. I didn't overthink it - just made something super simple based on TXT files.
 
 *"It's just text files, how complicated can it be?"* 🤔
 
@@ -31,40 +31,153 @@ At first, I built a simple web system that allowed analysts to update IOCs throu
 
 So I decided to dust off the old development lab (literally, there was dust 🕷️) and write some proper code on Linux! 🐧
 
-Since we have a MISP system running on Ubuntu, I decided to develop the new system alongside it - it would receive data from MISP and from analysts, and generate feeds for the various security systems in the organization. 
+Since we have a MISP system running on Ubuntu, I decided to develop the new system alongside it - it would receive data from MISP and from analysts, and generate feeds for the various security systems in the organization.
 
 *"This time I'll do it right!"* - Me, definitely this time 💪
 
+That evolution is today **ZIoCHub** – the same platform, renamed and grown into **ZIoCHub v2.0 Beta**: a full IOC & YARA management portal for SOC operations, still 100% offline-first.
+
 ---
 
-## Meet ThreatGate v4.0 🎯
+## Meet ZIoCHub v2.0 Beta 🎯
 
-This project is particularly close to my heart 💚, mainly because it combines several open-source projects I already knew and loved, but specifically focuses on **one thing**: IOCs. 
-
-The goal was simple: create something that analysts would actually *want* to use, not just tolerate. Something that gives them the drive to do more cybersecurity-related work instead of just staring at screens and filling out forms. 
+This project is particularly close to my heart 💚, mainly because it combines several open-source projects I already knew and loved, but specifically focuses on **one thing**: IOCs (and YARA). The goal was simple: create something that analysts would actually *want* to use, not just tolerate. Something that gives them the drive to do more cybersecurity-related work instead of just staring at screens and filling out forms.
 
 *"If they're going to spend 8 hours a day on this, it better be enjoyable!"* - My inner UX designer 🎨
 
 And you know what? It worked! The modern UI, smooth animations, and intuitive workflow actually made IOC management... dare I say it... *fun*? Well, at least less painful! 😄
 
-![ThreatGate Dashboard](/assets/images/threatgate/live_stats_intel_3col.png)
-
 ---
 
-## What is ThreatGate?
+## What is ZIoCHub?
 
-**ThreatGate** is a modern IOC (Indicators of Compromise) and YARA rule management platform built specifically for SOC operations in **offline/air-gapped environments**. It's designed with one clear mission: receive IOCs from analysts and generate feeds that security devices (firewalls) can consume and enforce blocking rules.
+**ZIoCHub** is a modern **IOC (Indicators of Compromise) and YARA rule management platform** built specifically for SOC operations in **offline/air-gapped environments**. Analysts submit indicators; ZIoCHub stores them in a SQLite database; security devices consume **plain-text feeds** (and optionally TAXII 2.1 / STIX 2.1) for enforcement.
 
 ### Key Features ✨
 
-- **🔒 Offline-First Architecture**: Works completely offline - no external dependencies, no CDN, no cloud services
-- **📊 Modern Glass UI**: Beautiful glassmorphism design with light/dark mode support
-- **🗄️ SQLite Backend**: Fast, reliable database storage with automatic migration from legacy file-based systems
-- **🎯 Campaign Management**: Visual graph representation of campaigns and their associated IOCs
-- **📜 YARA Rule Management**: Upload, view, edit, and manage YARA rules
-- **🌍 Multi-language Support**: English and Hebrew (עברית)
-- **🔌 RESTful API**: Full API support for automated IOC management
-- **📡 Multiple Feed Formats**: Support for Palo Alto, Checkpoint, and standard firewall formats
+- **🔒 100% Offline**: No CDN, no external APIs; all assets and dependencies are local.
+- **📊 Modern Glass UI**: Glassmorphism design with light/dark mode and English/Hebrew (i18n).
+- **🗄️ SQLite Backend**: Single-file DB, easy backup and restore.
+- **🔐 Authentication**: Local accounts, optional LDAP/AD, admin roles, profile (display name, avatar), change password, optional "must change password" on first login.
+- **📡 MISP Integration**: Automatic IOC pull from a local MISP instance with configurable intervals.
+- **📜 YARA Rule Management**: Upload, approval workflow, quality scoring (10–50 pts), campaign linking, syntax highlighting (Prism).
+- **🎯 Campaign Management**: Visual graph (vis.js) of campaigns and associated IOCs (and YARA).
+- **📈 Champs Analysis**: Analyst leaderboard, multiple scoring methods (Weighted, Flat, By Type, Campaign Focus, Time Decay, Quality, Goal-Based, Smart), streak bonuses, team goals, rank tracking, activity spotlight, news ticker.
+- **📉 Feed Pulse**: Real-time feed health (incoming/outgoing IOCs, anomalies) with sanity checks and analyst exclusions.
+- **📑 Intelligence Reports**: Period-based reports (day/week/month) with KPIs, type distribution, feed health, analyst activity, export to PDF.
+- **🌍 Multi-vendor Feeds**: Standard, Palo Alto (EDL), Checkpoint (CSV); plus YARA feeds and **TAXII 2.1 / STIX 2.1** for clients (e.g. Cisco IronPort ESA).
+- **📜 IOC History**: Full lifecycle per IOC (created, edited, deleted, expired, excluded, unexcluded).
+- **📝 IOC Notes**: Analyst notes per IOC (by type+value); notes survive IOC deletion cycles.
+- **🛡️ Allowlist / Safety Net**: Admin-managed allowlist to prevent blocking critical infrastructure.
+- **🔍 Sanity Checks**: Automatic anomaly detection (local IPs, short domains, critical infra).
+- **🌐 GeoIP Intelligence**: Country, TLD, and email domain analytics; Rare Find badges.
+- **🔒 SSL/TLS**: Certificate upload via Admin UI; HTTP-to-HTTPS redirect.
+- **📋 CEF / Syslog**: Optional CEF audit logging with 48-hour local rotation and UDP syslog.
+
+---
+
+## The UI – Screen by Screen (with placeholders for screenshots)
+
+Below, each main **tab** (and Profile / Admin) has a **placeholder image** and a short description. Replace the image path with your own screenshot when you have it (e.g. under `assets/images/ziochub/`).
+
+---
+
+### 1. Live Stats
+
+<!-- Replace the image path below with your screenshot, e.g. /assets/images/ziochub/live_stats.png -->
+![ZIoCHub – Live Stats dashboard](/assets/images/ziochub/live_stats.png)
+
+**What you see here:** Real-time dashboard with IOC counts by type (IP, Domain, URL, Email, Hash), Top Countries / TLDs / Email Domains leaderboards (with flag icons), and a live feed of the latest IOCs. Auto-refresh; all data is GeoIP-based and active (non-expired) only.
+
+---
+
+### 2. Feed Pulse
+
+<!-- Replace the image path below with your screenshot -->
+![ZIoCHub – Feed Pulse](/assets/images/ziochub/feed_pulse.png)
+
+**What you see here:** Real-time feed health monitoring – incoming IOCs, outgoing (expired) IOCs, deletions, and Sanity anomalies (local IPs, short domains, critical infra). Analysts can mark anomalies as exclude/un-exclude to control what appears in the feed.
+
+---
+
+### 3. Search & Investigate
+
+<!-- Replace the image path below with your screenshot -->
+![ZIoCHub – Search & Investigate](/assets/images/ziochub/search_investigate.png)
+
+**What you see here:** Full-text search across all IOCs with filters: value, type, ticket, user, date, expiration status. Inline edit and delete; view full history per IOC (created, edited, deleted, expired, excluded, unexcluded).
+
+---
+
+### 4. Submit IOCs
+
+<!-- Replace the image path below with your screenshot -->
+![ZIoCHub – Submit IOCs](/assets/images/ziochub/submit_iocs.png)
+
+**What you see here:** Single and bulk submission. Single: auto type detection, refanger cleaning, TTL, campaign, allowlist check. Bulk: CSV and TXT import with preview (staging), auto-detection, metadata extraction, and conflict handling before final submit.
+
+---
+
+### 5. YARA Manager
+
+<!-- Replace the image path below with your screenshot -->
+![ZIoCHub – YARA Manager](/assets/images/ziochub/yara_manager.png)
+
+**What you see here:** Upload `.yar` files, preview, edit, approve/reject (workflow). Quality scoring (10–50 pts), campaign linking, and syntax highlighting (Prism) for easier reading.
+
+---
+
+### 6. Champs Analysis
+
+<!-- Replace the image path below with your screenshot -->
+![ZIoCHub – Champs Analysis](/assets/images/ziochub/champs_analysis.png)
+
+**What you see here:** Analyst leaderboard with eight scoring methods (Weighted, Flat, By Type, Campaign Focus, Time Decay, Quality, Goal-Based, Smart), streak bonuses, rank trends, team goals, Activity Spotlight, and News Ticker. The method is selected in Admin → Scoring.
+
+---
+
+### 7. Campaign Graph
+
+<!-- Replace the image path below with your screenshot -->
+![ZIoCHub – Campaign Graph](/assets/images/ziochub/campaign_graph.png)
+
+**What you see here:** Interactive graph (vis.js) of campaigns and their linked IOCs (and YARA). Create, link, and export to CSV.
+
+---
+
+### 8. Hunter's Playbook
+
+<!-- Replace the image path below with your screenshot -->
+![ZIoCHub – Hunter's Playbook](/assets/images/ziochub/playbook.png)
+
+**What you see here:** Customizable quick-links panel (e.g. VirusTotal, OTX) for external investigation tools.
+
+---
+
+### 9. Intelligence Reports
+
+<!-- Replace the image path below with your screenshot -->
+![ZIoCHub – Intelligence Reports](/assets/images/ziochub/reports.png)
+
+**What you see here:** Period-based reports (day/week/month): KPIs, type distribution, feed health score, analyst activity, comparison vs. previous period. Export to PDF (html2canvas + jsPDF).
+
+---
+
+### 10. Profile & Change Password
+
+<!-- Replace the image path below with your screenshot -->
+![ZIoCHub – Profile & Change Password](/assets/images/ziochub/profile.png)
+
+**What you see here:** User profile – display name, avatar, role description, email – and change-password flow. Admins can enforce "must change password" on first login.
+
+---
+
+### 11. Admin Panel
+
+<!-- Replace the image path below with your screenshot (you may use one per sub-section: Users, Settings, Allowlist, Certificate, Scoring) -->
+![ZIoCHub – Admin Panel](/assets/images/ziochub/admin.png)
+
+**What you see here:** User management (create, edit, deactivate, avatars, system users), settings (Auth: local/LDAP, LDAP, MISP, CEF/Syslog UDP), Allowlist editor, SSL/TLS certificate upload, and Champs scoring method (Weighted, Flat, By Type, Campaign Focus, Time Decay, Quality, Goal-Based, Smart).
 
 ---
 
@@ -73,7 +186,7 @@ And you know what? It worked! The modern UI, smooth animations, and intuitive wo
 ### Why SQLite?
 
 For an offline SOC environment, SQLite is perfect:
-- ✅ Single-file database - easy backup/restore
+- ✅ Single-file database – easy backup/restore
 - ✅ No external dependencies
 - ✅ Fast and reliable
 - ✅ Works on any platform
@@ -84,289 +197,112 @@ Flask gives us:
 - ✅ Lightweight and flexible
 - ✅ Easy to deploy
 - ✅ Perfect for offline environments
-- ✅ Great for REST APIs
+- ✅ Great for REST APIs and server-rendered pages
 
 ### Feed Generation
 
-The system generates **20+ different feed endpoints**:
+ZIoCHub exposes **many feed endpoints**:
 
-**Standard Feeds:**
-- `/feed/ip` - IP addresses
-- `/feed/domain` - Domains  
-- `/feed/url` - URLs
-- `/feed/hash` - All hash types
-- `/feed/md5`, `/feed/sha1`, `/feed/sha256` - Specific hash types
+**Standard:** `/feed/ip`, `/feed/domain`, `/feed/url`, `/feed/hash`, `/feed/md5`, `/feed/sha1`, `/feed/sha256`  
+**Palo Alto (EDL):** `/feed/pa/ip`, `/feed/pa/domain`, `/feed/pa/url` (URLs without protocol), `/feed/pa/md5`, etc.  
+**Checkpoint (CSV):** `/feed/cp/ip`, `/feed/cp/domain`, etc. with observe numbers  
+**YARA:** `/feed/yara-list`, `/feed/yara-content/<filename>`  
+**TAXII 2.1 / STIX 2.1:** Discovery, API roots, collection `indicators` for active IOCs (e.g. for Cisco IronPort ESA)
 
-**Palo Alto Feeds:**
-- `/feed/pa/*` - URLs without protocol prefix (Palo Alto requirement)
-
-**Checkpoint Feeds:**
-- `/feed/cp/*` - CSV format with observe numbers
-
-![Campaign Graph](/assets/images/threatgate/campaign_graph.png)
-
----
-
-## Key Capabilities 🛠️
-
-### 1. IOC Management
-
-- **Input Validation**: Comprehensive regex patterns for all IOC types
-- **Refanger Implementation**: Automatically cleans obfuscated IOCs (hxxp://, [.] patterns)
-- **Allowlist Protection**: Prevents blocking critical assets
-- **Expiration Management**: TTL support (1 Week, 1 Month, 3 Months, 1 Year, Permanent)
-- **Duplicate Detection**: Case-insensitive duplicate prevention
-
-### 2. Bulk Operations
-
-- **CSV Import**: Auto-detect IOCs in any column
-- **TXT Import**: Parse metadata from comments
-- **Preview Before Submit**: Staging functionality to review before importing
-- **Ticket ID Extraction**: Automatically extract ticket IDs from CSV columns
-
-### 3. Campaign Visualization
-
-The Campaign Graph feature provides an interactive visualization of campaigns and their IOCs:
-
-- Visual representation with vis.js
-- Color-coded IOC types (IP, Domain, URL, Email, Hash, YARA)
-- Country flags for IP addresses
-- Export campaign data to CSV
-
-![Campaign Graph Visualization](/assets/images/threatgate/campaign_graph.png)
-
-### 4. YARA Rule Management
-
-- Upload `.yar` files with syntax validation
-- View all YARA rules with metadata
-- Preview rule content
-- Edit rule metadata (ticket ID, comment, campaign)
-- Campaign assignment
-
-### 5. Search & Investigation
-
-- Search across all IOC types and metadata
-- Filter by: IOC Value, Ticket ID, User, Date, or All fields
-- View expiration status (Active/Expired/Permanent)
-- Edit IOC metadata inline
-- View country information for IP addresses
-
-![Search & Investigate](/assets/images/threatgate/search_investigate.png)
-
-### 6. Statistics & Analytics
-
-**Live Stats Dashboard:**
-- Real-time statistics for all IOC types
-- Top 10 countries by IP count (with flag icons)
-- Top 10 TLDs by domain count
-- Top 10 email domains
-- Live feed of last 50 IOCs
-- Auto-refresh every 10 seconds
-
-**Champs Analysis:**
-- Threat velocity chart (IOCs submitted per day)
-- Analyst activity distribution (pie chart)
-- Analyst leaderboard with weighted scores
-- YARA uploads count as 5x points
-
-![Champs Analysis](/assets/images/threatgate/champs_analysis_team_performance.png)
+Only **active (non-expired)** IOCs are included in feeds. Content-Type for text feeds: `text/plain`.
 
 ---
 
 ## Security Features 🔐
 
-### Input Validation
-- Comprehensive regex patterns for all IOC types
-- Priority-based IOC type detection (URL before Domain, Email before Domain)
-- Case-insensitive matching
-
-### Safety Mechanisms
-- **Allowlist Protection**: Prevents blocking critical assets
-- **Path Traversal Protection**: Safe file handling for YARA rules
-- **SQL Injection Protection**: Uses SQLAlchemy ORM (parameterized queries)
-- **Audit Logging**: All actions logged with IP addresses
-
-### Offline Security
-- No external dependencies
-- All assets are local
-- Optional GeoIP (system works without it)
-- No CDN usage
+- **Authentication**: Flask-Login; optional LDAP/AD with local fallback.
+- **Passwords**: Scrypt hashing (Werkzeug).
+- **Input validation**: Regex for all IOC types; refanger for obfuscated input.
+- **Allowlist**: Prevents blocking critical assets.
+- **SQL injection**: SQLAlchemy ORM (parameterized queries).
+- **SSL/TLS**: Certificate upload via Admin; gunicorn serves HTTPS; HTTP redirect to HTTPS.
+- **Audit**: CEF format; 48-hour local rotation; optional UDP syslog.
+- **Feed endpoints**: Public (no auth) – restrict access via firewall.
+- **DEV_MODE**: Must not be used in production (dev auto-login, LDAP mock).
 
 ---
 
 ## API & Integration 🔌
 
-ThreatGate provides a comprehensive REST API for automated IOC management:
-
-### Create IOC
-```bash
-curl -X POST https://threatgate.example.com/api/v1/ioc \
-  -H "Content-Type: application/json" \
-  -d '{
-    "type": "IP",
-    "value": "192.168.1.100",
-    "username": "automation",
-    "comment": "Auto-detected threat",
-    "expiration": "2025-12-31"
-  }'
-```
-
-### Update IOC
-```bash
-curl -X POST https://threatgate.example.com/api/edit \
-  -H "Content-Type: application/json" \
-  -d '{
-    "type": "IP",
-    "value": "192.168.1.100",
-    "comment": "Updated comment",
-    "expiration": "Permanent"
-  }'
-```
-
-### Health Check
-```bash
-curl https://threatgate.example.com/health
-```
-
-The API supports:
-- ✅ IOC CRUD operations
-- ✅ Campaign management
-- ✅ YARA rule management
-- ✅ Bulk operations
-- ✅ Search and statistics
+ZIoCHub provides API endpoints for IOC CRUD, search, bulk submit, campaigns, YARA, reports, stats, and admin. Authentication is required (session/cookie). Example usage and exact paths are documented in the project **README** (Installation, API Endpoints, Feed Endpoints). Health checks and deployment details (ports, systemd) are also in the README.
 
 ---
 
 ## Deployment 🚀
 
-### Online Installation (Linux with Internet)
+### Online (Linux with Internet)
 
 ```bash
-git clone <repository-url>
-cd ThreatGate
+scp -r ZIoCHub/ user@server:/tmp/
+cd /tmp/ZIoCHub
 sudo ./setup.sh
 ```
 
-### Offline Installation (Air-Gapped)
+### Offline (Air-Gapped)
 
-1. **Prepare offline package** (on machine with internet):
-   ```bash
-   ./package_offline.sh
-   ```
+On a machine with internet:
 
-2. **Transfer ZIP to target server** and extract
+```bash
+./package_offline.sh
+# Transfer ziochub_installer.zip to server
+```
 
-3. **Install**:
-   ```bash
-   sudo ./setup.sh --offline
-   ```
+On the target server:
 
-The system includes:
-- ✅ Production-ready installation scripts
-- ✅ Systemd service files
-- ✅ Automatic cleanup of expired IOCs
-- ✅ Comprehensive documentation
+```bash
+unzip ziochub_installer.zip -d ziochub_install
+cd ziochub_install
+sudo ./setup.sh --offline
+```
 
----
+### Upgrade Existing
 
-## Technical Highlights 💡
+```bash
+sudo ./setup.sh --upgrade
+# or
+sudo ./setup.sh --upgrade --offline
+```
 
-### Code Quality
-- **Clean Architecture**: Well-separated concerns (models, routes, utilities)
-- **Comprehensive Validation**: Input cleaning and validation at every step
-- **Error Handling**: Proper exception handling and rollback mechanisms
-- **Audit Trail**: Complete logging of all operations
-
-### Performance
-- **Efficient Queries**: Optimized database queries with proper indexing
-- **Feed Caching**: (Planned) Cache feed generation for better performance
-- **Streaming**: (Planned) Stream large feeds instead of loading all into memory
-
-### User Experience
-- **Modern UI**: Glassmorphism design with smooth animations
-- **Real-time Updates**: Auto-refresh statistics and live feed
-- **Multi-language**: English and Hebrew support
-- **Responsive Design**: Works on different screen sizes
+Default credentials: `admin` / `admin`. Change immediately in production.
 
 ---
 
 ## What Makes This Special? 🌟
 
-### 1. **Offline-First Design**
-Unlike many modern tools that require cloud connectivity, ThreatGate is built from the ground up for offline/air-gapped environments. Every dependency is local, every asset is bundled, and the system works completely independently.
-
-### 2. **Analyst-Centric**
-The UI is designed to be enjoyable to use. We wanted analysts to actually *want* to use the system, not just tolerate it. The modern design, smooth animations, and intuitive workflow make IOC management less of a chore.
-
-### 3. **Feed Diversity**
-Supporting multiple firewall vendors (Palo Alto, Checkpoint, Standard) means the SOC team doesn't need multiple tools. One system, multiple outputs.
-
-### 4. **Campaign Visualization**
-The visual campaign graph helps analysts understand relationships between IOCs and campaigns. It's not just data - it's a story.
-
-### 5. **Safety First**
-The allowlist protection prevents accidental blocking of critical assets. This is crucial in production environments where a mistake could cause outages.
-
----
-
-## Lessons Learned 📚
-
-### What Worked Well ✅
-
-1. **SQLite Choice**: Perfect for offline environments - easy backup, no dependencies
-2. **Flask Flexibility**: Made it easy to add features incrementally
-3. **Feed Format Diversity**: Supporting multiple formats from day one saved time later
-4. **Refanger Implementation**: Cleaning obfuscated IOCs automatically saves analysts time
-
-### Challenges Overcome 🎯
-
-1. **Legacy Migration**: Built automatic migration from file-based system
-2. **Feed Format Complexity**: Checkpoint CSV format required careful implementation
-3. **Offline Dependencies**: Ensured all assets are local (flags, charts, etc.)
-4. **Performance**: Optimized queries for large IOC datasets
-
----
-
-## Future Enhancements 🔮
-
-Some features I'm considering for future versions:
-
-- **IOC Tagging System**: Better organization beyond campaigns
-- **Confidence Scoring**: Add confidence levels to IOCs
-- **IOC Relationships**: Link related IOCs together
-- **Export Functionality**: Export IOCs to various formats
-- **IOC History**: Complete audit trail of changes
-- **Feed Customization**: Filter feeds by tags, confidence, date range
+1. **Offline-first** – No CDN, no external calls; everything local.
+2. **Analyst-centric** – UI designed so analysts actually want to use it (Champs, Playbook, Reports).
+3. **Feed diversity** – One system, multiple outputs (Standard, PA, CP, YARA, TAXII 2.1).
+4. **Campaign visualization** – vis.js graph of campaigns and IOCs.
+5. **Safety first** – Allowlist, sanity checks, full IOC history and notes.
 
 ---
 
 ## Conclusion 🎉
 
-ThreatGate started as a simple solution to a simple problem, but evolved into a comprehensive IOC management platform that the SOC team actually enjoys using. The combination of modern UI, robust backend, and offline-first architecture makes it perfect for air-gapped environments.
+What started as a simple IIS + text-file solution evolved into **ZIoCHub v2.0 Beta**: a full IOC & YARA management platform for SOC teams in offline/air-gapped environments. The combination of modern UI, robust backend, MISP/TAXII integration, and 100% offline architecture makes it a single place to submit, track, and feed IOCs and YARA to security devices.
 
-The project combines several open-source technologies I love (Flask, SQLite, vis.js, Chart.js) into a focused tool that does one thing really well: managing IOCs and generating feeds for security devices.
-
-If you're working in a SOC environment and need a tool for IOC management that works offline, give ThreatGate a try! 🚀
+If you're in a SOC and need offline IOC (and YARA) management with multiple feed formats and TAXII 2.1 support, take a look at ZIoCHub.
 
 ---
 
 ## Get Started
 
-**GitHub Repository:** [https://github.com/Zwerd/iocs_submission](https://github.com/Zwerd/iocs_submission)
+**Repository:** [https://github.com/Zwerd/iocs_submission](https://github.com/Zwerd/iocs_submission)
 
-**Documentation:** Check out the [README](https://github.com/Zwerd/iocs_submission/blob/main/README.md) for installation instructions, API documentation, and more.
+**Documentation:** See the project [README](https://github.com/Zwerd/iocs_submission/blob/main/README.md) for installation, ports, systemd, UI overview, feed endpoints, API, MISP integration, configuration, maintenance, and troubleshooting.
 
-**Features:**
-- ✅ 20+ feed endpoints
-- ✅ RESTful API
-- ✅ Campaign management
-- ✅ YARA rule management
-- ✅ Bulk import/export
-- ✅ Search & investigation
-- ✅ Statistics & analytics
-- ✅ Health check endpoint
-- ✅ Offline/air-gapped support
+**Highlights:**
+- ✅ 100% offline; multi-format feeds (Standard, PA, CP, YARA, TAXII 2.1)
+- ✅ Authentication (local + optional LDAP), profiles, Champs, Feed Pulse
+- ✅ IOC history, IOC notes, allowlist, sanity checks
+- ✅ Intelligence reports with PDF export
+- ✅ English & Hebrew (i18n)
 
 ---
 
-*Built with ❤️ for SOC teams who need offline IOC management*
+*Built with ❤️ for SOC teams who need offline IOC & YARA management*

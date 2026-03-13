@@ -5,7 +5,7 @@ categories: [cybersecurity, development, python]
 tags: [ioc, threat-intelligence, flask, soc, ziochub]
 ---
 
-## The Story Behind ThreatGate 🚀
+## The Story Behind ZIoCHub 🚀
 
 So, here's the thing... 😅
 
@@ -46,6 +46,34 @@ This project is particularly close to my heart 💚, mainly because it combines 
 *"If they're going to spend 8 hours a day on this, it better be enjoyable!"* - My inner UX designer 🎨
 
 And you know what? It worked! The modern UI, smooth animations, and intuitive workflow actually made IOC management... dare I say it... *fun*? Well, at least less painful! 😄
+
+---
+
+## Standing on the Shoulders of (Open Source) Giants 🧱
+
+So here's the thing about ZIoCHub – I didn't write everything from scratch. I'm not *that* crazy. 🤪
+
+I basically went on a shopping spree through the open-source aisle and grabbed everything that wasn't nailed down:
+
+- **Flask** for the web framework – because Django felt like bringing a tank to a knife fight 🔪
+- **Flask-Login** for authentication – because writing session management from scratch is how you *become* the security incident 🔐
+- **Flask-SQLAlchemy** for the ORM – because raw SQL strings are just stored procedures with extra anxiety 😰
+- **SQLite** for the database – because when your server is air-gapped, telling the SOC team "just install PostgreSQL" is a great way to get uninvited from lunch 🍽️
+- **Tailwind CSS** for styling – because life is too short to write `margin-left: 12px` for the 47th time 🎨
+- **Chart.js** for dashboards – because managers don't read tables, they read colorful lines going up 📈
+- **vis.js** for the campaign graph – because I wanted analysts to feel like they're in a spy movie connecting red strings on a corkboard 🕵️
+- **Prism** for syntax highlighting – because staring at monochrome YARA rules is a form of punishment 😵
+- **jsPDF + html2canvas** for PDF export – because apparently "just screenshot it" isn't a valid answer to "can I get a report?" 📄
+- **Flag Icons** for country flags – because IP addresses are boring, but IP addresses *with tiny flags* are suddenly interesting 🏳️
+- **marked + turndown** for Markdown – because some analysts think in Markdown and others think in HTML, and I refuse to pick sides ⚖️
+- **geoip2 + MaxMind** for GeoIP lookups – because knowing an IP is malicious is good, but knowing it's malicious *and from somewhere specific* is better 🌍
+- **ldap3** for LDAP/AD auth – because asking analysts to remember yet another password would have started a mutiny ⚓
+- **PyMISP** for MISP integration – because manually copy-pasting IOCs from MISP defeats the entire purpose of having MISP 🤦
+- **dxlclient + dxltieclient** for McAfee DXL/TIE – because when management asks "but what does ePO think about this hash?" you'd better have an answer 🤷
+
+At some point I realized I had more `import` statements than actual business logic. But hey – why reinvent the wheel when you can import 19 wheels and bolt them together into something beautiful? 🛞✨
+
+*"Good artists create. Great artists `pip install`."* – Definitely not Picasso 🖼️
 
 ---
 
@@ -292,9 +320,9 @@ If you're in a SOC and need offline IOC (and YARA) management with multiple feed
 
 ## Get Started
 
-**Repository:** [https://github.com/Zwerd/iocs_submission](https://github.com/Zwerd/iocs_submission)
+**Repository:** [https://github.com/Zwerd/ziochub](https://github.com/Zwerd/ziochub)
 
-**Documentation:** See the project [README](https://github.com/Zwerd/iocs_submission/blob/main/README.md) for installation, ports, systemd, UI overview, feed endpoints, API, MISP integration, configuration, maintenance, and troubleshooting.
+**Documentation:** See the project [README](https://github.com/Zwerd/ziochub/blob/main/README.md) for installation, ports, systemd, UI overview, feed endpoints, API, MISP integration, configuration, maintenance, and troubleshooting.
 
 **Highlights:**
 - ✅ 100% offline; multi-format feeds (Standard, PA, CP, YARA, TAXII 2.1)
